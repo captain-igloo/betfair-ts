@@ -1,0 +1,64 @@
+/**
+ * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ */
+import JsonMember from '../JsonMember';
+export default class StatementLegacyData extends JsonMember {
+    private avgPrice;
+    private betSize;
+    private betType;
+    private betCategoryType;
+    private commissionRate;
+    private eventId;
+    private eventTypeId;
+    private fullMarketName;
+    private grossBetAmount;
+    private marketName;
+    private marketType;
+    private placedDate;
+    private selectionId;
+    private selectionName;
+    private startDate;
+    private transactionType;
+    private transactionId;
+    private winLose;
+    constructor(avgPrice?: number | null, betSize?: number | null, betType?: string, betCategoryType?: string, commissionRate?: string, eventId?: number | null, eventTypeId?: number | null, fullMarketName?: string, grossBetAmount?: number | null, marketName?: string, marketType?: string, placedDate?: Date | null, selectionId?: number | null, selectionName?: string, startDate?: Date | null, transactionType?: string, transactionId?: number | null, winLose?: string);
+    fromJson(json: any): void;
+    toJson(): any;
+    isValid(): boolean;
+    getAvgPrice(): number | null;
+    setAvgPrice(avgPrice: number | null): void;
+    getBetSize(): number | null;
+    setBetSize(betSize: number | null): void;
+    getBetType(): string;
+    setBetType(betType: string): void;
+    getBetCategoryType(): string;
+    setBetCategoryType(betCategoryType: string): void;
+    getCommissionRate(): string;
+    setCommissionRate(commissionRate: string): void;
+    getEventId(): number | null;
+    setEventId(eventId: number | null): void;
+    getEventTypeId(): number | null;
+    setEventTypeId(eventTypeId: number | null): void;
+    getFullMarketName(): string;
+    setFullMarketName(fullMarketName: string): void;
+    getGrossBetAmount(): number | null;
+    setGrossBetAmount(grossBetAmount: number | null): void;
+    getMarketName(): string;
+    setMarketName(marketName: string): void;
+    getMarketType(): string;
+    setMarketType(marketType: string): void;
+    getPlacedDate(): Date | null;
+    setPlacedDate(placedDate: Date | null): void;
+    getSelectionId(): number | null;
+    setSelectionId(selectionId: number | null): void;
+    getSelectionName(): string;
+    setSelectionName(selectionName: string): void;
+    getStartDate(): Date | null;
+    setStartDate(startDate: Date | null): void;
+    getTransactionType(): string;
+    setTransactionType(transactionType: string): void;
+    getTransactionId(): number | null;
+    setTransactionId(transactionId: number | null): void;
+    getWinLose(): string;
+    setWinLose(winLose: string): void;
+}
