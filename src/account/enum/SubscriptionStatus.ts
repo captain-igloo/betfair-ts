@@ -17,7 +17,11 @@ export default class SubscriptionStatus extends Enum {
 
     public setValue(value: string): void {
         if (value) {
-            if (value !== 'ALL' && value !== 'ACTIVATED' && value !== 'UNACTIVATED' && value !== 'CANCELLED' && value !== 'EXPIRED') {
+            if (value !== 'ALL' &&
+                value !== 'ACTIVATED' &&
+                value !== 'UNACTIVATED' &&
+                value !== 'CANCELLED' &&
+                value !== 'EXPIRED') {
                 throw new Error(`Invalid MarketStatus: ${value}`);
             }
 

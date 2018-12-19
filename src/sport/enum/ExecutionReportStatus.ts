@@ -16,7 +16,10 @@ export default class ExecutionReportStatus extends Enum {
 
     public setValue(value: string): void {
         if (value) {
-            if (value !== 'SUCCESS' && value !== 'FAILURE' && value !== 'PROCESSED_WITH_ERRORS' && value !== 'TIMEOUT') {
+            if (value !== 'SUCCESS' &&
+                value !== 'FAILURE' &&
+                value !== 'PROCESSED_WITH_ERRORS' &&
+                value !== 'TIMEOUT') {
                 throw new Error(`Invalid MarketStatus: ${value}`);
             }
 

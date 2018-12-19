@@ -14,7 +14,8 @@ export default class GrantType extends Enum {
 
     public setValue(value: string): void {
         if (value) {
-            if (value !== 'AUTHORIZATION_CODE' && value !== 'REFRESH_TOKEN') {
+            if (value !== 'AUTHORIZATION_CODE' &&
+                value !== 'REFRESH_TOKEN') {
                 throw new Error(`Invalid MarketStatus: ${value}`);
             }
 

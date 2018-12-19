@@ -2,8 +2,8 @@
  * Copyright 2018 Colin Doig.  Distributed under the MIT license.
  */
 import JsonRequest from '../JsonRequest';
-import PlaceInstruction from '../sport/PlaceInstruction';
 import MarketVersion from '../sport/MarketVersion';
+import PlaceInstruction from '../sport/PlaceInstruction';
 
 export default class PlaceOrdersRequest extends JsonRequest {
     private marketId: string;

@@ -18,7 +18,12 @@ export default class RunnerStatus extends Enum {
 
     public setValue(value: string): void {
         if (value) {
-            if (value !== 'ACTIVE' && value !== 'WINNER' && value !== 'LOSER' && value !== 'REMOVED_VACANT' && value !== 'REMOVED' && value !== 'PLACED') {
+            if (value !== 'ACTIVE' &&
+                value !== 'WINNER' &&
+                value !== 'LOSER' &&
+                value !== 'REMOVED_VACANT' &&
+                value !== 'REMOVED' &&
+                value !== 'PLACED') {
                 throw new Error(`Invalid MarketStatus: ${value}`);
             }
 

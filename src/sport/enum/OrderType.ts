@@ -15,7 +15,9 @@ export default class OrderType extends Enum {
 
     public setValue(value: string): void {
         if (value) {
-            if (value !== 'LIMIT' && value !== 'LIMIT_ON_CLOSE' && value !== 'MARKET_ON_CLOSE') {
+            if (value !== 'LIMIT' &&
+                value !== 'LIMIT_ON_CLOSE' &&
+                value !== 'MARKET_ON_CLOSE') {
                 throw new Error(`Invalid MarketStatus: ${value}`);
             }
 

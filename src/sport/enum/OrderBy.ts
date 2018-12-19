@@ -18,7 +18,12 @@ export default class OrderBy extends Enum {
 
     public setValue(value: string): void {
         if (value) {
-            if (value !== 'BY_BET' && value !== 'BY_MARKET' && value !== 'BY_PLACE_TIME' && value !== 'BY_MATCH_TIME' && value !== 'BY_VOID_TIME' && value !== 'BY_SETTLED_TIME') {
+            if (value !== 'BY_BET' &&
+                value !== 'BY_MARKET' &&
+                value !== 'BY_PLACE_TIME' &&
+                value !== 'BY_MATCH_TIME' &&
+                value !== 'BY_VOID_TIME' &&
+                value !== 'BY_SETTLED_TIME') {
                 throw new Error(`Invalid MarketStatus: ${value}`);
             }
 

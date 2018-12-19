@@ -2,9 +2,9 @@
  * Copyright 2018 Colin Doig.  Distributed under the MIT license.
  */
 import JsonRequest from '../JsonRequest';
-import PriceProjection from '../sport/PriceProjection';
-import OrderProjection from '../sport/enum/OrderProjection';
 import MatchProjection from '../sport/enum/MatchProjection';
+import OrderProjection from '../sport/enum/OrderProjection';
+import PriceProjection from '../sport/PriceProjection';
 export default class ListMarketBookRequest extends JsonRequest {
     private marketIds;
     private priceProjection;

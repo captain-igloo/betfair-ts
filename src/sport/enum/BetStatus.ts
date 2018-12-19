@@ -16,7 +16,10 @@ export default class BetStatus extends Enum {
 
     public setValue(value: string): void {
         if (value) {
-            if (value !== 'SETTLED' && value !== 'VOIDED' && value !== 'LAPSED' && value !== 'CANCELLED') {
+            if (value !== 'SETTLED' &&
+                value !== 'VOIDED' &&
+                value !== 'LAPSED' &&
+                value !== 'CANCELLED') {
                 throw new Error(`Invalid MarketStatus: ${value}`);
             }
 

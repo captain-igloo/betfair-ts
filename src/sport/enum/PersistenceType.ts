@@ -15,7 +15,9 @@ export default class PersistenceType extends Enum {
 
     public setValue(value: string): void {
         if (value) {
-            if (value !== 'LAPSE' && value !== 'PERSIST' && value !== 'MARKET_ON_CLOSE') {
+            if (value !== 'LAPSE' &&
+                value !== 'PERSIST' &&
+                value !== 'MARKET_ON_CLOSE') {
                 throw new Error(`Invalid MarketStatus: ${value}`);
             }
 

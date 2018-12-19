@@ -16,7 +16,10 @@ export default class RollupModel extends Enum {
 
     public setValue(value: string): void {
         if (value) {
-            if (value !== 'STAKE' && value !== 'PAYOUT' && value !== 'MANAGED_LIABILITY' && value !== 'NONE') {
+            if (value !== 'STAKE' &&
+                value !== 'PAYOUT' &&
+                value !== 'MANAGED_LIABILITY' &&
+                value !== 'NONE') {
                 throw new Error(`Invalid MarketStatus: ${value}`);
             }
 

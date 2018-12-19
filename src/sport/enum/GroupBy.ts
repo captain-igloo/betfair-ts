@@ -19,7 +19,13 @@ export default class GroupBy extends Enum {
 
     public setValue(value: string): void {
         if (value) {
-            if (value !== 'EVENT_TYPE' && value !== 'EVENT' && value !== 'MARKET' && value !== 'RUNNER' && value !== 'SIDE' && value !== 'BET' && value !== 'STRATEGY') {
+            if (value !== 'EVENT_TYPE' &&
+                value !== 'EVENT' &&
+                value !== 'MARKET' &&
+                value !== 'RUNNER' &&
+                value !== 'SIDE' &&
+                value !== 'BET' &&
+                value !== 'STRATEGY') {
                 throw new Error(`Invalid MarketStatus: ${value}`);
             }
 

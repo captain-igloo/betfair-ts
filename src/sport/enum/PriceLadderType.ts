@@ -15,7 +15,9 @@ export default class PriceLadderType extends Enum {
 
     public setValue(value: string): void {
         if (value) {
-            if (value !== 'CLASSIC' && value !== 'FINEST' && value !== 'LINE_RANGE') {
+            if (value !== 'CLASSIC' &&
+                value !== 'FINEST' &&
+                value !== 'LINE_RANGE') {
                 throw new Error(`Invalid MarketStatus: ${value}`);
             }
 

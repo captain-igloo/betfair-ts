@@ -14,7 +14,8 @@ export default class Wallet extends Enum {
 
     public setValue(value: string): void {
         if (value) {
-            if (value !== 'UK' && value !== 'AUSTRALIAN') {
+            if (value !== 'UK' &&
+                value !== 'AUSTRALIAN') {
                 throw new Error(`Invalid MarketStatus: ${value}`);
             }
 

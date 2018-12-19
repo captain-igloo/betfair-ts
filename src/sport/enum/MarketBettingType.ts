@@ -18,7 +18,12 @@ export default class MarketBettingType extends Enum {
 
     public setValue(value: string): void {
         if (value) {
-            if (value !== 'ODDS' && value !== 'LINE' && value !== 'RANGE' && value !== 'ASIAN_HANDICAP_DOUBLE_LINE' && value !== 'ASIAN_HANDICAP_SINGLE_LINE' && value !== 'FIXED_ODDS') {
+            if (value !== 'ODDS' &&
+                value !== 'LINE' &&
+                value !== 'RANGE' &&
+                value !== 'ASIAN_HANDICAP_DOUBLE_LINE' &&
+                value !== 'ASIAN_HANDICAP_SINGLE_LINE' &&
+                value !== 'FIXED_ODDS') {
                 throw new Error(`Invalid MarketStatus: ${value}`);
             }
 

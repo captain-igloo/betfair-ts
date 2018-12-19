@@ -2,9 +2,9 @@
  * Copyright 2018 Colin Doig.  Distributed under the MIT license.
  */
 import JsonResponse from '../JsonResponse';
-import ExecutionReportStatus from '../sport/enum/ExecutionReportStatus';
-import ExecutionReportErrorCode from '../sport/enum/ExecutionReportErrorCode';
 import CancelInstructionReport from '../sport/CancelInstructionReport';
+import ExecutionReportErrorCode from '../sport/enum/ExecutionReportErrorCode';
+import ExecutionReportStatus from '../sport/enum/ExecutionReportStatus';
 
 export default class CancelExecutionReport extends JsonResponse {
     private customerRef: string;

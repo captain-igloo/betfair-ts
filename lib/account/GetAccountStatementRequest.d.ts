@@ -1,10 +1,10 @@
 /**
  * Copyright 2018 Colin Doig.  Distributed under the MIT license.
  */
-import JsonRequest from '../JsonRequest';
-import TimeRange from '../common/TimeRange';
 import IncludeItem from '../account/enum/IncludeItem';
 import Wallet from '../account/enum/Wallet';
+import TimeRange from '../common/TimeRange';
+import JsonRequest from '../JsonRequest';
 export default class GetAccountStatementRequest extends JsonRequest {
     private locale;
     private fromRecord;

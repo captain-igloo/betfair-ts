@@ -3,11 +3,11 @@
  */
 import JsonMember from '../JsonMember';
 import RunnerStatus from '../sport/enum/RunnerStatus';
-import StartingPrices from '../sport/StartingPrices';
 import ExchangePrices from '../sport/ExchangePrices';
-import Order from '../sport/Order';
 import Match from '../sport/Match';
 import Matches from '../sport/Matches';
+import Order from '../sport/Order';
+import StartingPrices from '../sport/StartingPrices';
 export default class Runner extends JsonMember {
     private selectionId;
     private handicap;

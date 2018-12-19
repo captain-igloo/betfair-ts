@@ -1,10 +1,10 @@
 /**
  * Copyright 2018 Colin Doig.  Distributed under the MIT license.
  */
-import JsonRequest from '../JsonRequest';
-import OrderProjection from '../sport/enum/OrderProjection';
 import TimeRange from '../common/TimeRange';
+import JsonRequest from '../JsonRequest';
 import OrderBy from '../sport/enum/OrderBy';
+import OrderProjection from '../sport/enum/OrderProjection';
 import SortDir from '../sport/enum/SortDir';
 export default class ListCurrentOrdersRequest extends JsonRequest {
     private betIds;

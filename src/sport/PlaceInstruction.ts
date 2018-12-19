@@ -4,8 +4,8 @@
 import JsonMember from '../JsonMember';
 import OrderType from '../sport/enum/OrderType';
 import Side from '../sport/enum/Side';
-import LimitOrder from '../sport/LimitOrder';
 import LimitOnCloseOrder from '../sport/LimitOnCloseOrder';
+import LimitOrder from '../sport/LimitOrder';
 import MarketOnCloseOrder from '../sport/MarketOnCloseOrder';
 
 export default class PlaceInstruction extends JsonMember {

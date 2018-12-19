@@ -36,7 +36,30 @@ export default class ExecutionReportErrorCode extends Enum {
 
     public setValue(value: string): void {
         if (value) {
-            if (value !== 'ERROR_IN_MATCHER' && value !== 'PROCESSED_WITH_ERRORS' && value !== 'BET_ACTION_ERROR' && value !== 'INVALID_ACCOUNT_STATE' && value !== 'INVALID_WALLET_STATUS' && value !== 'INSUFFICIENT_FUNDS' && value !== 'LOSS_LIMIT_EXCEEDED' && value !== 'MARKET_SUSPENDED' && value !== 'MARKET_NOT_OPEN_FOR_BETTING' && value !== 'DUPLICATE_TRANSACTION' && value !== 'INVALID_ORDER' && value !== 'INVALID_MARKET_ID' && value !== 'PERMISSION_DENIED' && value !== 'DUPLICATE_BETIDS' && value !== 'NO_ACTION_REQUIRED' && value !== 'SERVICE_UNAVAILABLE' && value !== 'REJECTED_BY_REGULATOR' && value !== 'NO_CHASING' && value !== 'REGULATOR_IS_NOT_AVAILABLE' && value !== 'TOO_MANY_INSTRUCTIONS' && value !== 'INVALID_MARKET_VERSION' && value !== 'EVENT_EXPOSURE_LIMIT_EXCEEDED' && value !== 'EVENT_MATCHED_EXPOSURE_LIMIT_EXCEEDED' && value !== 'EVENT_BLOCKED') {
+            if (value !== 'ERROR_IN_MATCHER' &&
+                value !== 'PROCESSED_WITH_ERRORS' &&
+                value !== 'BET_ACTION_ERROR' &&
+                value !== 'INVALID_ACCOUNT_STATE' &&
+                value !== 'INVALID_WALLET_STATUS' &&
+                value !== 'INSUFFICIENT_FUNDS' &&
+                value !== 'LOSS_LIMIT_EXCEEDED' &&
+                value !== 'MARKET_SUSPENDED' &&
+                value !== 'MARKET_NOT_OPEN_FOR_BETTING' &&
+                value !== 'DUPLICATE_TRANSACTION' &&
+                value !== 'INVALID_ORDER' &&
+                value !== 'INVALID_MARKET_ID' &&
+                value !== 'PERMISSION_DENIED' &&
+                value !== 'DUPLICATE_BETIDS' &&
+                value !== 'NO_ACTION_REQUIRED' &&
+                value !== 'SERVICE_UNAVAILABLE' &&
+                value !== 'REJECTED_BY_REGULATOR' &&
+                value !== 'NO_CHASING' &&
+                value !== 'REGULATOR_IS_NOT_AVAILABLE' &&
+                value !== 'TOO_MANY_INSTRUCTIONS' &&
+                value !== 'INVALID_MARKET_VERSION' &&
+                value !== 'EVENT_EXPOSURE_LIMIT_EXCEEDED' &&
+                value !== 'EVENT_MATCHED_EXPOSURE_LIMIT_EXCEEDED' &&
+                value !== 'EVENT_BLOCKED') {
                 throw new Error(`Invalid MarketStatus: ${value}`);
             }
 

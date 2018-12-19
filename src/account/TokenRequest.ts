@@ -1,86 +1,86 @@
 /**
  * Copyright 2018 Colin Doig.  Distributed under the MIT license.
  */
-import JsonRequest from '../JsonRequest';
 import GrantType from '../account/enum/GrantType';
+import JsonRequest from '../JsonRequest';
 
 export default class TokenRequest extends JsonRequest {
-    private client_id: string;
-    private grant_type: GrantType;
+    private clientId: string;
+    private grantType: GrantType;
     private code: string;
-    private client_secret: string;
-    private refresh_token: string;
+    private clientSecret: string;
+    private refreshToken: string;
 
     constructor(
-        client_id: string = '',
-        grant_type: GrantType = new GrantType(),
+        clientId: string = '',
+        grantType: GrantType = new GrantType(),
         code: string = '',
-        client_secret: string = '',
-        refresh_token: string = '',
+        clientSecret: string = '',
+        refreshToken: string = '',
     ) {
         super();
-        this.client_id = client_id;
-        this.grant_type = grant_type;
+        this.clientId = clientId;
+        this.grantType = grantType;
         this.code = code;
-        this.client_secret = client_secret;
-        this.refresh_token = refresh_token;
+        this.clientSecret = clientSecret;
+        this.refreshToken = refreshToken;
     }
 
     public fromJson(json: any): void {
         if ('client_id' in json) {
-            this.client_id = json.client_id;
+            this.clientId = json.client_id;
         }
         if ('grant_type' in json) {
-            this.grant_type.setValue(json.grant_type);
+            this.grantType.setValue(json.grant_type);
         }
         if ('code' in json) {
             this.code = json.code;
         }
         if ('client_secret' in json) {
-            this.client_secret = json.client_secret;
+            this.clientSecret = json.client_secret;
         }
         if ('refresh_token' in json) {
-            this.refresh_token = json.refresh_token;
+            this.refreshToken = json.refresh_token;
         }
     }
 
     public toJson(): any {
         const json: any = {};
-        if (this.client_id !== null) {
-            json.client_id = this.client_id;
+        if (this.clientId !== null) {
+            json.client_id = this.clientId;
         }
-        if (this.grant_type.isValid()) {
-            json.grant_type = this.grant_type;
+        if (this.grantType.isValid()) {
+            json.grant_type = this.grantType;
         }
         if (this.code !== null) {
             json.code = this.code;
         }
-        if (this.client_secret !== null) {
-            json.client_secret = this.client_secret;
+        if (this.clientSecret !== null) {
+            json.client_secret = this.clientSecret;
         }
-        if (this.refresh_token !== null) {
-            json.refresh_token = this.refresh_token;
+        if (this.refreshToken !== null) {
+            json.refresh_token = this.refreshToken;
         }
         return json;
     }
 
     public isValid(): boolean {
-        return this.client_id !== null &&
-            this.grant_type.isValid() &&
-            this.client_secret !== null;
+        return this.clientId !== null &&
+            this.grantType.isValid() &&
+            this.clientSecret !== null;
     }
 
-    public getClient_id(): string {
-        return this.client_id;
+    public getClientId(): string {
+        return this.clientId;
     }
-    public setClient_id(client_id: string): void {
-        this.client_id = client_id;
+    public setClientId(clientId: string): void {
+        this.clientId = clientId;
     }
-    public getGrant_type(): GrantType {
-        return this.grant_type;
+    public getGrantType(): GrantType {
+        return this.grantType;
     }
-    public setGrant_type(grant_type: GrantType): void {
-        this.grant_type = grant_type;
+    public setGrantType(grantType: GrantType): void {
+        this.grantType = grantType;
     }
     public getCode(): string {
         return this.code;
@@ -88,17 +88,17 @@ export default class TokenRequest extends JsonRequest {
     public setCode(code: string): void {
         this.code = code;
     }
-    public getClient_secret(): string {
-        return this.client_secret;
+    public getClientSecret(): string {
+        return this.clientSecret;
     }
-    public setClient_secret(client_secret: string): void {
-        this.client_secret = client_secret;
+    public setClientSecret(clientSecret: string): void {
+        this.clientSecret = clientSecret;
     }
-    public getRefresh_token(): string {
-        return this.refresh_token;
+    public getRefreshToken(): string {
+        return this.refreshToken;
     }
-    public setRefresh_token(refresh_token: string): void {
-        this.refresh_token = refresh_token;
+    public setRefreshToken(refreshToken: string): void {
+        this.refreshToken = refreshToken;
     }
 
 }

@@ -16,7 +16,10 @@ export default class MarketStatus extends Enum {
 
     public setValue(value: string): void {
         if (value) {
-            if (value !== 'INACTIVE' && value !== 'OPEN' && value !== 'SUSPENDED' && value !== 'CLOSED') {
+            if (value !== 'INACTIVE' &&
+                value !== 'OPEN' &&
+                value !== 'SUSPENDED' &&
+                value !== 'CLOSED') {
                 throw new Error(`Invalid MarketStatus: ${value}`);
             }
 

@@ -2,8 +2,8 @@
  * Copyright 2018 Colin Doig.  Distributed under the MIT license.
  */
 import JsonResponse from '../JsonResponse';
-import ExecutionReportStatus from '../sport/enum/ExecutionReportStatus';
 import ExecutionReportErrorCode from '../sport/enum/ExecutionReportErrorCode';
+import ExecutionReportStatus from '../sport/enum/ExecutionReportStatus';
 import PlaceInstructionReport from '../sport/PlaceInstructionReport';
 
 export default class PlaceExecutionReport extends JsonResponse {

@@ -16,7 +16,10 @@ export default class OrderStatus extends Enum {
 
     public setValue(value: string): void {
         if (value) {
-            if (value !== 'PENDING' && value !== 'EXECUTION_COMPLETE' && value !== 'EXECUTABLE' && value !== 'EXPIRED') {
+            if (value !== 'PENDING' &&
+                value !== 'EXECUTION_COMPLETE' &&
+                value !== 'EXECUTABLE' &&
+                value !== 'EXPIRED') {
                 throw new Error(`Invalid MarketStatus: ${value}`);
             }
 

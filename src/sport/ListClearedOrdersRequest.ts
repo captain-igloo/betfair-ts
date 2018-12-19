@@ -1,12 +1,12 @@
 /**
  * Copyright 2018 Colin Doig.  Distributed under the MIT license.
  */
+import TimeRange from '../common/TimeRange';
 import JsonRequest from '../JsonRequest';
 import BetStatus from '../sport/enum/BetStatus';
-import RunnerId from '../sport/RunnerId';
-import Side from '../sport/enum/Side';
-import TimeRange from '../common/TimeRange';
 import GroupBy from '../sport/enum/GroupBy';
+import Side from '../sport/enum/Side';
+import RunnerId from '../sport/RunnerId';
 
 export default class ListClearedOrdersRequest extends JsonRequest {
     private betStatus: BetStatus;

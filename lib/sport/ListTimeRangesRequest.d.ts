@@ -2,8 +2,8 @@
  * Copyright 2018 Colin Doig.  Distributed under the MIT license.
  */
 import JsonRequest from '../JsonRequest';
-import MarketFilter from '../sport/MarketFilter';
 import TimeGranularity from '../sport/enum/TimeGranularity';
+import MarketFilter from '../sport/MarketFilter';
 export default class ListTimeRangesRequest extends JsonRequest {
     private filter;
     private granularity;

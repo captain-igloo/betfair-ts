@@ -2,9 +2,9 @@
  * Copyright 2018 Colin Doig.  Distributed under the MIT license.
  */
 import JsonMember from '../JsonMember';
+import BetTargetType from '../sport/enum/BetTargetType';
 import PersistenceType from '../sport/enum/PersistenceType';
 import TimeInForce from '../sport/enum/TimeInForce';
-import BetTargetType from '../sport/enum/BetTargetType';
 export default class LimitOrder extends JsonMember {
     private size;
     private price;

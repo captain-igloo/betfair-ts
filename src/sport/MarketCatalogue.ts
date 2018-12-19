@@ -2,11 +2,11 @@
  * Copyright 2018 Colin Doig.  Distributed under the MIT license.
  */
 import JsonMember from '../JsonMember';
-import MarketDescription from '../sport/MarketDescription';
-import RunnerCatalog from '../sport/RunnerCatalog';
-import EventType from '../sport/EventType';
 import Competition from '../sport/Competition';
 import Event from '../sport/Event';
+import EventType from '../sport/EventType';
+import MarketDescription from '../sport/MarketDescription';
+import RunnerCatalog from '../sport/RunnerCatalog';
 
 export default class MarketCatalogue extends JsonMember {
     private marketId: string;

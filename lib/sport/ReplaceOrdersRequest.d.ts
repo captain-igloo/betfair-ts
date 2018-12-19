@@ -2,8 +2,8 @@
  * Copyright 2018 Colin Doig.  Distributed under the MIT license.
  */
 import JsonRequest from '../JsonRequest';
-import ReplaceInstruction from '../sport/ReplaceInstruction';
 import MarketVersion from '../sport/MarketVersion';
+import ReplaceInstruction from '../sport/ReplaceInstruction';
 export default class ReplaceOrdersRequest extends JsonRequest {
     private marketId;
     private instructions;

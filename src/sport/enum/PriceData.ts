@@ -17,7 +17,11 @@ export default class PriceData extends Enum {
 
     public setValue(value: string): void {
         if (value) {
-            if (value !== 'SP_AVAILABLE' && value !== 'SP_TRADED' && value !== 'EX_BEST_OFFERS' && value !== 'EX_ALL_OFFERS' && value !== 'EX_TRADED') {
+            if (value !== 'SP_AVAILABLE' &&
+                value !== 'SP_TRADED' &&
+                value !== 'EX_BEST_OFFERS' &&
+                value !== 'EX_ALL_OFFERS' &&
+                value !== 'EX_TRADED') {
                 throw new Error(`Invalid MarketStatus: ${value}`);
             }
 

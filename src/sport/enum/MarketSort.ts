@@ -18,7 +18,12 @@ export default class MarketSort extends Enum {
 
     public setValue(value: string): void {
         if (value) {
-            if (value !== 'MINIMUM_TRADED' && value !== 'MAXIMUM_TRADED' && value !== 'MINIMUM_AVAILABLE' && value !== 'MAXIMUM_AVAILABLE' && value !== 'FIRST_TO_START' && value !== 'LAST_TO_START') {
+            if (value !== 'MINIMUM_TRADED' &&
+                value !== 'MAXIMUM_TRADED' &&
+                value !== 'MINIMUM_AVAILABLE' &&
+                value !== 'MAXIMUM_AVAILABLE' &&
+                value !== 'FIRST_TO_START' &&
+                value !== 'LAST_TO_START') {
                 throw new Error(`Invalid MarketStatus: ${value}`);
             }
 

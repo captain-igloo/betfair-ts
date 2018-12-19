@@ -2,8 +2,8 @@
  * Copyright 2018 Colin Doig.  Distributed under the MIT license.
  */
 import JsonMember from '../JsonMember';
-import PersistenceType from '../sport/enum/PersistenceType';
 import OrderType from '../sport/enum/OrderType';
+import PersistenceType from '../sport/enum/PersistenceType';
 import Side from '../sport/enum/Side';
 import ItemDescription from '../sport/ItemDescription';
 

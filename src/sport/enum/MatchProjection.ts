@@ -15,7 +15,9 @@ export default class MatchProjection extends Enum {
 
     public setValue(value: string): void {
         if (value) {
-            if (value !== 'NO_ROLLUP' && value !== 'ROLLED_UP_BY_PRICE' && value !== 'ROLLED_UP_BY_AVG_PRICE') {
+            if (value !== 'NO_ROLLUP' &&
+                value !== 'ROLLED_UP_BY_PRICE' &&
+                value !== 'ROLLED_UP_BY_AVG_PRICE') {
                 throw new Error(`Invalid MarketStatus: ${value}`);
             }
 

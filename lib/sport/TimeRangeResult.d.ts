@@ -1,8 +1,8 @@
 /**
  * Copyright 2018 Colin Doig.  Distributed under the MIT license.
  */
-import JsonMember from '../JsonMember';
 import TimeRange from '../common/TimeRange';
+import JsonMember from '../JsonMember';
 export default class TimeRangeResult extends JsonMember {
     private timeRange;
     private marketCount;

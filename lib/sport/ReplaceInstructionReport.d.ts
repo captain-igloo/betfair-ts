@@ -2,9 +2,9 @@
  * Copyright 2018 Colin Doig.  Distributed under the MIT license.
  */
 import JsonMember from '../JsonMember';
-import InstructionReportStatus from '../sport/enum/InstructionReportStatus';
-import InstructionReportErrorCode from '../sport/enum/InstructionReportErrorCode';
 import CancelInstructionReport from '../sport/CancelInstructionReport';
+import InstructionReportErrorCode from '../sport/enum/InstructionReportErrorCode';
+import InstructionReportStatus from '../sport/enum/InstructionReportStatus';
 import PlaceInstructionReport from '../sport/PlaceInstructionReport';
 export default class ReplaceInstructionReport extends JsonMember {
     private status;

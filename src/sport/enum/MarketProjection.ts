@@ -19,7 +19,13 @@ export default class MarketProjection extends Enum {
 
     public setValue(value: string): void {
         if (value) {
-            if (value !== 'COMPETITION' && value !== 'EVENT' && value !== 'EVENT_TYPE' && value !== 'MARKET_START_TIME' && value !== 'MARKET_DESCRIPTION' && value !== 'RUNNER_DESCRIPTION' && value !== 'RUNNER_METADATA') {
+            if (value !== 'COMPETITION' &&
+                value !== 'EVENT' &&
+                value !== 'EVENT_TYPE' &&
+                value !== 'MARKET_START_TIME' &&
+                value !== 'MARKET_DESCRIPTION' &&
+                value !== 'RUNNER_DESCRIPTION' &&
+                value !== 'RUNNER_METADATA') {
                 throw new Error(`Invalid MarketStatus: ${value}`);
             }
 

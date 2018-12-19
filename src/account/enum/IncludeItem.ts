@@ -16,7 +16,10 @@ export default class IncludeItem extends Enum {
 
     public setValue(value: string): void {
         if (value) {
-            if (value !== 'ALL' && value !== 'EXCHANGE' && value !== 'POKER_ROOM' && value !== 'DEPOSITS_WITHDRAWALS') {
+            if (value !== 'ALL' &&
+                value !== 'EXCHANGE' &&
+                value !== 'POKER_ROOM' &&
+                value !== 'DEPOSITS_WITHDRAWALS') {
                 throw new Error(`Invalid MarketStatus: ${value}`);
             }
 

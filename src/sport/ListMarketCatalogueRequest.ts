@@ -2,9 +2,9 @@
  * Copyright 2018 Colin Doig.  Distributed under the MIT license.
  */
 import JsonRequest from '../JsonRequest';
-import MarketFilter from '../sport/MarketFilter';
 import MarketProjection from '../sport/enum/MarketProjection';
 import MarketSort from '../sport/enum/MarketSort';
+import MarketFilter from '../sport/MarketFilter';
 
 export default class ListMarketCatalogueRequest extends JsonRequest {
     private filter: MarketFilter;

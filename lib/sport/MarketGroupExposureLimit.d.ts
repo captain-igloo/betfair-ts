@@ -2,8 +2,8 @@
  * Copyright 2018 Colin Doig.  Distributed under the MIT license.
  */
 import JsonMember from '../JsonMember';
-import MarketGroupId from '../sport/MarketGroupId';
 import ExposureLimit from '../sport/ExposureLimit';
+import MarketGroupId from '../sport/MarketGroupId';
 export default class MarketGroupExposureLimit extends JsonMember {
     private groupId;
     private limit;

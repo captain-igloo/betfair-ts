@@ -14,7 +14,8 @@ export default class Side extends Enum {
 
     public setValue(value: string): void {
         if (value) {
-            if (value !== 'BACK' && value !== 'LAY') {
+            if (value !== 'BACK' &&
+                value !== 'LAY') {
                 throw new Error(`Invalid MarketStatus: ${value}`);
             }
 

@@ -3,8 +3,8 @@
  */
 import JsonMember from '../JsonMember';
 import MarketStatus from '../sport/enum/MarketStatus';
-import Runner from '../sport/Runner';
 import KeyLineDescription from '../sport/KeyLineDescription';
+import Runner from '../sport/Runner';
 
 export default class MarketBook extends JsonMember {
     private marketId: string;

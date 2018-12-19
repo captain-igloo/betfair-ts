@@ -18,7 +18,12 @@ export default class ActionPerformed extends Enum {
 
     public setValue(value: string): void {
         if (value) {
-            if (value !== 'NONE' && value !== 'CANCELLATION_REQUEST_SUBMITTED' && value !== 'ALL_BETS_CANCELLED' && value !== 'SOME_BETS_NOT_CANCELLED' && value !== 'CANCELLATION_REQUEST_ERROR' && value !== 'CANCELLATION_STATUS_UNKNOWN') {
+            if (value !== 'NONE' &&
+                value !== 'CANCELLATION_REQUEST_SUBMITTED' &&
+                value !== 'ALL_BETS_CANCELLED' &&
+                value !== 'SOME_BETS_NOT_CANCELLED' &&
+                value !== 'CANCELLATION_REQUEST_ERROR' &&
+                value !== 'CANCELLATION_STATUS_UNKNOWN') {
                 throw new Error(`Invalid MarketStatus: ${value}`);
             }
 

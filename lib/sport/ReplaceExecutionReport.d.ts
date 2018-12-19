@@ -2,8 +2,8 @@
  * Copyright 2018 Colin Doig.  Distributed under the MIT license.
  */
 import JsonResponse from '../JsonResponse';
-import ExecutionReportStatus from '../sport/enum/ExecutionReportStatus';
 import ExecutionReportErrorCode from '../sport/enum/ExecutionReportErrorCode';
+import ExecutionReportStatus from '../sport/enum/ExecutionReportStatus';
 import ReplaceInstructionReport from '../sport/ReplaceInstructionReport';
 export default class ReplaceExecutionReport extends JsonResponse {
     private customerRef;

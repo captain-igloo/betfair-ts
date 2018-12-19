@@ -4,43 +4,43 @@
 import JsonMember from '../JsonMember';
 
 export default class SubscriptionOptions extends JsonMember {
-    private subscription_length: number | null;
-    private subscription_token: string;
-    private client_reference: string;
+    private subscriptionLength: number | null;
+    private subscriptionToken: string;
+    private clientReference: string;
 
     constructor(
-        subscription_length: number | null = null,
-        subscription_token: string = '',
-        client_reference: string = '',
+        subscriptionLength: number | null = null,
+        subscriptionToken: string = '',
+        clientReference: string = '',
     ) {
         super();
-        this.subscription_length = subscription_length;
-        this.subscription_token = subscription_token;
-        this.client_reference = client_reference;
+        this.subscriptionLength = subscriptionLength;
+        this.subscriptionToken = subscriptionToken;
+        this.clientReference = clientReference;
     }
 
     public fromJson(json: any): void {
         if ('subscription_length' in json) {
-            this.subscription_length = json.subscription_length;
+            this.subscriptionLength = json.subscription_length;
         }
         if ('subscription_token' in json) {
-            this.subscription_token = json.subscription_token;
+            this.subscriptionToken = json.subscription_token;
         }
         if ('client_reference' in json) {
-            this.client_reference = json.client_reference;
+            this.clientReference = json.client_reference;
         }
     }
 
     public toJson(): any {
         const json: any = {};
-        if (this.subscription_length !== null) {
-            json.subscription_length = this.subscription_length;
+        if (this.subscriptionLength !== null) {
+            json.subscription_length = this.subscriptionLength;
         }
-        if (this.subscription_token !== null) {
-            json.subscription_token = this.subscription_token;
+        if (this.subscriptionToken !== null) {
+            json.subscription_token = this.subscriptionToken;
         }
-        if (this.client_reference !== null) {
-            json.client_reference = this.client_reference;
+        if (this.clientReference !== null) {
+            json.client_reference = this.clientReference;
         }
         return json;
     }
@@ -49,23 +49,23 @@ export default class SubscriptionOptions extends JsonMember {
         return true;
     }
 
-    public getSubscription_length(): number | null {
-        return this.subscription_length;
+    public getSubscriptionLength(): number | null {
+        return this.subscriptionLength;
     }
-    public setSubscription_length(subscription_length: number | null): void {
-        this.subscription_length = subscription_length;
+    public setSubscriptionLength(subscriptionLength: number | null): void {
+        this.subscriptionLength = subscriptionLength;
     }
-    public getSubscription_token(): string {
-        return this.subscription_token;
+    public getSubscriptionToken(): string {
+        return this.subscriptionToken;
     }
-    public setSubscription_token(subscription_token: string): void {
-        this.subscription_token = subscription_token;
+    public setSubscriptionToken(subscriptionToken: string): void {
+        this.subscriptionToken = subscriptionToken;
     }
-    public getClient_reference(): string {
-        return this.client_reference;
+    public getClientReference(): string {
+        return this.clientReference;
     }
-    public setClient_reference(client_reference: string): void {
-        this.client_reference = client_reference;
+    public setClientReference(clientReference: string): void {
+        this.clientReference = clientReference;
     }
 
 }

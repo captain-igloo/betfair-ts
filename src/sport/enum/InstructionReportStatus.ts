@@ -15,7 +15,9 @@ export default class InstructionReportStatus extends Enum {
 
     public setValue(value: string): void {
         if (value) {
-            if (value !== 'SUCCESS' && value !== 'FAILURE' && value !== 'TIMEOUT') {
+            if (value !== 'SUCCESS' &&
+                value !== 'FAILURE' &&
+                value !== 'TIMEOUT') {
                 throw new Error(`Invalid MarketStatus: ${value}`);
             }
 

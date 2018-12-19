@@ -1,107 +1,107 @@
 /**
  * Copyright 2018 Colin Doig.  Distributed under the MIT license.
  */
-import JsonResponse from '../JsonResponse';
-import TokenType from '../account/enum/TokenType';
 import ApplicationSubscription from '../account/ApplicationSubscription';
+import TokenType from '../account/enum/TokenType';
+import JsonResponse from '../JsonResponse';
 
 export default class VendorAccessTokenInfo extends JsonResponse {
-    private access_token: string;
-    private token_type: TokenType;
-    private expires_in: number | null;
-    private refresh_token: string;
-    private application_subscription: ApplicationSubscription;
+    private accessToken: string;
+    private tokenType: TokenType;
+    private expiresIn: number | null;
+    private refreshToken: string;
+    private applicationSubscription: ApplicationSubscription;
 
     constructor(
-        access_token: string = '',
-        token_type: TokenType = new TokenType(),
-        expires_in: number | null = null,
-        refresh_token: string = '',
-        application_subscription: ApplicationSubscription = new ApplicationSubscription(),
+        accessToken: string = '',
+        tokenType: TokenType = new TokenType(),
+        expiresIn: number | null = null,
+        refreshToken: string = '',
+        applicationSubscription: ApplicationSubscription = new ApplicationSubscription(),
     ) {
         super();
-        this.access_token = access_token;
-        this.token_type = token_type;
-        this.expires_in = expires_in;
-        this.refresh_token = refresh_token;
-        this.application_subscription = application_subscription;
+        this.accessToken = accessToken;
+        this.tokenType = tokenType;
+        this.expiresIn = expiresIn;
+        this.refreshToken = refreshToken;
+        this.applicationSubscription = applicationSubscription;
     }
 
     public fromJson(json: any): void {
         if ('access_token' in json) {
-            this.access_token = json.access_token;
+            this.accessToken = json.access_token;
         }
         if ('token_type' in json) {
-            this.token_type.setValue(json.token_type);
+            this.tokenType.setValue(json.token_type);
         }
         if ('expires_in' in json) {
-            this.expires_in = json.expires_in;
+            this.expiresIn = json.expires_in;
         }
         if ('refresh_token' in json) {
-            this.refresh_token = json.refresh_token;
+            this.refreshToken = json.refresh_token;
         }
         if ('application_subscription' in json) {
-            this.application_subscription.fromJson(json.application_subscription);
+            this.applicationSubscription.fromJson(json.application_subscription);
         }
     }
 
     public toJson(): any {
         const json: any = {};
-        if (this.access_token !== null) {
-            json.access_token = this.access_token;
+        if (this.accessToken !== null) {
+            json.access_token = this.accessToken;
         }
-        if (this.token_type.isValid()) {
-            json.token_type = this.token_type;
+        if (this.tokenType.isValid()) {
+            json.token_type = this.tokenType;
         }
-        if (this.expires_in !== null) {
-            json.expires_in = this.expires_in;
+        if (this.expiresIn !== null) {
+            json.expires_in = this.expiresIn;
         }
-        if (this.refresh_token !== null) {
-            json.refresh_token = this.refresh_token;
+        if (this.refreshToken !== null) {
+            json.refresh_token = this.refreshToken;
         }
-        if (this.application_subscription.isValid()) {
-            json.application_subscription = this.application_subscription.toJson();
+        if (this.applicationSubscription.isValid()) {
+            json.application_subscription = this.applicationSubscription.toJson();
         }
         return json;
     }
 
     public isValid(): boolean {
-        return this.access_token !== null &&
-            this.token_type.isValid() &&
-            this.expires_in !== null &&
-            this.refresh_token !== null &&
-            this.application_subscription.isValid();
+        return this.accessToken !== null &&
+            this.tokenType.isValid() &&
+            this.expiresIn !== null &&
+            this.refreshToken !== null &&
+            this.applicationSubscription.isValid();
     }
 
-    public getAccess_token(): string {
-        return this.access_token;
+    public getAccessToken(): string {
+        return this.accessToken;
     }
-    public setAccess_token(access_token: string): void {
-        this.access_token = access_token;
+    public setAccessToken(accessToken: string): void {
+        this.accessToken = accessToken;
     }
-    public getToken_type(): TokenType {
-        return this.token_type;
+    public getTokenType(): TokenType {
+        return this.tokenType;
     }
-    public setToken_type(token_type: TokenType): void {
-        this.token_type = token_type;
+    public setTokenType(tokenType: TokenType): void {
+        this.tokenType = tokenType;
     }
-    public getExpires_in(): number | null {
-        return this.expires_in;
+    public getExpiresIn(): number | null {
+        return this.expiresIn;
     }
-    public setExpires_in(expires_in: number | null): void {
-        this.expires_in = expires_in;
+    public setExpiresIn(expiresIn: number | null): void {
+        this.expiresIn = expiresIn;
     }
-    public getRefresh_token(): string {
-        return this.refresh_token;
+    public getRefreshToken(): string {
+        return this.refreshToken;
     }
-    public setRefresh_token(refresh_token: string): void {
-        this.refresh_token = refresh_token;
+    public setRefreshToken(refreshToken: string): void {
+        this.refreshToken = refreshToken;
     }
-    public getApplication_subscription(): ApplicationSubscription {
-        return this.application_subscription;
+    public getApplicationSubscription(): ApplicationSubscription {
+        return this.applicationSubscription;
     }
-    public setApplication_subscription(application_subscription: ApplicationSubscription): void {
-        this.application_subscription = application_subscription;
+    public setApplicationSubscription(applicationSubscription: ApplicationSubscription): void {
+        this.applicationSubscription = applicationSubscription;
     }
 
 }
