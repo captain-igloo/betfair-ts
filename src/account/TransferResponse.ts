@@ -14,8 +14,10 @@ export default class TransferResponse extends JsonResponse {
     }
 
     public fromJson(json: any): void {
-        if ('transactionId' in json) {
-            this.transactionId = json.transactionId;
+        if (this.validateJson(json)) {
+            if ('transactionId' in json) {
+                this.transactionId = json.transactionId;
+            }
         }
     }
 

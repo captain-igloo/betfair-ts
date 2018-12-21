@@ -6,6 +6,7 @@
   "scripts": {
     "build": "tsc --build tsconfig.json",
     "list-event-types": "ts-node ./example/listEventTypes.ts",
+    "get-account-statement": "ts-node ./example/getAccountStatement.ts",
     "tslint": "tslint -c tslint.json 'src/**/*.ts'"
   },
   "author": "",

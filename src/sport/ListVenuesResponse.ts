@@ -16,11 +16,13 @@ export default class ListVenuesResponse extends JsonResponse {
 
     public fromJson(json: any): void {
         if (this.validateJson(json)) {
-            this.venueResults = json.map((venueResultsJson: any) => {
-                const element = new VenueResult();
-                element.fromJson(venueResultsJson);
-                return element;
-            });
+            if ('venueResults' in json) {
+                this.venueResults = json.map((venueResultsJson: any) => {
+                    const element = new VenueResult();
+                    element.fromJson(venueResultsJson);
+                    return element;
+                });
+            }
         }
     }
 

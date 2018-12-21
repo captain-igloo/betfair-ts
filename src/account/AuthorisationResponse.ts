@@ -17,11 +17,13 @@ export default class AuthorisationResponse extends JsonResponse {
     }
 
     public fromJson(json: any): void {
-        if ('authorisationCode' in json) {
-            this.authorisationCode = json.authorisationCode;
-        }
-        if ('redirectUrl' in json) {
-            this.redirectUrl = json.redirectUrl;
+        if (this.validateJson(json)) {
+            if ('authorisationCode' in json) {
+                this.authorisationCode = json.authorisationCode;
+            }
+            if ('redirectUrl' in json) {
+                this.redirectUrl = json.redirectUrl;
+            }
         }
     }
 

@@ -11,11 +11,23 @@ abstract class JsonResponse {
         if ('faultcode' in json) {
             this.faultCode = json.faultcode;
             if ('faultstring' in json) {
-                this.faultString = json.faultString;
+                this.faultString = json.faultstring;
             }
             this.success = false;
         }
         return this.success;
+    }
+
+    public isSuccess(): boolean {
+        return this.success;
+    }
+
+    public getFaultCode(): string {
+        return this.faultCode;
+    }
+
+    public getFaultString(): string {
+        return this.faultString;
     }
 }
 

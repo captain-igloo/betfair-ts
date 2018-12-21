@@ -16,11 +16,13 @@ export default class ListApplicationSubscriptionTokensResponse extends JsonRespo
 
     public fromJson(json: any): void {
         if (this.validateJson(json)) {
-            this.applicationSubscriptions = json.map((applicationSubscriptionsJson: any) => {
-                const element = new ApplicationSubscription();
-                element.fromJson(applicationSubscriptionsJson);
-                return element;
-            });
+            if ('applicationSubscriptions' in json) {
+                this.applicationSubscriptions = json.map((applicationSubscriptionsJson: any) => {
+                    const element = new ApplicationSubscription();
+                    element.fromJson(applicationSubscriptionsJson);
+                    return element;
+                });
+            }
         }
     }
 

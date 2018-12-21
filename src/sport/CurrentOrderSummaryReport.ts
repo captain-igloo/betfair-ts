@@ -18,15 +18,17 @@ export default class CurrentOrderSummaryReport extends JsonResponse {
     }
 
     public fromJson(json: any): void {
-        if ('currentOrders' in json) {
-            this.currentOrders = json.currentOrders.map((currentOrdersJson: any) => {
-                const element = new CurrentOrderSummary();
-                element.fromJson(currentOrdersJson);
-                return element;
-            });
-        }
-        if ('moreAvailable' in json) {
-            this.moreAvailable = json.moreAvailable;
+        if (this.validateJson(json)) {
+            if ('currentOrders' in json) {
+                this.currentOrders = json.currentOrders.map((currentOrdersJson: any) => {
+                    const element = new CurrentOrderSummary();
+                    element.fromJson(currentOrdersJson);
+                    return element;
+                });
+            }
+            if ('moreAvailable' in json) {
+                this.moreAvailable = json.moreAvailable;
+            }
         }
     }
 

@@ -38,32 +38,34 @@ export default class AccountDetailsResponse extends JsonResponse {
     }
 
     public fromJson(json: any): void {
-        if ('currencyCode' in json) {
-            this.currencyCode = json.currencyCode;
-        }
-        if ('firstName' in json) {
-            this.firstName = json.firstName;
-        }
-        if ('lastName' in json) {
-            this.lastName = json.lastName;
-        }
-        if ('localeCode' in json) {
-            this.localeCode = json.localeCode;
-        }
-        if ('region' in json) {
-            this.region = json.region;
-        }
-        if ('timezone' in json) {
-            this.timezone = json.timezone;
-        }
-        if ('discountRate' in json) {
-            this.discountRate = json.discountRate;
-        }
-        if ('pointsBalance' in json) {
-            this.pointsBalance = json.pointsBalance;
-        }
-        if ('countryCode' in json) {
-            this.countryCode = json.countryCode;
+        if (this.validateJson(json)) {
+            if ('currencyCode' in json) {
+                this.currencyCode = json.currencyCode;
+            }
+            if ('firstName' in json) {
+                this.firstName = json.firstName;
+            }
+            if ('lastName' in json) {
+                this.lastName = json.lastName;
+            }
+            if ('localeCode' in json) {
+                this.localeCode = json.localeCode;
+            }
+            if ('region' in json) {
+                this.region = json.region;
+            }
+            if ('timezone' in json) {
+                this.timezone = json.timezone;
+            }
+            if ('discountRate' in json) {
+                this.discountRate = json.discountRate;
+            }
+            if ('pointsBalance' in json) {
+                this.pointsBalance = json.pointsBalance;
+            }
+            if ('countryCode' in json) {
+                this.countryCode = json.countryCode;
+            }
         }
     }
 

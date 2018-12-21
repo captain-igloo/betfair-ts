@@ -28,20 +28,22 @@ export default class VendorAccessTokenInfo extends JsonResponse {
     }
 
     public fromJson(json: any): void {
-        if ('access_token' in json) {
-            this.accessToken = json.access_token;
-        }
-        if ('token_type' in json) {
-            this.tokenType.setValue(json.token_type);
-        }
-        if ('expires_in' in json) {
-            this.expiresIn = json.expires_in;
-        }
-        if ('refresh_token' in json) {
-            this.refreshToken = json.refresh_token;
-        }
-        if ('application_subscription' in json) {
-            this.applicationSubscription.fromJson(json.application_subscription);
+        if (this.validateJson(json)) {
+            if ('access_token' in json) {
+                this.accessToken = json.access_token;
+            }
+            if ('token_type' in json) {
+                this.tokenType.setValue(json.token_type);
+            }
+            if ('expires_in' in json) {
+                this.expiresIn = json.expires_in;
+            }
+            if ('refresh_token' in json) {
+                this.refreshToken = json.refresh_token;
+            }
+            if ('application_subscription' in json) {
+                this.applicationSubscription.fromJson(json.application_subscription);
+            }
         }
     }
 

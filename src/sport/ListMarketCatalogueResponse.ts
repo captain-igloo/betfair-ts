@@ -16,11 +16,13 @@ export default class ListMarketCatalogueResponse extends JsonResponse {
 
     public fromJson(json: any): void {
         if (this.validateJson(json)) {
-            this.marketCatalogues = json.map((marketCataloguesJson: any) => {
-                const element = new MarketCatalogue();
-                element.fromJson(marketCataloguesJson);
-                return element;
-            });
+            if ('marketCatalogues' in json) {
+                this.marketCatalogues = json.map((marketCataloguesJson: any) => {
+                    const element = new MarketCatalogue();
+                    element.fromJson(marketCataloguesJson);
+                    return element;
+                });
+            }
         }
     }
 

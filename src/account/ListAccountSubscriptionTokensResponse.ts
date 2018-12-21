@@ -16,11 +16,13 @@ export default class ListAccountSubscriptionTokensResponse extends JsonResponse 
 
     public fromJson(json: any): void {
         if (this.validateJson(json)) {
-            this.accountSubscriptions = json.map((accountSubscriptionsJson: any) => {
-                const element = new AccountSubscription();
-                element.fromJson(accountSubscriptionsJson);
-                return element;
-            });
+            if ('accountSubscriptions' in json) {
+                this.accountSubscriptions = json.map((accountSubscriptionsJson: any) => {
+                    const element = new AccountSubscription();
+                    element.fromJson(accountSubscriptionsJson);
+                    return element;
+                });
+            }
         }
     }
 

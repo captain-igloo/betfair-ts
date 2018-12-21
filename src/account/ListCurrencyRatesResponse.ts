@@ -16,11 +16,13 @@ export default class ListCurrencyRatesResponse extends JsonResponse {
 
     public fromJson(json: any): void {
         if (this.validateJson(json)) {
-            this.currencyRates = json.map((currencyRatesJson: any) => {
-                const element = new CurrencyRate();
-                element.fromJson(currencyRatesJson);
-                return element;
-            });
+            if ('currencyRates' in json) {
+                this.currencyRates = json.map((currencyRatesJson: any) => {
+                    const element = new CurrencyRate();
+                    element.fromJson(currencyRatesJson);
+                    return element;
+                });
+            }
         }
     }
 

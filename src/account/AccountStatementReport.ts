@@ -18,15 +18,17 @@ export default class AccountStatementReport extends JsonResponse {
     }
 
     public fromJson(json: any): void {
-        if ('accountStatement' in json) {
-            this.accountStatement = json.accountStatement.map((accountStatementJson: any) => {
-                const element = new StatementItem();
-                element.fromJson(accountStatementJson);
-                return element;
-            });
-        }
-        if ('moreAvailable' in json) {
-            this.moreAvailable = json.moreAvailable;
+        if (this.validateJson(json)) {
+            if ('accountStatement' in json) {
+                this.accountStatement = json.accountStatement.map((accountStatementJson: any) => {
+                    const element = new StatementItem();
+                    element.fromJson(accountStatementJson);
+                    return element;
+                });
+            }
+            if ('moreAvailable' in json) {
+                this.moreAvailable = json.moreAvailable;
+            }
         }
     }
 

@@ -16,7 +16,9 @@ export default class RevokeAccessToWebAppResponse extends JsonResponse {
 
     public fromJson(json: any): void {
         if (this.validateJson(json)) {
-            this.response.setValue(json.response);
+            if ('response' in json) {
+                this.response.setValue(json.response);
+            }
         }
     }
 

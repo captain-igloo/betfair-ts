@@ -32,26 +32,28 @@ export default class AccountFundsResponse extends JsonResponse {
     }
 
     public fromJson(json: any): void {
-        if ('availableToBetBalance' in json) {
-            this.availableToBetBalance = json.availableToBetBalance;
-        }
-        if ('exposure' in json) {
-            this.exposure = json.exposure;
-        }
-        if ('retainedCommission' in json) {
-            this.retainedCommission = json.retainedCommission;
-        }
-        if ('exposureLimit' in json) {
-            this.exposureLimit = json.exposureLimit;
-        }
-        if ('discountRate' in json) {
-            this.discountRate = json.discountRate;
-        }
-        if ('pointsBalance' in json) {
-            this.pointsBalance = json.pointsBalance;
-        }
-        if ('wallet' in json) {
-            this.wallet = json.wallet;
+        if (this.validateJson(json)) {
+            if ('availableToBetBalance' in json) {
+                this.availableToBetBalance = json.availableToBetBalance;
+            }
+            if ('exposure' in json) {
+                this.exposure = json.exposure;
+            }
+            if ('retainedCommission' in json) {
+                this.retainedCommission = json.retainedCommission;
+            }
+            if ('exposureLimit' in json) {
+                this.exposureLimit = json.exposureLimit;
+            }
+            if ('discountRate' in json) {
+                this.discountRate = json.discountRate;
+            }
+            if ('pointsBalance' in json) {
+                this.pointsBalance = json.pointsBalance;
+            }
+            if ('wallet' in json) {
+                this.wallet = json.wallet;
+            }
         }
     }
 

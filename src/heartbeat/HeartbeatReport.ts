@@ -18,11 +18,13 @@ export default class HeartbeatReport extends JsonResponse {
     }
 
     public fromJson(json: any): void {
-        if ('actionPerformed' in json) {
-            this.actionPerformed.setValue(json.actionPerformed);
-        }
-        if ('actualTimeoutSeconds' in json) {
-            this.actualTimeoutSeconds = json.actualTimeoutSeconds;
+        if (this.validateJson(json)) {
+            if ('actionPerformed' in json) {
+                this.actionPerformed.setValue(json.actionPerformed);
+            }
+            if ('actualTimeoutSeconds' in json) {
+                this.actualTimeoutSeconds = json.actualTimeoutSeconds;
+            }
         }
     }
 

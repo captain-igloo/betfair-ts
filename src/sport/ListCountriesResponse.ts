@@ -16,11 +16,13 @@ export default class ListCountriesResponse extends JsonResponse {
 
     public fromJson(json: any): void {
         if (this.validateJson(json)) {
-            this.countryCodeResults = json.map((countryCodeResultsJson: any) => {
-                const element = new CountryCodeResult();
-                element.fromJson(countryCodeResultsJson);
-                return element;
-            });
+            if ('countryCodeResults' in json) {
+                this.countryCodeResults = json.map((countryCodeResultsJson: any) => {
+                    const element = new CountryCodeResult();
+                    element.fromJson(countryCodeResultsJson);
+                    return element;
+                });
+            }
         }
     }
 

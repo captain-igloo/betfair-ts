@@ -16,11 +16,13 @@ export default class ListExposureLimitsForMarketGroupsResponse extends JsonRespo
 
     public fromJson(json: any): void {
         if (this.validateJson(json)) {
-            this.exposureLimitsForMarketGroupses = json.map((exposureLimitsForMarketGroupsesJson: any) => {
-                const element = new ExposureLimitsForMarketGroups();
-                element.fromJson(exposureLimitsForMarketGroupsesJson);
-                return element;
-            });
+            if ('exposureLimitsForMarketGroupses' in json) {
+                this.exposureLimitsForMarketGroupses = json.map((exposureLimitsForMarketGroupsesJson: any) => {
+                    const element = new ExposureLimitsForMarketGroups();
+                    element.fromJson(exposureLimitsForMarketGroupsesJson);
+                    return element;
+                });
+            }
         }
     }
 

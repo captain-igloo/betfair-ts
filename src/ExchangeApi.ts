@@ -110,6 +110,8 @@ enum LoginEndPoint {
     Romania = 'https://identitysso.betfair.ro/api/login',
 }
 
+const LOGIN_END_POINT_CERT = 'https://identitysso-cert.betfair.com/api/certlogin';
+
 const buildUri = (api: Api, method: string) => {
     return `${API_HOST}/exchange/${api}/rest/v1.0/${method}/`;
 };
@@ -121,6 +123,10 @@ export default class ExchangeApi {
 
     constructor(applicationKey: string) {
         this.applicationKey = applicationKey;
+    }
+
+    public setLoginEndPoint(loginEndPoint: LoginEndPoint): void {
+        this.loginEndPoint = loginEndPoint;
     }
 
     public async login(username: string, password: string): Promise<boolean> {

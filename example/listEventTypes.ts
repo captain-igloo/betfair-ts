@@ -16,10 +16,16 @@ if (args.length !== 3) {
 
             if (request.isValid()) {
                 const response = await api.listEventTypes(request);
-                response.getEventTypeResults().forEach((eventTypeResult: EventTypeResult) => {
-                    console.log(eventTypeResult.getEventType().getName());
-                });
+                if (response.isSuccess()) {
+                    response.getEventTypeResults().forEach((eventTypeResult: EventTypeResult) => {
+                        console.log(eventTypeResult.getEventType().getName());
+                    });
+                } else {
+                    console.log(response.getFaultCode(), response.getFaultString());
+                }
             }
+        } else {
+            console.log('Failed to log in');
         }
     });
 }

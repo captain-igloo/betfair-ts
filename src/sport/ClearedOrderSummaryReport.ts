@@ -18,15 +18,17 @@ export default class ClearedOrderSummaryReport extends JsonResponse {
     }
 
     public fromJson(json: any): void {
-        if ('clearedOrders' in json) {
-            this.clearedOrders = json.clearedOrders.map((clearedOrdersJson: any) => {
-                const element = new ClearedOrderSummary();
-                element.fromJson(clearedOrdersJson);
-                return element;
-            });
-        }
-        if ('moreAvailable' in json) {
-            this.moreAvailable = json.moreAvailable;
+        if (this.validateJson(json)) {
+            if ('clearedOrders' in json) {
+                this.clearedOrders = json.clearedOrders.map((clearedOrdersJson: any) => {
+                    const element = new ClearedOrderSummary();
+                    element.fromJson(clearedOrdersJson);
+                    return element;
+                });
+            }
+            if ('moreAvailable' in json) {
+                this.moreAvailable = json.moreAvailable;
+            }
         }
     }
 

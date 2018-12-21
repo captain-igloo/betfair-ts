@@ -16,11 +16,13 @@ export default class GetApplicationSubscriptionHistoryResponse extends JsonRespo
 
     public fromJson(json: any): void {
         if (this.validateJson(json)) {
-            this.subscriptionHistorys = json.map((subscriptionHistorysJson: any) => {
-                const element = new SubscriptionHistory();
-                element.fromJson(subscriptionHistorysJson);
-                return element;
-            });
+            if ('subscriptionHistorys' in json) {
+                this.subscriptionHistorys = json.map((subscriptionHistorysJson: any) => {
+                    const element = new SubscriptionHistory();
+                    element.fromJson(subscriptionHistorysJson);
+                    return element;
+                });
+            }
         }
     }
 

@@ -29,24 +29,26 @@ export default class ReplaceExecutionReport extends JsonResponse {
     }
 
     public fromJson(json: any): void {
-        if ('customerRef' in json) {
-            this.customerRef = json.customerRef;
-        }
-        if ('status' in json) {
-            this.status.setValue(json.status);
-        }
-        if ('errorCode' in json) {
-            this.errorCode.setValue(json.errorCode);
-        }
-        if ('marketId' in json) {
-            this.marketId = json.marketId;
-        }
-        if ('instructionReports' in json) {
-            this.instructionReports = json.instructionReports.map((instructionReportsJson: any) => {
-                const element = new ReplaceInstructionReport();
-                element.fromJson(instructionReportsJson);
-                return element;
-            });
+        if (this.validateJson(json)) {
+            if ('customerRef' in json) {
+                this.customerRef = json.customerRef;
+            }
+            if ('status' in json) {
+                this.status.setValue(json.status);
+            }
+            if ('errorCode' in json) {
+                this.errorCode.setValue(json.errorCode);
+            }
+            if ('marketId' in json) {
+                this.marketId = json.marketId;
+            }
+            if ('instructionReports' in json) {
+                this.instructionReports = json.instructionReports.map((instructionReportsJson: any) => {
+                    const element = new ReplaceInstructionReport();
+                    element.fromJson(instructionReportsJson);
+                    return element;
+                });
+            }
         }
     }
 

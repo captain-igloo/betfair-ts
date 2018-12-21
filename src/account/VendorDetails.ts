@@ -20,14 +20,16 @@ export default class VendorDetails extends JsonResponse {
     }
 
     public fromJson(json: any): void {
-        if ('appVersionId' in json) {
-            this.appVersionId = json.appVersionId;
-        }
-        if ('vendorName' in json) {
-            this.vendorName = json.vendorName;
-        }
-        if ('redirectUrl' in json) {
-            this.redirectUrl = json.redirectUrl;
+        if (this.validateJson(json)) {
+            if ('appVersionId' in json) {
+                this.appVersionId = json.appVersionId;
+            }
+            if ('vendorName' in json) {
+                this.vendorName = json.vendorName;
+            }
+            if ('redirectUrl' in json) {
+                this.redirectUrl = json.redirectUrl;
+            }
         }
     }
 

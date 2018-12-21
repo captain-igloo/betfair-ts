@@ -21,18 +21,20 @@ export default class DeveloperApp extends JsonResponse {
     }
 
     public fromJson(json: any): void {
-        if ('appName' in json) {
-            this.appName = json.appName;
-        }
-        if ('appId' in json) {
-            this.appId = json.appId;
-        }
-        if ('appVersions' in json) {
-            this.appVersions = json.appVersions.map((appVersionsJson: any) => {
-                const element = new DeveloperAppVersion();
-                element.fromJson(appVersionsJson);
-                return element;
-            });
+        if (this.validateJson(json)) {
+            if ('appName' in json) {
+                this.appName = json.appName;
+            }
+            if ('appId' in json) {
+                this.appId = json.appId;
+            }
+            if ('appVersions' in json) {
+                this.appVersions = json.appVersions.map((appVersionsJson: any) => {
+                    const element = new DeveloperAppVersion();
+                    element.fromJson(appVersionsJson);
+                    return element;
+                });
+            }
         }
     }
 
