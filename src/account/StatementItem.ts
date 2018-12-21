@@ -50,7 +50,9 @@ export default class StatementItem extends JsonMember {
             this.itemClass.setValue(json.itemClass);
         }
         if ('itemClassData' in json) {
-            this.itemClassData = json.itemClassData;
+            json.itemClassData.forEach((value: string, key: string) => {
+                this.itemClassData.set(key, value);
+            });
         }
         if ('legacyData' in json) {
             this.legacyData.fromJson(json.legacyData);
@@ -75,7 +77,10 @@ export default class StatementItem extends JsonMember {
             json.itemClass = this.itemClass;
         }
         if (this.itemClassData.size > 0) {
-            json.itemClassData = this.itemClassData;
+            json.itemClassData = {};
+            this.itemClassData.forEach((value, key) => {
+                json.itemClassData.key = value;
+            });
         }
         if (this.legacyData.isValid()) {
             json.legacyData = this.legacyData.toJson();

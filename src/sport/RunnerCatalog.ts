@@ -39,7 +39,9 @@ export default class RunnerCatalog extends JsonMember {
             this.sortPriority = json.sortPriority;
         }
         if ('metadata' in json) {
-            this.metadata = json.metadata;
+            json.metadata.forEach((value: string, key: string) => {
+                this.metadata.set(key, value);
+            });
         }
     }
 
@@ -58,7 +60,10 @@ export default class RunnerCatalog extends JsonMember {
             json.sortPriority = this.sortPriority;
         }
         if (this.metadata.size > 0) {
-            json.metadata = this.metadata;
+            json.metadata = {};
+            this.metadata.forEach((value, key) => {
+                json.metadata.key = value;
+            });
         }
         return json;
     }

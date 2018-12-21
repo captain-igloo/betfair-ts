@@ -95,7 +95,11 @@ export default class Runner extends JsonMember {
             });
         }
         if ('matchesByStrategy' in json) {
-            this.matchesByStrategy = json.matchesByStrategy;
+            json.matchesByStrategy.forEach((valueJson: any, key: string) => {
+                const value = new Matches();
+                value.fromJson(valueJson);
+                this.matchesByStrategy.set(key, value);
+            });
         }
     }
 
@@ -135,7 +139,10 @@ export default class Runner extends JsonMember {
             json.matches = this.matches.map((value) => value.toJson());
         }
         if (this.matchesByStrategy.size > 0) {
-            json.matchesByStrategy = this.matchesByStrategy;
+            json.matchesByStrategy = {};
+            this.matchesByStrategy.forEach((value, key) => {
+                json.matchesByStrategy.key = value.toJson();
+            });
         }
         return json;
     }
