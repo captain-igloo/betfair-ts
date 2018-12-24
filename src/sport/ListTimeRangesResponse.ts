@@ -16,13 +16,11 @@ export default class ListTimeRangesResponse extends JsonResponse {
 
     public fromJson(json: any): void {
         if (this.validateJson(json)) {
-            if ('timeRangeResults' in json) {
-                this.timeRangeResults = json.map((timeRangeResultsJson: any) => {
-                    const element = new TimeRangeResult();
-                    element.fromJson(timeRangeResultsJson);
-                    return element;
-                });
-            }
+            this.timeRangeResults = json.map((timeRangeResultsJson: any) => {
+                const element = new TimeRangeResult();
+                element.fromJson(timeRangeResultsJson);
+                return element;
+            });
         }
     }
 

@@ -16,13 +16,11 @@ export default class ListEventTypesResponse extends JsonResponse {
 
     public fromJson(json: any): void {
         if (this.validateJson(json)) {
-            if ('eventTypeResults' in json) {
-                this.eventTypeResults = json.map((eventTypeResultsJson: any) => {
-                    const element = new EventTypeResult();
-                    element.fromJson(eventTypeResultsJson);
-                    return element;
-                });
-            }
+            this.eventTypeResults = json.map((eventTypeResultsJson: any) => {
+                const element = new EventTypeResult();
+                element.fromJson(eventTypeResultsJson);
+                return element;
+            });
         }
     }
 

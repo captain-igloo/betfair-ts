@@ -15,9 +15,7 @@ export default class GetExposureReuseEnabledEventsResponse extends JsonResponse 
 
     public fromJson(json: any): void {
         if (this.validateJson(json)) {
-            if ('response' in json) {
-                this.response = json;
-            }
+            this.response = json;
         }
     }
 

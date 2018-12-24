@@ -16,13 +16,11 @@ export default class GetDeveloperAppKeysResponse extends JsonResponse {
 
     public fromJson(json: any): void {
         if (this.validateJson(json)) {
-            if ('developerApps' in json) {
-                this.developerApps = json.map((developerAppsJson: any) => {
-                    const element = new DeveloperApp();
-                    element.fromJson(developerAppsJson);
-                    return element;
-                });
-            }
+            this.developerApps = json.map((developerAppsJson: any) => {
+                const element = new DeveloperApp();
+                element.fromJson(developerAppsJson);
+                return element;
+            });
         }
     }
 

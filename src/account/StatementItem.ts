@@ -50,8 +50,8 @@ export default class StatementItem extends JsonMember {
             this.itemClass.setValue(json.itemClass);
         }
         if ('itemClassData' in json) {
-            json.itemClassData.forEach((value: string, key: string) => {
-                this.itemClassData.set(key, value);
+            Object.keys(json.itemClassData).forEach((key: string) => {
+                this.itemClassData.set(key, json.itemClassData[key]);
             });
         }
         if ('legacyData' in json) {

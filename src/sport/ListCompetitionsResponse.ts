@@ -16,13 +16,11 @@ export default class ListCompetitionsResponse extends JsonResponse {
 
     public fromJson(json: any): void {
         if (this.validateJson(json)) {
-            if ('competitionResults' in json) {
-                this.competitionResults = json.map((competitionResultsJson: any) => {
-                    const element = new CompetitionResult();
-                    element.fromJson(competitionResultsJson);
-                    return element;
-                });
-            }
+            this.competitionResults = json.map((competitionResultsJson: any) => {
+                const element = new CompetitionResult();
+                element.fromJson(competitionResultsJson);
+                return element;
+            });
         }
     }
 

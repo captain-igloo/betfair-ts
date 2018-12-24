@@ -16,13 +16,11 @@ export default class GetAffiliateRelationResponse extends JsonResponse {
 
     public fromJson(json: any): void {
         if (this.validateJson(json)) {
-            if ('affiliateRelations' in json) {
-                this.affiliateRelations = json.map((affiliateRelationsJson: any) => {
-                    const element = new AffiliateRelation();
-                    element.fromJson(affiliateRelationsJson);
-                    return element;
-                });
-            }
+            this.affiliateRelations = json.map((affiliateRelationsJson: any) => {
+                const element = new AffiliateRelation();
+                element.fromJson(affiliateRelationsJson);
+                return element;
+            });
         }
     }
 

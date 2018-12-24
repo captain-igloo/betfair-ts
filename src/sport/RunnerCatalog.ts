@@ -39,8 +39,8 @@ export default class RunnerCatalog extends JsonMember {
             this.sortPriority = json.sortPriority;
         }
         if ('metadata' in json) {
-            json.metadata.forEach((value: string, key: string) => {
-                this.metadata.set(key, value);
+            Object.keys(json.metadata).forEach((key: string) => {
+                this.metadata.set(key, json.metadata[key]);
             });
         }
     }

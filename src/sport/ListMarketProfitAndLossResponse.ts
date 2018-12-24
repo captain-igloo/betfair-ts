@@ -16,13 +16,11 @@ export default class ListMarketProfitAndLossResponse extends JsonResponse {
 
     public fromJson(json: any): void {
         if (this.validateJson(json)) {
-            if ('marketProfitAndLosses' in json) {
-                this.marketProfitAndLosses = json.map((marketProfitAndLossesJson: any) => {
-                    const element = new MarketProfitAndLoss();
-                    element.fromJson(marketProfitAndLossesJson);
-                    return element;
-                });
-            }
+            this.marketProfitAndLosses = json.map((marketProfitAndLossesJson: any) => {
+                const element = new MarketProfitAndLoss();
+                element.fromJson(marketProfitAndLossesJson);
+                return element;
+            });
         }
     }
 

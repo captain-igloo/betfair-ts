@@ -16,9 +16,7 @@ export default class ActivateApplicationSubscriptionResponse extends JsonRespons
 
     public fromJson(json: any): void {
         if (this.validateJson(json)) {
-            if ('response' in json) {
-                this.response.setValue(json.response);
-            }
+            this.response.setValue(json.response);
         }
     }
 

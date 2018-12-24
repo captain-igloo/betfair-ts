@@ -16,13 +16,11 @@ export default class ListAuthorizedWebAppsResponse extends JsonResponse {
 
     public fromJson(json: any): void {
         if (this.validateJson(json)) {
-            if ('vendorDetailses' in json) {
-                this.vendorDetailses = json.map((vendorDetailsesJson: any) => {
-                    const element = new VendorDetails();
-                    element.fromJson(vendorDetailsesJson);
-                    return element;
-                });
-            }
+            this.vendorDetailses = json.map((vendorDetailsesJson: any) => {
+                const element = new VendorDetails();
+                element.fromJson(vendorDetailsesJson);
+                return element;
+            });
         }
     }
 

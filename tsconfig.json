@@ -5,10 +5,9 @@
     "target": "es6",
     "lib": [ "es6" ],
     "declaration": true,
-    "module": "commonjs"
+    "module": "commonjs",
+    "sourceMap":  true
   },
   "include": [ "src/**/*" ]
 }
-
-
 

@@ -15,9 +15,7 @@ export default class SetDefaultExposureLimitForMarketGroupsResponse extends Json
 
     public fromJson(json: any): void {
         if (this.validateJson(json)) {
-            if ('response' in json) {
-                this.response = json.response;
-            }
+            this.response = json.response;
         }
     }
 

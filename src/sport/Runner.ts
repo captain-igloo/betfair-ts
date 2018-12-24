@@ -95,9 +95,9 @@ export default class Runner extends JsonMember {
             });
         }
         if ('matchesByStrategy' in json) {
-            json.matchesByStrategy.forEach((valueJson: any, key: string) => {
+            Object.keys(json.matchesByStrategy).forEach((key: string) => {
                 const value = new Matches();
-                value.fromJson(valueJson);
+                value.fromJson(json.matchesByStrategy[key]);
                 this.matchesByStrategy.set(key, value);
             });
         }
