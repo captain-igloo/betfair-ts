@@ -3,7 +3,7 @@
     "outDir": "lib",
     "strict": true,
     "target": "es6",
-    "lib": [ "es6" ],
+    "lib": [ "es6", "dom" ],
     "declaration": true,
     "module": "commonjs",
     "sourceMap":  true

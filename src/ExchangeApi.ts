@@ -1,4 +1,4 @@
-import fetch from 'node-fetch';
+import 'isomorphic-fetch';
 
 import JsonRequest from './JsonRequest';
 
@@ -95,6 +95,8 @@ import UnblockMarketGroupResponse from './sport/UnblockMarketGroupResponse';
 import UpdateExecutionReport from './sport/UpdateExecutionReport';
 import UpdateOrdersRequest from './sport/UpdateOrdersRequest';
 
+declare const fetch: any;
+
 const API_HOST = 'https://api.betfair.com';
 
 enum Api {
@@ -103,7 +105,7 @@ enum Api {
     Heartbeat = 'heartbeat',
 }
 
-enum LoginEndPoint {
+export enum LoginEndPoint {
     Global = 'https://identitysso.betfair.com/api/login',
     Italy = 'https://identitysso.betfair.it/api/login',
     Spain = 'https://identitysso.betfair.es/api/login',

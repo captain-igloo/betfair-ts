@@ -1,3 +1,4 @@
+import 'isomorphic-fetch';
 import AccountDetailsResponse from './account/AccountDetailsResponse';
 import AccountFundsResponse from './account/AccountFundsResponse';
 import AccountStatementReport from './account/AccountStatementReport';
@@ -90,7 +91,7 @@ import UnblockMarketGroupRequest from './sport/UnblockMarketGroupRequest';
 import UnblockMarketGroupResponse from './sport/UnblockMarketGroupResponse';
 import UpdateExecutionReport from './sport/UpdateExecutionReport';
 import UpdateOrdersRequest from './sport/UpdateOrdersRequest';
-declare enum LoginEndPoint {
+export declare enum LoginEndPoint {
     Global = "https://identitysso.betfair.com/api/login",
     Italy = "https://identitysso.betfair.it/api/login",
     Spain = "https://identitysso.betfair.es/api/login",
@@ -155,4 +156,3 @@ export default class ExchangeApi {
     heartbeat(request: HeartbeatRequest): Promise<HeartbeatReport>;
     private performRequest;
 }
-export {};

@@ -1,24 +1,38 @@
 {
   "name": "betfair-ts",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.2.0",
+  "description": "TypeScript library for the Betfair API.",
   "main": "lib/index.js",
   "scripts": {
     "build": "tsc --build tsconfig.json",
     "list-event-types": "ts-node ./example/listEventTypes.ts",
     "get-account-statement": "ts-node ./example/getAccountStatement.ts",
-    "tslint": "tslint -c tslint.json 'src/**/*.ts'"
+    "tslint": "tslint -c tslint.json 'src/**/*.ts'",
+    "test": "nyc --require ts-node/register ./node_modules/tape/bin/tape ./test/*.ts"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Colin Doig <colindoig@gmail.com>",
+  "license": "MIT",
   "dependencies": {
     "@types/node": "^10.12.10",
-    "@types/node-fetch": "^2.1.2",
-    "node-fetch": "^2.2.0",
+    "isomorphic-fetch": "^2.2.1",
     "ts-node": "^7.0.1",
     "typescript": "^3.2.1"
   },
   "devDependencies": {
+    "@types/fetch-mock": "^7.2.0",
+    "@types/isomorphic-fetch": "0.0.34",
+    "@types/sinon": "^7.0.2",
+    "@types/tape": "^4.2.33",
+    "fetch-mock": "^7.2.7",
+    "nyc": "^13.1.0",
+    "sinon": "^7.2.2",
+    "tape": "^4.9.1",
     "tslint": "^5.11.0"
+  },
+  "nyc": {
+    "extension": [
+      ".ts"
+    ],
+    "reporter": "html"
   }
 }

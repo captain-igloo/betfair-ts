@@ -15,7 +15,12 @@ The API is documented at https://developer.betfair.com/.
 Build
 -----
 npm install
+
 npm run build
+
+Examples
+--------
+See the "examples" directory.
 
 Contact
 -------
