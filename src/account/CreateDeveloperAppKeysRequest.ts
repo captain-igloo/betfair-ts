@@ -3,6 +3,7 @@
  */
 import JsonRequest from '../JsonRequest';
 
+
 export default class CreateDeveloperAppKeysRequest extends JsonRequest {
     private appName: string;
 
@@ -21,14 +22,14 @@ export default class CreateDeveloperAppKeysRequest extends JsonRequest {
 
     public toJson(): any {
         const json: any = {};
-        if (this.appName !== null) {
+        if (this.appName !== '') {
             json.appName = this.appName;
         }
         return json;
     }
 
     public isValid(): boolean {
-        return this.appName !== null;
+        return this.appName !== '';
     }
 
     public getAppName(): string {

@@ -2,6 +2,7 @@
  * Copyright 2018 Colin Doig.  Distributed under the MIT license.
  */
 import JsonResponse from '../JsonResponse';
+
 import ExecutionReportErrorCode from '../sport/enum/ExecutionReportErrorCode';
 import ExecutionReportStatus from '../sport/enum/ExecutionReportStatus';
 import PlaceInstructionReport from '../sport/PlaceInstructionReport';
@@ -54,7 +55,7 @@ export default class PlaceExecutionReport extends JsonResponse {
 
     public toJson(): any {
         const json: any = {};
-        if (this.customerRef !== null) {
+        if (this.customerRef !== '') {
             json.customerRef = this.customerRef;
         }
         if (this.status.isValid()) {
@@ -63,7 +64,7 @@ export default class PlaceExecutionReport extends JsonResponse {
         if (this.errorCode.isValid()) {
             json.errorCode = this.errorCode;
         }
-        if (this.marketId !== null) {
+        if (this.marketId !== '') {
             json.marketId = this.marketId;
         }
         if (this.instructionReports.length > 0) {

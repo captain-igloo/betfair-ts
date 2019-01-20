@@ -3,6 +3,7 @@
  */
 import JsonResponse from '../JsonResponse';
 
+
 export default class AccountDetailsResponse extends JsonResponse {
     private currencyCode: string;
     private firstName: string;
@@ -71,22 +72,22 @@ export default class AccountDetailsResponse extends JsonResponse {
 
     public toJson(): any {
         const json: any = {};
-        if (this.currencyCode !== null) {
+        if (this.currencyCode !== '') {
             json.currencyCode = this.currencyCode;
         }
-        if (this.firstName !== null) {
+        if (this.firstName !== '') {
             json.firstName = this.firstName;
         }
-        if (this.lastName !== null) {
+        if (this.lastName !== '') {
             json.lastName = this.lastName;
         }
-        if (this.localeCode !== null) {
+        if (this.localeCode !== '') {
             json.localeCode = this.localeCode;
         }
-        if (this.region !== null) {
+        if (this.region !== '') {
             json.region = this.region;
         }
-        if (this.timezone !== null) {
+        if (this.timezone !== '') {
             json.timezone = this.timezone;
         }
         if (this.discountRate !== null) {
@@ -95,7 +96,7 @@ export default class AccountDetailsResponse extends JsonResponse {
         if (this.pointsBalance !== null) {
             json.pointsBalance = this.pointsBalance;
         }
-        if (this.countryCode !== null) {
+        if (this.countryCode !== '') {
             json.countryCode = this.countryCode;
         }
         return json;

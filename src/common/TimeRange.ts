@@ -3,6 +3,7 @@
  */
 import JsonMember from '../JsonMember';
 
+
 export default class TimeRange extends JsonMember {
     private from: Date | null;
     private to: Date | null;

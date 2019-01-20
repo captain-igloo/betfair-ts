@@ -3,6 +3,7 @@
  */
 import JsonMember from '../JsonMember';
 
+
 export default class VenueResult extends JsonMember {
     private venue: string;
     private marketCount: number | null;
@@ -27,7 +28,7 @@ export default class VenueResult extends JsonMember {
 
     public toJson(): any {
         const json: any = {};
-        if (this.venue !== null) {
+        if (this.venue !== '') {
             json.venue = this.venue;
         }
         if (this.marketCount !== null) {

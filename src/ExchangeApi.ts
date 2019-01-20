@@ -536,7 +536,7 @@ export default class ExchangeApi {
         return response;
     }
 
-    private async performRequest(api: Api, method: string, request: JsonRequest | null = null): Promise<string> {
+    private async performRequest(api: Api, method: string, request: JsonRequest | null = null): Promise<any> {
         const uri = buildUri(api, method);
 
         const response = await fetch(uri, {

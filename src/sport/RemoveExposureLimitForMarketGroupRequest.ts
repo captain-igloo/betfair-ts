@@ -2,6 +2,7 @@
  * Copyright 2018 Colin Doig.  Distributed under the MIT license.
  */
 import JsonRequest from '../JsonRequest';
+
 import MarketGroup from '../sport/MarketGroup';
 
 export default class RemoveExposureLimitForMarketGroupRequest extends JsonRequest {

@@ -3,6 +3,7 @@
  */
 import JsonResponse from '../JsonResponse';
 
+
 export default class UpdateApplicationSubscriptionResponse extends JsonResponse {
     private response: string;
 
@@ -21,14 +22,14 @@ export default class UpdateApplicationSubscriptionResponse extends JsonResponse 
 
     public toJson(): any {
         const json: any = {};
-        if (this.response !== null) {
+        if (this.response !== '') {
             json.response = this.response;
         }
         return json;
     }
 
     public isValid(): boolean {
-        return this.response !== null;
+        return this.response !== '';
     }
 
     public getResponse(): string {

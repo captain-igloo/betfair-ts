@@ -3,6 +3,7 @@
  */
 import JsonMember from '../JsonMember';
 
+
 export default class MarketGroupId extends JsonMember {
     private eventId: number | null;
 

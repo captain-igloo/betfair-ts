@@ -3,6 +3,7 @@
  */
 import JsonResponse from '../JsonResponse';
 
+
 export default class TransferResponse extends JsonResponse {
     private transactionId: string;
 
@@ -23,14 +24,14 @@ export default class TransferResponse extends JsonResponse {
 
     public toJson(): any {
         const json: any = {};
-        if (this.transactionId !== null) {
+        if (this.transactionId !== '') {
             json.transactionId = this.transactionId;
         }
         return json;
     }
 
     public isValid(): boolean {
-        return this.transactionId !== null;
+        return this.transactionId !== '';
     }
 
     public getTransactionId(): string {

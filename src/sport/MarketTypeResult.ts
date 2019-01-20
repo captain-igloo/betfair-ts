@@ -3,6 +3,7 @@
  */
 import JsonMember from '../JsonMember';
 
+
 export default class MarketTypeResult extends JsonMember {
     private marketType: string;
     private marketCount: number | null;
@@ -27,7 +28,7 @@ export default class MarketTypeResult extends JsonMember {
 
     public toJson(): any {
         const json: any = {};
-        if (this.marketType !== null) {
+        if (this.marketType !== '') {
             json.marketType = this.marketType;
         }
         if (this.marketCount !== null) {

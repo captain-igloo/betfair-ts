@@ -3,6 +3,7 @@
  */
 import JsonResponse from '../JsonResponse';
 
+
 export default class AuthorisationResponse extends JsonResponse {
     private authorisationCode: string;
     private redirectUrl: string;
@@ -29,18 +30,18 @@ export default class AuthorisationResponse extends JsonResponse {
 
     public toJson(): any {
         const json: any = {};
-        if (this.authorisationCode !== null) {
+        if (this.authorisationCode !== '') {
             json.authorisationCode = this.authorisationCode;
         }
-        if (this.redirectUrl !== null) {
+        if (this.redirectUrl !== '') {
             json.redirectUrl = this.redirectUrl;
         }
         return json;
     }
 
     public isValid(): boolean {
-        return this.authorisationCode !== null &&
-            this.redirectUrl !== null;
+        return this.authorisationCode !== '' &&
+            this.redirectUrl !== '';
     }
 
     public getAuthorisationCode(): string {

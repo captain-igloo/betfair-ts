@@ -3,6 +3,7 @@
  */
 import JsonMember from '../JsonMember';
 
+
 export default class ItemDescription extends JsonMember {
     private eventTypeDesc: string;
     private eventDesc: string;
@@ -63,22 +64,22 @@ export default class ItemDescription extends JsonMember {
 
     public toJson(): any {
         const json: any = {};
-        if (this.eventTypeDesc !== null) {
+        if (this.eventTypeDesc !== '') {
             json.eventTypeDesc = this.eventTypeDesc;
         }
-        if (this.eventDesc !== null) {
+        if (this.eventDesc !== '') {
             json.eventDesc = this.eventDesc;
         }
-        if (this.marketDesc !== null) {
+        if (this.marketDesc !== '') {
             json.marketDesc = this.marketDesc;
         }
-        if (this.marketType !== null) {
+        if (this.marketType !== '') {
             json.marketType = this.marketType;
         }
         if (this.marketStartTime !== null) {
             json.marketStartTime = this.marketStartTime.toISOString();
         }
-        if (this.runnerDesc !== null) {
+        if (this.runnerDesc !== '') {
             json.runnerDesc = this.runnerDesc;
         }
         if (this.numberOfWinners !== null) {

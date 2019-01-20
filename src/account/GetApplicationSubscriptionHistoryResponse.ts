@@ -1,8 +1,9 @@
 /**
  * Copyright 2018 Colin Doig.  Distributed under the MIT license.
  */
-import SubscriptionHistory from '../account/SubscriptionHistory';
 import JsonResponse from '../JsonResponse';
+
+import SubscriptionHistory from '../account/SubscriptionHistory';
 
 export default class GetApplicationSubscriptionHistoryResponse extends JsonResponse {
     private subscriptionHistorys: SubscriptionHistory[];

@@ -3,6 +3,7 @@
  */
 import JsonMember from '../JsonMember';
 
+
 export default class StatementLegacyData extends JsonMember {
     private avgPrice: number | null;
     private betSize: number | null;
@@ -129,13 +130,13 @@ export default class StatementLegacyData extends JsonMember {
         if (this.betSize !== null) {
             json.betSize = this.betSize;
         }
-        if (this.betType !== null) {
+        if (this.betType !== '') {
             json.betType = this.betType;
         }
-        if (this.betCategoryType !== null) {
+        if (this.betCategoryType !== '') {
             json.betCategoryType = this.betCategoryType;
         }
-        if (this.commissionRate !== null) {
+        if (this.commissionRate !== '') {
             json.commissionRate = this.commissionRate;
         }
         if (this.eventId !== null) {
@@ -144,16 +145,16 @@ export default class StatementLegacyData extends JsonMember {
         if (this.eventTypeId !== null) {
             json.eventTypeId = this.eventTypeId;
         }
-        if (this.fullMarketName !== null) {
+        if (this.fullMarketName !== '') {
             json.fullMarketName = this.fullMarketName;
         }
         if (this.grossBetAmount !== null) {
             json.grossBetAmount = this.grossBetAmount;
         }
-        if (this.marketName !== null) {
+        if (this.marketName !== '') {
             json.marketName = this.marketName;
         }
-        if (this.marketType !== null) {
+        if (this.marketType !== '') {
             json.marketType = this.marketType;
         }
         if (this.placedDate !== null) {
@@ -162,19 +163,19 @@ export default class StatementLegacyData extends JsonMember {
         if (this.selectionId !== null) {
             json.selectionId = this.selectionId;
         }
-        if (this.selectionName !== null) {
+        if (this.selectionName !== '') {
             json.selectionName = this.selectionName;
         }
         if (this.startDate !== null) {
             json.startDate = this.startDate.toISOString();
         }
-        if (this.transactionType !== null) {
+        if (this.transactionType !== '') {
             json.transactionType = this.transactionType;
         }
         if (this.transactionId !== null) {
             json.transactionId = this.transactionId;
         }
-        if (this.winLose !== null) {
+        if (this.winLose !== '') {
             json.winLose = this.winLose;
         }
         return json;

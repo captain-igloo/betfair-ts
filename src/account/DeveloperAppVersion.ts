@@ -3,6 +3,7 @@
  */
 import JsonMember from '../JsonMember';
 
+
 export default class DeveloperAppVersion extends JsonMember {
     private owner: string;
     private versionId: number | null;
@@ -75,16 +76,16 @@ export default class DeveloperAppVersion extends JsonMember {
 
     public toJson(): any {
         const json: any = {};
-        if (this.owner !== null) {
+        if (this.owner !== '') {
             json.owner = this.owner;
         }
         if (this.versionId !== null) {
             json.versionId = this.versionId;
         }
-        if (this.version !== null) {
+        if (this.version !== '') {
             json.version = this.version;
         }
-        if (this.applicationKey !== null) {
+        if (this.applicationKey !== '') {
             json.applicationKey = this.applicationKey;
         }
         if (this.delayData !== null) {
@@ -99,20 +100,20 @@ export default class DeveloperAppVersion extends JsonMember {
         if (this.active !== null) {
             json.active = this.active;
         }
-        if (this.vendorId !== null) {
+        if (this.vendorId !== '') {
             json.vendorId = this.vendorId;
         }
-        if (this.vendorSecret !== null) {
+        if (this.vendorSecret !== '') {
             json.vendorSecret = this.vendorSecret;
         }
         return json;
     }
 
     public isValid(): boolean {
-        return this.owner !== null &&
+        return this.owner !== '' &&
             this.versionId !== null &&
-            this.version !== null &&
-            this.applicationKey !== null &&
+            this.version !== '' &&
+            this.applicationKey !== '' &&
             this.subscriptionRequired !== null &&
             this.ownerManaged !== null &&
             this.active !== null;

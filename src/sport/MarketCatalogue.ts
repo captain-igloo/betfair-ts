@@ -2,6 +2,7 @@
  * Copyright 2018 Colin Doig.  Distributed under the MIT license.
  */
 import JsonMember from '../JsonMember';
+
 import Competition from '../sport/Competition';
 import Event from '../sport/Event';
 import EventType from '../sport/EventType';
@@ -78,10 +79,10 @@ export default class MarketCatalogue extends JsonMember {
 
     public toJson(): any {
         const json: any = {};
-        if (this.marketId !== null) {
+        if (this.marketId !== '') {
             json.marketId = this.marketId;
         }
-        if (this.marketName !== null) {
+        if (this.marketName !== '') {
             json.marketName = this.marketName;
         }
         if (this.marketStartTime !== null) {
@@ -109,8 +110,8 @@ export default class MarketCatalogue extends JsonMember {
     }
 
     public isValid(): boolean {
-        return this.marketId !== null &&
-            this.marketName !== null;
+        return this.marketId !== '' &&
+            this.marketName !== '';
     }
 
     public getMarketId(): string {

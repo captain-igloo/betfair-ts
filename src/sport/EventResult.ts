@@ -2,6 +2,7 @@
  * Copyright 2018 Colin Doig.  Distributed under the MIT license.
  */
 import JsonMember from '../JsonMember';
+
 import Event from '../sport/Event';
 
 export default class EventResult extends JsonMember {

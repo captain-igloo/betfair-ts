@@ -2,6 +2,7 @@
  * Copyright 2018 Colin Doig.  Distributed under the MIT license.
  */
 import JsonMember from '../JsonMember';
+
 import MarketBettingType from '../sport/enum/MarketBettingType';
 import MarketLineRangeInfo from '../sport/MarketLineRangeInfo';
 import PriceLadderDescription from '../sport/PriceLadderDescription';
@@ -153,10 +154,10 @@ export default class MarketDescription extends JsonMember {
         if (this.turnInPlayEnabled !== null) {
             json.turnInPlayEnabled = this.turnInPlayEnabled;
         }
-        if (this.marketType !== null) {
+        if (this.marketType !== '') {
             json.marketType = this.marketType;
         }
-        if (this.regulator !== null) {
+        if (this.regulator !== '') {
             json.regulator = this.regulator;
         }
         if (this.marketBaseRate !== null) {
@@ -165,16 +166,16 @@ export default class MarketDescription extends JsonMember {
         if (this.discountAllowed !== null) {
             json.discountAllowed = this.discountAllowed;
         }
-        if (this.wallet !== null) {
+        if (this.wallet !== '') {
             json.wallet = this.wallet;
         }
-        if (this.rules !== null) {
+        if (this.rules !== '') {
             json.rules = this.rules;
         }
         if (this.rulesHasDate !== null) {
             json.rulesHasDate = this.rulesHasDate;
         }
-        if (this.clarifications !== null) {
+        if (this.clarifications !== '') {
             json.clarifications = this.clarifications;
         }
         if (this.eachWayDivisor !== null) {
@@ -183,7 +184,7 @@ export default class MarketDescription extends JsonMember {
         if (this.lineRangeInfo.isValid()) {
             json.lineRangeInfo = this.lineRangeInfo.toJson();
         }
-        if (this.raceType !== null) {
+        if (this.raceType !== '') {
             json.raceType = this.raceType;
         }
         if (this.priceLadderDescription.isValid()) {
@@ -199,8 +200,8 @@ export default class MarketDescription extends JsonMember {
             this.suspendTime !== null &&
             this.bettingType.isValid() &&
             this.turnInPlayEnabled !== null &&
-            this.marketType !== null &&
-            this.regulator !== null &&
+            this.marketType !== '' &&
+            this.regulator !== '' &&
             this.marketBaseRate !== null &&
             this.discountAllowed !== null;
     }

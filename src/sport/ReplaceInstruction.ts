@@ -3,6 +3,7 @@
  */
 import JsonMember from '../JsonMember';
 
+
 export default class ReplaceInstruction extends JsonMember {
     private betId: string;
     private newPrice: number | null;
@@ -27,7 +28,7 @@ export default class ReplaceInstruction extends JsonMember {
 
     public toJson(): any {
         const json: any = {};
-        if (this.betId !== null) {
+        if (this.betId !== '') {
             json.betId = this.betId;
         }
         if (this.newPrice !== null) {
@@ -37,7 +38,7 @@ export default class ReplaceInstruction extends JsonMember {
     }
 
     public isValid(): boolean {
-        return this.betId !== null &&
+        return this.betId !== '' &&
             this.newPrice !== null;
     }
 

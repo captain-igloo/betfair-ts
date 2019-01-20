@@ -2,6 +2,7 @@
  * Copyright 2018 Colin Doig.  Distributed under the MIT license.
  */
 import JsonMember from '../JsonMember';
+
 import MarketStatus from '../sport/enum/MarketStatus';
 import KeyLineDescription from '../sport/KeyLineDescription';
 import Runner from '../sport/Runner';
@@ -130,7 +131,7 @@ export default class MarketBook extends JsonMember {
 
     public toJson(): any {
         const json: any = {};
-        if (this.marketId !== null) {
+        if (this.marketId !== '') {
             json.marketId = this.marketId;
         }
         if (this.isMarketDataDelayed !== null) {
@@ -188,7 +189,7 @@ export default class MarketBook extends JsonMember {
     }
 
     public isValid(): boolean {
-        return this.marketId !== null &&
+        return this.marketId !== '' &&
             this.isMarketDataDelayed !== null;
     }
 

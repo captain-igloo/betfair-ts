@@ -1,8 +1,9 @@
 /**
  * Copyright 2018 Colin Doig.  Distributed under the MIT license.
  */
-import SubscriptionTokenInfo from '../account/SubscriptionTokenInfo';
 import JsonMember from '../JsonMember';
+
+import SubscriptionTokenInfo from '../account/SubscriptionTokenInfo';
 
 export default class AccountSubscription extends JsonMember {
     private subscriptionTokens: SubscriptionTokenInfo[];
@@ -41,10 +42,10 @@ export default class AccountSubscription extends JsonMember {
         if (this.subscriptionTokens.length > 0) {
             json.subscriptionTokens = this.subscriptionTokens.map((value) => value.toJson());
         }
-        if (this.applicationName !== null) {
+        if (this.applicationName !== '') {
             json.applicationName = this.applicationName;
         }
-        if (this.applicationVersionId !== null) {
+        if (this.applicationVersionId !== '') {
             json.applicationVersionId = this.applicationVersionId;
         }
         return json;

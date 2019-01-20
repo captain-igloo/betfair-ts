@@ -3,6 +3,7 @@
  */
 import JsonMember from '../JsonMember';
 
+
 export default class MarketOnCloseOrder extends JsonMember {
     private liability: number | null;
 

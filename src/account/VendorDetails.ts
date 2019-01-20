@@ -3,6 +3,7 @@
  */
 import JsonResponse from '../JsonResponse';
 
+
 export default class VendorDetails extends JsonResponse {
     private appVersionId: number | null;
     private vendorName: string;
@@ -38,10 +39,10 @@ export default class VendorDetails extends JsonResponse {
         if (this.appVersionId !== null) {
             json.appVersionId = this.appVersionId;
         }
-        if (this.vendorName !== null) {
+        if (this.vendorName !== '') {
             json.vendorName = this.vendorName;
         }
-        if (this.redirectUrl !== null) {
+        if (this.redirectUrl !== '') {
             json.redirectUrl = this.redirectUrl;
         }
         return json;
@@ -49,7 +50,7 @@ export default class VendorDetails extends JsonResponse {
 
     public isValid(): boolean {
         return this.appVersionId !== null &&
-            this.vendorName !== null;
+            this.vendorName !== '';
     }
 
     public getAppVersionId(): number | null {

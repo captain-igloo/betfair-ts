@@ -2,6 +2,7 @@
  * Copyright 2018 Colin Doig.  Distributed under the MIT license.
  */
 import JsonMember from '../JsonMember';
+
 import OrderStatus from '../sport/enum/OrderStatus';
 import OrderType from '../sport/enum/OrderType';
 import PersistenceType from '../sport/enum/PersistenceType';
@@ -152,10 +153,10 @@ export default class CurrentOrderSummary extends JsonMember {
 
     public toJson(): any {
         const json: any = {};
-        if (this.betId !== null) {
+        if (this.betId !== '') {
             json.betId = this.betId;
         }
-        if (this.marketId !== null) {
+        if (this.marketId !== '') {
             json.marketId = this.marketId;
         }
         if (this.selectionId !== null) {
@@ -206,24 +207,24 @@ export default class CurrentOrderSummary extends JsonMember {
         if (this.sizeVoided !== null) {
             json.sizeVoided = this.sizeVoided;
         }
-        if (this.regulatorAuthCode !== null) {
+        if (this.regulatorAuthCode !== '') {
             json.regulatorAuthCode = this.regulatorAuthCode;
         }
-        if (this.regulatorCode !== null) {
+        if (this.regulatorCode !== '') {
             json.regulatorCode = this.regulatorCode;
         }
-        if (this.customerOrderRef !== null) {
+        if (this.customerOrderRef !== '') {
             json.customerOrderRef = this.customerOrderRef;
         }
-        if (this.customerStrategyRef !== null) {
+        if (this.customerStrategyRef !== '') {
             json.customerStrategyRef = this.customerStrategyRef;
         }
         return json;
     }
 
     public isValid(): boolean {
-        return this.betId !== null &&
-            this.marketId !== null &&
+        return this.betId !== '' &&
+            this.marketId !== '' &&
             this.selectionId !== null &&
             this.handicap !== null &&
             this.priceSize.isValid() &&

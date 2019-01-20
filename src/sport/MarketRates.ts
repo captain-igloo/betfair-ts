@@ -3,6 +3,7 @@
  */
 import JsonMember from '../JsonMember';
 
+
 export default class MarketRates extends JsonMember {
     private marketBaseRate: number | null;
     private discountAllowed: boolean | null;

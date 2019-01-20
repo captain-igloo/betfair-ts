@@ -2,6 +2,7 @@
  * Copyright 2018 Colin Doig.  Distributed under the MIT license.
  */
 import JsonRequest from '../JsonRequest';
+
 import MatchProjection from '../sport/enum/MatchProjection';
 import OrderProjection from '../sport/enum/OrderProjection';
 import PriceProjection from '../sport/PriceProjection';
@@ -103,19 +104,19 @@ export default class ListMarketBookRequest extends JsonRequest {
             json.partitionMatchedByStrategyRef = this.partitionMatchedByStrategyRef;
         }
         if (this.customerStrategyRefs.size > 0) {
-            json.customerStrategyRefs = this.customerStrategyRefs;
+            json.customerStrategyRefs = Array.from(this.customerStrategyRefs);
         }
-        if (this.currencyCode !== null) {
+        if (this.currencyCode !== '') {
             json.currencyCode = this.currencyCode;
         }
-        if (this.locale !== null) {
+        if (this.locale !== '') {
             json.locale = this.locale;
         }
         if (this.matchedSince !== null) {
             json.matchedSince = this.matchedSince.toISOString();
         }
         if (this.betIds.size > 0) {
-            json.betIds = this.betIds;
+            json.betIds = Array.from(this.betIds);
         }
         return json;
     }

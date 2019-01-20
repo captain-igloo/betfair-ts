@@ -2,6 +2,7 @@
  * Copyright 2018 Colin Doig.  Distributed under the MIT license.
  */
 import JsonRequest from '../JsonRequest';
+
 import MarketGroupType from '../sport/enum/MarketGroupType';
 import MarketGroup from '../sport/MarketGroup';
 

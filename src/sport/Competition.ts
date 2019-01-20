@@ -3,6 +3,7 @@
  */
 import JsonMember from '../JsonMember';
 
+
 export default class Competition extends JsonMember {
     private id: string;
     private name: string;
@@ -27,10 +28,10 @@ export default class Competition extends JsonMember {
 
     public toJson(): any {
         const json: any = {};
-        if (this.id !== null) {
+        if (this.id !== '') {
             json.id = this.id;
         }
-        if (this.name !== null) {
+        if (this.name !== '') {
             json.name = this.name;
         }
         return json;

@@ -2,6 +2,7 @@
  * Copyright 2018 Colin Doig.  Distributed under the MIT license.
  */
 import JsonMember from '../JsonMember';
+
 import PersistenceType from '../sport/enum/PersistenceType';
 
 export default class UpdateInstruction extends JsonMember {
@@ -28,7 +29,7 @@ export default class UpdateInstruction extends JsonMember {
 
     public toJson(): any {
         const json: any = {};
-        if (this.betId !== null) {
+        if (this.betId !== '') {
             json.betId = this.betId;
         }
         if (this.newPersistenceType.isValid()) {
@@ -38,7 +39,7 @@ export default class UpdateInstruction extends JsonMember {
     }
 
     public isValid(): boolean {
-        return this.betId !== null &&
+        return this.betId !== '' &&
             this.newPersistenceType.isValid();
     }
 

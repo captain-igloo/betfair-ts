@@ -3,6 +3,7 @@
  */
 import JsonRequest from '../JsonRequest';
 
+
 export default class GetApplicationSubscriptionTokenRequest extends JsonRequest {
     private subscriptionLength: number | null;
     private clientReference: string;
@@ -30,7 +31,7 @@ export default class GetApplicationSubscriptionTokenRequest extends JsonRequest 
         if (this.subscriptionLength !== null) {
             json.subscriptionLength = this.subscriptionLength;
         }
-        if (this.clientReference !== null) {
+        if (this.clientReference !== '') {
             json.clientReference = this.clientReference;
         }
         return json;

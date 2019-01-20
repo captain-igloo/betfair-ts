@@ -3,6 +3,7 @@
  */
 import JsonMember from '../JsonMember';
 
+
 export default class MarketLineRangeInfo extends JsonMember {
     private maxUnitValue: number | null;
     private minUnitValue: number | null;
@@ -48,7 +49,7 @@ export default class MarketLineRangeInfo extends JsonMember {
         if (this.interval !== null) {
             json.interval = this.interval;
         }
-        if (this.marketUnit !== null) {
+        if (this.marketUnit !== '') {
             json.marketUnit = this.marketUnit;
         }
         return json;
@@ -58,7 +59,7 @@ export default class MarketLineRangeInfo extends JsonMember {
         return this.maxUnitValue !== null &&
             this.minUnitValue !== null &&
             this.interval !== null &&
-            this.marketUnit !== null;
+            this.marketUnit !== '';
     }
 
     public getMaxUnitValue(): number | null {

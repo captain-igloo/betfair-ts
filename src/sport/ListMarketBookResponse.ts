@@ -2,6 +2,7 @@
  * Copyright 2018 Colin Doig.  Distributed under the MIT license.
  */
 import JsonResponse from '../JsonResponse';
+
 import MarketBook from '../sport/MarketBook';
 
 export default class ListMarketBookResponse extends JsonResponse {

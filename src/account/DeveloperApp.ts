@@ -1,8 +1,9 @@
 /**
  * Copyright 2018 Colin Doig.  Distributed under the MIT license.
  */
-import DeveloperAppVersion from '../account/DeveloperAppVersion';
 import JsonResponse from '../JsonResponse';
+
+import DeveloperAppVersion from '../account/DeveloperAppVersion';
 
 export default class DeveloperApp extends JsonResponse {
     private appName: string;
@@ -40,7 +41,7 @@ export default class DeveloperApp extends JsonResponse {
 
     public toJson(): any {
         const json: any = {};
-        if (this.appName !== null) {
+        if (this.appName !== '') {
             json.appName = this.appName;
         }
         if (this.appId !== null) {
@@ -53,7 +54,7 @@ export default class DeveloperApp extends JsonResponse {
     }
 
     public isValid(): boolean {
-        return this.appName !== null &&
+        return this.appName !== '' &&
             this.appId !== null &&
             this.appVersions.length > 0;
     }

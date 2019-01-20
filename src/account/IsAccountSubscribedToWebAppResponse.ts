@@ -3,6 +3,7 @@
  */
 import JsonResponse from '../JsonResponse';
 
+
 export default class IsAccountSubscribedToWebAppResponse extends JsonResponse {
     private response: boolean | null;
 

@@ -13,16 +13,17 @@ if (args.length !== 3) {
         if (result) {
             const request = new ListEventTypesRequest();
             request.setFilter(new MarketFilter());
-
             if (request.isValid()) {
                 const response = await api.listEventTypes(request);
                 if (response.isSuccess()) {
                     response.getEventTypeResults().forEach((eventTypeResult: EventTypeResult) => {
-                        console.log(eventTypeResult.getEventType().getName());
+                        console.log(eventTypeResult.getEventType().getId(), eventTypeResult.getEventType().getName());
                     });
                 } else {
                     console.log(response.getFaultCode(), response.getFaultString());
                 }
+            } else {
+                console.log('Invalid request');
             }
         } else {
             console.log('Failed to log in');

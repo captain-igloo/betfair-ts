@@ -1,8 +1,9 @@
 /**
  * Copyright 2018 Colin Doig.  Distributed under the MIT license.
  */
-import TimeRange from '../common/TimeRange';
 import JsonRequest from '../JsonRequest';
+
+import TimeRange from '../common/TimeRange';
 import BetStatus from '../sport/enum/BetStatus';
 import GroupBy from '../sport/enum/GroupBy';
 import Side from '../sport/enum/Side';
@@ -118,25 +119,25 @@ export default class ListClearedOrdersRequest extends JsonRequest {
             json.betStatus = this.betStatus;
         }
         if (this.eventTypeIds.size > 0) {
-            json.eventTypeIds = this.eventTypeIds;
+            json.eventTypeIds = Array.from(this.eventTypeIds);
         }
         if (this.eventIds.size > 0) {
-            json.eventIds = this.eventIds;
+            json.eventIds = Array.from(this.eventIds);
         }
         if (this.marketIds.size > 0) {
-            json.marketIds = this.marketIds;
+            json.marketIds = Array.from(this.marketIds);
         }
         if (this.runnerIds.length > 0) {
             json.runnerIds = this.runnerIds.map((value) => value.toJson());
         }
         if (this.betIds.size > 0) {
-            json.betIds = this.betIds;
+            json.betIds = Array.from(this.betIds);
         }
         if (this.customerOrderRefs.size > 0) {
-            json.customerOrderRefs = this.customerOrderRefs;
+            json.customerOrderRefs = Array.from(this.customerOrderRefs);
         }
         if (this.customerStrategyRefs.size > 0) {
-            json.customerStrategyRefs = this.customerStrategyRefs;
+            json.customerStrategyRefs = Array.from(this.customerStrategyRefs);
         }
         if (this.side.isValid()) {
             json.side = this.side;
@@ -150,7 +151,7 @@ export default class ListClearedOrdersRequest extends JsonRequest {
         if (this.includeItemDescription !== null) {
             json.includeItemDescription = this.includeItemDescription;
         }
-        if (this.locale !== null) {
+        if (this.locale !== '') {
             json.locale = this.locale;
         }
         if (this.fromRecord !== null) {

@@ -1,8 +1,9 @@
 /**
  * Copyright 2018 Colin Doig.  Distributed under the MIT license.
  */
-import AffiliateRelation from '../account/AffiliateRelation';
 import JsonResponse from '../JsonResponse';
+
+import AffiliateRelation from '../account/AffiliateRelation';
 
 export default class GetAffiliateRelationResponse extends JsonResponse {
     private affiliateRelations: AffiliateRelation[];

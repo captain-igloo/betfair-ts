@@ -3,6 +3,7 @@
  */
 import JsonMember from '../JsonMember';
 
+
 export default class SubscriptionTokenInfo extends JsonMember {
     private subscriptionToken: string;
     private activatedDateTime: Date | null;
@@ -51,7 +52,7 @@ export default class SubscriptionTokenInfo extends JsonMember {
 
     public toJson(): any {
         const json: any = {};
-        if (this.subscriptionToken !== null) {
+        if (this.subscriptionToken !== '') {
             json.subscriptionToken = this.subscriptionToken;
         }
         if (this.activatedDateTime !== null) {
@@ -66,14 +67,14 @@ export default class SubscriptionTokenInfo extends JsonMember {
         if (this.cancellationDateTime !== null) {
             json.cancellationDateTime = this.cancellationDateTime.toISOString();
         }
-        if (this.subscriptionStatus !== null) {
+        if (this.subscriptionStatus !== '') {
             json.subscriptionStatus = this.subscriptionStatus;
         }
         return json;
     }
 
     public isValid(): boolean {
-        return this.subscriptionToken !== null;
+        return this.subscriptionToken !== '';
     }
 
     public getSubscriptionToken(): string {

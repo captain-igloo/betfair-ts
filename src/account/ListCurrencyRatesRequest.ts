@@ -3,6 +3,7 @@
  */
 import JsonRequest from '../JsonRequest';
 
+
 export default class ListCurrencyRatesRequest extends JsonRequest {
     private fromCurrency: string;
 
@@ -21,7 +22,7 @@ export default class ListCurrencyRatesRequest extends JsonRequest {
 
     public toJson(): any {
         const json: any = {};
-        if (this.fromCurrency !== null) {
+        if (this.fromCurrency !== '') {
             json.fromCurrency = this.fromCurrency;
         }
         return json;

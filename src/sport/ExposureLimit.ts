@@ -2,6 +2,7 @@
  * Copyright 2018 Colin Doig.  Distributed under the MIT license.
  */
 import JsonMember from '../JsonMember';
+
 import LimitBreachAction from '../sport/LimitBreachAction';
 
 export default class ExposureLimit extends JsonMember {

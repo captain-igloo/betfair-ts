@@ -1,9 +1,10 @@
 /**
  * Copyright 2018 Colin Doig.  Distributed under the MIT license.
  */
+import JsonMember from '../JsonMember';
+
 import ItemClass from '../account/enum/ItemClass';
 import StatementLegacyData from '../account/StatementLegacyData';
-import JsonMember from '../JsonMember';
 
 export default class StatementItem extends JsonMember {
     private refId: string;
@@ -61,7 +62,7 @@ export default class StatementItem extends JsonMember {
 
     public toJson(): any {
         const json: any = {};
-        if (this.refId !== null) {
+        if (this.refId !== '') {
             json.refId = this.refId;
         }
         if (this.itemDate !== null) {

@@ -3,6 +3,7 @@
  */
 import JsonRequest from '../JsonRequest';
 
+
 export default class RemoveExposureReuseEnabledEventsRequest extends JsonRequest {
     private eventIds: number[];
 

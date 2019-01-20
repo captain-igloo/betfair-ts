@@ -3,6 +3,7 @@
  */
 import JsonMember from '../JsonMember';
 
+
 export default class KeyLineSelection extends JsonMember {
     private selectionId: number | null;
     private handicap: number | null;

@@ -3,6 +3,7 @@
  */
 import JsonMember from '../JsonMember';
 
+
 export default class RunnerId extends JsonMember {
     private marketId: string;
     private selectionId: number | null;
@@ -33,7 +34,7 @@ export default class RunnerId extends JsonMember {
 
     public toJson(): any {
         const json: any = {};
-        if (this.marketId !== null) {
+        if (this.marketId !== '') {
             json.marketId = this.marketId;
         }
         if (this.selectionId !== null) {
@@ -46,7 +47,7 @@ export default class RunnerId extends JsonMember {
     }
 
     public isValid(): boolean {
-        return this.marketId !== null &&
+        return this.marketId !== '' &&
             this.selectionId !== null;
     }
 

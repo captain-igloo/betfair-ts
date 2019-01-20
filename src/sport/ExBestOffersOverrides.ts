@@ -2,6 +2,7 @@
  * Copyright 2018 Colin Doig.  Distributed under the MIT license.
  */
 import JsonMember from '../JsonMember';
+
 import RollupModel from '../sport/enum/RollupModel';
 
 export default class ExBestOffersOverrides extends JsonMember {

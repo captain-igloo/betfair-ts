@@ -2,6 +2,7 @@
  * Copyright 2018 Colin Doig.  Distributed under the MIT license.
  */
 import JsonMember from '../JsonMember';
+
 import RunnerStatus from '../sport/enum/RunnerStatus';
 import ExchangePrices from '../sport/ExchangePrices';
 import Match from '../sport/Match';

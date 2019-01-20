@@ -3,6 +3,7 @@
  */
 import JsonMember from '../JsonMember';
 
+
 export default class Event extends JsonMember {
     private id: string;
     private name: string;
@@ -51,19 +52,19 @@ export default class Event extends JsonMember {
 
     public toJson(): any {
         const json: any = {};
-        if (this.id !== null) {
+        if (this.id !== '') {
             json.id = this.id;
         }
-        if (this.name !== null) {
+        if (this.name !== '') {
             json.name = this.name;
         }
-        if (this.countryCode !== null) {
+        if (this.countryCode !== '') {
             json.countryCode = this.countryCode;
         }
-        if (this.timezone !== null) {
+        if (this.timezone !== '') {
             json.timezone = this.timezone;
         }
-        if (this.venue !== null) {
+        if (this.venue !== '') {
             json.venue = this.venue;
         }
         if (this.openDate !== null) {

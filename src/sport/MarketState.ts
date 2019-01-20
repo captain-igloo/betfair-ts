@@ -2,6 +2,7 @@
  * Copyright 2018 Colin Doig.  Distributed under the MIT license.
  */
 import JsonMember from '../JsonMember';
+
 import KeyLineDescription from '../sport/KeyLineDescription';
 
 export default class MarketState extends JsonMember {
@@ -76,7 +77,7 @@ export default class MarketState extends JsonMember {
 
     public toJson(): any {
         const json: any = {};
-        if (this.status !== null) {
+        if (this.status !== '') {
             json.status = this.status;
         }
         if (this.betDelay !== null) {
@@ -110,7 +111,7 @@ export default class MarketState extends JsonMember {
     }
 
     public isValid(): boolean {
-        return this.status !== null &&
+        return this.status !== '' &&
             this.betDelay !== null &&
             this.bspReconciled !== null &&
             this.complete !== null &&

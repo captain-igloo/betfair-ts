@@ -2,6 +2,7 @@
  * Copyright 2018 Colin Doig.  Distributed under the MIT license.
  */
 import JsonMember from '../JsonMember';
+
 import Side from '../sport/enum/Side';
 
 export default class Match extends JsonMember {
@@ -52,10 +53,10 @@ export default class Match extends JsonMember {
 
     public toJson(): any {
         const json: any = {};
-        if (this.betId !== null) {
+        if (this.betId !== '') {
             json.betId = this.betId;
         }
-        if (this.matchId !== null) {
+        if (this.matchId !== '') {
             json.matchId = this.matchId;
         }
         if (this.side.isValid()) {

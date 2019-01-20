@@ -3,6 +3,7 @@
  */
 import JsonResponse from '../JsonResponse';
 
+
 export default class AccountFundsResponse extends JsonResponse {
     private availableToBetBalance: number | null;
     private exposure: number | null;
@@ -77,7 +78,7 @@ export default class AccountFundsResponse extends JsonResponse {
         if (this.pointsBalance !== null) {
             json.pointsBalance = this.pointsBalance;
         }
-        if (this.wallet !== null) {
+        if (this.wallet !== '') {
             json.wallet = this.wallet;
         }
         return json;

@@ -2,6 +2,7 @@
  * Copyright 2018 Colin Doig.  Distributed under the MIT license.
  */
 import JsonMember from '../JsonMember';
+
 import OrderType from '../sport/enum/OrderType';
 import PersistenceType from '../sport/enum/PersistenceType';
 import Side from '../sport/enum/Side';
@@ -163,13 +164,13 @@ export default class ClearedOrderSummary extends JsonMember {
 
     public toJson(): any {
         const json: any = {};
-        if (this.eventTypeId !== null) {
+        if (this.eventTypeId !== '') {
             json.eventTypeId = this.eventTypeId;
         }
-        if (this.eventId !== null) {
+        if (this.eventId !== '') {
             json.eventId = this.eventId;
         }
-        if (this.marketId !== null) {
+        if (this.marketId !== '') {
             json.marketId = this.marketId;
         }
         if (this.selectionId !== null) {
@@ -178,7 +179,7 @@ export default class ClearedOrderSummary extends JsonMember {
         if (this.handicap !== null) {
             json.handicap = this.handicap;
         }
-        if (this.betId !== null) {
+        if (this.betId !== '') {
             json.betId = this.betId;
         }
         if (this.placedDate !== null) {
@@ -196,7 +197,7 @@ export default class ClearedOrderSummary extends JsonMember {
         if (this.itemDescription.isValid()) {
             json.itemDescription = this.itemDescription.toJson();
         }
-        if (this.betOutcome !== null) {
+        if (this.betOutcome !== '') {
             json.betOutcome = this.betOutcome;
         }
         if (this.priceRequested !== null) {
@@ -229,10 +230,10 @@ export default class ClearedOrderSummary extends JsonMember {
         if (this.sizeCancelled !== null) {
             json.sizeCancelled = this.sizeCancelled;
         }
-        if (this.customerOrderRef !== null) {
+        if (this.customerOrderRef !== '') {
             json.customerOrderRef = this.customerOrderRef;
         }
-        if (this.customerStrategyRef !== null) {
+        if (this.customerStrategyRef !== '') {
             json.customerStrategyRef = this.customerStrategyRef;
         }
         return json;

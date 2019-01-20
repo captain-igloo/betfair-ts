@@ -3,6 +3,7 @@
  */
 import JsonMember from '../JsonMember';
 
+
 export default class MarketVersion extends JsonMember {
     private version: number | null;
 

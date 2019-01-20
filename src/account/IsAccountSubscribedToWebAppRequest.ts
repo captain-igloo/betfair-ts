@@ -3,6 +3,7 @@
  */
 import JsonRequest from '../JsonRequest';
 
+
 export default class IsAccountSubscribedToWebAppRequest extends JsonRequest {
     private vendorId: string;
 
@@ -21,14 +22,14 @@ export default class IsAccountSubscribedToWebAppRequest extends JsonRequest {
 
     public toJson(): any {
         const json: any = {};
-        if (this.vendorId !== null) {
+        if (this.vendorId !== '') {
             json.vendorId = this.vendorId;
         }
         return json;
     }
 
     public isValid(): boolean {
-        return this.vendorId !== null;
+        return this.vendorId !== '';
     }
 
     public getVendorId(): string {

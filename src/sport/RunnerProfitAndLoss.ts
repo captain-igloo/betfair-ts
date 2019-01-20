@@ -3,6 +3,7 @@
  */
 import JsonMember from '../JsonMember';
 
+
 export default class RunnerProfitAndLoss extends JsonMember {
     private selectionId: number | null;
     private ifWin: number | null;

@@ -2,6 +2,7 @@
  * Copyright 2018 Colin Doig.  Distributed under the MIT license.
  */
 import JsonMember from '../JsonMember';
+
 import PriceSize from '../sport/PriceSize';
 
 export default class ExchangePrices extends JsonMember {

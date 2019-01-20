@@ -1,8 +1,9 @@
 /**
  * Copyright 2018 Colin Doig.  Distributed under the MIT license.
  */
-import AffiliateRelationStatus from '../account/enum/AffiliateRelationStatus';
 import JsonMember from '../JsonMember';
+
+import AffiliateRelationStatus from '../account/enum/AffiliateRelationStatus';
 
 export default class AffiliateRelation extends JsonMember {
     private vendorClientId: string;
@@ -28,7 +29,7 @@ export default class AffiliateRelation extends JsonMember {
 
     public toJson(): any {
         const json: any = {};
-        if (this.vendorClientId !== null) {
+        if (this.vendorClientId !== '') {
             json.vendorClientId = this.vendorClientId;
         }
         if (this.status.isValid()) {
@@ -38,7 +39,7 @@ export default class AffiliateRelation extends JsonMember {
     }
 
     public isValid(): boolean {
-        return this.vendorClientId !== null &&
+        return this.vendorClientId !== '' &&
             this.status.isValid();
     }
 

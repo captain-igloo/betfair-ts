@@ -1,10 +1,11 @@
 /**
  * Copyright 2018 Colin Doig.  Distributed under the MIT license.
  */
+import JsonRequest from '../JsonRequest';
+
 import IncludeItem from '../account/enum/IncludeItem';
 import Wallet from '../account/enum/Wallet';
 import TimeRange from '../common/TimeRange';
-import JsonRequest from '../JsonRequest';
 
 export default class GetAccountStatementRequest extends JsonRequest {
     private locale: string;
@@ -54,7 +55,7 @@ export default class GetAccountStatementRequest extends JsonRequest {
 
     public toJson(): any {
         const json: any = {};
-        if (this.locale !== null) {
+        if (this.locale !== '') {
             json.locale = this.locale;
         }
         if (this.fromRecord !== null) {

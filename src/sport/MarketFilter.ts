@@ -1,8 +1,9 @@
 /**
  * Copyright 2018 Colin Doig.  Distributed under the MIT license.
  */
-import TimeRange from '../common/TimeRange';
 import JsonMember from '../JsonMember';
+
+import TimeRange from '../common/TimeRange';
 import MarketBettingType from '../sport/enum/MarketBettingType';
 import OrderStatus from '../sport/enum/OrderStatus';
 
@@ -114,26 +115,26 @@ export default class MarketFilter extends JsonMember {
 
     public toJson(): any {
         const json: any = {};
-        if (this.textQuery !== null) {
+        if (this.textQuery !== '') {
             json.textQuery = this.textQuery;
         }
         if (this.exchangeIds.size > 0) {
-            json.exchangeIds = this.exchangeIds;
+            json.exchangeIds = Array.from(this.exchangeIds);
         }
         if (this.eventTypeIds.size > 0) {
-            json.eventTypeIds = this.eventTypeIds;
+            json.eventTypeIds = Array.from(this.eventTypeIds);
         }
         if (this.eventIds.size > 0) {
-            json.eventIds = this.eventIds;
+            json.eventIds = Array.from(this.eventIds);
         }
         if (this.competitionIds.size > 0) {
-            json.competitionIds = this.competitionIds;
+            json.competitionIds = Array.from(this.competitionIds);
         }
         if (this.marketIds.size > 0) {
-            json.marketIds = this.marketIds;
+            json.marketIds = Array.from(this.marketIds);
         }
         if (this.venues.size > 0) {
-            json.venues = this.venues;
+            json.venues = Array.from(this.venues);
         }
         if (this.bspOnly !== null) {
             json.bspOnly = this.bspOnly;
@@ -145,22 +146,22 @@ export default class MarketFilter extends JsonMember {
             json.inPlayOnly = this.inPlayOnly;
         }
         if (this.marketBettingTypes.size > 0) {
-            json.marketBettingTypes = this.marketBettingTypes;
+            json.marketBettingTypes = Array.from(this.marketBettingTypes);
         }
         if (this.marketCountries.size > 0) {
-            json.marketCountries = this.marketCountries;
+            json.marketCountries = Array.from(this.marketCountries);
         }
         if (this.marketTypeCodes.size > 0) {
-            json.marketTypeCodes = this.marketTypeCodes;
+            json.marketTypeCodes = Array.from(this.marketTypeCodes);
         }
         if (this.marketStartTime.isValid()) {
             json.marketStartTime = this.marketStartTime.toJson();
         }
         if (this.withOrders.size > 0) {
-            json.withOrders = this.withOrders;
+            json.withOrders = Array.from(this.withOrders);
         }
         if (this.raceTypes.size > 0) {
-            json.raceTypes = this.raceTypes;
+            json.raceTypes = Array.from(this.raceTypes);
         }
         return json;
     }

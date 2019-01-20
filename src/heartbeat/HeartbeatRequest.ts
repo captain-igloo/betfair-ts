@@ -3,6 +3,7 @@
  */
 import JsonRequest from '../JsonRequest';
 
+
 export default class HeartbeatRequest extends JsonRequest {
     private preferredTimeoutSeconds: number | null;
 

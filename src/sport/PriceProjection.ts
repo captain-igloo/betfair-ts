@@ -2,6 +2,7 @@
  * Copyright 2018 Colin Doig.  Distributed under the MIT license.
  */
 import JsonMember from '../JsonMember';
+
 import PriceData from '../sport/enum/PriceData';
 import ExBestOffersOverrides from '../sport/ExBestOffersOverrides';
 
@@ -42,7 +43,7 @@ export default class PriceProjection extends JsonMember {
     public toJson(): any {
         const json: any = {};
         if (this.priceData.size > 0) {
-            json.priceData = this.priceData;
+            json.priceData = Array.from(this.priceData);
         }
         if (this.exBestOffersOverrides.isValid()) {
             json.exBestOffersOverrides = this.exBestOffersOverrides.toJson();

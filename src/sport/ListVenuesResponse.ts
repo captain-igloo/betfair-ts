@@ -2,6 +2,7 @@
  * Copyright 2018 Colin Doig.  Distributed under the MIT license.
  */
 import JsonResponse from '../JsonResponse';
+
 import VenueResult from '../sport/VenueResult';
 
 export default class ListVenuesResponse extends JsonResponse {

@@ -2,6 +2,7 @@
  * Copyright 2018 Colin Doig.  Distributed under the MIT license.
  */
 import JsonMember from '../JsonMember';
+
 import OrderType from '../sport/enum/OrderType';
 import Side from '../sport/enum/Side';
 import LimitOnCloseOrder from '../sport/LimitOnCloseOrder';
@@ -89,7 +90,7 @@ export default class PlaceInstruction extends JsonMember {
         if (this.marketOnCloseOrder.isValid()) {
             json.marketOnCloseOrder = this.marketOnCloseOrder.toJson();
         }
-        if (this.customerOrderRef !== null) {
+        if (this.customerOrderRef !== '') {
             json.customerOrderRef = this.customerOrderRef;
         }
         return json;

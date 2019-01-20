@@ -2,6 +2,7 @@
  * Copyright 2018 Colin Doig.  Distributed under the MIT license.
  */
 import JsonRequest from '../JsonRequest';
+
 import MarketFilter from '../sport/MarketFilter';
 
 export default class ListCountriesRequest extends JsonRequest {
@@ -31,7 +32,7 @@ export default class ListCountriesRequest extends JsonRequest {
         if (this.filter.isValid()) {
             json.filter = this.filter.toJson();
         }
-        if (this.locale !== null) {
+        if (this.locale !== '') {
             json.locale = this.locale;
         }
         return json;

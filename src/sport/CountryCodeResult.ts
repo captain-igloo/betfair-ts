@@ -3,6 +3,7 @@
  */
 import JsonMember from '../JsonMember';
 
+
 export default class CountryCodeResult extends JsonMember {
     private countryCode: string;
     private marketCount: number | null;
@@ -27,7 +28,7 @@ export default class CountryCodeResult extends JsonMember {
 
     public toJson(): any {
         const json: any = {};
-        if (this.countryCode !== null) {
+        if (this.countryCode !== '') {
             json.countryCode = this.countryCode;
         }
         if (this.marketCount !== null) {

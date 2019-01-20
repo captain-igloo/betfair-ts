@@ -3,6 +3,7 @@
  */
 import JsonMember from '../JsonMember';
 
+
 export default class PriceSize extends JsonMember {
     private price: number | null;
     private size: number | null;

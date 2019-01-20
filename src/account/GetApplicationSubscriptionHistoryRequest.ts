@@ -3,6 +3,7 @@
  */
 import JsonRequest from '../JsonRequest';
 
+
 export default class GetApplicationSubscriptionHistoryRequest extends JsonRequest {
     private vendorClientId: string;
     private applicationKey: string;
@@ -27,10 +28,10 @@ export default class GetApplicationSubscriptionHistoryRequest extends JsonReques
 
     public toJson(): any {
         const json: any = {};
-        if (this.vendorClientId !== null) {
+        if (this.vendorClientId !== '') {
             json.vendorClientId = this.vendorClientId;
         }
-        if (this.applicationKey !== null) {
+        if (this.applicationKey !== '') {
             json.applicationKey = this.applicationKey;
         }
         return json;

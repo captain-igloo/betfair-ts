@@ -1,8 +1,9 @@
 /**
  * Copyright 2018 Colin Doig.  Distributed under the MIT license.
  */
-import ActionPerformed from '../heartbeat/enum/ActionPerformed';
 import JsonResponse from '../JsonResponse';
+
+import ActionPerformed from '../heartbeat/enum/ActionPerformed';
 
 export default class HeartbeatReport extends JsonResponse {
     private actionPerformed: ActionPerformed;

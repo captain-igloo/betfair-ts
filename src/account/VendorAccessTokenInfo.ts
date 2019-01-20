@@ -1,9 +1,10 @@
 /**
  * Copyright 2018 Colin Doig.  Distributed under the MIT license.
  */
+import JsonResponse from '../JsonResponse';
+
 import ApplicationSubscription from '../account/ApplicationSubscription';
 import TokenType from '../account/enum/TokenType';
-import JsonResponse from '../JsonResponse';
 
 export default class VendorAccessTokenInfo extends JsonResponse {
     private accessToken: string;
@@ -49,7 +50,7 @@ export default class VendorAccessTokenInfo extends JsonResponse {
 
     public toJson(): any {
         const json: any = {};
-        if (this.accessToken !== null) {
+        if (this.accessToken !== '') {
             json.access_token = this.accessToken;
         }
         if (this.tokenType.isValid()) {
@@ -58,7 +59,7 @@ export default class VendorAccessTokenInfo extends JsonResponse {
         if (this.expiresIn !== null) {
             json.expires_in = this.expiresIn;
         }
-        if (this.refreshToken !== null) {
+        if (this.refreshToken !== '') {
             json.refresh_token = this.refreshToken;
         }
         if (this.applicationSubscription.isValid()) {
@@ -68,10 +69,10 @@ export default class VendorAccessTokenInfo extends JsonResponse {
     }
 
     public isValid(): boolean {
-        return this.accessToken !== null &&
+        return this.accessToken !== '' &&
             this.tokenType.isValid() &&
             this.expiresIn !== null &&
-            this.refreshToken !== null &&
+            this.refreshToken !== '' &&
             this.applicationSubscription.isValid();
     }
 

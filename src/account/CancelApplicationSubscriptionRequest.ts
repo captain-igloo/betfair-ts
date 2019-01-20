@@ -3,6 +3,7 @@
  */
 import JsonRequest from '../JsonRequest';
 
+
 export default class CancelApplicationSubscriptionRequest extends JsonRequest {
     private subscriptionToken: string;
 
@@ -21,14 +22,14 @@ export default class CancelApplicationSubscriptionRequest extends JsonRequest {
 
     public toJson(): any {
         const json: any = {};
-        if (this.subscriptionToken !== null) {
+        if (this.subscriptionToken !== '') {
             json.subscriptionToken = this.subscriptionToken;
         }
         return json;
     }
 
     public isValid(): boolean {
-        return this.subscriptionToken !== null;
+        return this.subscriptionToken !== '';
     }
 
     public getSubscriptionToken(): string {

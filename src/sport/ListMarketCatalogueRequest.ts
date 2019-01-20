@@ -2,6 +2,7 @@
  * Copyright 2018 Colin Doig.  Distributed under the MIT license.
  */
 import JsonRequest from '../JsonRequest';
+
 import MarketProjection from '../sport/enum/MarketProjection';
 import MarketSort from '../sport/enum/MarketSort';
 import MarketFilter from '../sport/MarketFilter';
@@ -52,7 +53,7 @@ export default class ListMarketCatalogueRequest extends JsonRequest {
             json.filter = this.filter.toJson();
         }
         if (this.marketProjection.size > 0) {
-            json.marketProjection = this.marketProjection;
+            json.marketProjection = Array.from(this.marketProjection);
         }
         if (this.sort.isValid()) {
             json.sort = this.sort;
@@ -60,7 +61,7 @@ export default class ListMarketCatalogueRequest extends JsonRequest {
         if (this.maxResults !== null) {
             json.maxResults = this.maxResults;
         }
-        if (this.locale !== null) {
+        if (this.locale !== '') {
             json.locale = this.locale;
         }
         return json;

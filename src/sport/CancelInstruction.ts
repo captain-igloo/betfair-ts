@@ -3,6 +3,7 @@
  */
 import JsonMember from '../JsonMember';
 
+
 export default class CancelInstruction extends JsonMember {
     private betId: string;
     private sizeReduction: number | null;
@@ -27,7 +28,7 @@ export default class CancelInstruction extends JsonMember {
 
     public toJson(): any {
         const json: any = {};
-        if (this.betId !== null) {
+        if (this.betId !== '') {
             json.betId = this.betId;
         }
         if (this.sizeReduction !== null) {
@@ -37,7 +38,7 @@ export default class CancelInstruction extends JsonMember {
     }
 
     public isValid(): boolean {
-        return this.betId !== null;
+        return this.betId !== '';
     }
 
     public getBetId(): string {

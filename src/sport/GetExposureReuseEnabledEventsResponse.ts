@@ -3,6 +3,7 @@
  */
 import JsonResponse from '../JsonResponse';
 
+
 export default class GetExposureReuseEnabledEventsResponse extends JsonResponse {
     private response: number[];
 

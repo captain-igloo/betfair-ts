@@ -3,6 +3,7 @@
  */
 import JsonRequest from '../JsonRequest';
 
+
 export default class UpdateApplicationSubscriptionRequest extends JsonRequest {
     private vendorClientId: string;
     private subscriptionLength: number | null;
@@ -27,7 +28,7 @@ export default class UpdateApplicationSubscriptionRequest extends JsonRequest {
 
     public toJson(): any {
         const json: any = {};
-        if (this.vendorClientId !== null) {
+        if (this.vendorClientId !== '') {
             json.vendorClientId = this.vendorClientId;
         }
         if (this.subscriptionLength !== null) {
@@ -37,7 +38,7 @@ export default class UpdateApplicationSubscriptionRequest extends JsonRequest {
     }
 
     public isValid(): boolean {
-        return this.vendorClientId !== null &&
+        return this.vendorClientId !== '' &&
             this.subscriptionLength !== null;
     }
 

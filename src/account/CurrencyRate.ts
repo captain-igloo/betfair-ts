@@ -3,6 +3,7 @@
  */
 import JsonMember from '../JsonMember';
 
+
 export default class CurrencyRate extends JsonMember {
     private currencyCode: string;
     private rate: number | null;
@@ -27,7 +28,7 @@ export default class CurrencyRate extends JsonMember {
 
     public toJson(): any {
         const json: any = {};
-        if (this.currencyCode !== null) {
+        if (this.currencyCode !== '') {
             json.currencyCode = this.currencyCode;
         }
         if (this.rate !== null) {

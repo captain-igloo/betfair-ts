@@ -3,6 +3,7 @@
  */
 import JsonMember from '../JsonMember';
 
+
 export default class RunnerCatalog extends JsonMember {
     private selectionId: number | null;
     private runnerName: string;
@@ -50,7 +51,7 @@ export default class RunnerCatalog extends JsonMember {
         if (this.selectionId !== null) {
             json.selectionId = this.selectionId;
         }
-        if (this.runnerName !== null) {
+        if (this.runnerName !== '') {
             json.runnerName = this.runnerName;
         }
         if (this.handicap !== null) {
@@ -70,7 +71,7 @@ export default class RunnerCatalog extends JsonMember {
 
     public isValid(): boolean {
         return this.selectionId !== null &&
-            this.runnerName !== null &&
+            this.runnerName !== '' &&
             this.handicap !== null &&
             this.sortPriority !== null;
     }

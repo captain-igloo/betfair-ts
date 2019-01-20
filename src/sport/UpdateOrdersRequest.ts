@@ -2,6 +2,7 @@
  * Copyright 2018 Colin Doig.  Distributed under the MIT license.
  */
 import JsonRequest from '../JsonRequest';
+
 import UpdateInstruction from '../sport/UpdateInstruction';
 
 export default class UpdateOrdersRequest extends JsonRequest {
@@ -38,20 +39,20 @@ export default class UpdateOrdersRequest extends JsonRequest {
 
     public toJson(): any {
         const json: any = {};
-        if (this.marketId !== null) {
+        if (this.marketId !== '') {
             json.marketId = this.marketId;
         }
         if (this.instructions.length > 0) {
             json.instructions = this.instructions.map((value) => value.toJson());
         }
-        if (this.customerRef !== null) {
+        if (this.customerRef !== '') {
             json.customerRef = this.customerRef;
         }
         return json;
     }
 
     public isValid(): boolean {
-        return this.marketId !== null &&
+        return this.marketId !== '' &&
             this.instructions.length > 0;
     }
 

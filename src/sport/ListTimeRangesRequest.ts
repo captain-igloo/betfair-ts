@@ -2,6 +2,7 @@
  * Copyright 2018 Colin Doig.  Distributed under the MIT license.
  */
 import JsonRequest from '../JsonRequest';
+
 import TimeGranularity from '../sport/enum/TimeGranularity';
 import MarketFilter from '../sport/MarketFilter';
 

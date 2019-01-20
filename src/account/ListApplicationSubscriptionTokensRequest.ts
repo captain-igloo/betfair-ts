@@ -1,8 +1,9 @@
 /**
  * Copyright 2018 Colin Doig.  Distributed under the MIT license.
  */
-import SubscriptionStatus from '../account/enum/SubscriptionStatus';
 import JsonRequest from '../JsonRequest';
+
+import SubscriptionStatus from '../account/enum/SubscriptionStatus';
 
 export default class ListApplicationSubscriptionTokensRequest extends JsonRequest {
     private subscriptionStatus: SubscriptionStatus;

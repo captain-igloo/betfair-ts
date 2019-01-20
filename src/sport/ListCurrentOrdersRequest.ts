@@ -1,8 +1,9 @@
 /**
  * Copyright 2018 Colin Doig.  Distributed under the MIT license.
  */
-import TimeRange from '../common/TimeRange';
 import JsonRequest from '../JsonRequest';
+
+import TimeRange from '../common/TimeRange';
 import OrderBy from '../sport/enum/OrderBy';
 import OrderProjection from '../sport/enum/OrderProjection';
 import SortDir from '../sport/enum/SortDir';
@@ -86,19 +87,19 @@ export default class ListCurrentOrdersRequest extends JsonRequest {
     public toJson(): any {
         const json: any = {};
         if (this.betIds.size > 0) {
-            json.betIds = this.betIds;
+            json.betIds = Array.from(this.betIds);
         }
         if (this.marketIds.size > 0) {
-            json.marketIds = this.marketIds;
+            json.marketIds = Array.from(this.marketIds);
         }
         if (this.orderProjection.isValid()) {
             json.orderProjection = this.orderProjection;
         }
         if (this.customerOrderRefs.size > 0) {
-            json.customerOrderRefs = this.customerOrderRefs;
+            json.customerOrderRefs = Array.from(this.customerOrderRefs);
         }
         if (this.customerStrategyRefs.size > 0) {
-            json.customerStrategyRefs = this.customerStrategyRefs;
+            json.customerStrategyRefs = Array.from(this.customerStrategyRefs);
         }
         if (this.placedDateRange.isValid()) {
             json.placedDateRange = this.placedDateRange.toJson();

@@ -3,6 +3,7 @@
  */
 import JsonRequest from '../JsonRequest';
 
+
 export default class GetAffiliateRelationRequest extends JsonRequest {
     private vendorClientIds: string[];
 

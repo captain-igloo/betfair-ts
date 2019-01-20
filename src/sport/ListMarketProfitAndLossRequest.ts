@@ -3,6 +3,7 @@
  */
 import JsonRequest from '../JsonRequest';
 
+
 export default class ListMarketProfitAndLossRequest extends JsonRequest {
     private marketIds: Set<string>;
     private includeSettledBets: boolean | null;
@@ -40,7 +41,7 @@ export default class ListMarketProfitAndLossRequest extends JsonRequest {
     public toJson(): any {
         const json: any = {};
         if (this.marketIds.size > 0) {
-            json.marketIds = this.marketIds;
+            json.marketIds = Array.from(this.marketIds);
         }
         if (this.includeSettledBets !== null) {
             json.includeSettledBets = this.includeSettledBets;

@@ -1,8 +1,9 @@
 /**
  * Copyright 2018 Colin Doig.  Distributed under the MIT license.
  */
-import Status from '../account/enum/Status';
 import JsonResponse from '../JsonResponse';
+
+import Status from '../account/enum/Status';
 
 export default class CancelApplicationSubscriptionResponse extends JsonResponse {
     private response: Status;

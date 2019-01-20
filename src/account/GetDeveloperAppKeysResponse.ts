@@ -1,8 +1,9 @@
 /**
  * Copyright 2018 Colin Doig.  Distributed under the MIT license.
  */
-import DeveloperApp from '../account/DeveloperApp';
 import JsonResponse from '../JsonResponse';
+
+import DeveloperApp from '../account/DeveloperApp';
 
 export default class GetDeveloperAppKeysResponse extends JsonResponse {
     private developerApps: DeveloperApp[];

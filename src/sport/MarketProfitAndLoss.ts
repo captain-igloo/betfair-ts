@@ -2,6 +2,7 @@
  * Copyright 2018 Colin Doig.  Distributed under the MIT license.
  */
 import JsonMember from '../JsonMember';
+
 import RunnerProfitAndLoss from '../sport/RunnerProfitAndLoss';
 
 export default class MarketProfitAndLoss extends JsonMember {
@@ -38,7 +39,7 @@ export default class MarketProfitAndLoss extends JsonMember {
 
     public toJson(): any {
         const json: any = {};
-        if (this.marketId !== null) {
+        if (this.marketId !== '') {
             json.marketId = this.marketId;
         }
         if (this.commissionApplied !== null) {

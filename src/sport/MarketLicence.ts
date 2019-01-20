@@ -3,6 +3,7 @@
  */
 import JsonMember from '../JsonMember';
 
+
 export default class MarketLicence extends JsonMember {
     private wallet: string;
     private rules: string;
@@ -39,23 +40,23 @@ export default class MarketLicence extends JsonMember {
 
     public toJson(): any {
         const json: any = {};
-        if (this.wallet !== null) {
+        if (this.wallet !== '') {
             json.wallet = this.wallet;
         }
-        if (this.rules !== null) {
+        if (this.rules !== '') {
             json.rules = this.rules;
         }
         if (this.rulesHasDate !== null) {
             json.rulesHasDate = this.rulesHasDate;
         }
-        if (this.clarifications !== null) {
+        if (this.clarifications !== '') {
             json.clarifications = this.clarifications;
         }
         return json;
     }
 
     public isValid(): boolean {
-        return this.wallet !== null;
+        return this.wallet !== '';
     }
 
     public getWallet(): string {

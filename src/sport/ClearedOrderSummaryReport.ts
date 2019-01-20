@@ -2,6 +2,7 @@
  * Copyright 2018 Colin Doig.  Distributed under the MIT license.
  */
 import JsonResponse from '../JsonResponse';
+
 import ClearedOrderSummary from '../sport/ClearedOrderSummary';
 
 export default class ClearedOrderSummaryReport extends JsonResponse {

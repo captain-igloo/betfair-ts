@@ -2,6 +2,7 @@
  * Copyright 2018 Colin Doig.  Distributed under the MIT license.
  */
 import JsonMember from '../JsonMember';
+
 import Competition from '../sport/Competition';
 
 export default class CompetitionResult extends JsonMember {
@@ -40,7 +41,7 @@ export default class CompetitionResult extends JsonMember {
         if (this.marketCount !== null) {
             json.marketCount = this.marketCount;
         }
-        if (this.competitionRegion !== null) {
+        if (this.competitionRegion !== '') {
             json.competitionRegion = this.competitionRegion;
         }
         return json;

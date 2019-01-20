@@ -3,6 +3,7 @@
  */
 import JsonRequest from '../JsonRequest';
 
+
 export default class RevokeAccessToWebAppRequest extends JsonRequest {
     private vendorId: number | null;
 

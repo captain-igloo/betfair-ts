@@ -2,6 +2,7 @@
  * Copyright 2018 Colin Doig.  Distributed under the MIT license.
  */
 import JsonMember from '../JsonMember';
+
 import MarketGroupType from '../sport/enum/MarketGroupType';
 import ExposureLimit from '../sport/ExposureLimit';
 import MarketGroupExposureLimit from '../sport/MarketGroupExposureLimit';

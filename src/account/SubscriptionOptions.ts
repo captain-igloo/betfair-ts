@@ -3,6 +3,7 @@
  */
 import JsonMember from '../JsonMember';
 
+
 export default class SubscriptionOptions extends JsonMember {
     private subscriptionLength: number | null;
     private subscriptionToken: string;
@@ -36,10 +37,10 @@ export default class SubscriptionOptions extends JsonMember {
         if (this.subscriptionLength !== null) {
             json.subscription_length = this.subscriptionLength;
         }
-        if (this.subscriptionToken !== null) {
+        if (this.subscriptionToken !== '') {
             json.subscription_token = this.subscriptionToken;
         }
-        if (this.clientReference !== null) {
+        if (this.clientReference !== '') {
             json.client_reference = this.clientReference;
         }
         return json;

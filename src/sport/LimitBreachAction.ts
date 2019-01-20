@@ -2,6 +2,7 @@
  * Copyright 2018 Colin Doig.  Distributed under the MIT license.
  */
 import JsonMember from '../JsonMember';
+
 import LimitBreachActionType from '../sport/enum/LimitBreachActionType';
 
 export default class LimitBreachAction extends JsonMember {

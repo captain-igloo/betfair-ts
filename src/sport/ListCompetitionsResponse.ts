@@ -2,6 +2,7 @@
  * Copyright 2018 Colin Doig.  Distributed under the MIT license.
  */
 import JsonResponse from '../JsonResponse';
+
 import CompetitionResult from '../sport/CompetitionResult';
 
 export default class ListCompetitionsResponse extends JsonResponse {

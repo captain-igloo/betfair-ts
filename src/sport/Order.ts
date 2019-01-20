@@ -2,6 +2,7 @@
  * Copyright 2018 Colin Doig.  Distributed under the MIT license.
  */
 import JsonMember from '../JsonMember';
+
 import OrderStatus from '../sport/enum/OrderStatus';
 import OrderType from '../sport/enum/OrderType';
 import PersistenceType from '../sport/enum/PersistenceType';
@@ -121,7 +122,7 @@ export default class Order extends JsonMember {
 
     public toJson(): any {
         const json: any = {};
-        if (this.betId !== null) {
+        if (this.betId !== '') {
             json.betId = this.betId;
         }
         if (this.orderType.isValid()) {
@@ -166,17 +167,17 @@ export default class Order extends JsonMember {
         if (this.sizeVoided !== null) {
             json.sizeVoided = this.sizeVoided;
         }
-        if (this.customerOrderRef !== null) {
+        if (this.customerOrderRef !== '') {
             json.customerOrderRef = this.customerOrderRef;
         }
-        if (this.customerStrategyRef !== null) {
+        if (this.customerStrategyRef !== '') {
             json.customerStrategyRef = this.customerStrategyRef;
         }
         return json;
     }
 
     public isValid(): boolean {
-        return this.betId !== null &&
+        return this.betId !== '' &&
             this.orderType.isValid() &&
             this.status.isValid() &&
             this.persistenceType.isValid() &&

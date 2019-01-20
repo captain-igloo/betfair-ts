@@ -2,6 +2,7 @@
  * Copyright 2018 Colin Doig.  Distributed under the MIT license.
  */
 import JsonRequest from '../JsonRequest';
+
 import MarketVersion from '../sport/MarketVersion';
 import PlaceInstruction from '../sport/PlaceInstruction';
 
@@ -57,19 +58,19 @@ export default class PlaceOrdersRequest extends JsonRequest {
 
     public toJson(): any {
         const json: any = {};
-        if (this.marketId !== null) {
+        if (this.marketId !== '') {
             json.marketId = this.marketId;
         }
         if (this.instructions.length > 0) {
             json.instructions = this.instructions.map((value) => value.toJson());
         }
-        if (this.customerRef !== null) {
+        if (this.customerRef !== '') {
             json.customerRef = this.customerRef;
         }
         if (this.marketVersion.isValid()) {
             json.marketVersion = this.marketVersion.toJson();
         }
-        if (this.customerStrategyRef !== null) {
+        if (this.customerStrategyRef !== '') {
             json.customerStrategyRef = this.customerStrategyRef;
         }
         if (this.async !== null) {
@@ -79,7 +80,7 @@ export default class PlaceOrdersRequest extends JsonRequest {
     }
 
     public isValid(): boolean {
-        return this.marketId !== null &&
+        return this.marketId !== '' &&
             this.instructions.length > 0;
     }
 

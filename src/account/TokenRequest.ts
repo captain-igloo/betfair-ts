@@ -1,8 +1,9 @@
 /**
  * Copyright 2018 Colin Doig.  Distributed under the MIT license.
  */
-import GrantType from '../account/enum/GrantType';
 import JsonRequest from '../JsonRequest';
+
+import GrantType from '../account/enum/GrantType';
 
 export default class TokenRequest extends JsonRequest {
     private clientId: string;
@@ -46,28 +47,28 @@ export default class TokenRequest extends JsonRequest {
 
     public toJson(): any {
         const json: any = {};
-        if (this.clientId !== null) {
+        if (this.clientId !== '') {
             json.client_id = this.clientId;
         }
         if (this.grantType.isValid()) {
             json.grant_type = this.grantType;
         }
-        if (this.code !== null) {
+        if (this.code !== '') {
             json.code = this.code;
         }
-        if (this.clientSecret !== null) {
+        if (this.clientSecret !== '') {
             json.client_secret = this.clientSecret;
         }
-        if (this.refreshToken !== null) {
+        if (this.refreshToken !== '') {
             json.refresh_token = this.refreshToken;
         }
         return json;
     }
 
     public isValid(): boolean {
-        return this.clientId !== null &&
+        return this.clientId !== '' &&
             this.grantType.isValid() &&
-            this.clientSecret !== null;
+            this.clientSecret !== '';
     }
 
     public getClientId(): string {
