@@ -43,7 +43,10 @@ export default class PriceProjection extends JsonMember {
     public toJson(): any {
         const json: any = {};
         if (this.priceData.size > 0) {
-            json.priceData = Array.from(this.priceData);
+            json.priceData = [];
+            this.priceData.forEach((element) => {
+                json.priceData.push(element.getValue());
+            });
         }
         if (this.exBestOffersOverrides.isValid()) {
             json.exBestOffersOverrides = this.exBestOffersOverrides.toJson();

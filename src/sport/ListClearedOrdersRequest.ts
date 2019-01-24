@@ -119,25 +119,43 @@ export default class ListClearedOrdersRequest extends JsonRequest {
             json.betStatus = this.betStatus;
         }
         if (this.eventTypeIds.size > 0) {
-            json.eventTypeIds = Array.from(this.eventTypeIds);
+            json.eventTypeIds = [];
+            this.eventTypeIds.forEach((element) => {
+                json.eventTypeIds.push(element);
+            });
         }
         if (this.eventIds.size > 0) {
-            json.eventIds = Array.from(this.eventIds);
+            json.eventIds = [];
+            this.eventIds.forEach((element) => {
+                json.eventIds.push(element);
+            });
         }
         if (this.marketIds.size > 0) {
-            json.marketIds = Array.from(this.marketIds);
+            json.marketIds = [];
+            this.marketIds.forEach((element) => {
+                json.marketIds.push(element);
+            });
         }
         if (this.runnerIds.length > 0) {
             json.runnerIds = this.runnerIds.map((value) => value.toJson());
         }
         if (this.betIds.size > 0) {
-            json.betIds = Array.from(this.betIds);
+            json.betIds = [];
+            this.betIds.forEach((element) => {
+                json.betIds.push(element);
+            });
         }
         if (this.customerOrderRefs.size > 0) {
-            json.customerOrderRefs = Array.from(this.customerOrderRefs);
+            json.customerOrderRefs = [];
+            this.customerOrderRefs.forEach((element) => {
+                json.customerOrderRefs.push(element);
+            });
         }
         if (this.customerStrategyRefs.size > 0) {
-            json.customerStrategyRefs = Array.from(this.customerStrategyRefs);
+            json.customerStrategyRefs = [];
+            this.customerStrategyRefs.forEach((element) => {
+                json.customerStrategyRefs.push(element);
+            });
         }
         if (this.side.isValid()) {
             json.side = this.side;

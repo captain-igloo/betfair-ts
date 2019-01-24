@@ -53,7 +53,10 @@ export default class ListMarketCatalogueRequest extends JsonRequest {
             json.filter = this.filter.toJson();
         }
         if (this.marketProjection.size > 0) {
-            json.marketProjection = Array.from(this.marketProjection);
+            json.marketProjection = [];
+            this.marketProjection.forEach((element) => {
+                json.marketProjection.push(element.getValue());
+            });
         }
         if (this.sort.isValid()) {
             json.sort = this.sort;

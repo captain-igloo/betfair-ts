@@ -41,7 +41,10 @@ export default class ListMarketProfitAndLossRequest extends JsonRequest {
     public toJson(): any {
         const json: any = {};
         if (this.marketIds.size > 0) {
-            json.marketIds = Array.from(this.marketIds);
+            json.marketIds = [];
+            this.marketIds.forEach((element) => {
+                json.marketIds.push(element);
+            });
         }
         if (this.includeSettledBets !== null) {
             json.includeSettledBets = this.includeSettledBets;

@@ -87,19 +87,31 @@ export default class ListCurrentOrdersRequest extends JsonRequest {
     public toJson(): any {
         const json: any = {};
         if (this.betIds.size > 0) {
-            json.betIds = Array.from(this.betIds);
+            json.betIds = [];
+            this.betIds.forEach((element) => {
+                json.betIds.push(element);
+            });
         }
         if (this.marketIds.size > 0) {
-            json.marketIds = Array.from(this.marketIds);
+            json.marketIds = [];
+            this.marketIds.forEach((element) => {
+                json.marketIds.push(element);
+            });
         }
         if (this.orderProjection.isValid()) {
             json.orderProjection = this.orderProjection;
         }
         if (this.customerOrderRefs.size > 0) {
-            json.customerOrderRefs = Array.from(this.customerOrderRefs);
+            json.customerOrderRefs = [];
+            this.customerOrderRefs.forEach((element) => {
+                json.customerOrderRefs.push(element);
+            });
         }
         if (this.customerStrategyRefs.size > 0) {
-            json.customerStrategyRefs = Array.from(this.customerStrategyRefs);
+            json.customerStrategyRefs = [];
+            this.customerStrategyRefs.forEach((element) => {
+                json.customerStrategyRefs.push(element);
+            });
         }
         if (this.placedDateRange.isValid()) {
             json.placedDateRange = this.placedDateRange.toJson();

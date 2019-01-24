@@ -119,22 +119,40 @@ export default class MarketFilter extends JsonMember {
             json.textQuery = this.textQuery;
         }
         if (this.exchangeIds.size > 0) {
-            json.exchangeIds = Array.from(this.exchangeIds);
+            json.exchangeIds = [];
+            this.exchangeIds.forEach((element) => {
+                json.exchangeIds.push(element);
+            });
         }
         if (this.eventTypeIds.size > 0) {
-            json.eventTypeIds = Array.from(this.eventTypeIds);
+            json.eventTypeIds = [];
+            this.eventTypeIds.forEach((element) => {
+                json.eventTypeIds.push(element);
+            });
         }
         if (this.eventIds.size > 0) {
-            json.eventIds = Array.from(this.eventIds);
+            json.eventIds = [];
+            this.eventIds.forEach((element) => {
+                json.eventIds.push(element);
+            });
         }
         if (this.competitionIds.size > 0) {
-            json.competitionIds = Array.from(this.competitionIds);
+            json.competitionIds = [];
+            this.competitionIds.forEach((element) => {
+                json.competitionIds.push(element);
+            });
         }
         if (this.marketIds.size > 0) {
-            json.marketIds = Array.from(this.marketIds);
+            json.marketIds = [];
+            this.marketIds.forEach((element) => {
+                json.marketIds.push(element);
+            });
         }
         if (this.venues.size > 0) {
-            json.venues = Array.from(this.venues);
+            json.venues = [];
+            this.venues.forEach((element) => {
+                json.venues.push(element);
+            });
         }
         if (this.bspOnly !== null) {
             json.bspOnly = this.bspOnly;
@@ -146,22 +164,37 @@ export default class MarketFilter extends JsonMember {
             json.inPlayOnly = this.inPlayOnly;
         }
         if (this.marketBettingTypes.size > 0) {
-            json.marketBettingTypes = Array.from(this.marketBettingTypes);
+            json.marketBettingTypes = [];
+            this.marketBettingTypes.forEach((element) => {
+                json.marketBettingTypes.push(element.getValue());
+            });
         }
         if (this.marketCountries.size > 0) {
-            json.marketCountries = Array.from(this.marketCountries);
+            json.marketCountries = [];
+            this.marketCountries.forEach((element) => {
+                json.marketCountries.push(element);
+            });
         }
         if (this.marketTypeCodes.size > 0) {
-            json.marketTypeCodes = Array.from(this.marketTypeCodes);
+            json.marketTypeCodes = [];
+            this.marketTypeCodes.forEach((element) => {
+                json.marketTypeCodes.push(element);
+            });
         }
         if (this.marketStartTime.isValid()) {
             json.marketStartTime = this.marketStartTime.toJson();
         }
         if (this.withOrders.size > 0) {
-            json.withOrders = Array.from(this.withOrders);
+            json.withOrders = [];
+            this.withOrders.forEach((element) => {
+                json.withOrders.push(element.getValue());
+            });
         }
         if (this.raceTypes.size > 0) {
-            json.raceTypes = Array.from(this.raceTypes);
+            json.raceTypes = [];
+            this.raceTypes.forEach((element) => {
+                json.raceTypes.push(element);
+            });
         }
         return json;
     }

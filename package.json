@@ -9,6 +9,7 @@
     "list-competitions": "ts-node ./example/listCompetitions.ts",
     "list-events": "ts-node ./example/listEvents.ts",
     "list-market-catalogue": "ts-node ./example/listMarketCatalogue.ts",
+    "list-market-book": "ts-node ./example/listMarketBook.ts",
     "get-account-statement": "ts-node ./example/getAccountStatement.ts",
     "tslint": "tslint -c tslint.json 'src/**/*.ts'",
     "test": "nyc --require ts-node/register ./node_modules/tape/bin/tape ./test/*.ts"

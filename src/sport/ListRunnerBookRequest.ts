@@ -122,7 +122,10 @@ export default class ListRunnerBookRequest extends JsonRequest {
             json.partitionMatchedByStrategyRef = this.partitionMatchedByStrategyRef;
         }
         if (this.customerStrategyRefs.size > 0) {
-            json.customerStrategyRefs = Array.from(this.customerStrategyRefs);
+            json.customerStrategyRefs = [];
+            this.customerStrategyRefs.forEach((element) => {
+                json.customerStrategyRefs.push(element);
+            });
         }
         if (this.currencyCode !== '') {
             json.currencyCode = this.currencyCode;
@@ -134,7 +137,10 @@ export default class ListRunnerBookRequest extends JsonRequest {
             json.matchedSince = this.matchedSince.toISOString();
         }
         if (this.betIds.size > 0) {
-            json.betIds = Array.from(this.betIds);
+            json.betIds = [];
+            this.betIds.forEach((element) => {
+                json.betIds.push(element);
+            });
         }
         return json;
     }
