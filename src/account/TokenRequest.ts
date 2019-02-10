@@ -51,7 +51,7 @@ export default class TokenRequest extends JsonRequest {
             json.client_id = this.clientId;
         }
         if (this.grantType.isValid()) {
-            json.grant_type = this.grantType;
+            json.grant_type = this.grantType.getValue();
         }
         if (this.code !== '') {
             json.code = this.code;

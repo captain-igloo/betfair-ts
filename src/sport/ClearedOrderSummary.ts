@@ -186,13 +186,13 @@ export default class ClearedOrderSummary extends JsonMember {
             json.placedDate = this.placedDate.toISOString();
         }
         if (this.persistenceType.isValid()) {
-            json.persistenceType = this.persistenceType;
+            json.persistenceType = this.persistenceType.getValue();
         }
         if (this.orderType.isValid()) {
-            json.orderType = this.orderType;
+            json.orderType = this.orderType.getValue();
         }
         if (this.side.isValid()) {
-            json.side = this.side;
+            json.side = this.side.getValue();
         }
         if (this.itemDescription.isValid()) {
             json.itemDescription = this.itemDescription.toJson();

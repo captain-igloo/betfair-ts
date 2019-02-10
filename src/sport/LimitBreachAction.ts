@@ -24,7 +24,7 @@ export default class LimitBreachAction extends JsonMember {
     public toJson(): any {
         const json: any = {};
         if (this.actionType.isValid()) {
-            json.actionType = this.actionType;
+            json.actionType = this.actionType.getValue();
         }
         return json;
     }

@@ -92,10 +92,10 @@ export default class ListMarketBookRequest extends JsonRequest {
             json.priceProjection = this.priceProjection.toJson();
         }
         if (this.orderProjection.isValid()) {
-            json.orderProjection = this.orderProjection;
+            json.orderProjection = this.orderProjection.getValue();
         }
         if (this.matchProjection.isValid()) {
-            json.matchProjection = this.matchProjection;
+            json.matchProjection = this.matchProjection.getValue();
         }
         if (this.includeOverallPosition !== null) {
             json.includeOverallPosition = this.includeOverallPosition;

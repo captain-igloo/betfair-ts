@@ -60,7 +60,7 @@ export default class Match extends JsonMember {
             json.matchId = this.matchId;
         }
         if (this.side.isValid()) {
-            json.side = this.side;
+            json.side = this.side.getValue();
         }
         if (this.price !== null) {
             json.price = this.price;

@@ -172,16 +172,16 @@ export default class CurrentOrderSummary extends JsonMember {
             json.bspLiability = this.bspLiability;
         }
         if (this.side.isValid()) {
-            json.side = this.side;
+            json.side = this.side.getValue();
         }
         if (this.status.isValid()) {
-            json.status = this.status;
+            json.status = this.status.getValue();
         }
         if (this.persistenceType.isValid()) {
-            json.persistenceType = this.persistenceType;
+            json.persistenceType = this.persistenceType.getValue();
         }
         if (this.orderType.isValid()) {
-            json.orderType = this.orderType;
+            json.orderType = this.orderType.getValue();
         }
         if (this.placedDate !== null) {
             json.placedDate = this.placedDate.toISOString();

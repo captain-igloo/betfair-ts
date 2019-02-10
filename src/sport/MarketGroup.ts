@@ -31,7 +31,7 @@ export default class MarketGroup extends JsonMember {
     public toJson(): any {
         const json: any = {};
         if (this.type.isValid()) {
-            json.type = this.type;
+            json.type = this.type.getValue();
         }
         if (this.id.isValid()) {
             json.id = this.id.toJson();

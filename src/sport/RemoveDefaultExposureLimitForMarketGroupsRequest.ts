@@ -24,7 +24,7 @@ export default class RemoveDefaultExposureLimitForMarketGroupsRequest extends Js
     public toJson(): any {
         const json: any = {};
         if (this.marketGroupType.isValid()) {
-            json.marketGroupType = this.marketGroupType;
+            json.marketGroupType = this.marketGroupType.getValue();
         }
         return json;
     }

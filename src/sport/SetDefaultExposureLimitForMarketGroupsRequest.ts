@@ -31,7 +31,7 @@ export default class SetDefaultExposureLimitForMarketGroupsRequest extends JsonR
     public toJson(): any {
         const json: any = {};
         if (this.marketGroupType.isValid()) {
-            json.marketGroupType = this.marketGroupType;
+            json.marketGroupType = this.marketGroupType.getValue();
         }
         if (this.limit.isValid()) {
             json.limit = this.limit.toJson();

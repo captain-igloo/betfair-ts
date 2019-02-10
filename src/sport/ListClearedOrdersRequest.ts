@@ -116,7 +116,7 @@ export default class ListClearedOrdersRequest extends JsonRequest {
     public toJson(): any {
         const json: any = {};
         if (this.betStatus.isValid()) {
-            json.betStatus = this.betStatus;
+            json.betStatus = this.betStatus.getValue();
         }
         if (this.eventTypeIds.size > 0) {
             json.eventTypeIds = [];
@@ -158,13 +158,13 @@ export default class ListClearedOrdersRequest extends JsonRequest {
             });
         }
         if (this.side.isValid()) {
-            json.side = this.side;
+            json.side = this.side.getValue();
         }
         if (this.settledDateRange.isValid()) {
             json.settledDateRange = this.settledDateRange.toJson();
         }
         if (this.groupBy.isValid()) {
-            json.groupBy = this.groupBy;
+            json.groupBy = this.groupBy.getValue();
         }
         if (this.includeItemDescription !== null) {
             json.includeItemDescription = this.includeItemDescription;

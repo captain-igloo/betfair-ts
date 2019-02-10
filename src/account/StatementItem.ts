@@ -75,7 +75,7 @@ export default class StatementItem extends JsonMember {
             json.balance = this.balance;
         }
         if (this.itemClass.isValid()) {
-            json.itemClass = this.itemClass;
+            json.itemClass = this.itemClass.getValue();
         }
         if (this.itemClassData.size > 0) {
             json.itemClassData = {};

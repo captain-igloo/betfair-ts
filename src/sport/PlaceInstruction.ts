@@ -70,7 +70,7 @@ export default class PlaceInstruction extends JsonMember {
     public toJson(): any {
         const json: any = {};
         if (this.orderType.isValid()) {
-            json.orderType = this.orderType;
+            json.orderType = this.orderType.getValue();
         }
         if (this.selectionId !== null) {
             json.selectionId = this.selectionId;
@@ -79,7 +79,7 @@ export default class PlaceInstruction extends JsonMember {
             json.handicap = this.handicap;
         }
         if (this.side.isValid()) {
-            json.side = this.side;
+            json.side = this.side.getValue();
         }
         if (this.limitOrder.isValid()) {
             json.limitOrder = this.limitOrder.toJson();

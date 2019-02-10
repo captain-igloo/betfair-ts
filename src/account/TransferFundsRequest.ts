@@ -36,10 +36,10 @@ export default class TransferFundsRequest extends JsonRequest {
     public toJson(): any {
         const json: any = {};
         if (this.from.isValid()) {
-            json.from = this.from;
+            json.from = this.from.getValue();
         }
         if (this.to.isValid()) {
-            json.to = this.to;
+            json.to = this.to.getValue();
         }
         if (this.amount !== null) {
             json.amount = this.amount;

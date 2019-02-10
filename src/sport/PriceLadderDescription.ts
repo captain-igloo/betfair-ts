@@ -24,7 +24,7 @@ export default class PriceLadderDescription extends JsonMember {
     public toJson(): any {
         const json: any = {};
         if (this.type.isValid()) {
-            json.type = this.type;
+            json.type = this.type.getValue();
         }
         return json;
     }

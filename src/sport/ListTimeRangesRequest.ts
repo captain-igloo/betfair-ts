@@ -34,7 +34,7 @@ export default class ListTimeRangesRequest extends JsonRequest {
             json.filter = this.filter.toJson();
         }
         if (this.granularity.isValid()) {
-            json.granularity = this.granularity;
+            json.granularity = this.granularity.getValue();
         }
         return json;
     }

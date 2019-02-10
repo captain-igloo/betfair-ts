@@ -24,7 +24,7 @@ export default class RevokeAccessToWebAppResponse extends JsonResponse {
     public toJson(): any {
         const json: any = {};
         if (this.response.isValid()) {
-            json.response = this.response;
+            json.response = this.response.getValue();
         }
         return json;
     }

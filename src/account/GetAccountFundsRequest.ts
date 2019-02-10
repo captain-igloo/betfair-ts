@@ -24,7 +24,7 @@ export default class GetAccountFundsRequest extends JsonRequest {
     public toJson(): any {
         const json: any = {};
         if (this.wallet.isValid()) {
-            json.wallet = this.wallet;
+            json.wallet = this.wallet.getValue();
         }
         return json;
     }

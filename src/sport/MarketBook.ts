@@ -138,7 +138,7 @@ export default class MarketBook extends JsonMember {
             json.isMarketDataDelayed = this.isMarketDataDelayed;
         }
         if (this.status.isValid()) {
-            json.status = this.status;
+            json.status = this.status.getValue();
         }
         if (this.betDelay !== null) {
             json.betDelay = this.betDelay;

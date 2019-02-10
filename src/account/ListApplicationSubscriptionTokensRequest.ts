@@ -24,7 +24,7 @@ export default class ListApplicationSubscriptionTokensRequest extends JsonReques
     public toJson(): any {
         const json: any = {};
         if (this.subscriptionStatus.isValid()) {
-            json.subscriptionStatus = this.subscriptionStatus;
+            json.subscriptionStatus = this.subscriptionStatus.getValue();
         }
         return json;
     }

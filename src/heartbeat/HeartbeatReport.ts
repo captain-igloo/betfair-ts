@@ -32,7 +32,7 @@ export default class HeartbeatReport extends JsonResponse {
     public toJson(): any {
         const json: any = {};
         if (this.actionPerformed.isValid()) {
-            json.actionPerformed = this.actionPerformed;
+            json.actionPerformed = this.actionPerformed.getValue();
         }
         if (this.actualTimeoutSeconds !== null) {
             json.actualTimeoutSeconds = this.actualTimeoutSeconds;

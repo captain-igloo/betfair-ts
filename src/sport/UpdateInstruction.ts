@@ -33,7 +33,7 @@ export default class UpdateInstruction extends JsonMember {
             json.betId = this.betId;
         }
         if (this.newPersistenceType.isValid()) {
-            json.newPersistenceType = this.newPersistenceType;
+            json.newPersistenceType = this.newPersistenceType.getValue();
         }
         return json;
     }

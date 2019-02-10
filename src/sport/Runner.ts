@@ -113,7 +113,7 @@ export default class Runner extends JsonMember {
             json.handicap = this.handicap;
         }
         if (this.status.isValid()) {
-            json.status = this.status;
+            json.status = this.status.getValue();
         }
         if (this.adjustmentFactor !== null) {
             json.adjustmentFactor = this.adjustmentFactor;

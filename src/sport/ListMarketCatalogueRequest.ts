@@ -59,7 +59,7 @@ export default class ListMarketCatalogueRequest extends JsonRequest {
             });
         }
         if (this.sort.isValid()) {
-            json.sort = this.sort;
+            json.sort = this.sort.getValue();
         }
         if (this.maxResults !== null) {
             json.maxResults = this.maxResults;

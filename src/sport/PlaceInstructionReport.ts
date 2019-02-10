@@ -69,13 +69,13 @@ export default class PlaceInstructionReport extends JsonMember {
     public toJson(): any {
         const json: any = {};
         if (this.status.isValid()) {
-            json.status = this.status;
+            json.status = this.status.getValue();
         }
         if (this.errorCode.isValid()) {
-            json.errorCode = this.errorCode;
+            json.errorCode = this.errorCode.getValue();
         }
         if (this.orderStatus.isValid()) {
-            json.orderStatus = this.orderStatus;
+            json.orderStatus = this.orderStatus.getValue();
         }
         if (this.instruction.isValid()) {
             json.instruction = this.instruction.toJson();

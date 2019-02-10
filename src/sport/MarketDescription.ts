@@ -149,7 +149,7 @@ export default class MarketDescription extends JsonMember {
             json.settleTime = this.settleTime.toISOString();
         }
         if (this.bettingType.isValid()) {
-            json.bettingType = this.bettingType;
+            json.bettingType = this.bettingType.getValue();
         }
         if (this.turnInPlayEnabled !== null) {
             json.turnInPlayEnabled = this.turnInPlayEnabled;

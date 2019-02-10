@@ -59,10 +59,10 @@ export default class UpdateExecutionReport extends JsonResponse {
             json.customerRef = this.customerRef;
         }
         if (this.status.isValid()) {
-            json.status = this.status;
+            json.status = this.status.getValue();
         }
         if (this.errorCode.isValid()) {
-            json.errorCode = this.errorCode;
+            json.errorCode = this.errorCode.getValue();
         }
         if (this.marketId !== '') {
             json.marketId = this.marketId;

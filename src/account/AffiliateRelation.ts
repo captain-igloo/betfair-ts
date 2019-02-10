@@ -33,7 +33,7 @@ export default class AffiliateRelation extends JsonMember {
             json.vendorClientId = this.vendorClientId;
         }
         if (this.status.isValid()) {
-            json.status = this.status;
+            json.status = this.status.getValue();
         }
         return json;
     }

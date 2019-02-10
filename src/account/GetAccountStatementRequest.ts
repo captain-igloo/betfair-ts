@@ -68,10 +68,10 @@ export default class GetAccountStatementRequest extends JsonRequest {
             json.itemDateRange = this.itemDateRange.toJson();
         }
         if (this.includeItem.isValid()) {
-            json.includeItem = this.includeItem;
+            json.includeItem = this.includeItem.getValue();
         }
         if (this.wallet.isValid()) {
-            json.wallet = this.wallet;
+            json.wallet = this.wallet.getValue();
         }
         return json;
     }

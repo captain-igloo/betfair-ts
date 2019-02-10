@@ -54,7 +54,7 @@ export default class VendorAccessTokenInfo extends JsonResponse {
             json.access_token = this.accessToken;
         }
         if (this.tokenType.isValid()) {
-            json.token_type = this.tokenType;
+            json.token_type = this.tokenType.getValue();
         }
         if (this.expiresIn !== null) {
             json.expires_in = this.expiresIn;

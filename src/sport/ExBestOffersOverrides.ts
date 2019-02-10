@@ -51,7 +51,7 @@ export default class ExBestOffersOverrides extends JsonMember {
             json.bestPricesDepth = this.bestPricesDepth;
         }
         if (this.rollupModel.isValid()) {
-            json.rollupModel = this.rollupModel;
+            json.rollupModel = this.rollupModel.getValue();
         }
         if (this.rollupLimit !== null) {
             json.rollupLimit = this.rollupLimit;

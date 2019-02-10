@@ -99,7 +99,7 @@ export default class ListCurrentOrdersRequest extends JsonRequest {
             });
         }
         if (this.orderProjection.isValid()) {
-            json.orderProjection = this.orderProjection;
+            json.orderProjection = this.orderProjection.getValue();
         }
         if (this.customerOrderRefs.size > 0) {
             json.customerOrderRefs = [];
@@ -120,10 +120,10 @@ export default class ListCurrentOrdersRequest extends JsonRequest {
             json.dateRange = this.dateRange.toJson();
         }
         if (this.orderBy.isValid()) {
-            json.orderBy = this.orderBy;
+            json.orderBy = this.orderBy.getValue();
         }
         if (this.sortDir.isValid()) {
-            json.sortDir = this.sortDir;
+            json.sortDir = this.sortDir.getValue();
         }
         if (this.fromRecord !== null) {
             json.fromRecord = this.fromRecord;

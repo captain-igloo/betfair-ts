@@ -35,7 +35,7 @@ export default class ListExposureLimitsForMarketGroupsRequest extends JsonReques
     public toJson(): any {
         const json: any = {};
         if (this.marketGroupTypeFilter.isValid()) {
-            json.marketGroupTypeFilter = this.marketGroupTypeFilter;
+            json.marketGroupTypeFilter = this.marketGroupTypeFilter.getValue();
         }
         if (this.marketGroupFilter.length > 0) {
             json.marketGroupFilter = this.marketGroupFilter.map((value) => value.toJson());
