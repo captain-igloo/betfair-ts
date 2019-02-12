@@ -26,7 +26,7 @@ export default class ListCompetitionsResponse extends JsonResponse {
     }
 
     public toJson(): any {
-        const json: any = {};
+        let json: any = {};
         if (this.competitionResults.length > 0) {
             json.competitionResults = this.competitionResults.map((value) => value.toJson());
         }

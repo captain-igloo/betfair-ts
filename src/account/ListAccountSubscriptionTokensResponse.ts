@@ -26,7 +26,7 @@ export default class ListAccountSubscriptionTokensResponse extends JsonResponse 
     }
 
     public toJson(): any {
-        const json: any = {};
+        let json: any = {};
         if (this.accountSubscriptions.length > 0) {
             json.accountSubscriptions = this.accountSubscriptions.map((value) => value.toJson());
         }

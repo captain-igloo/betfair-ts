@@ -26,7 +26,7 @@ export default class ListCurrencyRatesResponse extends JsonResponse {
     }
 
     public toJson(): any {
-        const json: any = {};
+        let json: any = {};
         if (this.currencyRates.length > 0) {
             json.currencyRates = this.currencyRates.map((value) => value.toJson());
         }

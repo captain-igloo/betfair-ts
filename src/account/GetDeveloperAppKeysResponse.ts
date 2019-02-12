@@ -26,7 +26,7 @@ export default class GetDeveloperAppKeysResponse extends JsonResponse {
     }
 
     public toJson(): any {
-        const json: any = {};
+        let json: any = {};
         if (this.developerApps.length > 0) {
             json.developerApps = this.developerApps.map((value) => value.toJson());
         }

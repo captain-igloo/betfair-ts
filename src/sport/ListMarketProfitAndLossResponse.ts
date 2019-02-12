@@ -26,7 +26,7 @@ export default class ListMarketProfitAndLossResponse extends JsonResponse {
     }
 
     public toJson(): any {
-        const json: any = {};
+        let json: any = {};
         if (this.marketProfitAndLosses.length > 0) {
             json.marketProfitAndLosses = this.marketProfitAndLosses.map((value) => value.toJson());
         }

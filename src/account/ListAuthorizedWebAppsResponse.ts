@@ -26,7 +26,7 @@ export default class ListAuthorizedWebAppsResponse extends JsonResponse {
     }
 
     public toJson(): any {
-        const json: any = {};
+        let json: any = {};
         if (this.vendorDetailses.length > 0) {
             json.vendorDetailses = this.vendorDetailses.map((value) => value.toJson());
         }

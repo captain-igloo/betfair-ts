@@ -26,7 +26,7 @@ export default class ListTimeRangesResponse extends JsonResponse {
     }
 
     public toJson(): any {
-        const json: any = {};
+        let json: any = {};
         if (this.timeRangeResults.length > 0) {
             json.timeRangeResults = this.timeRangeResults.map((value) => value.toJson());
         }

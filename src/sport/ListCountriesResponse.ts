@@ -26,7 +26,7 @@ export default class ListCountriesResponse extends JsonResponse {
     }
 
     public toJson(): any {
-        const json: any = {};
+        let json: any = {};
         if (this.countryCodeResults.length > 0) {
             json.countryCodeResults = this.countryCodeResults.map((value) => value.toJson());
         }

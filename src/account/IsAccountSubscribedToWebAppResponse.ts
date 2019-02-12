@@ -21,7 +21,7 @@ export default class IsAccountSubscribedToWebAppResponse extends JsonResponse {
     }
 
     public toJson(): any {
-        const json: any = {};
+        let json: any = {};
         if (this.response !== null) {
             json.response = this.response;
         }

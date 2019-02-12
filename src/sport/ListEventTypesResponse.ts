@@ -26,7 +26,7 @@ export default class ListEventTypesResponse extends JsonResponse {
     }
 
     public toJson(): any {
-        const json: any = {};
+        let json: any = {};
         if (this.eventTypeResults.length > 0) {
             json.eventTypeResults = this.eventTypeResults.map((value) => value.toJson());
         }

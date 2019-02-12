@@ -26,7 +26,7 @@ export default class GetAffiliateRelationResponse extends JsonResponse {
     }
 
     public toJson(): any {
-        const json: any = {};
+        let json: any = {};
         if (this.affiliateRelations.length > 0) {
             json.affiliateRelations = this.affiliateRelations.map((value) => value.toJson());
         }

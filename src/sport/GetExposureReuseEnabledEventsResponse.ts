@@ -21,7 +21,7 @@ export default class GetExposureReuseEnabledEventsResponse extends JsonResponse 
     }
 
     public toJson(): any {
-        const json: any = {};
+        let json: any = {};
         if (this.response.length > 0) {
             json.response = this.response;
         }

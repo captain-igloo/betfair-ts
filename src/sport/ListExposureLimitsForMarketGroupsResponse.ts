@@ -26,7 +26,7 @@ export default class ListExposureLimitsForMarketGroupsResponse extends JsonRespo
     }
 
     public toJson(): any {
-        const json: any = {};
+        let json: any = {};
         if (this.exposureLimitsForMarketGroupses.length > 0) {
             json.exposureLimitsForMarketGroupses = this.exposureLimitsForMarketGroupses.map((value) => value.toJson());
         }

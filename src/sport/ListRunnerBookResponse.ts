@@ -26,7 +26,7 @@ export default class ListRunnerBookResponse extends JsonResponse {
     }
 
     public toJson(): any {
-        const json: any = {};
+        let json: any = {};
         if (this.marketBooks.length > 0) {
             json.marketBooks = this.marketBooks.map((value) => value.toJson());
         }

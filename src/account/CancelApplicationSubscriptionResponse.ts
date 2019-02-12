@@ -17,14 +17,14 @@ export default class CancelApplicationSubscriptionResponse extends JsonResponse 
 
     public fromJson(json: any): void {
         if (this.validateJson(json)) {
-            this.response.setValue(json.response);
+            this.response.setValue(json);
         }
     }
 
     public toJson(): any {
-        const json: any = {};
+        let json: any = {};
         if (this.response.isValid()) {
-            json.response = this.response.getValue();
+            json = this.response.getValue();
         }
         return json;
     }

@@ -21,7 +21,7 @@ export default class UpdateApplicationSubscriptionResponse extends JsonResponse 
     }
 
     public toJson(): any {
-        const json: any = {};
+        let json: any = {};
         if (this.response !== '') {
             json.response = this.response;
         }

@@ -26,7 +26,7 @@ export default class ListMarketCatalogueResponse extends JsonResponse {
     }
 
     public toJson(): any {
-        const json: any = {};
+        let json: any = {};
         if (this.marketCatalogues.length > 0) {
             json.marketCatalogues = this.marketCatalogues.map((value) => value.toJson());
         }

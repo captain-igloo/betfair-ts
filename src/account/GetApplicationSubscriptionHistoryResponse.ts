@@ -26,7 +26,7 @@ export default class GetApplicationSubscriptionHistoryResponse extends JsonRespo
     }
 
     public toJson(): any {
-        const json: any = {};
+        let json: any = {};
         if (this.subscriptionHistorys.length > 0) {
             json.subscriptionHistorys = this.subscriptionHistorys.map((value) => value.toJson());
         }

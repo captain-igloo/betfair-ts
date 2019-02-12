@@ -26,7 +26,7 @@ export default class ListVenuesResponse extends JsonResponse {
     }
 
     public toJson(): any {
-        const json: any = {};
+        let json: any = {};
         if (this.venueResults.length > 0) {
             json.venueResults = this.venueResults.map((value) => value.toJson());
         }

@@ -26,7 +26,7 @@ export default class ListApplicationSubscriptionTokensResponse extends JsonRespo
     }
 
     public toJson(): any {
-        const json: any = {};
+        let json: any = {};
         if (this.applicationSubscriptions.length > 0) {
             json.applicationSubscriptions = this.applicationSubscriptions.map((value) => value.toJson());
         }
