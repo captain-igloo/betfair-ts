@@ -1,8 +1,8 @@
 /**
  * Copyright 2018 Colin Doig.  Distributed under the MIT license.
  */
-import TimeRange from '../common/TimeRange';
 import JsonRequest from '../JsonRequest';
+import TimeRange from '../common/TimeRange';
 import BetStatus from '../sport/enum/BetStatus';
 import GroupBy from '../sport/enum/GroupBy';
 import Side from '../sport/enum/Side';

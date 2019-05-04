@@ -1,8 +1,8 @@
 /**
  * Copyright 2018 Colin Doig.  Distributed under the MIT license.
  */
-import DeveloperAppVersion from '../account/DeveloperAppVersion';
 import JsonResponse from '../JsonResponse';
+import DeveloperAppVersion from '../account/DeveloperAppVersion';
 export default class DeveloperApp extends JsonResponse {
     private appName;
     private appId;

@@ -1,8 +1,8 @@
 /**
  * Copyright 2018 Colin Doig.  Distributed under the MIT license.
  */
-import SubscriptionTokenInfo from '../account/SubscriptionTokenInfo';
 import JsonMember from '../JsonMember';
+import SubscriptionTokenInfo from '../account/SubscriptionTokenInfo';
 export default class AccountSubscription extends JsonMember {
     private subscriptionTokens;
     private applicationName;

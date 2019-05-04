@@ -1,8 +1,8 @@
 /**
  * Copyright 2018 Colin Doig.  Distributed under the MIT license.
  */
-import AffiliateRelationStatus from '../account/enum/AffiliateRelationStatus';
 import JsonMember from '../JsonMember';
+import AffiliateRelationStatus from '../account/enum/AffiliateRelationStatus';
 export default class AffiliateRelation extends JsonMember {
     private vendorClientId;
     private status;

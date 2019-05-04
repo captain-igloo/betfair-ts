@@ -1,8 +1,8 @@
 /**
  * Copyright 2018 Colin Doig.  Distributed under the MIT license.
  */
-import StatementItem from '../account/StatementItem';
 import JsonResponse from '../JsonResponse';
+import StatementItem from '../account/StatementItem';
 export default class AccountStatementReport extends JsonResponse {
     private accountStatement;
     private moreAvailable;

@@ -1,9 +1,9 @@
 /**
  * Copyright 2018 Colin Doig.  Distributed under the MIT license.
  */
+import JsonResponse from '../JsonResponse';
 import ApplicationSubscription from '../account/ApplicationSubscription';
 import TokenType from '../account/enum/TokenType';
-import JsonResponse from '../JsonResponse';
 export default class VendorAccessTokenInfo extends JsonResponse {
     private accessToken;
     private tokenType;

@@ -1,8 +1,8 @@
 /**
  * Copyright 2018 Colin Doig.  Distributed under the MIT license.
  */
-import GrantType from '../account/enum/GrantType';
 import JsonRequest from '../JsonRequest';
+import GrantType from '../account/enum/GrantType';
 export default class TokenRequest extends JsonRequest {
     private clientId;
     private grantType;

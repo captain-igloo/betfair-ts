@@ -1,8 +1,8 @@
 /**
  * Copyright 2018 Colin Doig.  Distributed under the MIT license.
  */
-import Status from '../account/enum/Status';
 import JsonResponse from '../JsonResponse';
+import Status from '../account/enum/Status';
 export default class RevokeAccessToWebAppResponse extends JsonResponse {
     private response;
     constructor(response?: Status);

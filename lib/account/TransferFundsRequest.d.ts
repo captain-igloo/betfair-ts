@@ -1,8 +1,8 @@
 /**
  * Copyright 2018 Colin Doig.  Distributed under the MIT license.
  */
-import Wallet from '../account/enum/Wallet';
 import JsonRequest from '../JsonRequest';
+import Wallet from '../account/enum/Wallet';
 export default class TransferFundsRequest extends JsonRequest {
     private from;
     private to;
