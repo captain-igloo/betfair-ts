@@ -24,7 +24,7 @@ export default class RunnerStatus extends Enum {
                 value !== 'REMOVED_VACANT' &&
                 value !== 'REMOVED' &&
                 value !== 'PLACED') {
-                throw new Error(`Invalid MarketStatus: ${value}`);
+                throw new Error(`Invalid RunnerStatus: ${value}`);
             }
 
             this.value = value;

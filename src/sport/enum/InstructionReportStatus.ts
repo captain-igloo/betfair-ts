@@ -18,7 +18,7 @@ export default class InstructionReportStatus extends Enum {
             if (value !== 'SUCCESS' &&
                 value !== 'FAILURE' &&
                 value !== 'TIMEOUT') {
-                throw new Error(`Invalid MarketStatus: ${value}`);
+                throw new Error(`Invalid InstructionReportStatus: ${value}`);
             }
 
             this.value = value;

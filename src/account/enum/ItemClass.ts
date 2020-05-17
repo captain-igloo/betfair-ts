@@ -14,7 +14,7 @@ export default class ItemClass extends Enum {
     public setValue(value: string): void {
         if (value) {
             if (value !== 'UNKNOWN') {
-                throw new Error(`Invalid MarketStatus: ${value}`);
+                throw new Error(`Invalid ItemClass: ${value}`);
             }
 
             this.value = value;

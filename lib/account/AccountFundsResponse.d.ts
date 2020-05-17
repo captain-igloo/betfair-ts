@@ -1,31 +1,38 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonResponse from '../JsonResponse';
+export interface IAccountFundsResponseOptions {
+    availableToBetBalance?: number;
+    exposure?: number;
+    retainedCommission?: number;
+    exposureLimit?: number;
+    discountRate?: number;
+    pointsBalance?: number;
+    wallet?: string;
+}
 export default class AccountFundsResponse extends JsonResponse {
-    private availableToBetBalance;
-    private exposure;
-    private retainedCommission;
-    private exposureLimit;
-    private discountRate;
-    private pointsBalance;
-    private wallet;
-    constructor(availableToBetBalance?: number | null, exposure?: number | null, retainedCommission?: number | null, exposureLimit?: number | null, discountRate?: number | null, pointsBalance?: number | null, wallet?: string);
-    fromJson(json: any): void;
-    toJson(): any;
-    isValid(): boolean;
-    getAvailableToBetBalance(): number | null;
-    setAvailableToBetBalance(availableToBetBalance: number | null): void;
-    getExposure(): number | null;
-    setExposure(exposure: number | null): void;
-    getRetainedCommission(): number | null;
-    setRetainedCommission(retainedCommission: number | null): void;
-    getExposureLimit(): number | null;
-    setExposureLimit(exposureLimit: number | null): void;
-    getDiscountRate(): number | null;
-    setDiscountRate(discountRate: number | null): void;
-    getPointsBalance(): number | null;
-    setPointsBalance(pointsBalance: number | null): void;
-    getWallet(): string;
+    private availableToBetBalance?;
+    private exposure?;
+    private retainedCommission?;
+    private exposureLimit?;
+    private discountRate?;
+    private pointsBalance?;
+    private wallet?;
+    constructor(options: IAccountFundsResponseOptions);
+    toJson(): IAccountFundsResponseOptions;
+    getAvailableToBetBalance(): number | undefined;
+    setAvailableToBetBalance(availableToBetBalance: number): void;
+    getExposure(): number | undefined;
+    setExposure(exposure: number): void;
+    getRetainedCommission(): number | undefined;
+    setRetainedCommission(retainedCommission: number): void;
+    getExposureLimit(): number | undefined;
+    setExposureLimit(exposureLimit: number): void;
+    getDiscountRate(): number | undefined;
+    setDiscountRate(discountRate: number): void;
+    getPointsBalance(): number | undefined;
+    setPointsBalance(pointsBalance: number): void;
+    getWallet(): string | undefined;
     setWallet(wallet: string): void;
 }

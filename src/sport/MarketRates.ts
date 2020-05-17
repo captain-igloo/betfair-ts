@@ -1,57 +1,42 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonMember from '../JsonMember';
 
 
+export interface IMarketRatesOptions {
+    marketBaseRate: number;
+    discountAllowed: boolean;
+}
+
 export default class MarketRates extends JsonMember {
-    private marketBaseRate: number | null;
-    private discountAllowed: boolean | null;
+    private marketBaseRate: number;
+    private discountAllowed: boolean;
 
-    constructor(
-        marketBaseRate: number | null = null,
-        discountAllowed: boolean | null = null,
-    ) {
+    constructor(options: IMarketRatesOptions) {
         super();
-        this.marketBaseRate = marketBaseRate;
-        this.discountAllowed = discountAllowed;
+        this.marketBaseRate = options.marketBaseRate;
+        this.discountAllowed = options.discountAllowed;
     }
 
-    public fromJson(json: any): void {
-        if ('marketBaseRate' in json) {
-            this.marketBaseRate = json.marketBaseRate;
-        }
-        if ('discountAllowed' in json) {
-            this.discountAllowed = json.discountAllowed;
-        }
-    }
-
-    public toJson(): any {
-        const json: any = {};
-        if (this.marketBaseRate !== null) {
-            json.marketBaseRate = this.marketBaseRate;
-        }
-        if (this.discountAllowed !== null) {
-            json.discountAllowed = this.discountAllowed;
-        }
+    public toJson(): IMarketRatesOptions {
+        const json: IMarketRatesOptions = {
+            marketBaseRate: this.marketBaseRate,
+            discountAllowed: this.discountAllowed,
+        };
         return json;
     }
 
-    public isValid(): boolean {
-        return this.marketBaseRate !== null &&
-            this.discountAllowed !== null;
-    }
-
-    public getMarketBaseRate(): number | null {
+    public getMarketBaseRate(): number {
         return this.marketBaseRate;
     }
-    public setMarketBaseRate(marketBaseRate: number | null): void {
+    public setMarketBaseRate(marketBaseRate: number): void {
         this.marketBaseRate = marketBaseRate;
     }
-    public getDiscountAllowed(): boolean | null {
+    public getDiscountAllowed(): boolean {
         return this.discountAllowed;
     }
-    public setDiscountAllowed(discountAllowed: boolean | null): void {
+    public setDiscountAllowed(discountAllowed: boolean): void {
         this.discountAllowed = discountAllowed;
     }
 

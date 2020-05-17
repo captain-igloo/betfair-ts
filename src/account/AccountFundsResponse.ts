@@ -1,130 +1,105 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonResponse from '../JsonResponse';
 
 
+export interface IAccountFundsResponseOptions {
+    availableToBetBalance?: number;
+    exposure?: number;
+    retainedCommission?: number;
+    exposureLimit?: number;
+    discountRate?: number;
+    pointsBalance?: number;
+    wallet?: string;
+}
+
 export default class AccountFundsResponse extends JsonResponse {
-    private availableToBetBalance: number | null;
-    private exposure: number | null;
-    private retainedCommission: number | null;
-    private exposureLimit: number | null;
-    private discountRate: number | null;
-    private pointsBalance: number | null;
-    private wallet: string;
+    private availableToBetBalance?: number;
+    private exposure?: number;
+    private retainedCommission?: number;
+    private exposureLimit?: number;
+    private discountRate?: number;
+    private pointsBalance?: number;
+    private wallet?: string;
 
-    constructor(
-        availableToBetBalance: number | null = null,
-        exposure: number | null = null,
-        retainedCommission: number | null = null,
-        exposureLimit: number | null = null,
-        discountRate: number | null = null,
-        pointsBalance: number | null = null,
-        wallet: string = '',
-    ) {
+    constructor(options: IAccountFundsResponseOptions) {
         super();
-        this.availableToBetBalance = availableToBetBalance;
-        this.exposure = exposure;
-        this.retainedCommission = retainedCommission;
-        this.exposureLimit = exposureLimit;
-        this.discountRate = discountRate;
-        this.pointsBalance = pointsBalance;
-        this.wallet = wallet;
-    }
-
-    public fromJson(json: any): void {
-        if (this.validateJson(json)) {
-            if ('availableToBetBalance' in json) {
-                this.availableToBetBalance = json.availableToBetBalance;
-            }
-            if ('exposure' in json) {
-                this.exposure = json.exposure;
-            }
-            if ('retainedCommission' in json) {
-                this.retainedCommission = json.retainedCommission;
-            }
-            if ('exposureLimit' in json) {
-                this.exposureLimit = json.exposureLimit;
-            }
-            if ('discountRate' in json) {
-                this.discountRate = json.discountRate;
-            }
-            if ('pointsBalance' in json) {
-                this.pointsBalance = json.pointsBalance;
-            }
-            if ('wallet' in json) {
-                this.wallet = json.wallet;
-            }
+        if (this.validateJson(options)) {
+            this.availableToBetBalance = options.availableToBetBalance;
+            this.exposure = options.exposure;
+            this.retainedCommission = options.retainedCommission;
+            this.exposureLimit = options.exposureLimit;
+            this.discountRate = options.discountRate;
+            this.pointsBalance = options.pointsBalance;
+            this.wallet = options.wallet;
         }
     }
 
-    public toJson(): any {
-        const json: any = {};
-        if (this.availableToBetBalance !== null) {
+    public toJson(): IAccountFundsResponseOptions {
+        const json: IAccountFundsResponseOptions = {
+        };
+        if (typeof this.availableToBetBalance !== 'undefined') {
             json.availableToBetBalance = this.availableToBetBalance;
         }
-        if (this.exposure !== null) {
+        if (typeof this.exposure !== 'undefined') {
             json.exposure = this.exposure;
         }
-        if (this.retainedCommission !== null) {
+        if (typeof this.retainedCommission !== 'undefined') {
             json.retainedCommission = this.retainedCommission;
         }
-        if (this.exposureLimit !== null) {
+        if (typeof this.exposureLimit !== 'undefined') {
             json.exposureLimit = this.exposureLimit;
         }
-        if (this.discountRate !== null) {
+        if (typeof this.discountRate !== 'undefined') {
             json.discountRate = this.discountRate;
         }
-        if (this.pointsBalance !== null) {
+        if (typeof this.pointsBalance !== 'undefined') {
             json.pointsBalance = this.pointsBalance;
         }
-        if (this.wallet !== '') {
+        if (typeof this.wallet !== 'undefined') {
             json.wallet = this.wallet;
         }
         return json;
     }
 
-    public isValid(): boolean {
-        return true;
-    }
-
-    public getAvailableToBetBalance(): number | null {
+    public getAvailableToBetBalance(): number | undefined {
         return this.availableToBetBalance;
     }
-    public setAvailableToBetBalance(availableToBetBalance: number | null): void {
+    public setAvailableToBetBalance(availableToBetBalance: number): void {
         this.availableToBetBalance = availableToBetBalance;
     }
-    public getExposure(): number | null {
+    public getExposure(): number | undefined {
         return this.exposure;
     }
-    public setExposure(exposure: number | null): void {
+    public setExposure(exposure: number): void {
         this.exposure = exposure;
     }
-    public getRetainedCommission(): number | null {
+    public getRetainedCommission(): number | undefined {
         return this.retainedCommission;
     }
-    public setRetainedCommission(retainedCommission: number | null): void {
+    public setRetainedCommission(retainedCommission: number): void {
         this.retainedCommission = retainedCommission;
     }
-    public getExposureLimit(): number | null {
+    public getExposureLimit(): number | undefined {
         return this.exposureLimit;
     }
-    public setExposureLimit(exposureLimit: number | null): void {
+    public setExposureLimit(exposureLimit: number): void {
         this.exposureLimit = exposureLimit;
     }
-    public getDiscountRate(): number | null {
+    public getDiscountRate(): number | undefined {
         return this.discountRate;
     }
-    public setDiscountRate(discountRate: number | null): void {
+    public setDiscountRate(discountRate: number): void {
         this.discountRate = discountRate;
     }
-    public getPointsBalance(): number | null {
+    public getPointsBalance(): number | undefined {
         return this.pointsBalance;
     }
-    public setPointsBalance(pointsBalance: number | null): void {
+    public setPointsBalance(pointsBalance: number): void {
         this.pointsBalance = pointsBalance;
     }
-    public getWallet(): string {
+    public getWallet(): string | undefined {
         return this.wallet;
     }
     public setWallet(wallet: string): void {

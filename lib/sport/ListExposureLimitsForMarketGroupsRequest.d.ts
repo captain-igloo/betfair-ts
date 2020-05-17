@@ -1,18 +1,20 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonRequest from '../JsonRequest';
 import MarketGroupType from '../sport/enum/MarketGroupType';
-import MarketGroup from '../sport/MarketGroup';
+import MarketGroup, { IMarketGroupOptions } from '../sport/MarketGroup';
+export interface IListExposureLimitsForMarketGroupsRequestOptions {
+    marketGroupTypeFilter?: MarketGroupType | string;
+    marketGroupFilter?: Array<MarketGroup | IMarketGroupOptions>;
+}
 export default class ListExposureLimitsForMarketGroupsRequest extends JsonRequest {
-    private marketGroupTypeFilter;
-    private marketGroupFilter;
-    constructor(marketGroupTypeFilter?: MarketGroupType, marketGroupFilter?: MarketGroup[]);
-    fromJson(json: any): void;
-    toJson(): any;
-    isValid(): boolean;
-    getMarketGroupTypeFilter(): MarketGroupType;
+    private marketGroupTypeFilter?;
+    private marketGroupFilter?;
+    constructor(options: IListExposureLimitsForMarketGroupsRequestOptions);
+    toJson(): IListExposureLimitsForMarketGroupsRequestOptions;
+    getMarketGroupTypeFilter(): MarketGroupType | undefined;
     setMarketGroupTypeFilter(marketGroupTypeFilter: MarketGroupType): void;
-    getMarketGroupFilter(): MarketGroup[];
+    getMarketGroupFilter(): MarketGroup[] | undefined;
     setMarketGroupFilter(marketGroupFilter: MarketGroup[]): void;
 }

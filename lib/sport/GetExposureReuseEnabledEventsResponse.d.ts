@@ -1,13 +1,14 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonResponse from '../JsonResponse';
+export interface IGetExposureReuseEnabledEventsResponseOptions {
+    response?: Array<number>;
+}
 export default class GetExposureReuseEnabledEventsResponse extends JsonResponse {
-    private response;
-    constructor(response?: number[]);
-    fromJson(json: any): void;
-    toJson(): any;
-    isValid(): boolean;
-    getResponse(): number[];
+    private response?;
+    constructor(options: Array<number>);
+    toJson(): IGetExposureReuseEnabledEventsResponseOptions;
+    getResponse(): number[] | undefined;
     setResponse(response: number[]): void;
 }

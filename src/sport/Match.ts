@@ -1,92 +1,64 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonMember from '../JsonMember';
 
 import Side from '../sport/enum/Side';
 
+export interface IMatchOptions {
+    betId?: string;
+    matchId?: string;
+    side: Side | string;
+    price: number;
+    size: number;
+    matchDate?: Date | string;
+}
+
 export default class Match extends JsonMember {
-    private betId: string;
-    private matchId: string;
+    private betId?: string;
+    private matchId?: string;
     private side: Side;
-    private price: number | null;
-    private size: number | null;
-    private matchDate: Date | null;
+    private price: number;
+    private size: number;
+    private matchDate?: Date;
 
-    constructor(
-        betId: string = '',
-        matchId: string = '',
-        side: Side = new Side(),
-        price: number | null = null,
-        size: number | null = null,
-        matchDate: Date | null = null,
-    ) {
+    constructor(options: IMatchOptions) {
         super();
-        this.betId = betId;
-        this.matchId = matchId;
-        this.side = side;
-        this.price = price;
-        this.size = size;
-        this.matchDate = matchDate;
-    }
-
-    public fromJson(json: any): void {
-        if ('betId' in json) {
-            this.betId = json.betId;
-        }
-        if ('matchId' in json) {
-            this.matchId = json.matchId;
-        }
-        if ('side' in json) {
-            this.side.setValue(json.side);
-        }
-        if ('price' in json) {
-            this.price = json.price;
-        }
-        if ('size' in json) {
-            this.size = json.size;
-        }
-        if ('matchDate' in json) {
-            this.matchDate = new Date(json.matchDate);
+        this.betId = options.betId;
+        this.matchId = options.matchId;
+        this.side = this.fromJson(options.side, Side);
+        this.price = options.price;
+        this.size = options.size;
+        if (options.matchDate) {
+            this.matchDate = this.fromJson(options.matchDate, Date);
         }
     }
 
-    public toJson(): any {
-        const json: any = {};
-        if (this.betId !== '') {
+    public toJson(): IMatchOptions {
+        const json: IMatchOptions = {
+            side: this.side.getValue(),
+            price: this.price,
+            size: this.size,
+        };
+        if (typeof this.betId !== 'undefined') {
             json.betId = this.betId;
         }
-        if (this.matchId !== '') {
+        if (typeof this.matchId !== 'undefined') {
             json.matchId = this.matchId;
         }
-        if (this.side.isValid()) {
-            json.side = this.side.getValue();
-        }
-        if (this.price !== null) {
-            json.price = this.price;
-        }
-        if (this.size !== null) {
-            json.size = this.size;
-        }
-        if (this.matchDate !== null) {
+        if (typeof this.matchDate !== 'undefined') {
             json.matchDate = this.matchDate.toISOString();
         }
         return json;
     }
 
-    public isValid(): boolean {
-        return this.side.isValid() &&
-            this.price !== null &&
-            this.size !== null;
-    }
-
-    public getBetId(): string {
+    public getBetId(): string | undefined {
         return this.betId;
     }
     public setBetId(betId: string): void {
         this.betId = betId;
     }
-    public getMatchId(): string {
+    public getMatchId(): string | undefined {
         return this.matchId;
     }
     public setMatchId(matchId: string): void {
@@ -98,22 +70,22 @@ export default class Match extends JsonMember {
     public setSide(side: Side): void {
         this.side = side;
     }
-    public getPrice(): number | null {
+    public getPrice(): number {
         return this.price;
     }
-    public setPrice(price: number | null): void {
+    public setPrice(price: number): void {
         this.price = price;
     }
-    public getSize(): number | null {
+    public getSize(): number {
         return this.size;
     }
-    public setSize(size: number | null): void {
+    public setSize(size: number): void {
         this.size = size;
     }
-    public getMatchDate(): Date | null {
+    public getMatchDate(): Date | undefined {
         return this.matchDate;
     }
-    public setMatchDate(matchDate: Date | null): void {
+    public setMatchDate(matchDate: Date): void {
         this.matchDate = matchDate;
     }
 

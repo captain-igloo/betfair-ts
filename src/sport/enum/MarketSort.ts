@@ -24,7 +24,7 @@ export default class MarketSort extends Enum {
                 value !== 'MAXIMUM_AVAILABLE' &&
                 value !== 'FIRST_TO_START' &&
                 value !== 'LAST_TO_START') {
-                throw new Error(`Invalid MarketStatus: ${value}`);
+                throw new Error(`Invalid MarketSort: ${value}`);
             }
 
             this.value = value;

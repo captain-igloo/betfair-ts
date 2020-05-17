@@ -1,27 +1,32 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonRequest from '../JsonRequest';
-import MarketVersion from '../sport/MarketVersion';
-import ReplaceInstruction from '../sport/ReplaceInstruction';
+import MarketVersion, { IMarketVersionOptions } from '../sport/MarketVersion';
+import ReplaceInstruction, { IReplaceInstructionOptions } from '../sport/ReplaceInstruction';
+export interface IReplaceOrdersRequestOptions {
+    marketId: string;
+    instructions: Array<ReplaceInstruction | IReplaceInstructionOptions>;
+    customerRef?: string;
+    marketVersion?: MarketVersion | IMarketVersionOptions;
+    async?: boolean;
+}
 export default class ReplaceOrdersRequest extends JsonRequest {
     private marketId;
     private instructions;
-    private customerRef;
-    private marketVersion;
-    private async;
-    constructor(marketId?: string, instructions?: ReplaceInstruction[], customerRef?: string, marketVersion?: MarketVersion, async?: boolean | null);
-    fromJson(json: any): void;
-    toJson(): any;
-    isValid(): boolean;
+    private customerRef?;
+    private marketVersion?;
+    private async?;
+    constructor(options: IReplaceOrdersRequestOptions);
+    toJson(): IReplaceOrdersRequestOptions;
     getMarketId(): string;
     setMarketId(marketId: string): void;
     getInstructions(): ReplaceInstruction[];
     setInstructions(instructions: ReplaceInstruction[]): void;
-    getCustomerRef(): string;
+    getCustomerRef(): string | undefined;
     setCustomerRef(customerRef: string): void;
-    getMarketVersion(): MarketVersion;
+    getMarketVersion(): MarketVersion | undefined;
     setMarketVersion(marketVersion: MarketVersion): void;
-    getAsync(): boolean | null;
-    setAsync(async: boolean | null): void;
+    getAsync(): boolean | undefined;
+    setAsync(async: boolean): void;
 }

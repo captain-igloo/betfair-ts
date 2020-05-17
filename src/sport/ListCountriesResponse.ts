@@ -1,43 +1,31 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonResponse from '../JsonResponse';
 
-import CountryCodeResult from '../sport/CountryCodeResult';
+import CountryCodeResult, { ICountryCodeResultOptions } from '../sport/CountryCodeResult';
+
+export interface IListCountriesResponseOptions {
+    countryCodeResults?: Array<CountryCodeResult | ICountryCodeResultOptions>;
+}
 
 export default class ListCountriesResponse extends JsonResponse {
-    private countryCodeResults: CountryCodeResult[];
+    private countryCodeResults?: CountryCodeResult[];
 
-    constructor(
-        countryCodeResults: CountryCodeResult[] = [],
-    ) {
+    constructor(options: Array<CountryCodeResult | ICountryCodeResultOptions>) {
         super();
-        this.countryCodeResults = countryCodeResults;
-    }
-
-    public fromJson(json: any): void {
-        if (this.validateJson(json)) {
-            this.countryCodeResults = json.map((countryCodeResultsJson: any) => {
-                const element = new CountryCodeResult();
-                element.fromJson(countryCodeResultsJson);
-                return element;
-            });
+        if (this.validateJson(options)) {
+            if (options) {
+                this.countryCodeResults = this.arrayFromJson(options, CountryCodeResult);
+            }
         }
     }
 
-    public toJson(): any {
-        let json: any = {};
-        if (this.countryCodeResults.length > 0) {
-            json.countryCodeResults = this.countryCodeResults.map((value) => value.toJson());
-        }
-        return json;
+    public toJson(): IListCountriesResponseOptions {
+        throw new Error('not implemented');
     }
 
-    public isValid(): boolean {
-        return this.countryCodeResults.length > 0;
-    }
-
-    public getCountryCodeResults(): CountryCodeResult[] {
+    public getCountryCodeResults(): CountryCodeResult[] | undefined {
         return this.countryCodeResults;
     }
     public setCountryCodeResults(countryCodeResults: CountryCodeResult[]): void {

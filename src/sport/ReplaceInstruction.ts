@@ -1,45 +1,30 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonMember from '../JsonMember';
 
 
+export interface IReplaceInstructionOptions {
+    betId: string;
+    newPrice: number;
+}
+
 export default class ReplaceInstruction extends JsonMember {
     private betId: string;
-    private newPrice: number | null;
+    private newPrice: number;
 
-    constructor(
-        betId: string = '',
-        newPrice: number | null = null,
-    ) {
+    constructor(options: IReplaceInstructionOptions) {
         super();
-        this.betId = betId;
-        this.newPrice = newPrice;
+        this.betId = options.betId;
+        this.newPrice = options.newPrice;
     }
 
-    public fromJson(json: any): void {
-        if ('betId' in json) {
-            this.betId = json.betId;
-        }
-        if ('newPrice' in json) {
-            this.newPrice = json.newPrice;
-        }
-    }
-
-    public toJson(): any {
-        const json: any = {};
-        if (this.betId !== '') {
-            json.betId = this.betId;
-        }
-        if (this.newPrice !== null) {
-            json.newPrice = this.newPrice;
-        }
+    public toJson(): IReplaceInstructionOptions {
+        const json: IReplaceInstructionOptions = {
+            betId: this.betId,
+            newPrice: this.newPrice,
+        };
         return json;
-    }
-
-    public isValid(): boolean {
-        return this.betId !== '' &&
-            this.newPrice !== null;
     }
 
     public getBetId(): string {
@@ -48,10 +33,10 @@ export default class ReplaceInstruction extends JsonMember {
     public setBetId(betId: string): void {
         this.betId = betId;
     }
-    public getNewPrice(): number | null {
+    public getNewPrice(): number {
         return this.newPrice;
     }
-    public setNewPrice(newPrice: number | null): void {
+    public setNewPrice(newPrice: number): void {
         this.newPrice = newPrice;
     }
 

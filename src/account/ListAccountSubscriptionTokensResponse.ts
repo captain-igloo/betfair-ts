@@ -1,43 +1,31 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonResponse from '../JsonResponse';
 
-import AccountSubscription from '../account/AccountSubscription';
+import AccountSubscription, { IAccountSubscriptionOptions } from '../account/AccountSubscription';
+
+export interface IListAccountSubscriptionTokensResponseOptions {
+    accountSubscriptions?: Array<AccountSubscription | IAccountSubscriptionOptions>;
+}
 
 export default class ListAccountSubscriptionTokensResponse extends JsonResponse {
-    private accountSubscriptions: AccountSubscription[];
+    private accountSubscriptions?: AccountSubscription[];
 
-    constructor(
-        accountSubscriptions: AccountSubscription[] = [],
-    ) {
+    constructor(options: Array<AccountSubscription | IAccountSubscriptionOptions>) {
         super();
-        this.accountSubscriptions = accountSubscriptions;
-    }
-
-    public fromJson(json: any): void {
-        if (this.validateJson(json)) {
-            this.accountSubscriptions = json.map((accountSubscriptionsJson: any) => {
-                const element = new AccountSubscription();
-                element.fromJson(accountSubscriptionsJson);
-                return element;
-            });
+        if (this.validateJson(options)) {
+            if (options) {
+                this.accountSubscriptions = this.arrayFromJson(options, AccountSubscription);
+            }
         }
     }
 
-    public toJson(): any {
-        let json: any = {};
-        if (this.accountSubscriptions.length > 0) {
-            json.accountSubscriptions = this.accountSubscriptions.map((value) => value.toJson());
-        }
-        return json;
+    public toJson(): IListAccountSubscriptionTokensResponseOptions {
+        throw new Error('not implemented');
     }
 
-    public isValid(): boolean {
-        return this.accountSubscriptions.length > 0;
-    }
-
-    public getAccountSubscriptions(): AccountSubscription[] {
+    public getAccountSubscriptions(): AccountSubscription[] | undefined {
         return this.accountSubscriptions;
     }
     public setAccountSubscriptions(accountSubscriptions: AccountSubscription[]): void {

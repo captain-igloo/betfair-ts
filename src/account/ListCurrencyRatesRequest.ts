@@ -1,38 +1,31 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonRequest from '../JsonRequest';
 
 
+export interface IListCurrencyRatesRequestOptions {
+    fromCurrency?: string;
+}
+
 export default class ListCurrencyRatesRequest extends JsonRequest {
-    private fromCurrency: string;
+    private fromCurrency?: string;
 
-    constructor(
-        fromCurrency: string = '',
-    ) {
+    constructor(options: IListCurrencyRatesRequestOptions) {
         super();
-        this.fromCurrency = fromCurrency;
+        this.fromCurrency = options.fromCurrency;
     }
 
-    public fromJson(json: any): void {
-        if ('fromCurrency' in json) {
-            this.fromCurrency = json.fromCurrency;
-        }
-    }
-
-    public toJson(): any {
-        const json: any = {};
-        if (this.fromCurrency !== '') {
+    public toJson(): IListCurrencyRatesRequestOptions {
+        const json: IListCurrencyRatesRequestOptions = {
+        };
+        if (typeof this.fromCurrency !== 'undefined') {
             json.fromCurrency = this.fromCurrency;
         }
         return json;
     }
 
-    public isValid(): boolean {
-        return true;
-    }
-
-    public getFromCurrency(): string {
+    public getFromCurrency(): string | undefined {
         return this.fromCurrency;
     }
     public setFromCurrency(fromCurrency: string): void {

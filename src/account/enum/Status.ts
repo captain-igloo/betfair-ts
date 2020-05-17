@@ -14,7 +14,7 @@ export default class Status extends Enum {
     public setValue(value: string): void {
         if (value) {
             if (value !== 'SUCCESS') {
-                throw new Error(`Invalid MarketStatus: ${value}`);
+                throw new Error(`Invalid Status: ${value}`);
             }
 
             this.value = value;

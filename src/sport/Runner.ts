@@ -1,170 +1,115 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonMember from '../JsonMember';
 
 import RunnerStatus from '../sport/enum/RunnerStatus';
-import ExchangePrices from '../sport/ExchangePrices';
-import Match from '../sport/Match';
-import Matches from '../sport/Matches';
-import Order from '../sport/Order';
-import StartingPrices from '../sport/StartingPrices';
+import ExchangePrices, { IExchangePricesOptions } from '../sport/ExchangePrices';
+import Match, { IMatchOptions } from '../sport/Match';
+import Matches, { IMatchesOptions } from '../sport/Matches';
+import Order, { IOrderOptions } from '../sport/Order';
+import StartingPrices, { IStartingPricesOptions } from '../sport/StartingPrices';
+
+export interface IRunnerOptions {
+    selectionId: number;
+    handicap: number;
+    status: RunnerStatus | string;
+    adjustmentFactor: number;
+    lastPriceTraded?: number;
+    totalMatched?: number;
+    removalDate?: Date | string;
+    sp?: StartingPrices | IStartingPricesOptions;
+    ex?: ExchangePrices | IExchangePricesOptions;
+    orders?: Array<Order | IOrderOptions>;
+    matches?: Array<Match | IMatchOptions>;
+    matchesByStrategy?: Map<string, Matches | IMatchesOptions> | {[key: string]: Matches | IMatchesOptions};
+}
 
 export default class Runner extends JsonMember {
-    private selectionId: number | null;
-    private handicap: number | null;
+    private selectionId: number;
+    private handicap: number;
     private status: RunnerStatus;
-    private adjustmentFactor: number | null;
-    private lastPriceTraded: number | null;
-    private totalMatched: number | null;
-    private removalDate: Date | null;
-    private sp: StartingPrices;
-    private ex: ExchangePrices;
-    private orders: Order[];
-    private matches: Match[];
-    private matchesByStrategy: Map<string, Matches>;
+    private adjustmentFactor: number;
+    private lastPriceTraded?: number;
+    private totalMatched?: number;
+    private removalDate?: Date;
+    private sp?: StartingPrices;
+    private ex?: ExchangePrices;
+    private orders?: Order[];
+    private matches?: Match[];
+    private matchesByStrategy?: Map<string, Matches>;
 
-    constructor(
-        selectionId: number | null = null,
-        handicap: number | null = null,
-        status: RunnerStatus = new RunnerStatus(),
-        adjustmentFactor: number | null = null,
-        lastPriceTraded: number | null = null,
-        totalMatched: number | null = null,
-        removalDate: Date | null = null,
-        sp: StartingPrices = new StartingPrices(),
-        ex: ExchangePrices = new ExchangePrices(),
-        orders: Order[] = [],
-        matches: Match[] = [],
-        matchesByStrategy: Map<string, Matches> = new Map<string, Matches>(),
-    ) {
+    constructor(options: IRunnerOptions) {
         super();
-        this.selectionId = selectionId;
-        this.handicap = handicap;
-        this.status = status;
-        this.adjustmentFactor = adjustmentFactor;
-        this.lastPriceTraded = lastPriceTraded;
-        this.totalMatched = totalMatched;
-        this.removalDate = removalDate;
-        this.sp = sp;
-        this.ex = ex;
-        this.orders = orders;
-        this.matches = matches;
-        this.matchesByStrategy = matchesByStrategy;
-    }
-
-    public fromJson(json: any): void {
-        if ('selectionId' in json) {
-            this.selectionId = json.selectionId;
+        this.selectionId = options.selectionId;
+        this.handicap = options.handicap;
+        this.status = this.fromJson(options.status, RunnerStatus);
+        this.adjustmentFactor = options.adjustmentFactor;
+        this.lastPriceTraded = options.lastPriceTraded;
+        this.totalMatched = options.totalMatched;
+        if (options.removalDate) {
+            this.removalDate = this.fromJson(options.removalDate, Date);
         }
-        if ('handicap' in json) {
-            this.handicap = json.handicap;
+        this.sp = options.sp && this.fromJson(options.sp, StartingPrices);
+        this.ex = options.ex && this.fromJson(options.ex, ExchangePrices);
+        if (options.orders) {
+            this.orders = this.arrayFromJson(options.orders, Order);
         }
-        if ('status' in json) {
-            this.status.setValue(json.status);
+        if (options.matches) {
+            this.matches = this.arrayFromJson(options.matches, Match);
         }
-        if ('adjustmentFactor' in json) {
-            this.adjustmentFactor = json.adjustmentFactor;
-        }
-        if ('lastPriceTraded' in json) {
-            this.lastPriceTraded = json.lastPriceTraded;
-        }
-        if ('totalMatched' in json) {
-            this.totalMatched = json.totalMatched;
-        }
-        if ('removalDate' in json) {
-            this.removalDate = new Date(json.removalDate);
-        }
-        if ('sp' in json) {
-            this.sp.fromJson(json.sp);
-        }
-        if ('ex' in json) {
-            this.ex.fromJson(json.ex);
-        }
-        if ('orders' in json) {
-            this.orders = json.orders.map((ordersJson: any) => {
-                const element = new Order();
-                element.fromJson(ordersJson);
-                return element;
-            });
-        }
-        if ('matches' in json) {
-            this.matches = json.matches.map((matchesJson: any) => {
-                const element = new Match();
-                element.fromJson(matchesJson);
-                return element;
-            });
-        }
-        if ('matchesByStrategy' in json) {
-            Object.keys(json.matchesByStrategy).forEach((key: string) => {
-                const value = new Matches();
-                value.fromJson(json.matchesByStrategy[key]);
-                this.matchesByStrategy.set(key, value);
-            });
+        if (options.matchesByStrategy) {
+            this.matchesByStrategy = this.mapFromJson(options.matchesByStrategy, Matches);
         }
     }
 
-    public toJson(): any {
-        const json: any = {};
-        if (this.selectionId !== null) {
-            json.selectionId = this.selectionId;
-        }
-        if (this.handicap !== null) {
-            json.handicap = this.handicap;
-        }
-        if (this.status.isValid()) {
-            json.status = this.status.getValue();
-        }
-        if (this.adjustmentFactor !== null) {
-            json.adjustmentFactor = this.adjustmentFactor;
-        }
-        if (this.lastPriceTraded !== null) {
+    public toJson(): IRunnerOptions {
+        const json: IRunnerOptions = {
+            selectionId: this.selectionId,
+            handicap: this.handicap,
+            status: this.status.getValue(),
+            adjustmentFactor: this.adjustmentFactor,
+        };
+        if (typeof this.lastPriceTraded !== 'undefined') {
             json.lastPriceTraded = this.lastPriceTraded;
         }
-        if (this.totalMatched !== null) {
+        if (typeof this.totalMatched !== 'undefined') {
             json.totalMatched = this.totalMatched;
         }
-        if (this.removalDate !== null) {
+        if (typeof this.removalDate !== 'undefined') {
             json.removalDate = this.removalDate.toISOString();
         }
-        if (this.sp.isValid()) {
+        if (this.sp) {
             json.sp = this.sp.toJson();
         }
-        if (this.ex.isValid()) {
+        if (this.ex) {
             json.ex = this.ex.toJson();
         }
-        if (this.orders.length > 0) {
+        if (this.orders && this.orders.length > 0) {
             json.orders = this.orders.map((value) => value.toJson());
         }
-        if (this.matches.length > 0) {
+        if (this.matches && this.matches.length > 0) {
             json.matches = this.matches.map((value) => value.toJson());
         }
-        if (this.matchesByStrategy.size > 0) {
+        if (this.matchesByStrategy && this.matchesByStrategy.size > 0) {
             json.matchesByStrategy = {};
             this.matchesByStrategy.forEach((value, key) => {
-                json.matchesByStrategy.key = value.toJson();
+                (json.matchesByStrategy as {[key: string]: Matches | IMatchesOptions})[key] = value.toJson();
             });
         }
         return json;
     }
 
-    public isValid(): boolean {
-        return this.selectionId !== null &&
-            this.handicap !== null &&
-            this.status.isValid() &&
-            this.adjustmentFactor !== null;
-    }
-
-    public getSelectionId(): number | null {
+    public getSelectionId(): number {
         return this.selectionId;
     }
-    public setSelectionId(selectionId: number | null): void {
+    public setSelectionId(selectionId: number): void {
         this.selectionId = selectionId;
     }
-    public getHandicap(): number | null {
+    public getHandicap(): number {
         return this.handicap;
     }
-    public setHandicap(handicap: number | null): void {
+    public setHandicap(handicap: number): void {
         this.handicap = handicap;
     }
     public getStatus(): RunnerStatus {
@@ -173,55 +118,55 @@ export default class Runner extends JsonMember {
     public setStatus(status: RunnerStatus): void {
         this.status = status;
     }
-    public getAdjustmentFactor(): number | null {
+    public getAdjustmentFactor(): number {
         return this.adjustmentFactor;
     }
-    public setAdjustmentFactor(adjustmentFactor: number | null): void {
+    public setAdjustmentFactor(adjustmentFactor: number): void {
         this.adjustmentFactor = adjustmentFactor;
     }
-    public getLastPriceTraded(): number | null {
+    public getLastPriceTraded(): number | undefined {
         return this.lastPriceTraded;
     }
-    public setLastPriceTraded(lastPriceTraded: number | null): void {
+    public setLastPriceTraded(lastPriceTraded: number): void {
         this.lastPriceTraded = lastPriceTraded;
     }
-    public getTotalMatched(): number | null {
+    public getTotalMatched(): number | undefined {
         return this.totalMatched;
     }
-    public setTotalMatched(totalMatched: number | null): void {
+    public setTotalMatched(totalMatched: number): void {
         this.totalMatched = totalMatched;
     }
-    public getRemovalDate(): Date | null {
+    public getRemovalDate(): Date | undefined {
         return this.removalDate;
     }
-    public setRemovalDate(removalDate: Date | null): void {
+    public setRemovalDate(removalDate: Date): void {
         this.removalDate = removalDate;
     }
-    public getSp(): StartingPrices {
+    public getSp(): StartingPrices | undefined {
         return this.sp;
     }
     public setSp(sp: StartingPrices): void {
         this.sp = sp;
     }
-    public getEx(): ExchangePrices {
+    public getEx(): ExchangePrices | undefined {
         return this.ex;
     }
     public setEx(ex: ExchangePrices): void {
         this.ex = ex;
     }
-    public getOrders(): Order[] {
+    public getOrders(): Order[] | undefined {
         return this.orders;
     }
     public setOrders(orders: Order[]): void {
         this.orders = orders;
     }
-    public getMatches(): Match[] {
+    public getMatches(): Match[] | undefined {
         return this.matches;
     }
     public setMatches(matches: Match[]): void {
         this.matches = matches;
     }
-    public getMatchesByStrategy(): Map<string, Matches> {
+    public getMatchesByStrategy(): Map<string, Matches> | undefined {
         return this.matchesByStrategy;
     }
     public setMatchesByStrategy(matchesByStrategy: Map<string, Matches>): void {

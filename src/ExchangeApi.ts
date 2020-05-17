@@ -161,378 +161,329 @@ export default class ExchangeApi {
     public async listEventTypes(
         request: ListEventTypesRequest,
     ): Promise<ListEventTypesResponse> {
-        const response = new ListEventTypesResponse();
-        response.fromJson(await this.performRequest(Api.Betting, 'listEventTypes', request));
+        const response = new ListEventTypesResponse(await this.performRequest(Api.Betting, 'listEventTypes', request));
         return response;
     }
 
     public async listCompetitions(
         request: ListCompetitionsRequest,
     ): Promise<ListCompetitionsResponse> {
-        const response = new ListCompetitionsResponse();
-        response.fromJson(await this.performRequest(Api.Betting, 'listCompetitions', request));
+        const response = new ListCompetitionsResponse(await this.performRequest(Api.Betting, 'listCompetitions', request));
         return response;
     }
 
     public async listTimeRanges(
         request: ListTimeRangesRequest,
     ): Promise<ListTimeRangesResponse> {
-        const response = new ListTimeRangesResponse();
-        response.fromJson(await this.performRequest(Api.Betting, 'listTimeRanges', request));
+        const response = new ListTimeRangesResponse(await this.performRequest(Api.Betting, 'listTimeRanges', request));
         return response;
     }
 
     public async listEvents(
         request: ListEventsRequest,
     ): Promise<ListEventsResponse> {
-        const response = new ListEventsResponse();
-        response.fromJson(await this.performRequest(Api.Betting, 'listEvents', request));
+        const response = new ListEventsResponse(await this.performRequest(Api.Betting, 'listEvents', request));
         return response;
     }
 
     public async listMarketTypes(
         request: ListMarketTypesRequest,
     ): Promise<ListMarketTypesResponse> {
-        const response = new ListMarketTypesResponse();
-        response.fromJson(await this.performRequest(Api.Betting, 'listMarketTypes', request));
+        const response = new ListMarketTypesResponse(await this.performRequest(Api.Betting, 'listMarketTypes', request));
         return response;
     }
 
     public async listCountries(
         request: ListCountriesRequest,
     ): Promise<ListCountriesResponse> {
-        const response = new ListCountriesResponse();
-        response.fromJson(await this.performRequest(Api.Betting, 'listCountries', request));
+        const response = new ListCountriesResponse(await this.performRequest(Api.Betting, 'listCountries', request));
         return response;
     }
 
     public async listVenues(
         request: ListVenuesRequest,
     ): Promise<ListVenuesResponse> {
-        const response = new ListVenuesResponse();
-        response.fromJson(await this.performRequest(Api.Betting, 'listVenues', request));
+        const response = new ListVenuesResponse(await this.performRequest(Api.Betting, 'listVenues', request));
         return response;
     }
 
     public async listMarketCatalogue(
         request: ListMarketCatalogueRequest,
     ): Promise<ListMarketCatalogueResponse> {
-        const response = new ListMarketCatalogueResponse();
-        response.fromJson(await this.performRequest(Api.Betting, 'listMarketCatalogue', request));
+        const response = new ListMarketCatalogueResponse(await this.performRequest(Api.Betting, 'listMarketCatalogue', request));
         return response;
     }
 
     public async listMarketBook(
         request: ListMarketBookRequest,
     ): Promise<ListMarketBookResponse> {
-        const response = new ListMarketBookResponse();
-        response.fromJson(await this.performRequest(Api.Betting, 'listMarketBook', request));
+        const response = new ListMarketBookResponse(await this.performRequest(Api.Betting, 'listMarketBook', request));
         return response;
     }
 
     public async listRunnerBook(
         request: ListRunnerBookRequest,
     ): Promise<ListRunnerBookResponse> {
-        const response = new ListRunnerBookResponse();
-        response.fromJson(await this.performRequest(Api.Betting, 'listRunnerBook', request));
+        const response = new ListRunnerBookResponse(await this.performRequest(Api.Betting, 'listRunnerBook', request));
         return response;
     }
 
     public async listCurrentOrders(
         request: ListCurrentOrdersRequest,
     ): Promise<CurrentOrderSummaryReport> {
-        const response = new CurrentOrderSummaryReport();
-        response.fromJson(await this.performRequest(Api.Betting, 'listCurrentOrders', request));
+        const response = new CurrentOrderSummaryReport(await this.performRequest(Api.Betting, 'listCurrentOrders', request));
         return response;
     }
 
     public async listClearedOrders(
         request: ListClearedOrdersRequest,
     ): Promise<ClearedOrderSummaryReport> {
-        const response = new ClearedOrderSummaryReport();
-        response.fromJson(await this.performRequest(Api.Betting, 'listClearedOrders', request));
+        const response = new ClearedOrderSummaryReport(await this.performRequest(Api.Betting, 'listClearedOrders', request));
         return response;
     }
 
     public async placeOrders(
         request: PlaceOrdersRequest,
     ): Promise<PlaceExecutionReport> {
-        const response = new PlaceExecutionReport();
-        response.fromJson(await this.performRequest(Api.Betting, 'placeOrders', request));
+        const response = new PlaceExecutionReport(await this.performRequest(Api.Betting, 'placeOrders', request));
         return response;
     }
 
     public async cancelOrders(
         request: CancelOrdersRequest,
     ): Promise<CancelExecutionReport> {
-        const response = new CancelExecutionReport();
-        response.fromJson(await this.performRequest(Api.Betting, 'cancelOrders', request));
+        const response = new CancelExecutionReport(await this.performRequest(Api.Betting, 'cancelOrders', request));
         return response;
     }
 
     public async replaceOrders(
         request: ReplaceOrdersRequest,
     ): Promise<ReplaceExecutionReport> {
-        const response = new ReplaceExecutionReport();
-        response.fromJson(await this.performRequest(Api.Betting, 'replaceOrders', request));
+        const response = new ReplaceExecutionReport(await this.performRequest(Api.Betting, 'replaceOrders', request));
         return response;
     }
 
     public async updateOrders(
         request: UpdateOrdersRequest,
     ): Promise<UpdateExecutionReport> {
-        const response = new UpdateExecutionReport();
-        response.fromJson(await this.performRequest(Api.Betting, 'updateOrders', request));
+        const response = new UpdateExecutionReport(await this.performRequest(Api.Betting, 'updateOrders', request));
         return response;
     }
 
     public async listMarketProfitAndLoss(
         request: ListMarketProfitAndLossRequest,
     ): Promise<ListMarketProfitAndLossResponse> {
-        const response = new ListMarketProfitAndLossResponse();
-        response.fromJson(await this.performRequest(Api.Betting, 'listMarketProfitAndLoss', request));
+        const response = new ListMarketProfitAndLossResponse(await this.performRequest(Api.Betting, 'listMarketProfitAndLoss', request));
         return response;
     }
 
     public async setDefaultExposureLimitForMarketGroups(
         request: SetDefaultExposureLimitForMarketGroupsRequest,
     ): Promise<SetDefaultExposureLimitForMarketGroupsResponse> {
-        const response = new SetDefaultExposureLimitForMarketGroupsResponse();
-        response.fromJson(await this.performRequest(Api.Betting, 'setDefaultExposureLimitForMarketGroups', request));
+        const response = new SetDefaultExposureLimitForMarketGroupsResponse(await this.performRequest(Api.Betting, 'setDefaultExposureLimitForMarketGroups', request));
         return response;
     }
 
     public async setExposureLimitForMarketGroup(
         request: SetExposureLimitForMarketGroupRequest,
     ): Promise<SetExposureLimitForMarketGroupResponse> {
-        const response = new SetExposureLimitForMarketGroupResponse();
-        response.fromJson(await this.performRequest(Api.Betting, 'setExposureLimitForMarketGroup', request));
+        const response = new SetExposureLimitForMarketGroupResponse(await this.performRequest(Api.Betting, 'setExposureLimitForMarketGroup', request));
         return response;
     }
 
     public async removeDefaultExposureLimitForMarketGroups(
         request: RemoveDefaultExposureLimitForMarketGroupsRequest,
     ): Promise<RemoveDefaultExposureLimitForMarketGroupsResponse> {
-        const response = new RemoveDefaultExposureLimitForMarketGroupsResponse();
-        response.fromJson(await this.performRequest(Api.Betting, 'removeDefaultExposureLimitForMarketGroups', request));
+        const response = new RemoveDefaultExposureLimitForMarketGroupsResponse(await this.performRequest(Api.Betting, 'removeDefaultExposureLimitForMarketGroups', request));
         return response;
     }
 
     public async removeExposureLimitForMarketGroup(
         request: RemoveExposureLimitForMarketGroupRequest,
     ): Promise<RemoveExposureLimitForMarketGroupResponse> {
-        const response = new RemoveExposureLimitForMarketGroupResponse();
-        response.fromJson(await this.performRequest(Api.Betting, 'removeExposureLimitForMarketGroup', request));
+        const response = new RemoveExposureLimitForMarketGroupResponse(await this.performRequest(Api.Betting, 'removeExposureLimitForMarketGroup', request));
         return response;
     }
 
     public async listExposureLimitsForMarketGroups(
         request: ListExposureLimitsForMarketGroupsRequest,
     ): Promise<ListExposureLimitsForMarketGroupsResponse> {
-        const response = new ListExposureLimitsForMarketGroupsResponse();
-        response.fromJson(await this.performRequest(Api.Betting, 'listExposureLimitsForMarketGroups', request));
+        const response = new ListExposureLimitsForMarketGroupsResponse(await this.performRequest(Api.Betting, 'listExposureLimitsForMarketGroups', request));
         return response;
     }
 
     public async unblockMarketGroup(
         request: UnblockMarketGroupRequest,
     ): Promise<UnblockMarketGroupResponse> {
-        const response = new UnblockMarketGroupResponse();
-        response.fromJson(await this.performRequest(Api.Betting, 'unblockMarketGroup', request));
+        const response = new UnblockMarketGroupResponse(await this.performRequest(Api.Betting, 'unblockMarketGroup', request));
         return response;
     }
 
     public async getExposureReuseEnabledEvents(): Promise<GetExposureReuseEnabledEventsResponse> {
-        const response = new GetExposureReuseEnabledEventsResponse();
-        response.fromJson(await this.performRequest(Api.Betting, 'getExposureReuseEnabledEvents'));
+        const response = new GetExposureReuseEnabledEventsResponse(await this.performRequest(Api.Betting, 'getExposureReuseEnabledEvents'));
         return response;
     }
     public async addExposureReuseEnabledEvents(
         request: AddExposureReuseEnabledEventsRequest,
     ): Promise<AddExposureReuseEnabledEventsResponse> {
-        const response = new AddExposureReuseEnabledEventsResponse();
-        response.fromJson(await this.performRequest(Api.Betting, 'addExposureReuseEnabledEvents', request));
+        const response = new AddExposureReuseEnabledEventsResponse(await this.performRequest(Api.Betting, 'addExposureReuseEnabledEvents', request));
         return response;
     }
 
     public async removeExposureReuseEnabledEvents(
         request: RemoveExposureReuseEnabledEventsRequest,
     ): Promise<RemoveExposureReuseEnabledEventsResponse> {
-        const response = new RemoveExposureReuseEnabledEventsResponse();
-        response.fromJson(await this.performRequest(Api.Betting, 'removeExposureReuseEnabledEvents', request));
+        const response = new RemoveExposureReuseEnabledEventsResponse(await this.performRequest(Api.Betting, 'removeExposureReuseEnabledEvents', request));
         return response;
     }
 
     public async createDeveloperAppKeys(
         request: CreateDeveloperAppKeysRequest,
     ): Promise<DeveloperApp> {
-        const response = new DeveloperApp();
-        response.fromJson(await this.performRequest(Api.Account, 'createDeveloperAppKeys', request));
+        const response = new DeveloperApp(await this.performRequest(Api.Account, 'createDeveloperAppKeys', request));
         return response;
     }
 
     public async getDeveloperAppKeys(): Promise<GetDeveloperAppKeysResponse> {
-        const response = new GetDeveloperAppKeysResponse();
-        response.fromJson(await this.performRequest(Api.Account, 'getDeveloperAppKeys'));
+        const response = new GetDeveloperAppKeysResponse(await this.performRequest(Api.Account, 'getDeveloperAppKeys'));
         return response;
     }
     public async getAccountFunds(
         request: GetAccountFundsRequest,
     ): Promise<AccountFundsResponse> {
-        const response = new AccountFundsResponse();
-        response.fromJson(await this.performRequest(Api.Account, 'getAccountFunds', request));
+        const response = new AccountFundsResponse(await this.performRequest(Api.Account, 'getAccountFunds', request));
         return response;
     }
 
     public async transferFunds(
         request: TransferFundsRequest,
     ): Promise<TransferResponse> {
-        const response = new TransferResponse();
-        response.fromJson(await this.performRequest(Api.Account, 'transferFunds', request));
+        const response = new TransferResponse(await this.performRequest(Api.Account, 'transferFunds', request));
         return response;
     }
 
     public async getAccountDetails(): Promise<AccountDetailsResponse> {
-        const response = new AccountDetailsResponse();
-        response.fromJson(await this.performRequest(Api.Account, 'getAccountDetails'));
+        const response = new AccountDetailsResponse(await this.performRequest(Api.Account, 'getAccountDetails'));
         return response;
     }
 
     public async getVendorClientId(): Promise<GetVendorClientIdResponse> {
-        const response = new GetVendorClientIdResponse();
-        response.fromJson(await this.performRequest(Api.Account, 'getVendorClientId'));
+        const response = new GetVendorClientIdResponse(await this.performRequest(Api.Account, 'getVendorClientId'));
         return response;
     }
 
     public async getApplicationSubscriptionToken(
         request: GetApplicationSubscriptionTokenRequest,
     ): Promise<GetApplicationSubscriptionTokenResponse> {
-        const response = new GetApplicationSubscriptionTokenResponse();
-        response.fromJson(await this.performRequest(Api.Account, 'getApplicationSubscriptionToken', request));
+        const response = new GetApplicationSubscriptionTokenResponse(await this.performRequest(Api.Account, 'getApplicationSubscriptionToken', request));
         return response;
     }
 
     public async activateApplicationSubscription(
         request: ActivateApplicationSubscriptionRequest,
     ): Promise<ActivateApplicationSubscriptionResponse> {
-        const response = new ActivateApplicationSubscriptionResponse();
-        response.fromJson(await this.performRequest(Api.Account, 'activateApplicationSubscription', request));
+        const response = new ActivateApplicationSubscriptionResponse(await this.performRequest(Api.Account, 'activateApplicationSubscription', request));
         return response;
     }
 
     public async cancelApplicationSubscription(
         request: CancelApplicationSubscriptionRequest,
     ): Promise<CancelApplicationSubscriptionResponse> {
-        const response = new CancelApplicationSubscriptionResponse();
-        response.fromJson(await this.performRequest(Api.Account, 'cancelApplicationSubscription', request));
+        const response = new CancelApplicationSubscriptionResponse(await this.performRequest(Api.Account, 'cancelApplicationSubscription', request));
         return response;
     }
 
     public async updateApplicationSubscription(
         request: UpdateApplicationSubscriptionRequest,
     ): Promise<UpdateApplicationSubscriptionResponse> {
-        const response = new UpdateApplicationSubscriptionResponse();
-        response.fromJson(await this.performRequest(Api.Account, 'updateApplicationSubscription', request));
+        const response = new UpdateApplicationSubscriptionResponse(await this.performRequest(Api.Account, 'updateApplicationSubscription', request));
         return response;
     }
 
     public async listApplicationSubscriptionTokens(
         request: ListApplicationSubscriptionTokensRequest,
     ): Promise<ListApplicationSubscriptionTokensResponse> {
-        const response = new ListApplicationSubscriptionTokensResponse();
-        response.fromJson(await this.performRequest(Api.Account, 'listApplicationSubscriptionTokens', request));
+        const response = new ListApplicationSubscriptionTokensResponse(await this.performRequest(Api.Account, 'listApplicationSubscriptionTokens', request));
         return response;
     }
 
     public async listAccountSubscriptionTokens(): Promise<ListAccountSubscriptionTokensResponse> {
-        const response = new ListAccountSubscriptionTokensResponse();
-        response.fromJson(await this.performRequest(Api.Account, 'listAccountSubscriptionTokens'));
+        const response = new ListAccountSubscriptionTokensResponse(await this.performRequest(Api.Account, 'listAccountSubscriptionTokens'));
         return response;
     }
 
     public async getApplicationSubscriptionHistory(
         request: GetApplicationSubscriptionHistoryRequest,
     ): Promise<GetApplicationSubscriptionHistoryResponse> {
-        const response = new GetApplicationSubscriptionHistoryResponse();
-        response.fromJson(await this.performRequest(Api.Account, 'getApplicationSubscriptionHistory', request));
+        const response = new GetApplicationSubscriptionHistoryResponse(await this.performRequest(Api.Account, 'getApplicationSubscriptionHistory', request));
         return response;
     }
 
     public async getAccountStatement(
         request: GetAccountStatementRequest,
     ): Promise<AccountStatementReport> {
-        const response = new AccountStatementReport();
-        response.fromJson(await this.performRequest(Api.Account, 'getAccountStatement', request));
+        const response = new AccountStatementReport(await this.performRequest(Api.Account, 'getAccountStatement', request));
         return response;
     }
 
     public async listCurrencyRates(
         request: ListCurrencyRatesRequest,
     ): Promise<ListCurrencyRatesResponse> {
-        const response = new ListCurrencyRatesResponse();
-        response.fromJson(await this.performRequest(Api.Account, 'listCurrencyRates', request));
+        const response = new ListCurrencyRatesResponse(await this.performRequest(Api.Account, 'listCurrencyRates', request));
         return response;
     }
 
     public async getAuthorisationCode(
         request: GetAuthorisationCodeRequest,
     ): Promise<AuthorisationResponse> {
-        const response = new AuthorisationResponse();
-        response.fromJson(await this.performRequest(Api.Account, 'getAuthorisationCode', request));
+        const response = new AuthorisationResponse(await this.performRequest(Api.Account, 'getAuthorisationCode', request));
         return response;
     }
 
     public async token(
         request: TokenRequest,
     ): Promise<VendorAccessTokenInfo> {
-        const response = new VendorAccessTokenInfo();
-        response.fromJson(await this.performRequest(Api.Account, 'token', request));
+        const response = new VendorAccessTokenInfo(await this.performRequest(Api.Account, 'token', request));
         return response;
     }
 
     public async getVendorDetails(
         request: GetVendorDetailsRequest,
     ): Promise<VendorDetails> {
-        const response = new VendorDetails();
-        response.fromJson(await this.performRequest(Api.Account, 'getVendorDetails', request));
+        const response = new VendorDetails(await this.performRequest(Api.Account, 'getVendorDetails', request));
         return response;
     }
 
     public async revokeAccessToWebApp(
         request: RevokeAccessToWebAppRequest,
     ): Promise<RevokeAccessToWebAppResponse> {
-        const response = new RevokeAccessToWebAppResponse();
-        response.fromJson(await this.performRequest(Api.Account, 'revokeAccessToWebApp', request));
+        const response = new RevokeAccessToWebAppResponse(await this.performRequest(Api.Account, 'revokeAccessToWebApp', request));
         return response;
     }
 
     public async listAuthorizedWebApps(): Promise<ListAuthorizedWebAppsResponse> {
-        const response = new ListAuthorizedWebAppsResponse();
-        response.fromJson(await this.performRequest(Api.Account, 'listAuthorizedWebApps'));
+        const response = new ListAuthorizedWebAppsResponse(await this.performRequest(Api.Account, 'listAuthorizedWebApps'));
         return response;
     }
 
     public async isAccountSubscribedToWebApp(
         request: IsAccountSubscribedToWebAppRequest,
     ): Promise<IsAccountSubscribedToWebAppResponse> {
-        const response = new IsAccountSubscribedToWebAppResponse();
-        response.fromJson(await this.performRequest(Api.Account, 'isAccountSubscribedToWebApp', request));
+        const response = new IsAccountSubscribedToWebAppResponse(await this.performRequest(Api.Account, 'isAccountSubscribedToWebApp', request));
         return response;
     }
 
     public async getAffiliateRelation(
         request: GetAffiliateRelationRequest,
     ): Promise<GetAffiliateRelationResponse> {
-        const response = new GetAffiliateRelationResponse();
-        response.fromJson(await this.performRequest(Api.Account, 'getAffiliateRelation', request));
+        const response = new GetAffiliateRelationResponse(await this.performRequest(Api.Account, 'getAffiliateRelation', request));
         return response;
     }
 
     public async heartbeat(
         request: HeartbeatRequest,
     ): Promise<HeartbeatReport> {
-        const response = new HeartbeatReport();
-        response.fromJson(await this.performRequest(Api.Heartbeat, 'heartbeat', request));
+        const response = new HeartbeatReport(await this.performRequest(Api.Heartbeat, 'heartbeat', request));
         return response;
     }
 

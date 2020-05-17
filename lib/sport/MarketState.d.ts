@@ -1,8 +1,20 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonMember from '../JsonMember';
-import KeyLineDescription from '../sport/KeyLineDescription';
+import KeyLineDescription, { IKeyLineDescriptionOptions } from '../sport/KeyLineDescription';
+export interface IMarketStateOptions {
+    status: string;
+    betDelay: number;
+    bspReconciled: boolean;
+    complete: boolean;
+    inplay: boolean;
+    numberOfActiveRunners: number;
+    lastMatchTime: Date | string;
+    totalMatched: number;
+    totalAvailable: number;
+    keyLineDescription?: KeyLineDescription | IKeyLineDescriptionOptions;
+}
 export default class MarketState extends JsonMember {
     private status;
     private betDelay;
@@ -13,29 +25,27 @@ export default class MarketState extends JsonMember {
     private lastMatchTime;
     private totalMatched;
     private totalAvailable;
-    private keyLineDescription;
-    constructor(status?: string, betDelay?: number | null, bspReconciled?: boolean | null, complete?: boolean | null, inplay?: boolean | null, numberOfActiveRunners?: number | null, lastMatchTime?: Date | null, totalMatched?: number | null, totalAvailable?: number | null, keyLineDescription?: KeyLineDescription);
-    fromJson(json: any): void;
-    toJson(): any;
-    isValid(): boolean;
+    private keyLineDescription?;
+    constructor(options: IMarketStateOptions);
+    toJson(): IMarketStateOptions;
     getStatus(): string;
     setStatus(status: string): void;
-    getBetDelay(): number | null;
-    setBetDelay(betDelay: number | null): void;
-    getBspReconciled(): boolean | null;
-    setBspReconciled(bspReconciled: boolean | null): void;
-    getComplete(): boolean | null;
-    setComplete(complete: boolean | null): void;
-    getInplay(): boolean | null;
-    setInplay(inplay: boolean | null): void;
-    getNumberOfActiveRunners(): number | null;
-    setNumberOfActiveRunners(numberOfActiveRunners: number | null): void;
-    getLastMatchTime(): Date | null;
-    setLastMatchTime(lastMatchTime: Date | null): void;
-    getTotalMatched(): number | null;
-    setTotalMatched(totalMatched: number | null): void;
-    getTotalAvailable(): number | null;
-    setTotalAvailable(totalAvailable: number | null): void;
-    getKeyLineDescription(): KeyLineDescription;
+    getBetDelay(): number;
+    setBetDelay(betDelay: number): void;
+    getBspReconciled(): boolean;
+    setBspReconciled(bspReconciled: boolean): void;
+    getComplete(): boolean;
+    setComplete(complete: boolean): void;
+    getInplay(): boolean;
+    setInplay(inplay: boolean): void;
+    getNumberOfActiveRunners(): number;
+    setNumberOfActiveRunners(numberOfActiveRunners: number): void;
+    getLastMatchTime(): Date;
+    setLastMatchTime(lastMatchTime: Date): void;
+    getTotalMatched(): number;
+    setTotalMatched(totalMatched: number): void;
+    getTotalAvailable(): number;
+    setTotalAvailable(totalAvailable: number): void;
+    getKeyLineDescription(): KeyLineDescription | undefined;
     setKeyLineDescription(keyLineDescription: KeyLineDescription): void;
 }

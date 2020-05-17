@@ -1,43 +1,31 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonResponse from '../JsonResponse';
 
-import DeveloperApp from '../account/DeveloperApp';
+import DeveloperApp, { IDeveloperAppOptions } from '../account/DeveloperApp';
+
+export interface IGetDeveloperAppKeysResponseOptions {
+    developerApps?: Array<DeveloperApp | IDeveloperAppOptions>;
+}
 
 export default class GetDeveloperAppKeysResponse extends JsonResponse {
-    private developerApps: DeveloperApp[];
+    private developerApps?: DeveloperApp[];
 
-    constructor(
-        developerApps: DeveloperApp[] = [],
-    ) {
+    constructor(options: Array<DeveloperApp | IDeveloperAppOptions>) {
         super();
-        this.developerApps = developerApps;
-    }
-
-    public fromJson(json: any): void {
-        if (this.validateJson(json)) {
-            this.developerApps = json.map((developerAppsJson: any) => {
-                const element = new DeveloperApp();
-                element.fromJson(developerAppsJson);
-                return element;
-            });
+        if (this.validateJson(options)) {
+            if (options) {
+                this.developerApps = this.arrayFromJson(options, DeveloperApp);
+            }
         }
     }
 
-    public toJson(): any {
-        let json: any = {};
-        if (this.developerApps.length > 0) {
-            json.developerApps = this.developerApps.map((value) => value.toJson());
-        }
-        return json;
+    public toJson(): IGetDeveloperAppKeysResponseOptions {
+        throw new Error('not implemented');
     }
 
-    public isValid(): boolean {
-        return this.developerApps.length > 0;
-    }
-
-    public getDeveloperApps(): DeveloperApp[] {
+    public getDeveloperApps(): DeveloperApp[] | undefined {
         return this.developerApps;
     }
     public setDeveloperApps(developerApps: DeveloperApp[]): void {

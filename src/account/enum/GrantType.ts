@@ -16,7 +16,7 @@ export default class GrantType extends Enum {
         if (value) {
             if (value !== 'AUTHORIZATION_CODE' &&
                 value !== 'REFRESH_TOKEN') {
-                throw new Error(`Invalid MarketStatus: ${value}`);
+                throw new Error(`Invalid GrantType: ${value}`);
             }
 
             this.value = value;

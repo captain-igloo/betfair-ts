@@ -18,7 +18,7 @@ export default class TimeGranularity extends Enum {
             if (value !== 'DAYS' &&
                 value !== 'HOURS' &&
                 value !== 'MINUTES') {
-                throw new Error(`Invalid MarketStatus: ${value}`);
+                throw new Error(`Invalid TimeGranularity: ${value}`);
             }
 
             this.value = value;

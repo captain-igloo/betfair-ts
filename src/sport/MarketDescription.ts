@@ -1,239 +1,151 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonMember from '../JsonMember';
 
 import MarketBettingType from '../sport/enum/MarketBettingType';
-import MarketLineRangeInfo from '../sport/MarketLineRangeInfo';
-import PriceLadderDescription from '../sport/PriceLadderDescription';
+import MarketLineRangeInfo, { IMarketLineRangeInfoOptions } from '../sport/MarketLineRangeInfo';
+import PriceLadderDescription, { IPriceLadderDescriptionOptions } from '../sport/PriceLadderDescription';
+
+export interface IMarketDescriptionOptions {
+    persistenceEnabled: boolean;
+    bspMarket: boolean;
+    marketTime: Date | string;
+    suspendTime: Date | string;
+    settleTime?: Date | string;
+    bettingType: MarketBettingType | string;
+    turnInPlayEnabled: boolean;
+    marketType: string;
+    regulator: string;
+    marketBaseRate: number;
+    discountAllowed: boolean;
+    wallet?: string;
+    rules?: string;
+    rulesHasDate?: boolean;
+    clarifications?: string;
+    eachWayDivisor?: number;
+    lineRangeInfo?: MarketLineRangeInfo | IMarketLineRangeInfoOptions;
+    raceType?: string;
+    priceLadderDescription?: PriceLadderDescription | IPriceLadderDescriptionOptions;
+}
 
 export default class MarketDescription extends JsonMember {
-    private persistenceEnabled: boolean | null;
-    private bspMarket: boolean | null;
-    private marketTime: Date | null;
-    private suspendTime: Date | null;
-    private settleTime: Date | null;
+    private persistenceEnabled: boolean;
+    private bspMarket: boolean;
+    private marketTime: Date;
+    private suspendTime: Date;
+    private settleTime?: Date;
     private bettingType: MarketBettingType;
-    private turnInPlayEnabled: boolean | null;
+    private turnInPlayEnabled: boolean;
     private marketType: string;
     private regulator: string;
-    private marketBaseRate: number | null;
-    private discountAllowed: boolean | null;
-    private wallet: string;
-    private rules: string;
-    private rulesHasDate: boolean | null;
-    private clarifications: string;
-    private eachWayDivisor: number | null;
-    private lineRangeInfo: MarketLineRangeInfo;
-    private raceType: string;
-    private priceLadderDescription: PriceLadderDescription;
+    private marketBaseRate: number;
+    private discountAllowed: boolean;
+    private wallet?: string;
+    private rules?: string;
+    private rulesHasDate?: boolean;
+    private clarifications?: string;
+    private eachWayDivisor?: number;
+    private lineRangeInfo?: MarketLineRangeInfo;
+    private raceType?: string;
+    private priceLadderDescription?: PriceLadderDescription;
 
-    constructor(
-        persistenceEnabled: boolean | null = null,
-        bspMarket: boolean | null = null,
-        marketTime: Date | null = null,
-        suspendTime: Date | null = null,
-        settleTime: Date | null = null,
-        bettingType: MarketBettingType = new MarketBettingType(),
-        turnInPlayEnabled: boolean | null = null,
-        marketType: string = '',
-        regulator: string = '',
-        marketBaseRate: number | null = null,
-        discountAllowed: boolean | null = null,
-        wallet: string = '',
-        rules: string = '',
-        rulesHasDate: boolean | null = null,
-        clarifications: string = '',
-        eachWayDivisor: number | null = null,
-        lineRangeInfo: MarketLineRangeInfo = new MarketLineRangeInfo(),
-        raceType: string = '',
-        priceLadderDescription: PriceLadderDescription = new PriceLadderDescription(),
-    ) {
+    constructor(options: IMarketDescriptionOptions) {
         super();
-        this.persistenceEnabled = persistenceEnabled;
-        this.bspMarket = bspMarket;
-        this.marketTime = marketTime;
-        this.suspendTime = suspendTime;
-        this.settleTime = settleTime;
-        this.bettingType = bettingType;
-        this.turnInPlayEnabled = turnInPlayEnabled;
-        this.marketType = marketType;
-        this.regulator = regulator;
-        this.marketBaseRate = marketBaseRate;
-        this.discountAllowed = discountAllowed;
-        this.wallet = wallet;
-        this.rules = rules;
-        this.rulesHasDate = rulesHasDate;
-        this.clarifications = clarifications;
-        this.eachWayDivisor = eachWayDivisor;
-        this.lineRangeInfo = lineRangeInfo;
-        this.raceType = raceType;
-        this.priceLadderDescription = priceLadderDescription;
+        this.persistenceEnabled = options.persistenceEnabled;
+        this.bspMarket = options.bspMarket;
+        this.marketTime = this.fromJson(options.marketTime, Date);
+        this.suspendTime = this.fromJson(options.suspendTime, Date);
+        if (options.settleTime) {
+            this.settleTime = this.fromJson(options.settleTime, Date);
+        }
+        this.bettingType = this.fromJson(options.bettingType, MarketBettingType);
+        this.turnInPlayEnabled = options.turnInPlayEnabled;
+        this.marketType = options.marketType;
+        this.regulator = options.regulator;
+        this.marketBaseRate = options.marketBaseRate;
+        this.discountAllowed = options.discountAllowed;
+        this.wallet = options.wallet;
+        this.rules = options.rules;
+        this.rulesHasDate = options.rulesHasDate;
+        this.clarifications = options.clarifications;
+        this.eachWayDivisor = options.eachWayDivisor;
+        this.lineRangeInfo = options.lineRangeInfo && this.fromJson(options.lineRangeInfo, MarketLineRangeInfo);
+        this.raceType = options.raceType;
+        this.priceLadderDescription = options.priceLadderDescription && this.fromJson(options.priceLadderDescription, PriceLadderDescription);
     }
 
-    public fromJson(json: any): void {
-        if ('persistenceEnabled' in json) {
-            this.persistenceEnabled = json.persistenceEnabled;
-        }
-        if ('bspMarket' in json) {
-            this.bspMarket = json.bspMarket;
-        }
-        if ('marketTime' in json) {
-            this.marketTime = new Date(json.marketTime);
-        }
-        if ('suspendTime' in json) {
-            this.suspendTime = new Date(json.suspendTime);
-        }
-        if ('settleTime' in json) {
-            this.settleTime = new Date(json.settleTime);
-        }
-        if ('bettingType' in json) {
-            this.bettingType.setValue(json.bettingType);
-        }
-        if ('turnInPlayEnabled' in json) {
-            this.turnInPlayEnabled = json.turnInPlayEnabled;
-        }
-        if ('marketType' in json) {
-            this.marketType = json.marketType;
-        }
-        if ('regulator' in json) {
-            this.regulator = json.regulator;
-        }
-        if ('marketBaseRate' in json) {
-            this.marketBaseRate = json.marketBaseRate;
-        }
-        if ('discountAllowed' in json) {
-            this.discountAllowed = json.discountAllowed;
-        }
-        if ('wallet' in json) {
-            this.wallet = json.wallet;
-        }
-        if ('rules' in json) {
-            this.rules = json.rules;
-        }
-        if ('rulesHasDate' in json) {
-            this.rulesHasDate = json.rulesHasDate;
-        }
-        if ('clarifications' in json) {
-            this.clarifications = json.clarifications;
-        }
-        if ('eachWayDivisor' in json) {
-            this.eachWayDivisor = json.eachWayDivisor;
-        }
-        if ('lineRangeInfo' in json) {
-            this.lineRangeInfo.fromJson(json.lineRangeInfo);
-        }
-        if ('raceType' in json) {
-            this.raceType = json.raceType;
-        }
-        if ('priceLadderDescription' in json) {
-            this.priceLadderDescription.fromJson(json.priceLadderDescription);
-        }
-    }
-
-    public toJson(): any {
-        const json: any = {};
-        if (this.persistenceEnabled !== null) {
-            json.persistenceEnabled = this.persistenceEnabled;
-        }
-        if (this.bspMarket !== null) {
-            json.bspMarket = this.bspMarket;
-        }
-        if (this.marketTime !== null) {
-            json.marketTime = this.marketTime.toISOString();
-        }
-        if (this.suspendTime !== null) {
-            json.suspendTime = this.suspendTime.toISOString();
-        }
-        if (this.settleTime !== null) {
+    public toJson(): IMarketDescriptionOptions {
+        const json: IMarketDescriptionOptions = {
+            persistenceEnabled: this.persistenceEnabled,
+            bspMarket: this.bspMarket,
+            marketTime: this.marketTime.toISOString(),
+            suspendTime: this.suspendTime.toISOString(),
+            bettingType: this.bettingType.getValue(),
+            turnInPlayEnabled: this.turnInPlayEnabled,
+            marketType: this.marketType,
+            regulator: this.regulator,
+            marketBaseRate: this.marketBaseRate,
+            discountAllowed: this.discountAllowed,
+        };
+        if (typeof this.settleTime !== 'undefined') {
             json.settleTime = this.settleTime.toISOString();
         }
-        if (this.bettingType.isValid()) {
-            json.bettingType = this.bettingType.getValue();
-        }
-        if (this.turnInPlayEnabled !== null) {
-            json.turnInPlayEnabled = this.turnInPlayEnabled;
-        }
-        if (this.marketType !== '') {
-            json.marketType = this.marketType;
-        }
-        if (this.regulator !== '') {
-            json.regulator = this.regulator;
-        }
-        if (this.marketBaseRate !== null) {
-            json.marketBaseRate = this.marketBaseRate;
-        }
-        if (this.discountAllowed !== null) {
-            json.discountAllowed = this.discountAllowed;
-        }
-        if (this.wallet !== '') {
+        if (typeof this.wallet !== 'undefined') {
             json.wallet = this.wallet;
         }
-        if (this.rules !== '') {
+        if (typeof this.rules !== 'undefined') {
             json.rules = this.rules;
         }
-        if (this.rulesHasDate !== null) {
+        if (typeof this.rulesHasDate !== 'undefined') {
             json.rulesHasDate = this.rulesHasDate;
         }
-        if (this.clarifications !== '') {
+        if (typeof this.clarifications !== 'undefined') {
             json.clarifications = this.clarifications;
         }
-        if (this.eachWayDivisor !== null) {
+        if (typeof this.eachWayDivisor !== 'undefined') {
             json.eachWayDivisor = this.eachWayDivisor;
         }
-        if (this.lineRangeInfo.isValid()) {
+        if (this.lineRangeInfo) {
             json.lineRangeInfo = this.lineRangeInfo.toJson();
         }
-        if (this.raceType !== '') {
+        if (typeof this.raceType !== 'undefined') {
             json.raceType = this.raceType;
         }
-        if (this.priceLadderDescription.isValid()) {
+        if (this.priceLadderDescription) {
             json.priceLadderDescription = this.priceLadderDescription.toJson();
         }
         return json;
     }
 
-    public isValid(): boolean {
-        return this.persistenceEnabled !== null &&
-            this.bspMarket !== null &&
-            this.marketTime !== null &&
-            this.suspendTime !== null &&
-            this.bettingType.isValid() &&
-            this.turnInPlayEnabled !== null &&
-            this.marketType !== '' &&
-            this.regulator !== '' &&
-            this.marketBaseRate !== null &&
-            this.discountAllowed !== null;
-    }
-
-    public getPersistenceEnabled(): boolean | null {
+    public getPersistenceEnabled(): boolean {
         return this.persistenceEnabled;
     }
-    public setPersistenceEnabled(persistenceEnabled: boolean | null): void {
+    public setPersistenceEnabled(persistenceEnabled: boolean): void {
         this.persistenceEnabled = persistenceEnabled;
     }
-    public getBspMarket(): boolean | null {
+    public getBspMarket(): boolean {
         return this.bspMarket;
     }
-    public setBspMarket(bspMarket: boolean | null): void {
+    public setBspMarket(bspMarket: boolean): void {
         this.bspMarket = bspMarket;
     }
-    public getMarketTime(): Date | null {
+    public getMarketTime(): Date {
         return this.marketTime;
     }
-    public setMarketTime(marketTime: Date | null): void {
+    public setMarketTime(marketTime: Date): void {
         this.marketTime = marketTime;
     }
-    public getSuspendTime(): Date | null {
+    public getSuspendTime(): Date {
         return this.suspendTime;
     }
-    public setSuspendTime(suspendTime: Date | null): void {
+    public setSuspendTime(suspendTime: Date): void {
         this.suspendTime = suspendTime;
     }
-    public getSettleTime(): Date | null {
+    public getSettleTime(): Date | undefined {
         return this.settleTime;
     }
-    public setSettleTime(settleTime: Date | null): void {
+    public setSettleTime(settleTime: Date): void {
         this.settleTime = settleTime;
     }
     public getBettingType(): MarketBettingType {
@@ -242,10 +154,10 @@ export default class MarketDescription extends JsonMember {
     public setBettingType(bettingType: MarketBettingType): void {
         this.bettingType = bettingType;
     }
-    public getTurnInPlayEnabled(): boolean | null {
+    public getTurnInPlayEnabled(): boolean {
         return this.turnInPlayEnabled;
     }
-    public setTurnInPlayEnabled(turnInPlayEnabled: boolean | null): void {
+    public setTurnInPlayEnabled(turnInPlayEnabled: boolean): void {
         this.turnInPlayEnabled = turnInPlayEnabled;
     }
     public getMarketType(): string {
@@ -260,61 +172,61 @@ export default class MarketDescription extends JsonMember {
     public setRegulator(regulator: string): void {
         this.regulator = regulator;
     }
-    public getMarketBaseRate(): number | null {
+    public getMarketBaseRate(): number {
         return this.marketBaseRate;
     }
-    public setMarketBaseRate(marketBaseRate: number | null): void {
+    public setMarketBaseRate(marketBaseRate: number): void {
         this.marketBaseRate = marketBaseRate;
     }
-    public getDiscountAllowed(): boolean | null {
+    public getDiscountAllowed(): boolean {
         return this.discountAllowed;
     }
-    public setDiscountAllowed(discountAllowed: boolean | null): void {
+    public setDiscountAllowed(discountAllowed: boolean): void {
         this.discountAllowed = discountAllowed;
     }
-    public getWallet(): string {
+    public getWallet(): string | undefined {
         return this.wallet;
     }
     public setWallet(wallet: string): void {
         this.wallet = wallet;
     }
-    public getRules(): string {
+    public getRules(): string | undefined {
         return this.rules;
     }
     public setRules(rules: string): void {
         this.rules = rules;
     }
-    public getRulesHasDate(): boolean | null {
+    public getRulesHasDate(): boolean | undefined {
         return this.rulesHasDate;
     }
-    public setRulesHasDate(rulesHasDate: boolean | null): void {
+    public setRulesHasDate(rulesHasDate: boolean): void {
         this.rulesHasDate = rulesHasDate;
     }
-    public getClarifications(): string {
+    public getClarifications(): string | undefined {
         return this.clarifications;
     }
     public setClarifications(clarifications: string): void {
         this.clarifications = clarifications;
     }
-    public getEachWayDivisor(): number | null {
+    public getEachWayDivisor(): number | undefined {
         return this.eachWayDivisor;
     }
-    public setEachWayDivisor(eachWayDivisor: number | null): void {
+    public setEachWayDivisor(eachWayDivisor: number): void {
         this.eachWayDivisor = eachWayDivisor;
     }
-    public getLineRangeInfo(): MarketLineRangeInfo {
+    public getLineRangeInfo(): MarketLineRangeInfo | undefined {
         return this.lineRangeInfo;
     }
     public setLineRangeInfo(lineRangeInfo: MarketLineRangeInfo): void {
         this.lineRangeInfo = lineRangeInfo;
     }
-    public getRaceType(): string {
+    public getRaceType(): string | undefined {
         return this.raceType;
     }
     public setRaceType(raceType: string): void {
         this.raceType = raceType;
     }
-    public getPriceLadderDescription(): PriceLadderDescription {
+    public getPriceLadderDescription(): PriceLadderDescription | undefined {
         return this.priceLadderDescription;
     }
     public setPriceLadderDescription(priceLadderDescription: PriceLadderDescription): void {

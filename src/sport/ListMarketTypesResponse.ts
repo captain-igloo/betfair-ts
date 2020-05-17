@@ -1,43 +1,31 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonResponse from '../JsonResponse';
 
-import MarketTypeResult from '../sport/MarketTypeResult';
+import MarketTypeResult, { IMarketTypeResultOptions } from '../sport/MarketTypeResult';
+
+export interface IListMarketTypesResponseOptions {
+    marketTypeResults?: Array<MarketTypeResult | IMarketTypeResultOptions>;
+}
 
 export default class ListMarketTypesResponse extends JsonResponse {
-    private marketTypeResults: MarketTypeResult[];
+    private marketTypeResults?: MarketTypeResult[];
 
-    constructor(
-        marketTypeResults: MarketTypeResult[] = [],
-    ) {
+    constructor(options: Array<MarketTypeResult | IMarketTypeResultOptions>) {
         super();
-        this.marketTypeResults = marketTypeResults;
-    }
-
-    public fromJson(json: any): void {
-        if (this.validateJson(json)) {
-            this.marketTypeResults = json.map((marketTypeResultsJson: any) => {
-                const element = new MarketTypeResult();
-                element.fromJson(marketTypeResultsJson);
-                return element;
-            });
+        if (this.validateJson(options)) {
+            if (options) {
+                this.marketTypeResults = this.arrayFromJson(options, MarketTypeResult);
+            }
         }
     }
 
-    public toJson(): any {
-        let json: any = {};
-        if (this.marketTypeResults.length > 0) {
-            json.marketTypeResults = this.marketTypeResults.map((value) => value.toJson());
-        }
-        return json;
+    public toJson(): IListMarketTypesResponseOptions {
+        throw new Error('not implemented');
     }
 
-    public isValid(): boolean {
-        return this.marketTypeResults.length > 0;
-    }
-
-    public getMarketTypeResults(): MarketTypeResult[] {
+    public getMarketTypeResults(): MarketTypeResult[] | undefined {
         return this.marketTypeResults;
     }
     public setMarketTypeResults(marketTypeResults: MarketTypeResult[]): void {

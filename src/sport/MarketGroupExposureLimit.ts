@@ -1,47 +1,32 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonMember from '../JsonMember';
 
-import ExposureLimit from '../sport/ExposureLimit';
-import MarketGroupId from '../sport/MarketGroupId';
+import ExposureLimit, { IExposureLimitOptions } from '../sport/ExposureLimit';
+import MarketGroupId, { IMarketGroupIdOptions } from '../sport/MarketGroupId';
+
+export interface IMarketGroupExposureLimitOptions {
+    groupId: MarketGroupId | IMarketGroupIdOptions;
+    limit: ExposureLimit | IExposureLimitOptions;
+}
 
 export default class MarketGroupExposureLimit extends JsonMember {
     private groupId: MarketGroupId;
     private limit: ExposureLimit;
 
-    constructor(
-        groupId: MarketGroupId = new MarketGroupId(),
-        limit: ExposureLimit = new ExposureLimit(),
-    ) {
+    constructor(options: IMarketGroupExposureLimitOptions) {
         super();
-        this.groupId = groupId;
-        this.limit = limit;
+        this.groupId = this.fromJson(options.groupId, MarketGroupId);
+        this.limit = this.fromJson(options.limit, ExposureLimit);
     }
 
-    public fromJson(json: any): void {
-        if ('groupId' in json) {
-            this.groupId.fromJson(json.groupId);
-        }
-        if ('limit' in json) {
-            this.limit.fromJson(json.limit);
-        }
-    }
-
-    public toJson(): any {
-        const json: any = {};
-        if (this.groupId.isValid()) {
-            json.groupId = this.groupId.toJson();
-        }
-        if (this.limit.isValid()) {
-            json.limit = this.limit.toJson();
-        }
+    public toJson(): IMarketGroupExposureLimitOptions {
+        const json: IMarketGroupExposureLimitOptions = {
+            groupId: this.groupId.toJson(),
+            limit: this.limit.toJson(),
+        };
         return json;
-    }
-
-    public isValid(): boolean {
-        return this.groupId.isValid() &&
-            this.limit.isValid();
     }
 
     public getGroupId(): MarketGroupId {

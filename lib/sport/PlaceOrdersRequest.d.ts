@@ -1,30 +1,36 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonRequest from '../JsonRequest';
-import MarketVersion from '../sport/MarketVersion';
-import PlaceInstruction from '../sport/PlaceInstruction';
+import MarketVersion, { IMarketVersionOptions } from '../sport/MarketVersion';
+import PlaceInstruction, { IPlaceInstructionOptions } from '../sport/PlaceInstruction';
+export interface IPlaceOrdersRequestOptions {
+    marketId: string;
+    instructions: Array<PlaceInstruction | IPlaceInstructionOptions>;
+    customerRef?: string;
+    marketVersion?: MarketVersion | IMarketVersionOptions;
+    customerStrategyRef?: string;
+    async?: boolean;
+}
 export default class PlaceOrdersRequest extends JsonRequest {
     private marketId;
     private instructions;
-    private customerRef;
-    private marketVersion;
-    private customerStrategyRef;
-    private async;
-    constructor(marketId?: string, instructions?: PlaceInstruction[], customerRef?: string, marketVersion?: MarketVersion, customerStrategyRef?: string, async?: boolean | null);
-    fromJson(json: any): void;
-    toJson(): any;
-    isValid(): boolean;
+    private customerRef?;
+    private marketVersion?;
+    private customerStrategyRef?;
+    private async?;
+    constructor(options: IPlaceOrdersRequestOptions);
+    toJson(): IPlaceOrdersRequestOptions;
     getMarketId(): string;
     setMarketId(marketId: string): void;
     getInstructions(): PlaceInstruction[];
     setInstructions(instructions: PlaceInstruction[]): void;
-    getCustomerRef(): string;
+    getCustomerRef(): string | undefined;
     setCustomerRef(customerRef: string): void;
-    getMarketVersion(): MarketVersion;
+    getMarketVersion(): MarketVersion | undefined;
     setMarketVersion(marketVersion: MarketVersion): void;
-    getCustomerStrategyRef(): string;
+    getCustomerStrategyRef(): string | undefined;
     setCustomerStrategyRef(customerStrategyRef: string): void;
-    getAsync(): boolean | null;
-    setAsync(async: boolean | null): void;
+    getAsync(): boolean | undefined;
+    setAsync(async: boolean): void;
 }

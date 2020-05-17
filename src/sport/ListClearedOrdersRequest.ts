@@ -1,188 +1,121 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonRequest from '../JsonRequest';
 
-import TimeRange from '../common/TimeRange';
+import TimeRange, { ITimeRangeOptions } from '../common/TimeRange';
 import BetStatus from '../sport/enum/BetStatus';
 import GroupBy from '../sport/enum/GroupBy';
 import Side from '../sport/enum/Side';
-import RunnerId from '../sport/RunnerId';
+import RunnerId, { IRunnerIdOptions } from '../sport/RunnerId';
+
+export interface IListClearedOrdersRequestOptions {
+    betStatus: BetStatus | string;
+    eventTypeIds?: Set<string> | string[];
+    eventIds?: Set<string> | string[];
+    marketIds?: Set<string> | string[];
+    runnerIds?: Array<RunnerId | IRunnerIdOptions>;
+    betIds?: Set<string> | string[];
+    customerOrderRefs?: Set<string> | string[];
+    customerStrategyRefs?: Set<string> | string[];
+    side?: Side | string;
+    settledDateRange?: TimeRange | ITimeRangeOptions;
+    groupBy?: GroupBy | string;
+    includeItemDescription?: boolean;
+    locale?: string;
+    fromRecord?: number;
+    recordCount?: number;
+}
 
 export default class ListClearedOrdersRequest extends JsonRequest {
     private betStatus: BetStatus;
-    private eventTypeIds: Set<string>;
-    private eventIds: Set<string>;
-    private marketIds: Set<string>;
-    private runnerIds: RunnerId[];
-    private betIds: Set<string>;
-    private customerOrderRefs: Set<string>;
-    private customerStrategyRefs: Set<string>;
-    private side: Side;
-    private settledDateRange: TimeRange;
-    private groupBy: GroupBy;
-    private includeItemDescription: boolean | null;
-    private locale: string;
-    private fromRecord: number | null;
-    private recordCount: number | null;
+    private eventTypeIds?: Set<string>;
+    private eventIds?: Set<string>;
+    private marketIds?: Set<string>;
+    private runnerIds?: RunnerId[];
+    private betIds?: Set<string>;
+    private customerOrderRefs?: Set<string>;
+    private customerStrategyRefs?: Set<string>;
+    private side?: Side;
+    private settledDateRange?: TimeRange;
+    private groupBy?: GroupBy;
+    private includeItemDescription?: boolean;
+    private locale?: string;
+    private fromRecord?: number;
+    private recordCount?: number;
 
-    constructor(
-        betStatus: BetStatus = new BetStatus(),
-        eventTypeIds: Set<string> = new Set(),
-        eventIds: Set<string> = new Set(),
-        marketIds: Set<string> = new Set(),
-        runnerIds: RunnerId[] = [],
-        betIds: Set<string> = new Set(),
-        customerOrderRefs: Set<string> = new Set(),
-        customerStrategyRefs: Set<string> = new Set(),
-        side: Side = new Side(),
-        settledDateRange: TimeRange = new TimeRange(),
-        groupBy: GroupBy = new GroupBy(),
-        includeItemDescription: boolean | null = null,
-        locale: string = '',
-        fromRecord: number | null = null,
-        recordCount: number | null = null,
-    ) {
+    constructor(options: IListClearedOrdersRequestOptions) {
         super();
-        this.betStatus = betStatus;
-        this.eventTypeIds = eventTypeIds;
-        this.eventIds = eventIds;
-        this.marketIds = marketIds;
-        this.runnerIds = runnerIds;
-        this.betIds = betIds;
-        this.customerOrderRefs = customerOrderRefs;
-        this.customerStrategyRefs = customerStrategyRefs;
-        this.side = side;
-        this.settledDateRange = settledDateRange;
-        this.groupBy = groupBy;
-        this.includeItemDescription = includeItemDescription;
-        this.locale = locale;
-        this.fromRecord = fromRecord;
-        this.recordCount = recordCount;
+        this.betStatus = this.fromJson(options.betStatus, BetStatus);
+        this.eventTypeIds = options.eventTypeIds && this.setFromJson(options.eventTypeIds);
+        this.eventIds = options.eventIds && this.setFromJson(options.eventIds);
+        this.marketIds = options.marketIds && this.setFromJson(options.marketIds);
+        if (options.runnerIds) {
+            this.runnerIds = this.arrayFromJson(options.runnerIds, RunnerId);
+        }
+        this.betIds = options.betIds && this.setFromJson(options.betIds);
+        this.customerOrderRefs = options.customerOrderRefs && this.setFromJson(options.customerOrderRefs);
+        this.customerStrategyRefs = options.customerStrategyRefs && this.setFromJson(options.customerStrategyRefs);
+        if (options.side) {
+            this.side = this.fromJson(options.side, Side);
+        }
+        this.settledDateRange = options.settledDateRange && this.fromJson(options.settledDateRange, TimeRange);
+        if (options.groupBy) {
+            this.groupBy = this.fromJson(options.groupBy, GroupBy);
+        }
+        this.includeItemDescription = options.includeItemDescription;
+        this.locale = options.locale;
+        this.fromRecord = options.fromRecord;
+        this.recordCount = options.recordCount;
     }
 
-    public fromJson(json: any): void {
-        if ('betStatus' in json) {
-            this.betStatus.setValue(json.betStatus);
+    public toJson(): IListClearedOrdersRequestOptions {
+        const json: IListClearedOrdersRequestOptions = {
+            betStatus: this.betStatus.getValue(),
+        };
+        if (this.eventTypeIds && this.eventTypeIds.size > 0) {
+            json.eventTypeIds = this.setToJson(this.eventTypeIds);
         }
-        if ('eventTypeIds' in json) {
-            this.eventTypeIds = json.eventTypeIds;
+        if (this.eventIds && this.eventIds.size > 0) {
+            json.eventIds = this.setToJson(this.eventIds);
         }
-        if ('eventIds' in json) {
-            this.eventIds = json.eventIds;
+        if (this.marketIds && this.marketIds.size > 0) {
+            json.marketIds = this.setToJson(this.marketIds);
         }
-        if ('marketIds' in json) {
-            this.marketIds = json.marketIds;
-        }
-        if ('runnerIds' in json) {
-            this.runnerIds = json.runnerIds.map((runnerIdsJson: any) => {
-                const element = new RunnerId();
-                element.fromJson(runnerIdsJson);
-                return element;
-            });
-        }
-        if ('betIds' in json) {
-            this.betIds = json.betIds;
-        }
-        if ('customerOrderRefs' in json) {
-            this.customerOrderRefs = json.customerOrderRefs;
-        }
-        if ('customerStrategyRefs' in json) {
-            this.customerStrategyRefs = json.customerStrategyRefs;
-        }
-        if ('side' in json) {
-            this.side.setValue(json.side);
-        }
-        if ('settledDateRange' in json) {
-            this.settledDateRange.fromJson(json.settledDateRange);
-        }
-        if ('groupBy' in json) {
-            this.groupBy.setValue(json.groupBy);
-        }
-        if ('includeItemDescription' in json) {
-            this.includeItemDescription = json.includeItemDescription;
-        }
-        if ('locale' in json) {
-            this.locale = json.locale;
-        }
-        if ('fromRecord' in json) {
-            this.fromRecord = json.fromRecord;
-        }
-        if ('recordCount' in json) {
-            this.recordCount = json.recordCount;
-        }
-    }
-
-    public toJson(): any {
-        const json: any = {};
-        if (this.betStatus.isValid()) {
-            json.betStatus = this.betStatus.getValue();
-        }
-        if (this.eventTypeIds.size > 0) {
-            json.eventTypeIds = [];
-            this.eventTypeIds.forEach((element) => {
-                json.eventTypeIds.push(element);
-            });
-        }
-        if (this.eventIds.size > 0) {
-            json.eventIds = [];
-            this.eventIds.forEach((element) => {
-                json.eventIds.push(element);
-            });
-        }
-        if (this.marketIds.size > 0) {
-            json.marketIds = [];
-            this.marketIds.forEach((element) => {
-                json.marketIds.push(element);
-            });
-        }
-        if (this.runnerIds.length > 0) {
+        if (this.runnerIds && this.runnerIds.length > 0) {
             json.runnerIds = this.runnerIds.map((value) => value.toJson());
         }
-        if (this.betIds.size > 0) {
-            json.betIds = [];
-            this.betIds.forEach((element) => {
-                json.betIds.push(element);
-            });
+        if (this.betIds && this.betIds.size > 0) {
+            json.betIds = this.setToJson(this.betIds);
         }
-        if (this.customerOrderRefs.size > 0) {
-            json.customerOrderRefs = [];
-            this.customerOrderRefs.forEach((element) => {
-                json.customerOrderRefs.push(element);
-            });
+        if (this.customerOrderRefs && this.customerOrderRefs.size > 0) {
+            json.customerOrderRefs = this.setToJson(this.customerOrderRefs);
         }
-        if (this.customerStrategyRefs.size > 0) {
-            json.customerStrategyRefs = [];
-            this.customerStrategyRefs.forEach((element) => {
-                json.customerStrategyRefs.push(element);
-            });
+        if (this.customerStrategyRefs && this.customerStrategyRefs.size > 0) {
+            json.customerStrategyRefs = this.setToJson(this.customerStrategyRefs);
         }
-        if (this.side.isValid()) {
+        if (this.side) {
             json.side = this.side.getValue();
         }
-        if (this.settledDateRange.isValid()) {
+        if (this.settledDateRange) {
             json.settledDateRange = this.settledDateRange.toJson();
         }
-        if (this.groupBy.isValid()) {
+        if (this.groupBy) {
             json.groupBy = this.groupBy.getValue();
         }
-        if (this.includeItemDescription !== null) {
+        if (typeof this.includeItemDescription !== 'undefined') {
             json.includeItemDescription = this.includeItemDescription;
         }
-        if (this.locale !== '') {
+        if (typeof this.locale !== 'undefined') {
             json.locale = this.locale;
         }
-        if (this.fromRecord !== null) {
+        if (typeof this.fromRecord !== 'undefined') {
             json.fromRecord = this.fromRecord;
         }
-        if (this.recordCount !== null) {
+        if (typeof this.recordCount !== 'undefined') {
             json.recordCount = this.recordCount;
         }
         return json;
-    }
-
-    public isValid(): boolean {
-        return this.betStatus.isValid();
     }
 
     public getBetStatus(): BetStatus {
@@ -191,88 +124,88 @@ export default class ListClearedOrdersRequest extends JsonRequest {
     public setBetStatus(betStatus: BetStatus): void {
         this.betStatus = betStatus;
     }
-    public getEventTypeIds(): Set<string> {
+    public getEventTypeIds(): Set<string> | undefined {
         return this.eventTypeIds;
     }
     public setEventTypeIds(eventTypeIds: Set<string>): void {
         this.eventTypeIds = eventTypeIds;
     }
-    public getEventIds(): Set<string> {
+    public getEventIds(): Set<string> | undefined {
         return this.eventIds;
     }
     public setEventIds(eventIds: Set<string>): void {
         this.eventIds = eventIds;
     }
-    public getMarketIds(): Set<string> {
+    public getMarketIds(): Set<string> | undefined {
         return this.marketIds;
     }
     public setMarketIds(marketIds: Set<string>): void {
         this.marketIds = marketIds;
     }
-    public getRunnerIds(): RunnerId[] {
+    public getRunnerIds(): RunnerId[] | undefined {
         return this.runnerIds;
     }
     public setRunnerIds(runnerIds: RunnerId[]): void {
         this.runnerIds = runnerIds;
     }
-    public getBetIds(): Set<string> {
+    public getBetIds(): Set<string> | undefined {
         return this.betIds;
     }
     public setBetIds(betIds: Set<string>): void {
         this.betIds = betIds;
     }
-    public getCustomerOrderRefs(): Set<string> {
+    public getCustomerOrderRefs(): Set<string> | undefined {
         return this.customerOrderRefs;
     }
     public setCustomerOrderRefs(customerOrderRefs: Set<string>): void {
         this.customerOrderRefs = customerOrderRefs;
     }
-    public getCustomerStrategyRefs(): Set<string> {
+    public getCustomerStrategyRefs(): Set<string> | undefined {
         return this.customerStrategyRefs;
     }
     public setCustomerStrategyRefs(customerStrategyRefs: Set<string>): void {
         this.customerStrategyRefs = customerStrategyRefs;
     }
-    public getSide(): Side {
+    public getSide(): Side | undefined {
         return this.side;
     }
     public setSide(side: Side): void {
         this.side = side;
     }
-    public getSettledDateRange(): TimeRange {
+    public getSettledDateRange(): TimeRange | undefined {
         return this.settledDateRange;
     }
     public setSettledDateRange(settledDateRange: TimeRange): void {
         this.settledDateRange = settledDateRange;
     }
-    public getGroupBy(): GroupBy {
+    public getGroupBy(): GroupBy | undefined {
         return this.groupBy;
     }
     public setGroupBy(groupBy: GroupBy): void {
         this.groupBy = groupBy;
     }
-    public getIncludeItemDescription(): boolean | null {
+    public getIncludeItemDescription(): boolean | undefined {
         return this.includeItemDescription;
     }
-    public setIncludeItemDescription(includeItemDescription: boolean | null): void {
+    public setIncludeItemDescription(includeItemDescription: boolean): void {
         this.includeItemDescription = includeItemDescription;
     }
-    public getLocale(): string {
+    public getLocale(): string | undefined {
         return this.locale;
     }
     public setLocale(locale: string): void {
         this.locale = locale;
     }
-    public getFromRecord(): number | null {
+    public getFromRecord(): number | undefined {
         return this.fromRecord;
     }
-    public setFromRecord(fromRecord: number | null): void {
+    public setFromRecord(fromRecord: number): void {
         this.fromRecord = fromRecord;
     }
-    public getRecordCount(): number | null {
+    public getRecordCount(): number | undefined {
         return this.recordCount;
     }
-    public setRecordCount(recordCount: number | null): void {
+    public setRecordCount(recordCount: number): void {
         this.recordCount = recordCount;
     }
 

@@ -1,85 +1,55 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonMember from '../JsonMember';
 
 
+export interface IRunnerCatalogOptions {
+    selectionId: number;
+    runnerName: string;
+    handicap: number;
+    sortPriority: number;
+    metadata?: Map<string, string> | {[key: string]: string};
+}
+
 export default class RunnerCatalog extends JsonMember {
-    private selectionId: number | null;
+    private selectionId: number;
     private runnerName: string;
-    private handicap: number | null;
-    private sortPriority: number | null;
-    private metadata: Map<string, string>;
+    private handicap: number;
+    private sortPriority: number;
+    private metadata?: Map<string, string>;
 
-    constructor(
-        selectionId: number | null = null,
-        runnerName: string = '',
-        handicap: number | null = null,
-        sortPriority: number | null = null,
-        metadata: Map<string, string> = new Map<string, string>(),
-    ) {
+    constructor(options: IRunnerCatalogOptions) {
         super();
-        this.selectionId = selectionId;
-        this.runnerName = runnerName;
-        this.handicap = handicap;
-        this.sortPriority = sortPriority;
-        this.metadata = metadata;
-    }
-
-    public fromJson(json: any): void {
-        if ('selectionId' in json) {
-            this.selectionId = json.selectionId;
-        }
-        if ('runnerName' in json) {
-            this.runnerName = json.runnerName;
-        }
-        if ('handicap' in json) {
-            this.handicap = json.handicap;
-        }
-        if ('sortPriority' in json) {
-            this.sortPriority = json.sortPriority;
-        }
-        if ('metadata' in json) {
-            Object.keys(json.metadata).forEach((key: string) => {
-                this.metadata.set(key, json.metadata[key]);
-            });
+        this.selectionId = options.selectionId;
+        this.runnerName = options.runnerName;
+        this.handicap = options.handicap;
+        this.sortPriority = options.sortPriority;
+        if (options.metadata) {
+            this.metadata = this.mapFromJson(options.metadata);
         }
     }
 
-    public toJson(): any {
-        const json: any = {};
-        if (this.selectionId !== null) {
-            json.selectionId = this.selectionId;
-        }
-        if (this.runnerName !== '') {
-            json.runnerName = this.runnerName;
-        }
-        if (this.handicap !== null) {
-            json.handicap = this.handicap;
-        }
-        if (this.sortPriority !== null) {
-            json.sortPriority = this.sortPriority;
-        }
-        if (this.metadata.size > 0) {
+    public toJson(): IRunnerCatalogOptions {
+        const json: IRunnerCatalogOptions = {
+            selectionId: this.selectionId,
+            runnerName: this.runnerName,
+            handicap: this.handicap,
+            sortPriority: this.sortPriority,
+        };
+        if (this.metadata && this.metadata.size > 0) {
             json.metadata = {};
             this.metadata.forEach((value, key) => {
-                json.metadata.key = value;
+                (json.metadata as {[key: string]: string})[key] = value;
             });
         }
         return json;
     }
 
-    public isValid(): boolean {
-        return this.selectionId !== null &&
-            this.runnerName !== '' &&
-            this.handicap !== null &&
-            this.sortPriority !== null;
-    }
-
-    public getSelectionId(): number | null {
+    public getSelectionId(): number {
         return this.selectionId;
     }
-    public setSelectionId(selectionId: number | null): void {
+    public setSelectionId(selectionId: number): void {
         this.selectionId = selectionId;
     }
     public getRunnerName(): string {
@@ -88,19 +58,19 @@ export default class RunnerCatalog extends JsonMember {
     public setRunnerName(runnerName: string): void {
         this.runnerName = runnerName;
     }
-    public getHandicap(): number | null {
+    public getHandicap(): number {
         return this.handicap;
     }
-    public setHandicap(handicap: number | null): void {
+    public setHandicap(handicap: number): void {
         this.handicap = handicap;
     }
-    public getSortPriority(): number | null {
+    public getSortPriority(): number {
         return this.sortPriority;
     }
-    public setSortPriority(sortPriority: number | null): void {
+    public setSortPriority(sortPriority: number): void {
         this.sortPriority = sortPriority;
     }
-    public getMetadata(): Map<string, string> {
+    public getMetadata(): Map<string, string> | undefined {
         return this.metadata;
     }
     public setMetadata(metadata: Map<string, string>): void {

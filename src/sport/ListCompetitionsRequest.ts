@@ -1,45 +1,33 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonRequest from '../JsonRequest';
 
-import MarketFilter from '../sport/MarketFilter';
+import MarketFilter, { IMarketFilterOptions } from '../sport/MarketFilter';
+
+export interface IListCompetitionsRequestOptions {
+    filter: MarketFilter | IMarketFilterOptions;
+    locale?: string;
+}
 
 export default class ListCompetitionsRequest extends JsonRequest {
     private filter: MarketFilter;
-    private locale: string;
+    private locale?: string;
 
-    constructor(
-        filter: MarketFilter = new MarketFilter(),
-        locale: string = '',
-    ) {
+    constructor(options: IListCompetitionsRequestOptions) {
         super();
-        this.filter = filter;
-        this.locale = locale;
+        this.filter = this.fromJson(options.filter, MarketFilter);
+        this.locale = options.locale;
     }
 
-    public fromJson(json: any): void {
-        if ('filter' in json) {
-            this.filter.fromJson(json.filter);
-        }
-        if ('locale' in json) {
-            this.locale = json.locale;
-        }
-    }
-
-    public toJson(): any {
-        const json: any = {};
-        if (this.filter.isValid()) {
-            json.filter = this.filter.toJson();
-        }
-        if (this.locale !== '') {
+    public toJson(): IListCompetitionsRequestOptions {
+        const json: IListCompetitionsRequestOptions = {
+            filter: this.filter.toJson(),
+        };
+        if (typeof this.locale !== 'undefined') {
             json.locale = this.locale;
         }
         return json;
-    }
-
-    public isValid(): boolean {
-        return this.filter.isValid();
     }
 
     public getFilter(): MarketFilter {
@@ -48,7 +36,7 @@ export default class ListCompetitionsRequest extends JsonRequest {
     public setFilter(filter: MarketFilter): void {
         this.filter = filter;
     }
-    public getLocale(): string {
+    public getLocale(): string | undefined {
         return this.locale;
     }
     public setLocale(locale: string): void {

@@ -20,7 +20,7 @@ export default class IncludeItem extends Enum {
                 value !== 'EXCHANGE' &&
                 value !== 'POKER_ROOM' &&
                 value !== 'DEPOSITS_WITHDRAWALS') {
-                throw new Error(`Invalid MarketStatus: ${value}`);
+                throw new Error(`Invalid IncludeItem: ${value}`);
             }
 
             this.value = value;

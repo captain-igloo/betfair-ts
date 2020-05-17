@@ -1,13 +1,14 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonRequest from '../JsonRequest';
+export interface IHeartbeatRequestOptions {
+    preferredTimeoutSeconds: number;
+}
 export default class HeartbeatRequest extends JsonRequest {
     private preferredTimeoutSeconds;
-    constructor(preferredTimeoutSeconds?: number | null);
-    fromJson(json: any): void;
-    toJson(): any;
-    isValid(): boolean;
-    getPreferredTimeoutSeconds(): number | null;
-    setPreferredTimeoutSeconds(preferredTimeoutSeconds: number | null): void;
+    constructor(options: IHeartbeatRequestOptions);
+    toJson(): IHeartbeatRequestOptions;
+    getPreferredTimeoutSeconds(): number;
+    setPreferredTimeoutSeconds(preferredTimeoutSeconds: number): void;
 }

@@ -20,7 +20,7 @@ export default class RollupModel extends Enum {
                 value !== 'PAYOUT' &&
                 value !== 'MANAGED_LIABILITY' &&
                 value !== 'NONE') {
-                throw new Error(`Invalid MarketStatus: ${value}`);
+                throw new Error(`Invalid RollupModel: ${value}`);
             }
 
             this.value = value;

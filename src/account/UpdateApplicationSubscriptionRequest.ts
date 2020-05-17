@@ -1,45 +1,30 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonRequest from '../JsonRequest';
 
 
+export interface IUpdateApplicationSubscriptionRequestOptions {
+    vendorClientId: string;
+    subscriptionLength: number;
+}
+
 export default class UpdateApplicationSubscriptionRequest extends JsonRequest {
     private vendorClientId: string;
-    private subscriptionLength: number | null;
+    private subscriptionLength: number;
 
-    constructor(
-        vendorClientId: string = '',
-        subscriptionLength: number | null = null,
-    ) {
+    constructor(options: IUpdateApplicationSubscriptionRequestOptions) {
         super();
-        this.vendorClientId = vendorClientId;
-        this.subscriptionLength = subscriptionLength;
+        this.vendorClientId = options.vendorClientId;
+        this.subscriptionLength = options.subscriptionLength;
     }
 
-    public fromJson(json: any): void {
-        if ('vendorClientId' in json) {
-            this.vendorClientId = json.vendorClientId;
-        }
-        if ('subscriptionLength' in json) {
-            this.subscriptionLength = json.subscriptionLength;
-        }
-    }
-
-    public toJson(): any {
-        const json: any = {};
-        if (this.vendorClientId !== '') {
-            json.vendorClientId = this.vendorClientId;
-        }
-        if (this.subscriptionLength !== null) {
-            json.subscriptionLength = this.subscriptionLength;
-        }
+    public toJson(): IUpdateApplicationSubscriptionRequestOptions {
+        const json: IUpdateApplicationSubscriptionRequestOptions = {
+            vendorClientId: this.vendorClientId,
+            subscriptionLength: this.subscriptionLength,
+        };
         return json;
-    }
-
-    public isValid(): boolean {
-        return this.vendorClientId !== '' &&
-            this.subscriptionLength !== null;
     }
 
     public getVendorClientId(): string {
@@ -48,10 +33,10 @@ export default class UpdateApplicationSubscriptionRequest extends JsonRequest {
     public setVendorClientId(vendorClientId: string): void {
         this.vendorClientId = vendorClientId;
     }
-    public getSubscriptionLength(): number | null {
+    public getSubscriptionLength(): number {
         return this.subscriptionLength;
     }
-    public setSubscriptionLength(subscriptionLength: number | null): void {
+    public setSubscriptionLength(subscriptionLength: number): void {
         this.subscriptionLength = subscriptionLength;
     }
 

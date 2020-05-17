@@ -1,43 +1,31 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonResponse from '../JsonResponse';
 
-import EventResult from '../sport/EventResult';
+import EventResult, { IEventResultOptions } from '../sport/EventResult';
+
+export interface IListEventsResponseOptions {
+    eventResults?: Array<EventResult | IEventResultOptions>;
+}
 
 export default class ListEventsResponse extends JsonResponse {
-    private eventResults: EventResult[];
+    private eventResults?: EventResult[];
 
-    constructor(
-        eventResults: EventResult[] = [],
-    ) {
+    constructor(options: Array<EventResult | IEventResultOptions>) {
         super();
-        this.eventResults = eventResults;
-    }
-
-    public fromJson(json: any): void {
-        if (this.validateJson(json)) {
-            this.eventResults = json.map((eventResultsJson: any) => {
-                const element = new EventResult();
-                element.fromJson(eventResultsJson);
-                return element;
-            });
+        if (this.validateJson(options)) {
+            if (options) {
+                this.eventResults = this.arrayFromJson(options, EventResult);
+            }
         }
     }
 
-    public toJson(): any {
-        let json: any = {};
-        if (this.eventResults.length > 0) {
-            json.eventResults = this.eventResults.map((value) => value.toJson());
-        }
-        return json;
+    public toJson(): IListEventsResponseOptions {
+        throw new Error('not implemented');
     }
 
-    public isValid(): boolean {
-        return this.eventResults.length > 0;
-    }
-
-    public getEventResults(): EventResult[] {
+    public getEventResults(): EventResult[] | undefined {
         return this.eventResults;
     }
     public setEventResults(eventResults: EventResult[]): void {

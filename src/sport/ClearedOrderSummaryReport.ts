@@ -1,64 +1,51 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonResponse from '../JsonResponse';
 
-import ClearedOrderSummary from '../sport/ClearedOrderSummary';
+import ClearedOrderSummary, { IClearedOrderSummaryOptions } from '../sport/ClearedOrderSummary';
+
+export interface IClearedOrderSummaryReportOptions {
+    clearedOrders?: Array<ClearedOrderSummary | IClearedOrderSummaryOptions>;
+    moreAvailable?: boolean;
+}
 
 export default class ClearedOrderSummaryReport extends JsonResponse {
-    private clearedOrders: ClearedOrderSummary[];
-    private moreAvailable: boolean | null;
+    private clearedOrders?: ClearedOrderSummary[];
+    private moreAvailable?: boolean;
 
-    constructor(
-        clearedOrders: ClearedOrderSummary[] = [],
-        moreAvailable: boolean | null = null,
-    ) {
+    constructor(options: IClearedOrderSummaryReportOptions) {
         super();
-        this.clearedOrders = clearedOrders;
-        this.moreAvailable = moreAvailable;
-    }
-
-    public fromJson(json: any): void {
-        if (this.validateJson(json)) {
-            if ('clearedOrders' in json) {
-                this.clearedOrders = json.clearedOrders.map((clearedOrdersJson: any) => {
-                    const element = new ClearedOrderSummary();
-                    element.fromJson(clearedOrdersJson);
-                    return element;
-                });
+        if (this.validateJson(options)) {
+            if (options.clearedOrders) {
+                this.clearedOrders = this.arrayFromJson(options.clearedOrders, ClearedOrderSummary);
             }
-            if ('moreAvailable' in json) {
-                this.moreAvailable = json.moreAvailable;
-            }
+            this.moreAvailable = options.moreAvailable;
         }
     }
 
-    public toJson(): any {
-        const json: any = {};
-        if (this.clearedOrders.length > 0) {
+    public toJson(): IClearedOrderSummaryReportOptions {
+        const json: IClearedOrderSummaryReportOptions = {
+        };
+        if (this.clearedOrders && this.clearedOrders.length > 0) {
             json.clearedOrders = this.clearedOrders.map((value) => value.toJson());
         }
-        if (this.moreAvailable !== null) {
+        if (typeof this.moreAvailable !== 'undefined') {
             json.moreAvailable = this.moreAvailable;
         }
         return json;
     }
 
-    public isValid(): boolean {
-        return this.clearedOrders.length > 0 &&
-            this.moreAvailable !== null;
-    }
-
-    public getClearedOrders(): ClearedOrderSummary[] {
+    public getClearedOrders(): ClearedOrderSummary[] | undefined {
         return this.clearedOrders;
     }
     public setClearedOrders(clearedOrders: ClearedOrderSummary[]): void {
         this.clearedOrders = clearedOrders;
     }
-    public getMoreAvailable(): boolean | null {
+    public getMoreAvailable(): boolean | undefined {
         return this.moreAvailable;
     }
-    public setMoreAvailable(moreAvailable: boolean | null): void {
+    public setMoreAvailable(moreAvailable: boolean): void {
         this.moreAvailable = moreAvailable;
     }
 

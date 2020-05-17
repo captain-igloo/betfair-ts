@@ -1,16 +1,18 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonRequest from '../JsonRequest';
+export interface IUpdateApplicationSubscriptionRequestOptions {
+    vendorClientId: string;
+    subscriptionLength: number;
+}
 export default class UpdateApplicationSubscriptionRequest extends JsonRequest {
     private vendorClientId;
     private subscriptionLength;
-    constructor(vendorClientId?: string, subscriptionLength?: number | null);
-    fromJson(json: any): void;
-    toJson(): any;
-    isValid(): boolean;
+    constructor(options: IUpdateApplicationSubscriptionRequestOptions);
+    toJson(): IUpdateApplicationSubscriptionRequestOptions;
     getVendorClientId(): string;
     setVendorClientId(vendorClientId: string): void;
-    getSubscriptionLength(): number | null;
-    setSubscriptionLength(subscriptionLength: number | null): void;
+    getSubscriptionLength(): number;
+    setSubscriptionLength(subscriptionLength: number): void;
 }

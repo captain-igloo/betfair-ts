@@ -1,13 +1,14 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonRequest from '../JsonRequest';
+export interface IGetVendorDetailsRequestOptions {
+    vendorId: string;
+}
 export default class GetVendorDetailsRequest extends JsonRequest {
     private vendorId;
-    constructor(vendorId?: string);
-    fromJson(json: any): void;
-    toJson(): any;
-    isValid(): boolean;
+    constructor(options: IGetVendorDetailsRequestOptions);
+    toJson(): IGetVendorDetailsRequestOptions;
     getVendorId(): string;
     setVendorId(vendorId: string): void;
 }

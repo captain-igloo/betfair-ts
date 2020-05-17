@@ -18,7 +18,7 @@ export default class AffiliateRelationStatus extends Enum {
             if (value !== 'INVALID_USER' &&
                 value !== 'AFFILIATED' &&
                 value !== 'NOT_AFFILIATED') {
-                throw new Error(`Invalid MarketStatus: ${value}`);
+                throw new Error(`Invalid AffiliateRelationStatus: ${value}`);
             }
 
             this.value = value;

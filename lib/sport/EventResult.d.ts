@@ -1,17 +1,19 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonMember from '../JsonMember';
-import Event from '../sport/Event';
+import Event, { IEventOptions } from '../sport/Event';
+export interface IEventResultOptions {
+    event?: Event | IEventOptions;
+    marketCount?: number;
+}
 export default class EventResult extends JsonMember {
-    private event;
-    private marketCount;
-    constructor(event?: Event, marketCount?: number | null);
-    fromJson(json: any): void;
-    toJson(): any;
-    isValid(): boolean;
-    getEvent(): Event;
+    private event?;
+    private marketCount?;
+    constructor(options: IEventResultOptions);
+    toJson(): IEventResultOptions;
+    getEvent(): Event | undefined;
     setEvent(event: Event): void;
-    getMarketCount(): number | null;
-    setMarketCount(marketCount: number | null): void;
+    getMarketCount(): number | undefined;
+    setMarketCount(marketCount: number): void;
 }

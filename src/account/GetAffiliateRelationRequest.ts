@@ -1,35 +1,26 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonRequest from '../JsonRequest';
 
 
+export interface IGetAffiliateRelationRequestOptions {
+    vendorClientIds: Array<string>;
+}
+
 export default class GetAffiliateRelationRequest extends JsonRequest {
     private vendorClientIds: string[];
 
-    constructor(
-        vendorClientIds: string[] = [],
-    ) {
+    constructor(options: IGetAffiliateRelationRequestOptions) {
         super();
-        this.vendorClientIds = vendorClientIds;
+        this.vendorClientIds = options.vendorClientIds;
     }
 
-    public fromJson(json: any): void {
-        if ('vendorClientIds' in json) {
-            this.vendorClientIds = json.vendorClientIds;
-        }
-    }
-
-    public toJson(): any {
-        const json: any = {};
-        if (this.vendorClientIds.length > 0) {
-            json.vendorClientIds = this.vendorClientIds;
-        }
+    public toJson(): IGetAffiliateRelationRequestOptions {
+        const json: IGetAffiliateRelationRequestOptions = {
+            vendorClientIds: this.vendorClientIds,
+        };
         return json;
-    }
-
-    public isValid(): boolean {
-        return this.vendorClientIds.length > 0;
     }
 
     public getVendorClientIds(): string[] {

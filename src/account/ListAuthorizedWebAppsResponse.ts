@@ -1,43 +1,31 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonResponse from '../JsonResponse';
 
-import VendorDetails from '../account/VendorDetails';
+import VendorDetails, { IVendorDetailsOptions } from '../account/VendorDetails';
+
+export interface IListAuthorizedWebAppsResponseOptions {
+    vendorDetailses?: Array<VendorDetails | IVendorDetailsOptions>;
+}
 
 export default class ListAuthorizedWebAppsResponse extends JsonResponse {
-    private vendorDetailses: VendorDetails[];
+    private vendorDetailses?: VendorDetails[];
 
-    constructor(
-        vendorDetailses: VendorDetails[] = [],
-    ) {
+    constructor(options: Array<VendorDetails | IVendorDetailsOptions>) {
         super();
-        this.vendorDetailses = vendorDetailses;
-    }
-
-    public fromJson(json: any): void {
-        if (this.validateJson(json)) {
-            this.vendorDetailses = json.map((vendorDetailsesJson: any) => {
-                const element = new VendorDetails();
-                element.fromJson(vendorDetailsesJson);
-                return element;
-            });
+        if (this.validateJson(options)) {
+            if (options) {
+                this.vendorDetailses = this.arrayFromJson(options, VendorDetails);
+            }
         }
     }
 
-    public toJson(): any {
-        let json: any = {};
-        if (this.vendorDetailses.length > 0) {
-            json.vendorDetailses = this.vendorDetailses.map((value) => value.toJson());
-        }
-        return json;
+    public toJson(): IListAuthorizedWebAppsResponseOptions {
+        throw new Error('not implemented');
     }
 
-    public isValid(): boolean {
-        return this.vendorDetailses.length > 0;
-    }
-
-    public getVendorDetailses(): VendorDetails[] {
+    public getVendorDetailses(): VendorDetails[] | undefined {
         return this.vendorDetailses;
     }
     public setVendorDetailses(vendorDetailses: VendorDetails[]): void {

@@ -14,7 +14,7 @@ export default class TokenType extends Enum {
     public setValue(value: string): void {
         if (value) {
             if (value !== 'BEARER') {
-                throw new Error(`Invalid MarketStatus: ${value}`);
+                throw new Error(`Invalid TokenType: ${value}`);
             }
 
             this.value = value;

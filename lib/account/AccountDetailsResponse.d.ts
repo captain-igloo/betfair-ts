@@ -1,37 +1,46 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonResponse from '../JsonResponse';
+export interface IAccountDetailsResponseOptions {
+    currencyCode?: string;
+    firstName?: string;
+    lastName?: string;
+    localeCode?: string;
+    region?: string;
+    timezone?: string;
+    discountRate?: number;
+    pointsBalance?: number;
+    countryCode?: string;
+}
 export default class AccountDetailsResponse extends JsonResponse {
-    private currencyCode;
-    private firstName;
-    private lastName;
-    private localeCode;
-    private region;
-    private timezone;
-    private discountRate;
-    private pointsBalance;
-    private countryCode;
-    constructor(currencyCode?: string, firstName?: string, lastName?: string, localeCode?: string, region?: string, timezone?: string, discountRate?: number | null, pointsBalance?: number | null, countryCode?: string);
-    fromJson(json: any): void;
-    toJson(): any;
-    isValid(): boolean;
-    getCurrencyCode(): string;
+    private currencyCode?;
+    private firstName?;
+    private lastName?;
+    private localeCode?;
+    private region?;
+    private timezone?;
+    private discountRate?;
+    private pointsBalance?;
+    private countryCode?;
+    constructor(options: IAccountDetailsResponseOptions);
+    toJson(): IAccountDetailsResponseOptions;
+    getCurrencyCode(): string | undefined;
     setCurrencyCode(currencyCode: string): void;
-    getFirstName(): string;
+    getFirstName(): string | undefined;
     setFirstName(firstName: string): void;
-    getLastName(): string;
+    getLastName(): string | undefined;
     setLastName(lastName: string): void;
-    getLocaleCode(): string;
+    getLocaleCode(): string | undefined;
     setLocaleCode(localeCode: string): void;
-    getRegion(): string;
+    getRegion(): string | undefined;
     setRegion(region: string): void;
-    getTimezone(): string;
+    getTimezone(): string | undefined;
     setTimezone(timezone: string): void;
-    getDiscountRate(): number | null;
-    setDiscountRate(discountRate: number | null): void;
-    getPointsBalance(): number | null;
-    setPointsBalance(pointsBalance: number | null): void;
-    getCountryCode(): string;
+    getDiscountRate(): number | undefined;
+    setDiscountRate(discountRate: number): void;
+    getPointsBalance(): number | undefined;
+    setPointsBalance(pointsBalance: number): void;
+    getCountryCode(): string | undefined;
     setCountryCode(countryCode: string): void;
 }

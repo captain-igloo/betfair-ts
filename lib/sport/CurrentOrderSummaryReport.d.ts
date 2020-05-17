@@ -1,17 +1,19 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonResponse from '../JsonResponse';
-import CurrentOrderSummary from '../sport/CurrentOrderSummary';
+import CurrentOrderSummary, { ICurrentOrderSummaryOptions } from '../sport/CurrentOrderSummary';
+export interface ICurrentOrderSummaryReportOptions {
+    currentOrders?: Array<CurrentOrderSummary | ICurrentOrderSummaryOptions>;
+    moreAvailable?: boolean;
+}
 export default class CurrentOrderSummaryReport extends JsonResponse {
-    private currentOrders;
-    private moreAvailable;
-    constructor(currentOrders?: CurrentOrderSummary[], moreAvailable?: boolean | null);
-    fromJson(json: any): void;
-    toJson(): any;
-    isValid(): boolean;
-    getCurrentOrders(): CurrentOrderSummary[];
+    private currentOrders?;
+    private moreAvailable?;
+    constructor(options: ICurrentOrderSummaryReportOptions);
+    toJson(): ICurrentOrderSummaryReportOptions;
+    getCurrentOrders(): CurrentOrderSummary[] | undefined;
     setCurrentOrders(currentOrders: CurrentOrderSummary[]): void;
-    getMoreAvailable(): boolean | null;
-    setMoreAvailable(moreAvailable: boolean | null): void;
+    getMoreAvailable(): boolean | undefined;
+    setMoreAvailable(moreAvailable: boolean): void;
 }

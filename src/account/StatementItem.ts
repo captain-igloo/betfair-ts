@@ -1,135 +1,110 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonMember from '../JsonMember';
 
 import ItemClass from '../account/enum/ItemClass';
-import StatementLegacyData from '../account/StatementLegacyData';
+import StatementLegacyData, { IStatementLegacyDataOptions } from '../account/StatementLegacyData';
+
+export interface IStatementItemOptions {
+    refId?: string;
+    itemDate: Date | string;
+    amount?: number;
+    balance?: number;
+    itemClass?: ItemClass | string;
+    itemClassData?: Map<string, string> | {[key: string]: string};
+    legacyData?: StatementLegacyData | IStatementLegacyDataOptions;
+}
 
 export default class StatementItem extends JsonMember {
-    private refId: string;
-    private itemDate: Date | null;
-    private amount: number | null;
-    private balance: number | null;
-    private itemClass: ItemClass;
-    private itemClassData: Map<string, string>;
-    private legacyData: StatementLegacyData;
+    private refId?: string;
+    private itemDate: Date;
+    private amount?: number;
+    private balance?: number;
+    private itemClass?: ItemClass;
+    private itemClassData?: Map<string, string>;
+    private legacyData?: StatementLegacyData;
 
-    constructor(
-        refId: string = '',
-        itemDate: Date | null = null,
-        amount: number | null = null,
-        balance: number | null = null,
-        itemClass: ItemClass = new ItemClass(),
-        itemClassData: Map<string, string> = new Map<string, string>(),
-        legacyData: StatementLegacyData = new StatementLegacyData(),
-    ) {
+    constructor(options: IStatementItemOptions) {
         super();
-        this.refId = refId;
-        this.itemDate = itemDate;
-        this.amount = amount;
-        this.balance = balance;
-        this.itemClass = itemClass;
-        this.itemClassData = itemClassData;
-        this.legacyData = legacyData;
+        this.refId = options.refId;
+        this.itemDate = this.fromJson(options.itemDate, Date);
+        this.amount = options.amount;
+        this.balance = options.balance;
+        if (options.itemClass) {
+            this.itemClass = this.fromJson(options.itemClass, ItemClass);
+        }
+        if (options.itemClassData) {
+            this.itemClassData = this.mapFromJson(options.itemClassData);
+        }
+        this.legacyData = options.legacyData && this.fromJson(options.legacyData, StatementLegacyData);
     }
 
-    public fromJson(json: any): void {
-        if ('refId' in json) {
-            this.refId = json.refId;
-        }
-        if ('itemDate' in json) {
-            this.itemDate = new Date(json.itemDate);
-        }
-        if ('amount' in json) {
-            this.amount = json.amount;
-        }
-        if ('balance' in json) {
-            this.balance = json.balance;
-        }
-        if ('itemClass' in json) {
-            this.itemClass.setValue(json.itemClass);
-        }
-        if ('itemClassData' in json) {
-            Object.keys(json.itemClassData).forEach((key: string) => {
-                this.itemClassData.set(key, json.itemClassData[key]);
-            });
-        }
-        if ('legacyData' in json) {
-            this.legacyData.fromJson(json.legacyData);
-        }
-    }
-
-    public toJson(): any {
-        const json: any = {};
-        if (this.refId !== '') {
+    public toJson(): IStatementItemOptions {
+        const json: IStatementItemOptions = {
+            itemDate: this.itemDate.toISOString(),
+        };
+        if (typeof this.refId !== 'undefined') {
             json.refId = this.refId;
         }
-        if (this.itemDate !== null) {
-            json.itemDate = this.itemDate.toISOString();
-        }
-        if (this.amount !== null) {
+        if (typeof this.amount !== 'undefined') {
             json.amount = this.amount;
         }
-        if (this.balance !== null) {
+        if (typeof this.balance !== 'undefined') {
             json.balance = this.balance;
         }
-        if (this.itemClass.isValid()) {
+        if (this.itemClass) {
             json.itemClass = this.itemClass.getValue();
         }
-        if (this.itemClassData.size > 0) {
+        if (this.itemClassData && this.itemClassData.size > 0) {
             json.itemClassData = {};
             this.itemClassData.forEach((value, key) => {
-                json.itemClassData.key = value;
+                (json.itemClassData as {[key: string]: string})[key] = value;
             });
         }
-        if (this.legacyData.isValid()) {
+        if (this.legacyData) {
             json.legacyData = this.legacyData.toJson();
         }
         return json;
     }
 
-    public isValid(): boolean {
-        return this.itemDate !== null;
-    }
-
-    public getRefId(): string {
+    public getRefId(): string | undefined {
         return this.refId;
     }
     public setRefId(refId: string): void {
         this.refId = refId;
     }
-    public getItemDate(): Date | null {
+    public getItemDate(): Date {
         return this.itemDate;
     }
-    public setItemDate(itemDate: Date | null): void {
+    public setItemDate(itemDate: Date): void {
         this.itemDate = itemDate;
     }
-    public getAmount(): number | null {
+    public getAmount(): number | undefined {
         return this.amount;
     }
-    public setAmount(amount: number | null): void {
+    public setAmount(amount: number): void {
         this.amount = amount;
     }
-    public getBalance(): number | null {
+    public getBalance(): number | undefined {
         return this.balance;
     }
-    public setBalance(balance: number | null): void {
+    public setBalance(balance: number): void {
         this.balance = balance;
     }
-    public getItemClass(): ItemClass {
+    public getItemClass(): ItemClass | undefined {
         return this.itemClass;
     }
     public setItemClass(itemClass: ItemClass): void {
         this.itemClass = itemClass;
     }
-    public getItemClassData(): Map<string, string> {
+    public getItemClassData(): Map<string, string> | undefined {
         return this.itemClassData;
     }
     public setItemClassData(itemClassData: Map<string, string>): void {
         this.itemClassData = itemClassData;
     }
-    public getLegacyData(): StatementLegacyData {
+    public getLegacyData(): StatementLegacyData | undefined {
         return this.legacyData;
     }
     public setLegacyData(legacyData: StatementLegacyData): void {

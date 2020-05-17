@@ -1,41 +1,32 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonMember from '../JsonMember';
 
 
+export interface IMarketOnCloseOrderOptions {
+    liability: number;
+}
+
 export default class MarketOnCloseOrder extends JsonMember {
-    private liability: number | null;
+    private liability: number;
 
-    constructor(
-        liability: number | null = null,
-    ) {
+    constructor(options: IMarketOnCloseOrderOptions) {
         super();
-        this.liability = liability;
+        this.liability = options.liability;
     }
 
-    public fromJson(json: any): void {
-        if ('liability' in json) {
-            this.liability = json.liability;
-        }
-    }
-
-    public toJson(): any {
-        const json: any = {};
-        if (this.liability !== null) {
-            json.liability = this.liability;
-        }
+    public toJson(): IMarketOnCloseOrderOptions {
+        const json: IMarketOnCloseOrderOptions = {
+            liability: this.liability,
+        };
         return json;
     }
 
-    public isValid(): boolean {
-        return this.liability !== null;
-    }
-
-    public getLiability(): number | null {
+    public getLiability(): number {
         return this.liability;
     }
-    public setLiability(liability: number | null): void {
+    public setLiability(liability: number): void {
         this.liability = liability;
     }
 

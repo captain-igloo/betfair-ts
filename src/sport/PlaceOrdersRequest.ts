@@ -1,87 +1,56 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonRequest from '../JsonRequest';
 
-import MarketVersion from '../sport/MarketVersion';
-import PlaceInstruction from '../sport/PlaceInstruction';
+import MarketVersion, { IMarketVersionOptions } from '../sport/MarketVersion';
+import PlaceInstruction, { IPlaceInstructionOptions } from '../sport/PlaceInstruction';
+
+export interface IPlaceOrdersRequestOptions {
+    marketId: string;
+    instructions: Array<PlaceInstruction | IPlaceInstructionOptions>;
+    customerRef?: string;
+    marketVersion?: MarketVersion | IMarketVersionOptions;
+    customerStrategyRef?: string;
+    async?: boolean;
+}
 
 export default class PlaceOrdersRequest extends JsonRequest {
     private marketId: string;
     private instructions: PlaceInstruction[];
-    private customerRef: string;
-    private marketVersion: MarketVersion;
-    private customerStrategyRef: string;
-    private async: boolean | null;
+    private customerRef?: string;
+    private marketVersion?: MarketVersion;
+    private customerStrategyRef?: string;
+    private async?: boolean;
 
-    constructor(
-        marketId: string = '',
-        instructions: PlaceInstruction[] = [],
-        customerRef: string = '',
-        marketVersion: MarketVersion = new MarketVersion(),
-        customerStrategyRef: string = '',
-        async: boolean | null = null,
-    ) {
+    constructor(options: IPlaceOrdersRequestOptions) {
         super();
-        this.marketId = marketId;
-        this.instructions = instructions;
-        this.customerRef = customerRef;
-        this.marketVersion = marketVersion;
-        this.customerStrategyRef = customerStrategyRef;
-        this.async = async;
+        this.marketId = options.marketId;
+        this.instructions = this.arrayFromJson(options.instructions, PlaceInstruction);
+        this.customerRef = options.customerRef;
+        this.marketVersion = options.marketVersion && this.fromJson(options.marketVersion, MarketVersion);
+        this.customerStrategyRef = options.customerStrategyRef;
+        this.async = options.async;
     }
 
-    public fromJson(json: any): void {
-        if ('marketId' in json) {
-            this.marketId = json.marketId;
-        }
-        if ('instructions' in json) {
-            this.instructions = json.instructions.map((instructionsJson: any) => {
-                const element = new PlaceInstruction();
-                element.fromJson(instructionsJson);
-                return element;
-            });
-        }
-        if ('customerRef' in json) {
-            this.customerRef = json.customerRef;
-        }
-        if ('marketVersion' in json) {
-            this.marketVersion.fromJson(json.marketVersion);
-        }
-        if ('customerStrategyRef' in json) {
-            this.customerStrategyRef = json.customerStrategyRef;
-        }
-        if ('async' in json) {
-            this.async = json.async;
-        }
-    }
-
-    public toJson(): any {
-        const json: any = {};
-        if (this.marketId !== '') {
-            json.marketId = this.marketId;
-        }
-        if (this.instructions.length > 0) {
-            json.instructions = this.instructions.map((value) => value.toJson());
-        }
-        if (this.customerRef !== '') {
+    public toJson(): IPlaceOrdersRequestOptions {
+        const json: IPlaceOrdersRequestOptions = {
+            marketId: this.marketId,
+            instructions: this.instructions.map((value) => value.toJson()),
+        };
+        if (typeof this.customerRef !== 'undefined') {
             json.customerRef = this.customerRef;
         }
-        if (this.marketVersion.isValid()) {
+        if (this.marketVersion) {
             json.marketVersion = this.marketVersion.toJson();
         }
-        if (this.customerStrategyRef !== '') {
+        if (typeof this.customerStrategyRef !== 'undefined') {
             json.customerStrategyRef = this.customerStrategyRef;
         }
-        if (this.async !== null) {
+        if (typeof this.async !== 'undefined') {
             json.async = this.async;
         }
         return json;
-    }
-
-    public isValid(): boolean {
-        return this.marketId !== '' &&
-            this.instructions.length > 0;
     }
 
     public getMarketId(): string {
@@ -96,28 +65,28 @@ export default class PlaceOrdersRequest extends JsonRequest {
     public setInstructions(instructions: PlaceInstruction[]): void {
         this.instructions = instructions;
     }
-    public getCustomerRef(): string {
+    public getCustomerRef(): string | undefined {
         return this.customerRef;
     }
     public setCustomerRef(customerRef: string): void {
         this.customerRef = customerRef;
     }
-    public getMarketVersion(): MarketVersion {
+    public getMarketVersion(): MarketVersion | undefined {
         return this.marketVersion;
     }
     public setMarketVersion(marketVersion: MarketVersion): void {
         this.marketVersion = marketVersion;
     }
-    public getCustomerStrategyRef(): string {
+    public getCustomerStrategyRef(): string | undefined {
         return this.customerStrategyRef;
     }
     public setCustomerStrategyRef(customerStrategyRef: string): void {
         this.customerStrategyRef = customerStrategyRef;
     }
-    public getAsync(): boolean | null {
+    public getAsync(): boolean | undefined {
         return this.async;
     }
-    public setAsync(async: boolean | null): void {
+    public setAsync(async: boolean): void {
         this.async = async;
     }
 

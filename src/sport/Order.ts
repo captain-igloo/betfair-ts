@@ -1,5 +1,5 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonMember from '../JsonMember';
 
@@ -8,184 +8,103 @@ import OrderType from '../sport/enum/OrderType';
 import PersistenceType from '../sport/enum/PersistenceType';
 import Side from '../sport/enum/Side';
 
+export interface IOrderOptions {
+    betId: string;
+    orderType: OrderType | string;
+    status: OrderStatus | string;
+    persistenceType: PersistenceType | string;
+    side: Side | string;
+    price: number;
+    size: number;
+    bspLiability: number;
+    placedDate: Date | string;
+    avgPriceMatched?: number;
+    sizeMatched?: number;
+    sizeRemaining?: number;
+    sizeLapsed?: number;
+    sizeCancelled?: number;
+    sizeVoided?: number;
+    customerOrderRef?: string;
+    customerStrategyRef?: string;
+}
+
 export default class Order extends JsonMember {
     private betId: string;
     private orderType: OrderType;
     private status: OrderStatus;
     private persistenceType: PersistenceType;
     private side: Side;
-    private price: number | null;
-    private size: number | null;
-    private bspLiability: number | null;
-    private placedDate: Date | null;
-    private avgPriceMatched: number | null;
-    private sizeMatched: number | null;
-    private sizeRemaining: number | null;
-    private sizeLapsed: number | null;
-    private sizeCancelled: number | null;
-    private sizeVoided: number | null;
-    private customerOrderRef: string;
-    private customerStrategyRef: string;
+    private price: number;
+    private size: number;
+    private bspLiability: number;
+    private placedDate: Date;
+    private avgPriceMatched?: number;
+    private sizeMatched?: number;
+    private sizeRemaining?: number;
+    private sizeLapsed?: number;
+    private sizeCancelled?: number;
+    private sizeVoided?: number;
+    private customerOrderRef?: string;
+    private customerStrategyRef?: string;
 
-    constructor(
-        betId: string = '',
-        orderType: OrderType = new OrderType(),
-        status: OrderStatus = new OrderStatus(),
-        persistenceType: PersistenceType = new PersistenceType(),
-        side: Side = new Side(),
-        price: number | null = null,
-        size: number | null = null,
-        bspLiability: number | null = null,
-        placedDate: Date | null = null,
-        avgPriceMatched: number | null = null,
-        sizeMatched: number | null = null,
-        sizeRemaining: number | null = null,
-        sizeLapsed: number | null = null,
-        sizeCancelled: number | null = null,
-        sizeVoided: number | null = null,
-        customerOrderRef: string = '',
-        customerStrategyRef: string = '',
-    ) {
+    constructor(options: IOrderOptions) {
         super();
-        this.betId = betId;
-        this.orderType = orderType;
-        this.status = status;
-        this.persistenceType = persistenceType;
-        this.side = side;
-        this.price = price;
-        this.size = size;
-        this.bspLiability = bspLiability;
-        this.placedDate = placedDate;
-        this.avgPriceMatched = avgPriceMatched;
-        this.sizeMatched = sizeMatched;
-        this.sizeRemaining = sizeRemaining;
-        this.sizeLapsed = sizeLapsed;
-        this.sizeCancelled = sizeCancelled;
-        this.sizeVoided = sizeVoided;
-        this.customerOrderRef = customerOrderRef;
-        this.customerStrategyRef = customerStrategyRef;
+        this.betId = options.betId;
+        this.orderType = this.fromJson(options.orderType, OrderType);
+        this.status = this.fromJson(options.status, OrderStatus);
+        this.persistenceType = this.fromJson(options.persistenceType, PersistenceType);
+        this.side = this.fromJson(options.side, Side);
+        this.price = options.price;
+        this.size = options.size;
+        this.bspLiability = options.bspLiability;
+        this.placedDate = this.fromJson(options.placedDate, Date);
+        this.avgPriceMatched = options.avgPriceMatched;
+        this.sizeMatched = options.sizeMatched;
+        this.sizeRemaining = options.sizeRemaining;
+        this.sizeLapsed = options.sizeLapsed;
+        this.sizeCancelled = options.sizeCancelled;
+        this.sizeVoided = options.sizeVoided;
+        this.customerOrderRef = options.customerOrderRef;
+        this.customerStrategyRef = options.customerStrategyRef;
     }
 
-    public fromJson(json: any): void {
-        if ('betId' in json) {
-            this.betId = json.betId;
-        }
-        if ('orderType' in json) {
-            this.orderType.setValue(json.orderType);
-        }
-        if ('status' in json) {
-            this.status.setValue(json.status);
-        }
-        if ('persistenceType' in json) {
-            this.persistenceType.setValue(json.persistenceType);
-        }
-        if ('side' in json) {
-            this.side.setValue(json.side);
-        }
-        if ('price' in json) {
-            this.price = json.price;
-        }
-        if ('size' in json) {
-            this.size = json.size;
-        }
-        if ('bspLiability' in json) {
-            this.bspLiability = json.bspLiability;
-        }
-        if ('placedDate' in json) {
-            this.placedDate = new Date(json.placedDate);
-        }
-        if ('avgPriceMatched' in json) {
-            this.avgPriceMatched = json.avgPriceMatched;
-        }
-        if ('sizeMatched' in json) {
-            this.sizeMatched = json.sizeMatched;
-        }
-        if ('sizeRemaining' in json) {
-            this.sizeRemaining = json.sizeRemaining;
-        }
-        if ('sizeLapsed' in json) {
-            this.sizeLapsed = json.sizeLapsed;
-        }
-        if ('sizeCancelled' in json) {
-            this.sizeCancelled = json.sizeCancelled;
-        }
-        if ('sizeVoided' in json) {
-            this.sizeVoided = json.sizeVoided;
-        }
-        if ('customerOrderRef' in json) {
-            this.customerOrderRef = json.customerOrderRef;
-        }
-        if ('customerStrategyRef' in json) {
-            this.customerStrategyRef = json.customerStrategyRef;
-        }
-    }
-
-    public toJson(): any {
-        const json: any = {};
-        if (this.betId !== '') {
-            json.betId = this.betId;
-        }
-        if (this.orderType.isValid()) {
-            json.orderType = this.orderType.getValue();
-        }
-        if (this.status.isValid()) {
-            json.status = this.status.getValue();
-        }
-        if (this.persistenceType.isValid()) {
-            json.persistenceType = this.persistenceType.getValue();
-        }
-        if (this.side.isValid()) {
-            json.side = this.side.getValue();
-        }
-        if (this.price !== null) {
-            json.price = this.price;
-        }
-        if (this.size !== null) {
-            json.size = this.size;
-        }
-        if (this.bspLiability !== null) {
-            json.bspLiability = this.bspLiability;
-        }
-        if (this.placedDate !== null) {
-            json.placedDate = this.placedDate.toISOString();
-        }
-        if (this.avgPriceMatched !== null) {
+    public toJson(): IOrderOptions {
+        const json: IOrderOptions = {
+            betId: this.betId,
+            orderType: this.orderType.getValue(),
+            status: this.status.getValue(),
+            persistenceType: this.persistenceType.getValue(),
+            side: this.side.getValue(),
+            price: this.price,
+            size: this.size,
+            bspLiability: this.bspLiability,
+            placedDate: this.placedDate.toISOString(),
+        };
+        if (typeof this.avgPriceMatched !== 'undefined') {
             json.avgPriceMatched = this.avgPriceMatched;
         }
-        if (this.sizeMatched !== null) {
+        if (typeof this.sizeMatched !== 'undefined') {
             json.sizeMatched = this.sizeMatched;
         }
-        if (this.sizeRemaining !== null) {
+        if (typeof this.sizeRemaining !== 'undefined') {
             json.sizeRemaining = this.sizeRemaining;
         }
-        if (this.sizeLapsed !== null) {
+        if (typeof this.sizeLapsed !== 'undefined') {
             json.sizeLapsed = this.sizeLapsed;
         }
-        if (this.sizeCancelled !== null) {
+        if (typeof this.sizeCancelled !== 'undefined') {
             json.sizeCancelled = this.sizeCancelled;
         }
-        if (this.sizeVoided !== null) {
+        if (typeof this.sizeVoided !== 'undefined') {
             json.sizeVoided = this.sizeVoided;
         }
-        if (this.customerOrderRef !== '') {
+        if (typeof this.customerOrderRef !== 'undefined') {
             json.customerOrderRef = this.customerOrderRef;
         }
-        if (this.customerStrategyRef !== '') {
+        if (typeof this.customerStrategyRef !== 'undefined') {
             json.customerStrategyRef = this.customerStrategyRef;
         }
         return json;
-    }
-
-    public isValid(): boolean {
-        return this.betId !== '' &&
-            this.orderType.isValid() &&
-            this.status.isValid() &&
-            this.persistenceType.isValid() &&
-            this.side.isValid() &&
-            this.price !== null &&
-            this.size !== null &&
-            this.bspLiability !== null &&
-            this.placedDate !== null;
     }
 
     public getBetId(): string {
@@ -218,73 +137,73 @@ export default class Order extends JsonMember {
     public setSide(side: Side): void {
         this.side = side;
     }
-    public getPrice(): number | null {
+    public getPrice(): number {
         return this.price;
     }
-    public setPrice(price: number | null): void {
+    public setPrice(price: number): void {
         this.price = price;
     }
-    public getSize(): number | null {
+    public getSize(): number {
         return this.size;
     }
-    public setSize(size: number | null): void {
+    public setSize(size: number): void {
         this.size = size;
     }
-    public getBspLiability(): number | null {
+    public getBspLiability(): number {
         return this.bspLiability;
     }
-    public setBspLiability(bspLiability: number | null): void {
+    public setBspLiability(bspLiability: number): void {
         this.bspLiability = bspLiability;
     }
-    public getPlacedDate(): Date | null {
+    public getPlacedDate(): Date {
         return this.placedDate;
     }
-    public setPlacedDate(placedDate: Date | null): void {
+    public setPlacedDate(placedDate: Date): void {
         this.placedDate = placedDate;
     }
-    public getAvgPriceMatched(): number | null {
+    public getAvgPriceMatched(): number | undefined {
         return this.avgPriceMatched;
     }
-    public setAvgPriceMatched(avgPriceMatched: number | null): void {
+    public setAvgPriceMatched(avgPriceMatched: number): void {
         this.avgPriceMatched = avgPriceMatched;
     }
-    public getSizeMatched(): number | null {
+    public getSizeMatched(): number | undefined {
         return this.sizeMatched;
     }
-    public setSizeMatched(sizeMatched: number | null): void {
+    public setSizeMatched(sizeMatched: number): void {
         this.sizeMatched = sizeMatched;
     }
-    public getSizeRemaining(): number | null {
+    public getSizeRemaining(): number | undefined {
         return this.sizeRemaining;
     }
-    public setSizeRemaining(sizeRemaining: number | null): void {
+    public setSizeRemaining(sizeRemaining: number): void {
         this.sizeRemaining = sizeRemaining;
     }
-    public getSizeLapsed(): number | null {
+    public getSizeLapsed(): number | undefined {
         return this.sizeLapsed;
     }
-    public setSizeLapsed(sizeLapsed: number | null): void {
+    public setSizeLapsed(sizeLapsed: number): void {
         this.sizeLapsed = sizeLapsed;
     }
-    public getSizeCancelled(): number | null {
+    public getSizeCancelled(): number | undefined {
         return this.sizeCancelled;
     }
-    public setSizeCancelled(sizeCancelled: number | null): void {
+    public setSizeCancelled(sizeCancelled: number): void {
         this.sizeCancelled = sizeCancelled;
     }
-    public getSizeVoided(): number | null {
+    public getSizeVoided(): number | undefined {
         return this.sizeVoided;
     }
-    public setSizeVoided(sizeVoided: number | null): void {
+    public setSizeVoided(sizeVoided: number): void {
         this.sizeVoided = sizeVoided;
     }
-    public getCustomerOrderRef(): string {
+    public getCustomerOrderRef(): string | undefined {
         return this.customerOrderRef;
     }
     public setCustomerOrderRef(customerOrderRef: string): void {
         this.customerOrderRef = customerOrderRef;
     }
-    public getCustomerStrategyRef(): string {
+    public getCustomerStrategyRef(): string | undefined {
         return this.customerStrategyRef;
     }
     public setCustomerStrategyRef(customerStrategyRef: string): void {

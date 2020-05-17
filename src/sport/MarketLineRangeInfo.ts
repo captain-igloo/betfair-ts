@@ -1,83 +1,56 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonMember from '../JsonMember';
 
 
+export interface IMarketLineRangeInfoOptions {
+    maxUnitValue: number;
+    minUnitValue: number;
+    interval: number;
+    marketUnit: string;
+}
+
 export default class MarketLineRangeInfo extends JsonMember {
-    private maxUnitValue: number | null;
-    private minUnitValue: number | null;
-    private interval: number | null;
+    private maxUnitValue: number;
+    private minUnitValue: number;
+    private interval: number;
     private marketUnit: string;
 
-    constructor(
-        maxUnitValue: number | null = null,
-        minUnitValue: number | null = null,
-        interval: number | null = null,
-        marketUnit: string = '',
-    ) {
+    constructor(options: IMarketLineRangeInfoOptions) {
         super();
-        this.maxUnitValue = maxUnitValue;
-        this.minUnitValue = minUnitValue;
-        this.interval = interval;
-        this.marketUnit = marketUnit;
+        this.maxUnitValue = options.maxUnitValue;
+        this.minUnitValue = options.minUnitValue;
+        this.interval = options.interval;
+        this.marketUnit = options.marketUnit;
     }
 
-    public fromJson(json: any): void {
-        if ('maxUnitValue' in json) {
-            this.maxUnitValue = json.maxUnitValue;
-        }
-        if ('minUnitValue' in json) {
-            this.minUnitValue = json.minUnitValue;
-        }
-        if ('interval' in json) {
-            this.interval = json.interval;
-        }
-        if ('marketUnit' in json) {
-            this.marketUnit = json.marketUnit;
-        }
-    }
-
-    public toJson(): any {
-        const json: any = {};
-        if (this.maxUnitValue !== null) {
-            json.maxUnitValue = this.maxUnitValue;
-        }
-        if (this.minUnitValue !== null) {
-            json.minUnitValue = this.minUnitValue;
-        }
-        if (this.interval !== null) {
-            json.interval = this.interval;
-        }
-        if (this.marketUnit !== '') {
-            json.marketUnit = this.marketUnit;
-        }
+    public toJson(): IMarketLineRangeInfoOptions {
+        const json: IMarketLineRangeInfoOptions = {
+            maxUnitValue: this.maxUnitValue,
+            minUnitValue: this.minUnitValue,
+            interval: this.interval,
+            marketUnit: this.marketUnit,
+        };
         return json;
     }
 
-    public isValid(): boolean {
-        return this.maxUnitValue !== null &&
-            this.minUnitValue !== null &&
-            this.interval !== null &&
-            this.marketUnit !== '';
-    }
-
-    public getMaxUnitValue(): number | null {
+    public getMaxUnitValue(): number {
         return this.maxUnitValue;
     }
-    public setMaxUnitValue(maxUnitValue: number | null): void {
+    public setMaxUnitValue(maxUnitValue: number): void {
         this.maxUnitValue = maxUnitValue;
     }
-    public getMinUnitValue(): number | null {
+    public getMinUnitValue(): number {
         return this.minUnitValue;
     }
-    public setMinUnitValue(minUnitValue: number | null): void {
+    public setMinUnitValue(minUnitValue: number): void {
         this.minUnitValue = minUnitValue;
     }
-    public getInterval(): number | null {
+    public getInterval(): number {
         return this.interval;
     }
-    public setInterval(interval: number | null): void {
+    public setInterval(interval: number): void {
         this.interval = interval;
     }
     public getMarketUnit(): string {

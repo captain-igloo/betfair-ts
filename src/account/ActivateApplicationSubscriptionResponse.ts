@@ -1,39 +1,31 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonResponse from '../JsonResponse';
 
 import Status from '../account/enum/Status';
 
+export interface IActivateApplicationSubscriptionResponseOptions {
+    response?: Status | string;
+}
+
 export default class ActivateApplicationSubscriptionResponse extends JsonResponse {
-    private response: Status;
+    private response?: Status;
 
-    constructor(
-        response: Status = new Status(),
-    ) {
+    constructor(options: Status | string) {
         super();
-        this.response = response;
-    }
-
-    public fromJson(json: any): void {
-        if (this.validateJson(json)) {
-            this.response.setValue(json);
+        if (this.validateJson(options)) {
+            if (options) {
+                this.response = this.fromJson(options, Status);
+            }
         }
     }
 
-    public toJson(): any {
-        let json: any = {};
-        if (this.response.isValid()) {
-            json = this.response.getValue();
-        }
-        return json;
+    public toJson(): IActivateApplicationSubscriptionResponseOptions {
+        throw new Error('not implemented');
     }
 
-    public isValid(): boolean {
-        return this.response.isValid();
-    }
-
-    public getResponse(): Status {
+    public getResponse(): Status | undefined {
         return this.response;
     }
     public setResponse(response: Status): void {

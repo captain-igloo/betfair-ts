@@ -1,43 +1,31 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonResponse from '../JsonResponse';
 
-import MarketProfitAndLoss from '../sport/MarketProfitAndLoss';
+import MarketProfitAndLoss, { IMarketProfitAndLossOptions } from '../sport/MarketProfitAndLoss';
+
+export interface IListMarketProfitAndLossResponseOptions {
+    marketProfitAndLosses?: Array<MarketProfitAndLoss | IMarketProfitAndLossOptions>;
+}
 
 export default class ListMarketProfitAndLossResponse extends JsonResponse {
-    private marketProfitAndLosses: MarketProfitAndLoss[];
+    private marketProfitAndLosses?: MarketProfitAndLoss[];
 
-    constructor(
-        marketProfitAndLosses: MarketProfitAndLoss[] = [],
-    ) {
+    constructor(options: Array<MarketProfitAndLoss | IMarketProfitAndLossOptions>) {
         super();
-        this.marketProfitAndLosses = marketProfitAndLosses;
-    }
-
-    public fromJson(json: any): void {
-        if (this.validateJson(json)) {
-            this.marketProfitAndLosses = json.map((marketProfitAndLossesJson: any) => {
-                const element = new MarketProfitAndLoss();
-                element.fromJson(marketProfitAndLossesJson);
-                return element;
-            });
+        if (this.validateJson(options)) {
+            if (options) {
+                this.marketProfitAndLosses = this.arrayFromJson(options, MarketProfitAndLoss);
+            }
         }
     }
 
-    public toJson(): any {
-        let json: any = {};
-        if (this.marketProfitAndLosses.length > 0) {
-            json.marketProfitAndLosses = this.marketProfitAndLosses.map((value) => value.toJson());
-        }
-        return json;
+    public toJson(): IListMarketProfitAndLossResponseOptions {
+        throw new Error('not implemented');
     }
 
-    public isValid(): boolean {
-        return this.marketProfitAndLosses.length > 0;
-    }
-
-    public getMarketProfitAndLosses(): MarketProfitAndLoss[] {
+    public getMarketProfitAndLosses(): MarketProfitAndLoss[] | undefined {
         return this.marketProfitAndLosses;
     }
     public setMarketProfitAndLosses(marketProfitAndLosses: MarketProfitAndLoss[]): void {

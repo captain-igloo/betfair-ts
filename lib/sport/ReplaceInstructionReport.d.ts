@@ -1,26 +1,30 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonMember from '../JsonMember';
-import CancelInstructionReport from '../sport/CancelInstructionReport';
+import CancelInstructionReport, { ICancelInstructionReportOptions } from '../sport/CancelInstructionReport';
 import InstructionReportErrorCode from '../sport/enum/InstructionReportErrorCode';
 import InstructionReportStatus from '../sport/enum/InstructionReportStatus';
-import PlaceInstructionReport from '../sport/PlaceInstructionReport';
+import PlaceInstructionReport, { IPlaceInstructionReportOptions } from '../sport/PlaceInstructionReport';
+export interface IReplaceInstructionReportOptions {
+    status: InstructionReportStatus | string;
+    errorCode?: InstructionReportErrorCode | string;
+    cancelInstructionReport?: CancelInstructionReport | ICancelInstructionReportOptions;
+    placeInstructionReport?: PlaceInstructionReport | IPlaceInstructionReportOptions;
+}
 export default class ReplaceInstructionReport extends JsonMember {
     private status;
-    private errorCode;
-    private cancelInstructionReport;
-    private placeInstructionReport;
-    constructor(status?: InstructionReportStatus, errorCode?: InstructionReportErrorCode, cancelInstructionReport?: CancelInstructionReport, placeInstructionReport?: PlaceInstructionReport);
-    fromJson(json: any): void;
-    toJson(): any;
-    isValid(): boolean;
+    private errorCode?;
+    private cancelInstructionReport?;
+    private placeInstructionReport?;
+    constructor(options: IReplaceInstructionReportOptions);
+    toJson(): IReplaceInstructionReportOptions;
     getStatus(): InstructionReportStatus;
     setStatus(status: InstructionReportStatus): void;
-    getErrorCode(): InstructionReportErrorCode;
+    getErrorCode(): InstructionReportErrorCode | undefined;
     setErrorCode(errorCode: InstructionReportErrorCode): void;
-    getCancelInstructionReport(): CancelInstructionReport;
+    getCancelInstructionReport(): CancelInstructionReport | undefined;
     setCancelInstructionReport(cancelInstructionReport: CancelInstructionReport): void;
-    getPlaceInstructionReport(): PlaceInstructionReport;
+    getPlaceInstructionReport(): PlaceInstructionReport | undefined;
     setPlaceInstructionReport(placeInstructionReport: PlaceInstructionReport): void;
 }

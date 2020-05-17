@@ -1,20 +1,23 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonMember from '../JsonMember';
-import RunnerProfitAndLoss from '../sport/RunnerProfitAndLoss';
+import RunnerProfitAndLoss, { IRunnerProfitAndLossOptions } from '../sport/RunnerProfitAndLoss';
+export interface IMarketProfitAndLossOptions {
+    marketId?: string;
+    commissionApplied?: number;
+    profitAndLosses?: Array<RunnerProfitAndLoss | IRunnerProfitAndLossOptions>;
+}
 export default class MarketProfitAndLoss extends JsonMember {
-    private marketId;
-    private commissionApplied;
-    private profitAndLosses;
-    constructor(marketId?: string, commissionApplied?: number | null, profitAndLosses?: RunnerProfitAndLoss[]);
-    fromJson(json: any): void;
-    toJson(): any;
-    isValid(): boolean;
-    getMarketId(): string;
+    private marketId?;
+    private commissionApplied?;
+    private profitAndLosses?;
+    constructor(options: IMarketProfitAndLossOptions);
+    toJson(): IMarketProfitAndLossOptions;
+    getMarketId(): string | undefined;
     setMarketId(marketId: string): void;
-    getCommissionApplied(): number | null;
-    setCommissionApplied(commissionApplied: number | null): void;
-    getProfitAndLosses(): RunnerProfitAndLoss[];
+    getCommissionApplied(): number | undefined;
+    setCommissionApplied(commissionApplied: number): void;
+    getProfitAndLosses(): RunnerProfitAndLoss[] | undefined;
     setProfitAndLosses(profitAndLosses: RunnerProfitAndLoss[]): void;
 }

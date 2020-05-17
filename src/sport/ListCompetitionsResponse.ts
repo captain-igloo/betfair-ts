@@ -1,43 +1,31 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonResponse from '../JsonResponse';
 
-import CompetitionResult from '../sport/CompetitionResult';
+import CompetitionResult, { ICompetitionResultOptions } from '../sport/CompetitionResult';
+
+export interface IListCompetitionsResponseOptions {
+    competitionResults?: Array<CompetitionResult | ICompetitionResultOptions>;
+}
 
 export default class ListCompetitionsResponse extends JsonResponse {
-    private competitionResults: CompetitionResult[];
+    private competitionResults?: CompetitionResult[];
 
-    constructor(
-        competitionResults: CompetitionResult[] = [],
-    ) {
+    constructor(options: Array<CompetitionResult | ICompetitionResultOptions>) {
         super();
-        this.competitionResults = competitionResults;
-    }
-
-    public fromJson(json: any): void {
-        if (this.validateJson(json)) {
-            this.competitionResults = json.map((competitionResultsJson: any) => {
-                const element = new CompetitionResult();
-                element.fromJson(competitionResultsJson);
-                return element;
-            });
+        if (this.validateJson(options)) {
+            if (options) {
+                this.competitionResults = this.arrayFromJson(options, CompetitionResult);
+            }
         }
     }
 
-    public toJson(): any {
-        let json: any = {};
-        if (this.competitionResults.length > 0) {
-            json.competitionResults = this.competitionResults.map((value) => value.toJson());
-        }
-        return json;
+    public toJson(): IListCompetitionsResponseOptions {
+        throw new Error('not implemented');
     }
 
-    public isValid(): boolean {
-        return this.competitionResults.length > 0;
-    }
-
-    public getCompetitionResults(): CompetitionResult[] {
+    public getCompetitionResults(): CompetitionResult[] | undefined {
         return this.competitionResults;
     }
     public setCompetitionResults(competitionResults: CompetitionResult[]): void {

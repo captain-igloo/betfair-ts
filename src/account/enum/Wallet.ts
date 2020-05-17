@@ -16,7 +16,7 @@ export default class Wallet extends Enum {
         if (value) {
             if (value !== 'UK' &&
                 value !== 'AUSTRALIAN') {
-                throw new Error(`Invalid MarketStatus: ${value}`);
+                throw new Error(`Invalid Wallet: ${value}`);
             }
 
             this.value = value;

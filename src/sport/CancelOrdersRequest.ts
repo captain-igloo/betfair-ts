@@ -1,73 +1,58 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonRequest from '../JsonRequest';
 
-import CancelInstruction from '../sport/CancelInstruction';
+import CancelInstruction, { ICancelInstructionOptions } from '../sport/CancelInstruction';
+
+export interface ICancelOrdersRequestOptions {
+    marketId?: string;
+    instructions?: Array<CancelInstruction | ICancelInstructionOptions>;
+    customerRef?: string;
+}
 
 export default class CancelOrdersRequest extends JsonRequest {
-    private marketId: string;
-    private instructions: CancelInstruction[];
-    private customerRef: string;
+    private marketId?: string;
+    private instructions?: CancelInstruction[];
+    private customerRef?: string;
 
-    constructor(
-        marketId: string = '',
-        instructions: CancelInstruction[] = [],
-        customerRef: string = '',
-    ) {
+    constructor(options: ICancelOrdersRequestOptions) {
         super();
-        this.marketId = marketId;
-        this.instructions = instructions;
-        this.customerRef = customerRef;
+        this.marketId = options.marketId;
+        if (options.instructions) {
+            this.instructions = this.arrayFromJson(options.instructions, CancelInstruction);
+        }
+        this.customerRef = options.customerRef;
     }
 
-    public fromJson(json: any): void {
-        if ('marketId' in json) {
-            this.marketId = json.marketId;
-        }
-        if ('instructions' in json) {
-            this.instructions = json.instructions.map((instructionsJson: any) => {
-                const element = new CancelInstruction();
-                element.fromJson(instructionsJson);
-                return element;
-            });
-        }
-        if ('customerRef' in json) {
-            this.customerRef = json.customerRef;
-        }
-    }
-
-    public toJson(): any {
-        const json: any = {};
-        if (this.marketId !== '') {
+    public toJson(): ICancelOrdersRequestOptions {
+        const json: ICancelOrdersRequestOptions = {
+        };
+        if (typeof this.marketId !== 'undefined') {
             json.marketId = this.marketId;
         }
-        if (this.instructions.length > 0) {
+        if (this.instructions && this.instructions.length > 0) {
             json.instructions = this.instructions.map((value) => value.toJson());
         }
-        if (this.customerRef !== '') {
+        if (typeof this.customerRef !== 'undefined') {
             json.customerRef = this.customerRef;
         }
         return json;
     }
 
-    public isValid(): boolean {
-        return true;
-    }
-
-    public getMarketId(): string {
+    public getMarketId(): string | undefined {
         return this.marketId;
     }
     public setMarketId(marketId: string): void {
         this.marketId = marketId;
     }
-    public getInstructions(): CancelInstruction[] {
+    public getInstructions(): CancelInstruction[] | undefined {
         return this.instructions;
     }
     public setInstructions(instructions: CancelInstruction[]): void {
         this.instructions = instructions;
     }
-    public getCustomerRef(): string {
+    public getCustomerRef(): string | undefined {
         return this.customerRef;
     }
     public setCustomerRef(customerRef: string): void {

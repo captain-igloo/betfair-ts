@@ -1,33 +1,42 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonMember from '../JsonMember';
 import ItemClass from '../account/enum/ItemClass';
-import StatementLegacyData from '../account/StatementLegacyData';
+import StatementLegacyData, { IStatementLegacyDataOptions } from '../account/StatementLegacyData';
+export interface IStatementItemOptions {
+    refId?: string;
+    itemDate: Date | string;
+    amount?: number;
+    balance?: number;
+    itemClass?: ItemClass | string;
+    itemClassData?: Map<string, string> | {
+        [key: string]: string;
+    };
+    legacyData?: StatementLegacyData | IStatementLegacyDataOptions;
+}
 export default class StatementItem extends JsonMember {
-    private refId;
+    private refId?;
     private itemDate;
-    private amount;
-    private balance;
-    private itemClass;
-    private itemClassData;
-    private legacyData;
-    constructor(refId?: string, itemDate?: Date | null, amount?: number | null, balance?: number | null, itemClass?: ItemClass, itemClassData?: Map<string, string>, legacyData?: StatementLegacyData);
-    fromJson(json: any): void;
-    toJson(): any;
-    isValid(): boolean;
-    getRefId(): string;
+    private amount?;
+    private balance?;
+    private itemClass?;
+    private itemClassData?;
+    private legacyData?;
+    constructor(options: IStatementItemOptions);
+    toJson(): IStatementItemOptions;
+    getRefId(): string | undefined;
     setRefId(refId: string): void;
-    getItemDate(): Date | null;
-    setItemDate(itemDate: Date | null): void;
-    getAmount(): number | null;
-    setAmount(amount: number | null): void;
-    getBalance(): number | null;
-    setBalance(balance: number | null): void;
-    getItemClass(): ItemClass;
+    getItemDate(): Date;
+    setItemDate(itemDate: Date): void;
+    getAmount(): number | undefined;
+    setAmount(amount: number): void;
+    getBalance(): number | undefined;
+    setBalance(balance: number): void;
+    getItemClass(): ItemClass | undefined;
     setItemClass(itemClass: ItemClass): void;
-    getItemClassData(): Map<string, string>;
+    getItemClassData(): Map<string, string> | undefined;
     setItemClassData(itemClassData: Map<string, string>): void;
-    getLegacyData(): StatementLegacyData;
+    getLegacyData(): StatementLegacyData | undefined;
     setLegacyData(legacyData: StatementLegacyData): void;
 }

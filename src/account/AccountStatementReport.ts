@@ -1,64 +1,51 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonResponse from '../JsonResponse';
 
-import StatementItem from '../account/StatementItem';
+import StatementItem, { IStatementItemOptions } from '../account/StatementItem';
+
+export interface IAccountStatementReportOptions {
+    accountStatement?: Array<StatementItem | IStatementItemOptions>;
+    moreAvailable?: boolean;
+}
 
 export default class AccountStatementReport extends JsonResponse {
-    private accountStatement: StatementItem[];
-    private moreAvailable: boolean | null;
+    private accountStatement?: StatementItem[];
+    private moreAvailable?: boolean;
 
-    constructor(
-        accountStatement: StatementItem[] = [],
-        moreAvailable: boolean | null = null,
-    ) {
+    constructor(options: IAccountStatementReportOptions) {
         super();
-        this.accountStatement = accountStatement;
-        this.moreAvailable = moreAvailable;
-    }
-
-    public fromJson(json: any): void {
-        if (this.validateJson(json)) {
-            if ('accountStatement' in json) {
-                this.accountStatement = json.accountStatement.map((accountStatementJson: any) => {
-                    const element = new StatementItem();
-                    element.fromJson(accountStatementJson);
-                    return element;
-                });
+        if (this.validateJson(options)) {
+            if (options.accountStatement) {
+                this.accountStatement = this.arrayFromJson(options.accountStatement, StatementItem);
             }
-            if ('moreAvailable' in json) {
-                this.moreAvailable = json.moreAvailable;
-            }
+            this.moreAvailable = options.moreAvailable;
         }
     }
 
-    public toJson(): any {
-        const json: any = {};
-        if (this.accountStatement.length > 0) {
+    public toJson(): IAccountStatementReportOptions {
+        const json: IAccountStatementReportOptions = {
+        };
+        if (this.accountStatement && this.accountStatement.length > 0) {
             json.accountStatement = this.accountStatement.map((value) => value.toJson());
         }
-        if (this.moreAvailable !== null) {
+        if (typeof this.moreAvailable !== 'undefined') {
             json.moreAvailable = this.moreAvailable;
         }
         return json;
     }
 
-    public isValid(): boolean {
-        return this.accountStatement.length > 0 &&
-            this.moreAvailable !== null;
-    }
-
-    public getAccountStatement(): StatementItem[] {
+    public getAccountStatement(): StatementItem[] | undefined {
         return this.accountStatement;
     }
     public setAccountStatement(accountStatement: StatementItem[]): void {
         this.accountStatement = accountStatement;
     }
-    public getMoreAvailable(): boolean | null {
+    public getMoreAvailable(): boolean | undefined {
         return this.moreAvailable;
     }
-    public setMoreAvailable(moreAvailable: boolean | null): void {
+    public setMoreAvailable(moreAvailable: boolean): void {
         this.moreAvailable = moreAvailable;
     }
 

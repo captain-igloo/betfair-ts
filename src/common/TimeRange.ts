@@ -1,56 +1,50 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonMember from '../JsonMember';
 
 
+export interface ITimeRangeOptions {
+    from?: Date | string;
+    to?: Date | string;
+}
+
 export default class TimeRange extends JsonMember {
-    private from: Date | null;
-    private to: Date | null;
+    private from?: Date;
+    private to?: Date;
 
-    constructor(
-        from: Date | null = null,
-        to: Date | null = null,
-    ) {
+    constructor(options: ITimeRangeOptions) {
         super();
-        this.from = from;
-        this.to = to;
-    }
-
-    public fromJson(json: any): void {
-        if ('from' in json) {
-            this.from = new Date(json.from);
+        if (options.from) {
+            this.from = this.fromJson(options.from, Date);
         }
-        if ('to' in json) {
-            this.to = new Date(json.to);
+        if (options.to) {
+            this.to = this.fromJson(options.to, Date);
         }
     }
 
-    public toJson(): any {
-        const json: any = {};
-        if (this.from !== null) {
+    public toJson(): ITimeRangeOptions {
+        const json: ITimeRangeOptions = {
+        };
+        if (typeof this.from !== 'undefined') {
             json.from = this.from.toISOString();
         }
-        if (this.to !== null) {
+        if (typeof this.to !== 'undefined') {
             json.to = this.to.toISOString();
         }
         return json;
     }
 
-    public isValid(): boolean {
-        return true;
-    }
-
-    public getFrom(): Date | null {
+    public getFrom(): Date | undefined {
         return this.from;
     }
-    public setFrom(from: Date | null): void {
+    public setFrom(from: Date): void {
         this.from = from;
     }
-    public getTo(): Date | null {
+    public getTo(): Date | undefined {
         return this.to;
     }
-    public setTo(to: Date | null): void {
+    public setTo(to: Date): void {
         this.to = to;
     }
 

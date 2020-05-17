@@ -1,13 +1,14 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonMember from '../JsonMember';
+export interface IMarketGroupIdOptions {
+    eventId?: number;
+}
 export default class MarketGroupId extends JsonMember {
-    private eventId;
-    constructor(eventId?: number | null);
-    fromJson(json: any): void;
-    toJson(): any;
-    isValid(): boolean;
-    getEventId(): number | null;
-    setEventId(eventId: number | null): void;
+    private eventId?;
+    constructor(options: IMarketGroupIdOptions);
+    toJson(): IMarketGroupIdOptions;
+    getEventId(): number | undefined;
+    setEventId(eventId: number): void;
 }

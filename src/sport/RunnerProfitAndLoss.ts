@@ -1,86 +1,70 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonMember from '../JsonMember';
 
 
+export interface IRunnerProfitAndLossOptions {
+    selectionId?: number;
+    ifWin?: number;
+    ifLose?: number;
+    ifPlace?: number;
+}
+
 export default class RunnerProfitAndLoss extends JsonMember {
-    private selectionId: number | null;
-    private ifWin: number | null;
-    private ifLose: number | null;
-    private ifPlace: number | null;
+    private selectionId?: number;
+    private ifWin?: number;
+    private ifLose?: number;
+    private ifPlace?: number;
 
-    constructor(
-        selectionId: number | null = null,
-        ifWin: number | null = null,
-        ifLose: number | null = null,
-        ifPlace: number | null = null,
-    ) {
+    constructor(options: IRunnerProfitAndLossOptions) {
         super();
-        this.selectionId = selectionId;
-        this.ifWin = ifWin;
-        this.ifLose = ifLose;
-        this.ifPlace = ifPlace;
+        this.selectionId = options.selectionId;
+        this.ifWin = options.ifWin;
+        this.ifLose = options.ifLose;
+        this.ifPlace = options.ifPlace;
     }
 
-    public fromJson(json: any): void {
-        if ('selectionId' in json) {
-            this.selectionId = json.selectionId;
-        }
-        if ('ifWin' in json) {
-            this.ifWin = json.ifWin;
-        }
-        if ('ifLose' in json) {
-            this.ifLose = json.ifLose;
-        }
-        if ('ifPlace' in json) {
-            this.ifPlace = json.ifPlace;
-        }
-    }
-
-    public toJson(): any {
-        const json: any = {};
-        if (this.selectionId !== null) {
+    public toJson(): IRunnerProfitAndLossOptions {
+        const json: IRunnerProfitAndLossOptions = {
+        };
+        if (typeof this.selectionId !== 'undefined') {
             json.selectionId = this.selectionId;
         }
-        if (this.ifWin !== null) {
+        if (typeof this.ifWin !== 'undefined') {
             json.ifWin = this.ifWin;
         }
-        if (this.ifLose !== null) {
+        if (typeof this.ifLose !== 'undefined') {
             json.ifLose = this.ifLose;
         }
-        if (this.ifPlace !== null) {
+        if (typeof this.ifPlace !== 'undefined') {
             json.ifPlace = this.ifPlace;
         }
         return json;
     }
 
-    public isValid(): boolean {
-        return true;
-    }
-
-    public getSelectionId(): number | null {
+    public getSelectionId(): number | undefined {
         return this.selectionId;
     }
-    public setSelectionId(selectionId: number | null): void {
+    public setSelectionId(selectionId: number): void {
         this.selectionId = selectionId;
     }
-    public getIfWin(): number | null {
+    public getIfWin(): number | undefined {
         return this.ifWin;
     }
-    public setIfWin(ifWin: number | null): void {
+    public setIfWin(ifWin: number): void {
         this.ifWin = ifWin;
     }
-    public getIfLose(): number | null {
+    public getIfLose(): number | undefined {
         return this.ifLose;
     }
-    public setIfLose(ifLose: number | null): void {
+    public setIfLose(ifLose: number): void {
         this.ifLose = ifLose;
     }
-    public getIfPlace(): number | null {
+    public getIfPlace(): number | undefined {
         return this.ifPlace;
     }
-    public setIfPlace(ifPlace: number | null): void {
+    public setIfPlace(ifPlace: number): void {
         this.ifPlace = ifPlace;
     }
 

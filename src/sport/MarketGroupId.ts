@@ -1,41 +1,34 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonMember from '../JsonMember';
 
 
+export interface IMarketGroupIdOptions {
+    eventId?: number;
+}
+
 export default class MarketGroupId extends JsonMember {
-    private eventId: number | null;
+    private eventId?: number;
 
-    constructor(
-        eventId: number | null = null,
-    ) {
+    constructor(options: IMarketGroupIdOptions) {
         super();
-        this.eventId = eventId;
+        this.eventId = options.eventId;
     }
 
-    public fromJson(json: any): void {
-        if ('eventId' in json) {
-            this.eventId = json.eventId;
-        }
-    }
-
-    public toJson(): any {
-        const json: any = {};
-        if (this.eventId !== null) {
+    public toJson(): IMarketGroupIdOptions {
+        const json: IMarketGroupIdOptions = {
+        };
+        if (typeof this.eventId !== 'undefined') {
             json.eventId = this.eventId;
         }
         return json;
     }
 
-    public isValid(): boolean {
-        return true;
-    }
-
-    public getEventId(): number | null {
+    public getEventId(): number | undefined {
         return this.eventId;
     }
-    public setEventId(eventId: number | null): void {
+    public setEventId(eventId: number): void {
         this.eventId = eventId;
     }
 

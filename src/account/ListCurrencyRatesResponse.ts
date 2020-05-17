@@ -1,43 +1,31 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonResponse from '../JsonResponse';
 
-import CurrencyRate from '../account/CurrencyRate';
+import CurrencyRate, { ICurrencyRateOptions } from '../account/CurrencyRate';
+
+export interface IListCurrencyRatesResponseOptions {
+    currencyRates?: Array<CurrencyRate | ICurrencyRateOptions>;
+}
 
 export default class ListCurrencyRatesResponse extends JsonResponse {
-    private currencyRates: CurrencyRate[];
+    private currencyRates?: CurrencyRate[];
 
-    constructor(
-        currencyRates: CurrencyRate[] = [],
-    ) {
+    constructor(options: Array<CurrencyRate | ICurrencyRateOptions>) {
         super();
-        this.currencyRates = currencyRates;
-    }
-
-    public fromJson(json: any): void {
-        if (this.validateJson(json)) {
-            this.currencyRates = json.map((currencyRatesJson: any) => {
-                const element = new CurrencyRate();
-                element.fromJson(currencyRatesJson);
-                return element;
-            });
+        if (this.validateJson(options)) {
+            if (options) {
+                this.currencyRates = this.arrayFromJson(options, CurrencyRate);
+            }
         }
     }
 
-    public toJson(): any {
-        let json: any = {};
-        if (this.currencyRates.length > 0) {
-            json.currencyRates = this.currencyRates.map((value) => value.toJson());
-        }
-        return json;
+    public toJson(): IListCurrencyRatesResponseOptions {
+        throw new Error('not implemented');
     }
 
-    public isValid(): boolean {
-        return this.currencyRates.length > 0;
-    }
-
-    public getCurrencyRates(): CurrencyRate[] {
+    public getCurrencyRates(): CurrencyRate[] | undefined {
         return this.currencyRates;
     }
     public setCurrencyRates(currencyRates: CurrencyRate[]): void {

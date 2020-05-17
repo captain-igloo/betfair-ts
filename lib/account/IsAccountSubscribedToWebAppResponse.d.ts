@@ -1,13 +1,14 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonResponse from '../JsonResponse';
+export interface IIsAccountSubscribedToWebAppResponseOptions {
+    response?: boolean;
+}
 export default class IsAccountSubscribedToWebAppResponse extends JsonResponse {
-    private response;
-    constructor(response?: boolean | null);
-    fromJson(json: any): void;
-    toJson(): any;
-    isValid(): boolean;
-    getResponse(): boolean | null;
-    setResponse(response: boolean | null): void;
+    private response?;
+    constructor(options: boolean);
+    toJson(): IIsAccountSubscribedToWebAppResponseOptions;
+    getResponse(): boolean | undefined;
+    setResponse(response: boolean): void;
 }

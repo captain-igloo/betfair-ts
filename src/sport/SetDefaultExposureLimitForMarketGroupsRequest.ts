@@ -1,47 +1,32 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonRequest from '../JsonRequest';
 
 import MarketGroupType from '../sport/enum/MarketGroupType';
-import ExposureLimit from '../sport/ExposureLimit';
+import ExposureLimit, { IExposureLimitOptions } from '../sport/ExposureLimit';
+
+export interface ISetDefaultExposureLimitForMarketGroupsRequestOptions {
+    marketGroupType: MarketGroupType | string;
+    limit: ExposureLimit | IExposureLimitOptions;
+}
 
 export default class SetDefaultExposureLimitForMarketGroupsRequest extends JsonRequest {
     private marketGroupType: MarketGroupType;
     private limit: ExposureLimit;
 
-    constructor(
-        marketGroupType: MarketGroupType = new MarketGroupType(),
-        limit: ExposureLimit = new ExposureLimit(),
-    ) {
+    constructor(options: ISetDefaultExposureLimitForMarketGroupsRequestOptions) {
         super();
-        this.marketGroupType = marketGroupType;
-        this.limit = limit;
+        this.marketGroupType = this.fromJson(options.marketGroupType, MarketGroupType);
+        this.limit = this.fromJson(options.limit, ExposureLimit);
     }
 
-    public fromJson(json: any): void {
-        if ('marketGroupType' in json) {
-            this.marketGroupType.setValue(json.marketGroupType);
-        }
-        if ('limit' in json) {
-            this.limit.fromJson(json.limit);
-        }
-    }
-
-    public toJson(): any {
-        const json: any = {};
-        if (this.marketGroupType.isValid()) {
-            json.marketGroupType = this.marketGroupType.getValue();
-        }
-        if (this.limit.isValid()) {
-            json.limit = this.limit.toJson();
-        }
+    public toJson(): ISetDefaultExposureLimitForMarketGroupsRequestOptions {
+        const json: ISetDefaultExposureLimitForMarketGroupsRequestOptions = {
+            marketGroupType: this.marketGroupType.getValue(),
+            limit: this.limit.toJson(),
+        };
         return json;
-    }
-
-    public isValid(): boolean {
-        return this.marketGroupType.isValid() &&
-            this.limit.isValid();
     }
 
     public getMarketGroupType(): MarketGroupType {

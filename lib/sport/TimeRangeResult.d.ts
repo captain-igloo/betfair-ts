@@ -1,17 +1,19 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonMember from '../JsonMember';
-import TimeRange from '../common/TimeRange';
+import TimeRange, { ITimeRangeOptions } from '../common/TimeRange';
+export interface ITimeRangeResultOptions {
+    timeRange?: TimeRange | ITimeRangeOptions;
+    marketCount?: number;
+}
 export default class TimeRangeResult extends JsonMember {
-    private timeRange;
-    private marketCount;
-    constructor(timeRange?: TimeRange, marketCount?: number | null);
-    fromJson(json: any): void;
-    toJson(): any;
-    isValid(): boolean;
-    getTimeRange(): TimeRange;
+    private timeRange?;
+    private marketCount?;
+    constructor(options: ITimeRangeResultOptions);
+    toJson(): ITimeRangeResultOptions;
+    getTimeRange(): TimeRange | undefined;
     setTimeRange(timeRange: TimeRange): void;
-    getMarketCount(): number | null;
-    setMarketCount(marketCount: number | null): void;
+    getMarketCount(): number | undefined;
+    setMarketCount(marketCount: number): void;
 }

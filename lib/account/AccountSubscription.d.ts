@@ -1,20 +1,23 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonMember from '../JsonMember';
-import SubscriptionTokenInfo from '../account/SubscriptionTokenInfo';
+import SubscriptionTokenInfo, { ISubscriptionTokenInfoOptions } from '../account/SubscriptionTokenInfo';
+export interface IAccountSubscriptionOptions {
+    subscriptionTokens: Array<SubscriptionTokenInfo | ISubscriptionTokenInfoOptions>;
+    applicationName?: string;
+    applicationVersionId?: string;
+}
 export default class AccountSubscription extends JsonMember {
     private subscriptionTokens;
-    private applicationName;
-    private applicationVersionId;
-    constructor(subscriptionTokens?: SubscriptionTokenInfo[], applicationName?: string, applicationVersionId?: string);
-    fromJson(json: any): void;
-    toJson(): any;
-    isValid(): boolean;
+    private applicationName?;
+    private applicationVersionId?;
+    constructor(options: IAccountSubscriptionOptions);
+    toJson(): IAccountSubscriptionOptions;
     getSubscriptionTokens(): SubscriptionTokenInfo[];
     setSubscriptionTokens(subscriptionTokens: SubscriptionTokenInfo[]): void;
-    getApplicationName(): string;
+    getApplicationName(): string | undefined;
     setApplicationName(applicationName: string): void;
-    getApplicationVersionId(): string;
+    getApplicationVersionId(): string | undefined;
     setApplicationVersionId(applicationVersionId: string): void;
 }

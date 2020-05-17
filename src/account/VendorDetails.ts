@@ -1,71 +1,57 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonResponse from '../JsonResponse';
 
 
+export interface IVendorDetailsOptions {
+    appVersionId?: number;
+    vendorName?: string;
+    redirectUrl?: string;
+}
+
 export default class VendorDetails extends JsonResponse {
-    private appVersionId: number | null;
-    private vendorName: string;
-    private redirectUrl: string;
+    private appVersionId?: number;
+    private vendorName?: string;
+    private redirectUrl?: string;
 
-    constructor(
-        appVersionId: number | null = null,
-        vendorName: string = '',
-        redirectUrl: string = '',
-    ) {
+    constructor(options: IVendorDetailsOptions) {
         super();
-        this.appVersionId = appVersionId;
-        this.vendorName = vendorName;
-        this.redirectUrl = redirectUrl;
-    }
-
-    public fromJson(json: any): void {
-        if (this.validateJson(json)) {
-            if ('appVersionId' in json) {
-                this.appVersionId = json.appVersionId;
-            }
-            if ('vendorName' in json) {
-                this.vendorName = json.vendorName;
-            }
-            if ('redirectUrl' in json) {
-                this.redirectUrl = json.redirectUrl;
-            }
+        if (this.validateJson(options)) {
+            this.appVersionId = options.appVersionId;
+            this.vendorName = options.vendorName;
+            this.redirectUrl = options.redirectUrl;
         }
     }
 
-    public toJson(): any {
-        const json: any = {};
-        if (this.appVersionId !== null) {
+    public toJson(): IVendorDetailsOptions {
+        const json: IVendorDetailsOptions = {
+        };
+        if (typeof this.appVersionId !== 'undefined') {
             json.appVersionId = this.appVersionId;
         }
-        if (this.vendorName !== '') {
+        if (typeof this.vendorName !== 'undefined') {
             json.vendorName = this.vendorName;
         }
-        if (this.redirectUrl !== '') {
+        if (typeof this.redirectUrl !== 'undefined') {
             json.redirectUrl = this.redirectUrl;
         }
         return json;
     }
 
-    public isValid(): boolean {
-        return this.appVersionId !== null &&
-            this.vendorName !== '';
-    }
-
-    public getAppVersionId(): number | null {
+    public getAppVersionId(): number | undefined {
         return this.appVersionId;
     }
-    public setAppVersionId(appVersionId: number | null): void {
+    public setAppVersionId(appVersionId: number): void {
         this.appVersionId = appVersionId;
     }
-    public getVendorName(): string {
+    public getVendorName(): string | undefined {
         return this.vendorName;
     }
     public setVendorName(vendorName: string): void {
         this.vendorName = vendorName;
     }
-    public getRedirectUrl(): string {
+    public getRedirectUrl(): string | undefined {
         return this.redirectUrl;
     }
     public setRedirectUrl(redirectUrl: string): void {

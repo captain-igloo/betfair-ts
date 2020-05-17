@@ -1,105 +1,69 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonMember from '../JsonMember';
 
 import OrderType from '../sport/enum/OrderType';
 import Side from '../sport/enum/Side';
-import LimitOnCloseOrder from '../sport/LimitOnCloseOrder';
-import LimitOrder from '../sport/LimitOrder';
-import MarketOnCloseOrder from '../sport/MarketOnCloseOrder';
+import LimitOnCloseOrder, { ILimitOnCloseOrderOptions } from '../sport/LimitOnCloseOrder';
+import LimitOrder, { ILimitOrderOptions } from '../sport/LimitOrder';
+import MarketOnCloseOrder, { IMarketOnCloseOrderOptions } from '../sport/MarketOnCloseOrder';
+
+export interface IPlaceInstructionOptions {
+    orderType: OrderType | string;
+    selectionId: number;
+    handicap?: number;
+    side: Side | string;
+    limitOrder?: LimitOrder | ILimitOrderOptions;
+    limitOnCloseOrder?: LimitOnCloseOrder | ILimitOnCloseOrderOptions;
+    marketOnCloseOrder?: MarketOnCloseOrder | IMarketOnCloseOrderOptions;
+    customerOrderRef?: string;
+}
 
 export default class PlaceInstruction extends JsonMember {
     private orderType: OrderType;
-    private selectionId: number | null;
-    private handicap: number | null;
+    private selectionId: number;
+    private handicap?: number;
     private side: Side;
-    private limitOrder: LimitOrder;
-    private limitOnCloseOrder: LimitOnCloseOrder;
-    private marketOnCloseOrder: MarketOnCloseOrder;
-    private customerOrderRef: string;
+    private limitOrder?: LimitOrder;
+    private limitOnCloseOrder?: LimitOnCloseOrder;
+    private marketOnCloseOrder?: MarketOnCloseOrder;
+    private customerOrderRef?: string;
 
-    constructor(
-        orderType: OrderType = new OrderType(),
-        selectionId: number | null = null,
-        handicap: number | null = null,
-        side: Side = new Side(),
-        limitOrder: LimitOrder = new LimitOrder(),
-        limitOnCloseOrder: LimitOnCloseOrder = new LimitOnCloseOrder(),
-        marketOnCloseOrder: MarketOnCloseOrder = new MarketOnCloseOrder(),
-        customerOrderRef: string = '',
-    ) {
+    constructor(options: IPlaceInstructionOptions) {
         super();
-        this.orderType = orderType;
-        this.selectionId = selectionId;
-        this.handicap = handicap;
-        this.side = side;
-        this.limitOrder = limitOrder;
-        this.limitOnCloseOrder = limitOnCloseOrder;
-        this.marketOnCloseOrder = marketOnCloseOrder;
-        this.customerOrderRef = customerOrderRef;
+        this.orderType = this.fromJson(options.orderType, OrderType);
+        this.selectionId = options.selectionId;
+        this.handicap = options.handicap;
+        this.side = this.fromJson(options.side, Side);
+        this.limitOrder = options.limitOrder && this.fromJson(options.limitOrder, LimitOrder);
+        this.limitOnCloseOrder = options.limitOnCloseOrder && this.fromJson(options.limitOnCloseOrder, LimitOnCloseOrder);
+        this.marketOnCloseOrder = options.marketOnCloseOrder && this.fromJson(options.marketOnCloseOrder, MarketOnCloseOrder);
+        this.customerOrderRef = options.customerOrderRef;
     }
 
-    public fromJson(json: any): void {
-        if ('orderType' in json) {
-            this.orderType.setValue(json.orderType);
-        }
-        if ('selectionId' in json) {
-            this.selectionId = json.selectionId;
-        }
-        if ('handicap' in json) {
-            this.handicap = json.handicap;
-        }
-        if ('side' in json) {
-            this.side.setValue(json.side);
-        }
-        if ('limitOrder' in json) {
-            this.limitOrder.fromJson(json.limitOrder);
-        }
-        if ('limitOnCloseOrder' in json) {
-            this.limitOnCloseOrder.fromJson(json.limitOnCloseOrder);
-        }
-        if ('marketOnCloseOrder' in json) {
-            this.marketOnCloseOrder.fromJson(json.marketOnCloseOrder);
-        }
-        if ('customerOrderRef' in json) {
-            this.customerOrderRef = json.customerOrderRef;
-        }
-    }
-
-    public toJson(): any {
-        const json: any = {};
-        if (this.orderType.isValid()) {
-            json.orderType = this.orderType.getValue();
-        }
-        if (this.selectionId !== null) {
-            json.selectionId = this.selectionId;
-        }
-        if (this.handicap !== null) {
+    public toJson(): IPlaceInstructionOptions {
+        const json: IPlaceInstructionOptions = {
+            orderType: this.orderType.getValue(),
+            selectionId: this.selectionId,
+            side: this.side.getValue(),
+        };
+        if (typeof this.handicap !== 'undefined') {
             json.handicap = this.handicap;
         }
-        if (this.side.isValid()) {
-            json.side = this.side.getValue();
-        }
-        if (this.limitOrder.isValid()) {
+        if (this.limitOrder) {
             json.limitOrder = this.limitOrder.toJson();
         }
-        if (this.limitOnCloseOrder.isValid()) {
+        if (this.limitOnCloseOrder) {
             json.limitOnCloseOrder = this.limitOnCloseOrder.toJson();
         }
-        if (this.marketOnCloseOrder.isValid()) {
+        if (this.marketOnCloseOrder) {
             json.marketOnCloseOrder = this.marketOnCloseOrder.toJson();
         }
-        if (this.customerOrderRef !== '') {
+        if (typeof this.customerOrderRef !== 'undefined') {
             json.customerOrderRef = this.customerOrderRef;
         }
         return json;
-    }
-
-    public isValid(): boolean {
-        return this.orderType.isValid() &&
-            this.selectionId !== null &&
-            this.side.isValid();
     }
 
     public getOrderType(): OrderType {
@@ -108,16 +72,16 @@ export default class PlaceInstruction extends JsonMember {
     public setOrderType(orderType: OrderType): void {
         this.orderType = orderType;
     }
-    public getSelectionId(): number | null {
+    public getSelectionId(): number {
         return this.selectionId;
     }
-    public setSelectionId(selectionId: number | null): void {
+    public setSelectionId(selectionId: number): void {
         this.selectionId = selectionId;
     }
-    public getHandicap(): number | null {
+    public getHandicap(): number | undefined {
         return this.handicap;
     }
-    public setHandicap(handicap: number | null): void {
+    public setHandicap(handicap: number): void {
         this.handicap = handicap;
     }
     public getSide(): Side {
@@ -126,25 +90,25 @@ export default class PlaceInstruction extends JsonMember {
     public setSide(side: Side): void {
         this.side = side;
     }
-    public getLimitOrder(): LimitOrder {
+    public getLimitOrder(): LimitOrder | undefined {
         return this.limitOrder;
     }
     public setLimitOrder(limitOrder: LimitOrder): void {
         this.limitOrder = limitOrder;
     }
-    public getLimitOnCloseOrder(): LimitOnCloseOrder {
+    public getLimitOnCloseOrder(): LimitOnCloseOrder | undefined {
         return this.limitOnCloseOrder;
     }
     public setLimitOnCloseOrder(limitOnCloseOrder: LimitOnCloseOrder): void {
         this.limitOnCloseOrder = limitOnCloseOrder;
     }
-    public getMarketOnCloseOrder(): MarketOnCloseOrder {
+    public getMarketOnCloseOrder(): MarketOnCloseOrder | undefined {
         return this.marketOnCloseOrder;
     }
     public setMarketOnCloseOrder(marketOnCloseOrder: MarketOnCloseOrder): void {
         this.marketOnCloseOrder = marketOnCloseOrder;
     }
-    public getCustomerOrderRef(): string {
+    public getCustomerOrderRef(): string | undefined {
         return this.customerOrderRef;
     }
     public setCustomerOrderRef(customerOrderRef: string): void {

@@ -22,7 +22,7 @@ export default class PriceData extends Enum {
                 value !== 'EX_BEST_OFFERS' &&
                 value !== 'EX_ALL_OFFERS' &&
                 value !== 'EX_TRADED') {
-                throw new Error(`Invalid MarketStatus: ${value}`);
+                throw new Error(`Invalid PriceData: ${value}`);
             }
 
             this.value = value;

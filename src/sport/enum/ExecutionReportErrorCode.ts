@@ -60,7 +60,7 @@ export default class ExecutionReportErrorCode extends Enum {
                 value !== 'EVENT_EXPOSURE_LIMIT_EXCEEDED' &&
                 value !== 'EVENT_MATCHED_EXPOSURE_LIMIT_EXCEEDED' &&
                 value !== 'EVENT_BLOCKED') {
-                throw new Error(`Invalid MarketStatus: ${value}`);
+                throw new Error(`Invalid ExecutionReportErrorCode: ${value}`);
             }
 
             this.value = value;

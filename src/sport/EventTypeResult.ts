@@ -1,57 +1,47 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonMember from '../JsonMember';
 
-import EventType from '../sport/EventType';
+import EventType, { IEventTypeOptions } from '../sport/EventType';
+
+export interface IEventTypeResultOptions {
+    eventType?: EventType | IEventTypeOptions;
+    marketCount?: number;
+}
 
 export default class EventTypeResult extends JsonMember {
-    private eventType: EventType;
-    private marketCount: number | null;
+    private eventType?: EventType;
+    private marketCount?: number;
 
-    constructor(
-        eventType: EventType = new EventType(),
-        marketCount: number | null = null,
-    ) {
+    constructor(options: IEventTypeResultOptions) {
         super();
-        this.eventType = eventType;
-        this.marketCount = marketCount;
+        this.eventType = options.eventType && this.fromJson(options.eventType, EventType);
+        this.marketCount = options.marketCount;
     }
 
-    public fromJson(json: any): void {
-        if ('eventType' in json) {
-            this.eventType.fromJson(json.eventType);
-        }
-        if ('marketCount' in json) {
-            this.marketCount = json.marketCount;
-        }
-    }
-
-    public toJson(): any {
-        const json: any = {};
-        if (this.eventType.isValid()) {
+    public toJson(): IEventTypeResultOptions {
+        const json: IEventTypeResultOptions = {
+        };
+        if (this.eventType) {
             json.eventType = this.eventType.toJson();
         }
-        if (this.marketCount !== null) {
+        if (typeof this.marketCount !== 'undefined') {
             json.marketCount = this.marketCount;
         }
         return json;
     }
 
-    public isValid(): boolean {
-        return true;
-    }
-
-    public getEventType(): EventType {
+    public getEventType(): EventType | undefined {
         return this.eventType;
     }
     public setEventType(eventType: EventType): void {
         this.eventType = eventType;
     }
-    public getMarketCount(): number | null {
+    public getMarketCount(): number | undefined {
         return this.marketCount;
     }
-    public setMarketCount(marketCount: number | null): void {
+    public setMarketCount(marketCount: number): void {
         this.marketCount = marketCount;
     }
 

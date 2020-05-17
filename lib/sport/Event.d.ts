@@ -1,28 +1,34 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonMember from '../JsonMember';
+export interface IEventOptions {
+    id?: string;
+    name?: string;
+    countryCode?: string;
+    timezone?: string;
+    venue?: string;
+    openDate?: Date | string;
+}
 export default class Event extends JsonMember {
-    private id;
-    private name;
-    private countryCode;
-    private timezone;
-    private venue;
-    private openDate;
-    constructor(id?: string, name?: string, countryCode?: string, timezone?: string, venue?: string, openDate?: Date | null);
-    fromJson(json: any): void;
-    toJson(): any;
-    isValid(): boolean;
-    getId(): string;
+    private id?;
+    private name?;
+    private countryCode?;
+    private timezone?;
+    private venue?;
+    private openDate?;
+    constructor(options: IEventOptions);
+    toJson(): IEventOptions;
+    getId(): string | undefined;
     setId(id: string): void;
-    getName(): string;
+    getName(): string | undefined;
     setName(name: string): void;
-    getCountryCode(): string;
+    getCountryCode(): string | undefined;
     setCountryCode(countryCode: string): void;
-    getTimezone(): string;
+    getTimezone(): string | undefined;
     setTimezone(timezone: string): void;
-    getVenue(): string;
+    getVenue(): string | undefined;
     setVenue(venue: string): void;
-    getOpenDate(): Date | null;
-    setOpenDate(openDate: Date | null): void;
+    getOpenDate(): Date | undefined;
+    setOpenDate(openDate: Date): void;
 }

@@ -22,7 +22,7 @@ export default class SubscriptionStatus extends Enum {
                 value !== 'UNACTIVATED' &&
                 value !== 'CANCELLED' &&
                 value !== 'EXPIRED') {
-                throw new Error(`Invalid MarketStatus: ${value}`);
+                throw new Error(`Invalid SubscriptionStatus: ${value}`);
             }
 
             this.value = value;

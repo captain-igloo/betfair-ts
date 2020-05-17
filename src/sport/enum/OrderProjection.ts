@@ -18,7 +18,7 @@ export default class OrderProjection extends Enum {
             if (value !== 'ALL' &&
                 value !== 'EXECUTABLE' &&
                 value !== 'EXECUTION_COMPLETE') {
-                throw new Error(`Invalid MarketStatus: ${value}`);
+                throw new Error(`Invalid OrderProjection: ${value}`);
             }
 
             this.value = value;

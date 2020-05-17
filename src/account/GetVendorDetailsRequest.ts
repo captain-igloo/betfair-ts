@@ -1,35 +1,26 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonRequest from '../JsonRequest';
 
 
+export interface IGetVendorDetailsRequestOptions {
+    vendorId: string;
+}
+
 export default class GetVendorDetailsRequest extends JsonRequest {
     private vendorId: string;
 
-    constructor(
-        vendorId: string = '',
-    ) {
+    constructor(options: IGetVendorDetailsRequestOptions) {
         super();
-        this.vendorId = vendorId;
+        this.vendorId = options.vendorId;
     }
 
-    public fromJson(json: any): void {
-        if ('vendorId' in json) {
-            this.vendorId = json.vendorId;
-        }
-    }
-
-    public toJson(): any {
-        const json: any = {};
-        if (this.vendorId !== '') {
-            json.vendorId = this.vendorId;
-        }
+    public toJson(): IGetVendorDetailsRequestOptions {
+        const json: IGetVendorDetailsRequestOptions = {
+            vendorId: this.vendorId,
+        };
         return json;
-    }
-
-    public isValid(): boolean {
-        return this.vendorId !== '';
     }
 
     public getVendorId(): string {

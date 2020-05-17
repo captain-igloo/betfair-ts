@@ -1,116 +1,98 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonRequest from '../JsonRequest';
 
 import IncludeItem from '../account/enum/IncludeItem';
 import Wallet from '../account/enum/Wallet';
-import TimeRange from '../common/TimeRange';
+import TimeRange, { ITimeRangeOptions } from '../common/TimeRange';
+
+export interface IGetAccountStatementRequestOptions {
+    locale?: string;
+    fromRecord?: number;
+    recordCount?: number;
+    itemDateRange?: TimeRange | ITimeRangeOptions;
+    includeItem?: IncludeItem | string;
+    wallet?: Wallet | string;
+}
 
 export default class GetAccountStatementRequest extends JsonRequest {
-    private locale: string;
-    private fromRecord: number | null;
-    private recordCount: number | null;
-    private itemDateRange: TimeRange;
-    private includeItem: IncludeItem;
-    private wallet: Wallet;
+    private locale?: string;
+    private fromRecord?: number;
+    private recordCount?: number;
+    private itemDateRange?: TimeRange;
+    private includeItem?: IncludeItem;
+    private wallet?: Wallet;
 
-    constructor(
-        locale: string = '',
-        fromRecord: number | null = null,
-        recordCount: number | null = null,
-        itemDateRange: TimeRange = new TimeRange(),
-        includeItem: IncludeItem = new IncludeItem(),
-        wallet: Wallet = new Wallet(),
-    ) {
+    constructor(options: IGetAccountStatementRequestOptions) {
         super();
-        this.locale = locale;
-        this.fromRecord = fromRecord;
-        this.recordCount = recordCount;
-        this.itemDateRange = itemDateRange;
-        this.includeItem = includeItem;
-        this.wallet = wallet;
-    }
-
-    public fromJson(json: any): void {
-        if ('locale' in json) {
-            this.locale = json.locale;
+        this.locale = options.locale;
+        this.fromRecord = options.fromRecord;
+        this.recordCount = options.recordCount;
+        this.itemDateRange = options.itemDateRange && this.fromJson(options.itemDateRange, TimeRange);
+        if (options.includeItem) {
+            this.includeItem = this.fromJson(options.includeItem, IncludeItem);
         }
-        if ('fromRecord' in json) {
-            this.fromRecord = json.fromRecord;
-        }
-        if ('recordCount' in json) {
-            this.recordCount = json.recordCount;
-        }
-        if ('itemDateRange' in json) {
-            this.itemDateRange.fromJson(json.itemDateRange);
-        }
-        if ('includeItem' in json) {
-            this.includeItem.setValue(json.includeItem);
-        }
-        if ('wallet' in json) {
-            this.wallet.setValue(json.wallet);
+        if (options.wallet) {
+            this.wallet = this.fromJson(options.wallet, Wallet);
         }
     }
 
-    public toJson(): any {
-        const json: any = {};
-        if (this.locale !== '') {
+    public toJson(): IGetAccountStatementRequestOptions {
+        const json: IGetAccountStatementRequestOptions = {
+        };
+        if (typeof this.locale !== 'undefined') {
             json.locale = this.locale;
         }
-        if (this.fromRecord !== null) {
+        if (typeof this.fromRecord !== 'undefined') {
             json.fromRecord = this.fromRecord;
         }
-        if (this.recordCount !== null) {
+        if (typeof this.recordCount !== 'undefined') {
             json.recordCount = this.recordCount;
         }
-        if (this.itemDateRange.isValid()) {
+        if (this.itemDateRange) {
             json.itemDateRange = this.itemDateRange.toJson();
         }
-        if (this.includeItem.isValid()) {
+        if (this.includeItem) {
             json.includeItem = this.includeItem.getValue();
         }
-        if (this.wallet.isValid()) {
+        if (this.wallet) {
             json.wallet = this.wallet.getValue();
         }
         return json;
     }
 
-    public isValid(): boolean {
-        return true;
-    }
-
-    public getLocale(): string {
+    public getLocale(): string | undefined {
         return this.locale;
     }
     public setLocale(locale: string): void {
         this.locale = locale;
     }
-    public getFromRecord(): number | null {
+    public getFromRecord(): number | undefined {
         return this.fromRecord;
     }
-    public setFromRecord(fromRecord: number | null): void {
+    public setFromRecord(fromRecord: number): void {
         this.fromRecord = fromRecord;
     }
-    public getRecordCount(): number | null {
+    public getRecordCount(): number | undefined {
         return this.recordCount;
     }
-    public setRecordCount(recordCount: number | null): void {
+    public setRecordCount(recordCount: number): void {
         this.recordCount = recordCount;
     }
-    public getItemDateRange(): TimeRange {
+    public getItemDateRange(): TimeRange | undefined {
         return this.itemDateRange;
     }
     public setItemDateRange(itemDateRange: TimeRange): void {
         this.itemDateRange = itemDateRange;
     }
-    public getIncludeItem(): IncludeItem {
+    public getIncludeItem(): IncludeItem | undefined {
         return this.includeItem;
     }
     public setIncludeItem(includeItem: IncludeItem): void {
         this.includeItem = includeItem;
     }
-    public getWallet(): Wallet {
+    public getWallet(): Wallet | undefined {
         return this.wallet;
     }
     public setWallet(wallet: Wallet): void {

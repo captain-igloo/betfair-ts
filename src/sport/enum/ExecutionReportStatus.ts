@@ -20,7 +20,7 @@ export default class ExecutionReportStatus extends Enum {
                 value !== 'FAILURE' &&
                 value !== 'PROCESSED_WITH_ERRORS' &&
                 value !== 'TIMEOUT') {
-                throw new Error(`Invalid MarketStatus: ${value}`);
+                throw new Error(`Invalid ExecutionReportStatus: ${value}`);
             }
 
             this.value = value;

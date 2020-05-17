@@ -18,7 +18,7 @@ export default class PriceLadderType extends Enum {
             if (value !== 'CLASSIC' &&
                 value !== 'FINEST' &&
                 value !== 'LINE_RANGE') {
-                throw new Error(`Invalid MarketStatus: ${value}`);
+                throw new Error(`Invalid PriceLadderType: ${value}`);
             }
 
             this.value = value;

@@ -1,54 +1,36 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonMember from '../JsonMember';
 
 
+export interface IRunnerIdOptions {
+    marketId: string;
+    selectionId: number;
+    handicap?: number;
+}
+
 export default class RunnerId extends JsonMember {
     private marketId: string;
-    private selectionId: number | null;
-    private handicap: number | null;
+    private selectionId: number;
+    private handicap?: number;
 
-    constructor(
-        marketId: string = '',
-        selectionId: number | null = null,
-        handicap: number | null = null,
-    ) {
+    constructor(options: IRunnerIdOptions) {
         super();
-        this.marketId = marketId;
-        this.selectionId = selectionId;
-        this.handicap = handicap;
+        this.marketId = options.marketId;
+        this.selectionId = options.selectionId;
+        this.handicap = options.handicap;
     }
 
-    public fromJson(json: any): void {
-        if ('marketId' in json) {
-            this.marketId = json.marketId;
-        }
-        if ('selectionId' in json) {
-            this.selectionId = json.selectionId;
-        }
-        if ('handicap' in json) {
-            this.handicap = json.handicap;
-        }
-    }
-
-    public toJson(): any {
-        const json: any = {};
-        if (this.marketId !== '') {
-            json.marketId = this.marketId;
-        }
-        if (this.selectionId !== null) {
-            json.selectionId = this.selectionId;
-        }
-        if (this.handicap !== null) {
+    public toJson(): IRunnerIdOptions {
+        const json: IRunnerIdOptions = {
+            marketId: this.marketId,
+            selectionId: this.selectionId,
+        };
+        if (typeof this.handicap !== 'undefined') {
             json.handicap = this.handicap;
         }
         return json;
-    }
-
-    public isValid(): boolean {
-        return this.marketId !== '' &&
-            this.selectionId !== null;
     }
 
     public getMarketId(): string {
@@ -57,16 +39,16 @@ export default class RunnerId extends JsonMember {
     public setMarketId(marketId: string): void {
         this.marketId = marketId;
     }
-    public getSelectionId(): number | null {
+    public getSelectionId(): number {
         return this.selectionId;
     }
-    public setSelectionId(selectionId: number | null): void {
+    public setSelectionId(selectionId: number): void {
         this.selectionId = selectionId;
     }
-    public getHandicap(): number | null {
+    public getHandicap(): number | undefined {
         return this.handicap;
     }
-    public setHandicap(handicap: number | null): void {
+    public setHandicap(handicap: number): void {
         this.handicap = handicap;
     }
 

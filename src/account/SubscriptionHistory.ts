@@ -1,98 +1,78 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonMember from '../JsonMember';
 
 
+export interface ISubscriptionHistoryOptions {
+    subscriptionToken: string;
+    expiryDateTime?: Date | string;
+    expiredDateTime?: Date | string;
+    createdDateTime?: Date | string;
+    activationDateTime?: Date | string;
+    cancellationDateTime?: Date | string;
+    subscriptionStatus?: string;
+    clientReference?: string;
+}
+
 export default class SubscriptionHistory extends JsonMember {
     private subscriptionToken: string;
-    private expiryDateTime: Date | null;
-    private expiredDateTime: Date | null;
-    private createdDateTime: Date | null;
-    private activationDateTime: Date | null;
-    private cancellationDateTime: Date | null;
-    private subscriptionStatus: string;
-    private clientReference: string;
+    private expiryDateTime?: Date;
+    private expiredDateTime?: Date;
+    private createdDateTime?: Date;
+    private activationDateTime?: Date;
+    private cancellationDateTime?: Date;
+    private subscriptionStatus?: string;
+    private clientReference?: string;
 
-    constructor(
-        subscriptionToken: string = '',
-        expiryDateTime: Date | null = null,
-        expiredDateTime: Date | null = null,
-        createdDateTime: Date | null = null,
-        activationDateTime: Date | null = null,
-        cancellationDateTime: Date | null = null,
-        subscriptionStatus: string = '',
-        clientReference: string = '',
-    ) {
+    constructor(options: ISubscriptionHistoryOptions) {
         super();
-        this.subscriptionToken = subscriptionToken;
-        this.expiryDateTime = expiryDateTime;
-        this.expiredDateTime = expiredDateTime;
-        this.createdDateTime = createdDateTime;
-        this.activationDateTime = activationDateTime;
-        this.cancellationDateTime = cancellationDateTime;
-        this.subscriptionStatus = subscriptionStatus;
-        this.clientReference = clientReference;
+        this.subscriptionToken = options.subscriptionToken;
+        if (options.expiryDateTime) {
+            this.expiryDateTime = this.fromJson(options.expiryDateTime, Date);
+        }
+        if (options.expiredDateTime) {
+            this.expiredDateTime = this.fromJson(options.expiredDateTime, Date);
+        }
+        if (options.createdDateTime) {
+            this.createdDateTime = this.fromJson(options.createdDateTime, Date);
+        }
+        if (options.activationDateTime) {
+            this.activationDateTime = this.fromJson(options.activationDateTime, Date);
+        }
+        if (options.cancellationDateTime) {
+            this.cancellationDateTime = this.fromJson(options.cancellationDateTime, Date);
+        }
+        this.subscriptionStatus = options.subscriptionStatus;
+        this.clientReference = options.clientReference;
     }
 
-    public fromJson(json: any): void {
-        if ('subscriptionToken' in json) {
-            this.subscriptionToken = json.subscriptionToken;
-        }
-        if ('expiryDateTime' in json) {
-            this.expiryDateTime = new Date(json.expiryDateTime);
-        }
-        if ('expiredDateTime' in json) {
-            this.expiredDateTime = new Date(json.expiredDateTime);
-        }
-        if ('createdDateTime' in json) {
-            this.createdDateTime = new Date(json.createdDateTime);
-        }
-        if ('activationDateTime' in json) {
-            this.activationDateTime = new Date(json.activationDateTime);
-        }
-        if ('cancellationDateTime' in json) {
-            this.cancellationDateTime = new Date(json.cancellationDateTime);
-        }
-        if ('subscriptionStatus' in json) {
-            this.subscriptionStatus = json.subscriptionStatus;
-        }
-        if ('clientReference' in json) {
-            this.clientReference = json.clientReference;
-        }
-    }
-
-    public toJson(): any {
-        const json: any = {};
-        if (this.subscriptionToken !== '') {
-            json.subscriptionToken = this.subscriptionToken;
-        }
-        if (this.expiryDateTime !== null) {
+    public toJson(): ISubscriptionHistoryOptions {
+        const json: ISubscriptionHistoryOptions = {
+            subscriptionToken: this.subscriptionToken,
+        };
+        if (typeof this.expiryDateTime !== 'undefined') {
             json.expiryDateTime = this.expiryDateTime.toISOString();
         }
-        if (this.expiredDateTime !== null) {
+        if (typeof this.expiredDateTime !== 'undefined') {
             json.expiredDateTime = this.expiredDateTime.toISOString();
         }
-        if (this.createdDateTime !== null) {
+        if (typeof this.createdDateTime !== 'undefined') {
             json.createdDateTime = this.createdDateTime.toISOString();
         }
-        if (this.activationDateTime !== null) {
+        if (typeof this.activationDateTime !== 'undefined') {
             json.activationDateTime = this.activationDateTime.toISOString();
         }
-        if (this.cancellationDateTime !== null) {
+        if (typeof this.cancellationDateTime !== 'undefined') {
             json.cancellationDateTime = this.cancellationDateTime.toISOString();
         }
-        if (this.subscriptionStatus !== '') {
+        if (typeof this.subscriptionStatus !== 'undefined') {
             json.subscriptionStatus = this.subscriptionStatus;
         }
-        if (this.clientReference !== '') {
+        if (typeof this.clientReference !== 'undefined') {
             json.clientReference = this.clientReference;
         }
         return json;
-    }
-
-    public isValid(): boolean {
-        return this.subscriptionToken !== '';
     }
 
     public getSubscriptionToken(): string {
@@ -101,43 +81,43 @@ export default class SubscriptionHistory extends JsonMember {
     public setSubscriptionToken(subscriptionToken: string): void {
         this.subscriptionToken = subscriptionToken;
     }
-    public getExpiryDateTime(): Date | null {
+    public getExpiryDateTime(): Date | undefined {
         return this.expiryDateTime;
     }
-    public setExpiryDateTime(expiryDateTime: Date | null): void {
+    public setExpiryDateTime(expiryDateTime: Date): void {
         this.expiryDateTime = expiryDateTime;
     }
-    public getExpiredDateTime(): Date | null {
+    public getExpiredDateTime(): Date | undefined {
         return this.expiredDateTime;
     }
-    public setExpiredDateTime(expiredDateTime: Date | null): void {
+    public setExpiredDateTime(expiredDateTime: Date): void {
         this.expiredDateTime = expiredDateTime;
     }
-    public getCreatedDateTime(): Date | null {
+    public getCreatedDateTime(): Date | undefined {
         return this.createdDateTime;
     }
-    public setCreatedDateTime(createdDateTime: Date | null): void {
+    public setCreatedDateTime(createdDateTime: Date): void {
         this.createdDateTime = createdDateTime;
     }
-    public getActivationDateTime(): Date | null {
+    public getActivationDateTime(): Date | undefined {
         return this.activationDateTime;
     }
-    public setActivationDateTime(activationDateTime: Date | null): void {
+    public setActivationDateTime(activationDateTime: Date): void {
         this.activationDateTime = activationDateTime;
     }
-    public getCancellationDateTime(): Date | null {
+    public getCancellationDateTime(): Date | undefined {
         return this.cancellationDateTime;
     }
-    public setCancellationDateTime(cancellationDateTime: Date | null): void {
+    public setCancellationDateTime(cancellationDateTime: Date): void {
         this.cancellationDateTime = cancellationDateTime;
     }
-    public getSubscriptionStatus(): string {
+    public getSubscriptionStatus(): string | undefined {
         return this.subscriptionStatus;
     }
     public setSubscriptionStatus(subscriptionStatus: string): void {
         this.subscriptionStatus = subscriptionStatus;
     }
-    public getClientReference(): string {
+    public getClientReference(): string | undefined {
         return this.clientReference;
     }
     public setClientReference(clientReference: string): void {

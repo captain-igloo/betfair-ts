@@ -1,16 +1,18 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonResponse from '../JsonResponse';
+export interface IAuthorisationResponseOptions {
+    authorisationCode?: string;
+    redirectUrl?: string;
+}
 export default class AuthorisationResponse extends JsonResponse {
-    private authorisationCode;
-    private redirectUrl;
-    constructor(authorisationCode?: string, redirectUrl?: string);
-    fromJson(json: any): void;
-    toJson(): any;
-    isValid(): boolean;
-    getAuthorisationCode(): string;
+    private authorisationCode?;
+    private redirectUrl?;
+    constructor(options: IAuthorisationResponseOptions);
+    toJson(): IAuthorisationResponseOptions;
+    getAuthorisationCode(): string | undefined;
     setAuthorisationCode(authorisationCode: string): void;
-    getRedirectUrl(): string;
+    getRedirectUrl(): string | undefined;
     setRedirectUrl(redirectUrl: string): void;
 }

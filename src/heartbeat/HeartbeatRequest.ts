@@ -1,41 +1,32 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonRequest from '../JsonRequest';
 
 
+export interface IHeartbeatRequestOptions {
+    preferredTimeoutSeconds: number;
+}
+
 export default class HeartbeatRequest extends JsonRequest {
-    private preferredTimeoutSeconds: number | null;
+    private preferredTimeoutSeconds: number;
 
-    constructor(
-        preferredTimeoutSeconds: number | null = null,
-    ) {
+    constructor(options: IHeartbeatRequestOptions) {
         super();
-        this.preferredTimeoutSeconds = preferredTimeoutSeconds;
+        this.preferredTimeoutSeconds = options.preferredTimeoutSeconds;
     }
 
-    public fromJson(json: any): void {
-        if ('preferredTimeoutSeconds' in json) {
-            this.preferredTimeoutSeconds = json.preferredTimeoutSeconds;
-        }
-    }
-
-    public toJson(): any {
-        const json: any = {};
-        if (this.preferredTimeoutSeconds !== null) {
-            json.preferredTimeoutSeconds = this.preferredTimeoutSeconds;
-        }
+    public toJson(): IHeartbeatRequestOptions {
+        const json: IHeartbeatRequestOptions = {
+            preferredTimeoutSeconds: this.preferredTimeoutSeconds,
+        };
         return json;
     }
 
-    public isValid(): boolean {
-        return this.preferredTimeoutSeconds !== null;
-    }
-
-    public getPreferredTimeoutSeconds(): number | null {
+    public getPreferredTimeoutSeconds(): number {
         return this.preferredTimeoutSeconds;
     }
-    public setPreferredTimeoutSeconds(preferredTimeoutSeconds: number | null): void {
+    public setPreferredTimeoutSeconds(preferredTimeoutSeconds: number): void {
         this.preferredTimeoutSeconds = preferredTimeoutSeconds;
     }
 

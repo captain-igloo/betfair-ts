@@ -16,7 +16,7 @@ export default class BetTargetType extends Enum {
         if (value) {
             if (value !== 'PAYOUT' &&
                 value !== 'BACKERS_PROFIT') {
-                throw new Error(`Invalid MarketStatus: ${value}`);
+                throw new Error(`Invalid BetTargetType: ${value}`);
             }
 
             this.value = value;

@@ -1,16 +1,18 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonMember from '../JsonMember';
+export interface IReplaceInstructionOptions {
+    betId: string;
+    newPrice: number;
+}
 export default class ReplaceInstruction extends JsonMember {
     private betId;
     private newPrice;
-    constructor(betId?: string, newPrice?: number | null);
-    fromJson(json: any): void;
-    toJson(): any;
-    isValid(): boolean;
+    constructor(options: IReplaceInstructionOptions);
+    toJson(): IReplaceInstructionOptions;
     getBetId(): string;
     setBetId(betId: string): void;
-    getNewPrice(): number | null;
-    setNewPrice(newPrice: number | null): void;
+    getNewPrice(): number;
+    setNewPrice(newPrice: number): void;
 }

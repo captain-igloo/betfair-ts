@@ -1,41 +1,31 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonResponse from '../JsonResponse';
 
 
+export interface IIsAccountSubscribedToWebAppResponseOptions {
+    response?: boolean;
+}
+
 export default class IsAccountSubscribedToWebAppResponse extends JsonResponse {
-    private response: boolean | null;
+    private response?: boolean;
 
-    constructor(
-        response: boolean | null = null,
-    ) {
+    constructor(options: boolean) {
         super();
-        this.response = response;
-    }
-
-    public fromJson(json: any): void {
-        if (this.validateJson(json)) {
-            this.response = json.response;
+        if (this.validateJson(options)) {
+            this.response = options;
         }
     }
 
-    public toJson(): any {
-        let json: any = {};
-        if (this.response !== null) {
-            json.response = this.response;
-        }
-        return json;
+    public toJson(): IIsAccountSubscribedToWebAppResponseOptions {
+        throw new Error('not implemented');
     }
 
-    public isValid(): boolean {
-        return this.response !== null;
-    }
-
-    public getResponse(): boolean | null {
+    public getResponse(): boolean | undefined {
         return this.response;
     }
-    public setResponse(response: boolean | null): void {
+    public setResponse(response: boolean): void {
         this.response = response;
     }
 

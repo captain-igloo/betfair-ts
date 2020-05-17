@@ -1,36 +1,27 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonRequest from '../JsonRequest';
 
-import MarketGroup from '../sport/MarketGroup';
+import MarketGroup, { IMarketGroupOptions } from '../sport/MarketGroup';
+
+export interface IRemoveExposureLimitForMarketGroupRequestOptions {
+    marketGroup: MarketGroup | IMarketGroupOptions;
+}
 
 export default class RemoveExposureLimitForMarketGroupRequest extends JsonRequest {
     private marketGroup: MarketGroup;
 
-    constructor(
-        marketGroup: MarketGroup = new MarketGroup(),
-    ) {
+    constructor(options: IRemoveExposureLimitForMarketGroupRequestOptions) {
         super();
-        this.marketGroup = marketGroup;
+        this.marketGroup = this.fromJson(options.marketGroup, MarketGroup);
     }
 
-    public fromJson(json: any): void {
-        if ('marketGroup' in json) {
-            this.marketGroup.fromJson(json.marketGroup);
-        }
-    }
-
-    public toJson(): any {
-        const json: any = {};
-        if (this.marketGroup.isValid()) {
-            json.marketGroup = this.marketGroup.toJson();
-        }
+    public toJson(): IRemoveExposureLimitForMarketGroupRequestOptions {
+        const json: IRemoveExposureLimitForMarketGroupRequestOptions = {
+            marketGroup: this.marketGroup.toJson(),
+        };
         return json;
-    }
-
-    public isValid(): boolean {
-        return this.marketGroup.isValid();
     }
 
     public getMarketGroup(): MarketGroup {

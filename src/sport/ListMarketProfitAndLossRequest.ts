@@ -1,65 +1,44 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonRequest from '../JsonRequest';
 
 
+export interface IListMarketProfitAndLossRequestOptions {
+    marketIds: Set<string> | string[];
+    includeSettledBets?: boolean;
+    includeBspBets?: boolean;
+    netOfCommission?: boolean;
+}
+
 export default class ListMarketProfitAndLossRequest extends JsonRequest {
     private marketIds: Set<string>;
-    private includeSettledBets: boolean | null;
-    private includeBspBets: boolean | null;
-    private netOfCommission: boolean | null;
+    private includeSettledBets?: boolean;
+    private includeBspBets?: boolean;
+    private netOfCommission?: boolean;
 
-    constructor(
-        marketIds: Set<string> = new Set(),
-        includeSettledBets: boolean | null = null,
-        includeBspBets: boolean | null = null,
-        netOfCommission: boolean | null = null,
-    ) {
+    constructor(options: IListMarketProfitAndLossRequestOptions) {
         super();
-        this.marketIds = marketIds;
-        this.includeSettledBets = includeSettledBets;
-        this.includeBspBets = includeBspBets;
-        this.netOfCommission = netOfCommission;
+        this.marketIds = this.setFromJson(options.marketIds);
+        this.includeSettledBets = options.includeSettledBets;
+        this.includeBspBets = options.includeBspBets;
+        this.netOfCommission = options.netOfCommission;
     }
 
-    public fromJson(json: any): void {
-        if ('marketIds' in json) {
-            this.marketIds = json.marketIds;
-        }
-        if ('includeSettledBets' in json) {
-            this.includeSettledBets = json.includeSettledBets;
-        }
-        if ('includeBspBets' in json) {
-            this.includeBspBets = json.includeBspBets;
-        }
-        if ('netOfCommission' in json) {
-            this.netOfCommission = json.netOfCommission;
-        }
-    }
-
-    public toJson(): any {
-        const json: any = {};
-        if (this.marketIds.size > 0) {
-            json.marketIds = [];
-            this.marketIds.forEach((element) => {
-                json.marketIds.push(element);
-            });
-        }
-        if (this.includeSettledBets !== null) {
+    public toJson(): IListMarketProfitAndLossRequestOptions {
+        const json: IListMarketProfitAndLossRequestOptions = {
+            marketIds: this.setToJson(this.marketIds),
+        };
+        if (typeof this.includeSettledBets !== 'undefined') {
             json.includeSettledBets = this.includeSettledBets;
         }
-        if (this.includeBspBets !== null) {
+        if (typeof this.includeBspBets !== 'undefined') {
             json.includeBspBets = this.includeBspBets;
         }
-        if (this.netOfCommission !== null) {
+        if (typeof this.netOfCommission !== 'undefined') {
             json.netOfCommission = this.netOfCommission;
         }
         return json;
-    }
-
-    public isValid(): boolean {
-        return this.marketIds.size > 0;
     }
 
     public getMarketIds(): Set<string> {
@@ -68,22 +47,22 @@ export default class ListMarketProfitAndLossRequest extends JsonRequest {
     public setMarketIds(marketIds: Set<string>): void {
         this.marketIds = marketIds;
     }
-    public getIncludeSettledBets(): boolean | null {
+    public getIncludeSettledBets(): boolean | undefined {
         return this.includeSettledBets;
     }
-    public setIncludeSettledBets(includeSettledBets: boolean | null): void {
+    public setIncludeSettledBets(includeSettledBets: boolean): void {
         this.includeSettledBets = includeSettledBets;
     }
-    public getIncludeBspBets(): boolean | null {
+    public getIncludeBspBets(): boolean | undefined {
         return this.includeBspBets;
     }
-    public setIncludeBspBets(includeBspBets: boolean | null): void {
+    public setIncludeBspBets(includeBspBets: boolean): void {
         this.includeBspBets = includeBspBets;
     }
-    public getNetOfCommission(): boolean | null {
+    public getNetOfCommission(): boolean | undefined {
         return this.netOfCommission;
     }
-    public setNetOfCommission(netOfCommission: boolean | null): void {
+    public setNetOfCommission(netOfCommission: boolean): void {
         this.netOfCommission = netOfCommission;
     }
 

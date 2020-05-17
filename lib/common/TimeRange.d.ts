@@ -1,16 +1,18 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonMember from '../JsonMember';
+export interface ITimeRangeOptions {
+    from?: Date | string;
+    to?: Date | string;
+}
 export default class TimeRange extends JsonMember {
-    private from;
-    private to;
-    constructor(from?: Date | null, to?: Date | null);
-    fromJson(json: any): void;
-    toJson(): any;
-    isValid(): boolean;
-    getFrom(): Date | null;
-    setFrom(from: Date | null): void;
-    getTo(): Date | null;
-    setTo(to: Date | null): void;
+    private from?;
+    private to?;
+    constructor(options: ITimeRangeOptions);
+    toJson(): ITimeRangeOptions;
+    getFrom(): Date | undefined;
+    setFrom(from: Date): void;
+    getTo(): Date | undefined;
+    setTo(to: Date): void;
 }

@@ -1,57 +1,42 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonMember from '../JsonMember';
 
 
+export interface ILimitOnCloseOrderOptions {
+    liability: number;
+    price: number;
+}
+
 export default class LimitOnCloseOrder extends JsonMember {
-    private liability: number | null;
-    private price: number | null;
+    private liability: number;
+    private price: number;
 
-    constructor(
-        liability: number | null = null,
-        price: number | null = null,
-    ) {
+    constructor(options: ILimitOnCloseOrderOptions) {
         super();
-        this.liability = liability;
-        this.price = price;
+        this.liability = options.liability;
+        this.price = options.price;
     }
 
-    public fromJson(json: any): void {
-        if ('liability' in json) {
-            this.liability = json.liability;
-        }
-        if ('price' in json) {
-            this.price = json.price;
-        }
-    }
-
-    public toJson(): any {
-        const json: any = {};
-        if (this.liability !== null) {
-            json.liability = this.liability;
-        }
-        if (this.price !== null) {
-            json.price = this.price;
-        }
+    public toJson(): ILimitOnCloseOrderOptions {
+        const json: ILimitOnCloseOrderOptions = {
+            liability: this.liability,
+            price: this.price,
+        };
         return json;
     }
 
-    public isValid(): boolean {
-        return this.liability !== null &&
-            this.price !== null;
-    }
-
-    public getLiability(): number | null {
+    public getLiability(): number {
         return this.liability;
     }
-    public setLiability(liability: number | null): void {
+    public setLiability(liability: number): void {
         this.liability = liability;
     }
-    public getPrice(): number | null {
+    public getPrice(): number {
         return this.price;
     }
-    public setPrice(price: number | null): void {
+    public setPrice(price: number): void {
         this.price = price;
     }
 

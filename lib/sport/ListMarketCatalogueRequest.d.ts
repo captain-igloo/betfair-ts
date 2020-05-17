@@ -1,28 +1,33 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonRequest from '../JsonRequest';
 import MarketProjection from '../sport/enum/MarketProjection';
 import MarketSort from '../sport/enum/MarketSort';
-import MarketFilter from '../sport/MarketFilter';
+import MarketFilter, { IMarketFilterOptions } from '../sport/MarketFilter';
+export interface IListMarketCatalogueRequestOptions {
+    filter: MarketFilter | IMarketFilterOptions;
+    marketProjection?: Set<MarketProjection> | string[];
+    sort?: MarketSort | string;
+    maxResults: number;
+    locale?: string;
+}
 export default class ListMarketCatalogueRequest extends JsonRequest {
     private filter;
-    private marketProjection;
-    private sort;
+    private marketProjection?;
+    private sort?;
     private maxResults;
-    private locale;
-    constructor(filter?: MarketFilter, marketProjection?: Set<MarketProjection>, sort?: MarketSort, maxResults?: number | null, locale?: string);
-    fromJson(json: any): void;
-    toJson(): any;
-    isValid(): boolean;
+    private locale?;
+    constructor(options: IListMarketCatalogueRequestOptions);
+    toJson(): IListMarketCatalogueRequestOptions;
     getFilter(): MarketFilter;
     setFilter(filter: MarketFilter): void;
-    getMarketProjection(): Set<MarketProjection>;
+    getMarketProjection(): Set<MarketProjection> | undefined;
     setMarketProjection(marketProjection: Set<MarketProjection>): void;
-    getSort(): MarketSort;
+    getSort(): MarketSort | undefined;
     setSort(sort: MarketSort): void;
-    getMaxResults(): number | null;
-    setMaxResults(maxResults: number | null): void;
-    getLocale(): string;
+    getMaxResults(): number;
+    setMaxResults(maxResults: number): void;
+    getLocale(): string | undefined;
     setLocale(locale: string): void;
 }

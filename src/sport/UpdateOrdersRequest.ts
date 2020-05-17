@@ -1,59 +1,37 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonRequest from '../JsonRequest';
 
-import UpdateInstruction from '../sport/UpdateInstruction';
+import UpdateInstruction, { IUpdateInstructionOptions } from '../sport/UpdateInstruction';
+
+export interface IUpdateOrdersRequestOptions {
+    marketId: string;
+    instructions: Array<UpdateInstruction | IUpdateInstructionOptions>;
+    customerRef?: string;
+}
 
 export default class UpdateOrdersRequest extends JsonRequest {
     private marketId: string;
     private instructions: UpdateInstruction[];
-    private customerRef: string;
+    private customerRef?: string;
 
-    constructor(
-        marketId: string = '',
-        instructions: UpdateInstruction[] = [],
-        customerRef: string = '',
-    ) {
+    constructor(options: IUpdateOrdersRequestOptions) {
         super();
-        this.marketId = marketId;
-        this.instructions = instructions;
-        this.customerRef = customerRef;
+        this.marketId = options.marketId;
+        this.instructions = this.arrayFromJson(options.instructions, UpdateInstruction);
+        this.customerRef = options.customerRef;
     }
 
-    public fromJson(json: any): void {
-        if ('marketId' in json) {
-            this.marketId = json.marketId;
-        }
-        if ('instructions' in json) {
-            this.instructions = json.instructions.map((instructionsJson: any) => {
-                const element = new UpdateInstruction();
-                element.fromJson(instructionsJson);
-                return element;
-            });
-        }
-        if ('customerRef' in json) {
-            this.customerRef = json.customerRef;
-        }
-    }
-
-    public toJson(): any {
-        const json: any = {};
-        if (this.marketId !== '') {
-            json.marketId = this.marketId;
-        }
-        if (this.instructions.length > 0) {
-            json.instructions = this.instructions.map((value) => value.toJson());
-        }
-        if (this.customerRef !== '') {
+    public toJson(): IUpdateOrdersRequestOptions {
+        const json: IUpdateOrdersRequestOptions = {
+            marketId: this.marketId,
+            instructions: this.instructions.map((value) => value.toJson()),
+        };
+        if (typeof this.customerRef !== 'undefined') {
             json.customerRef = this.customerRef;
         }
         return json;
-    }
-
-    public isValid(): boolean {
-        return this.marketId !== '' &&
-            this.instructions.length > 0;
     }
 
     public getMarketId(): string {
@@ -68,7 +46,7 @@ export default class UpdateOrdersRequest extends JsonRequest {
     public setInstructions(instructions: UpdateInstruction[]): void {
         this.instructions = instructions;
     }
-    public getCustomerRef(): string {
+    public getCustomerRef(): string | undefined {
         return this.customerRef;
     }
     public setCustomerRef(customerRef: string): void {

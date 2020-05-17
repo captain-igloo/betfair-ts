@@ -1,14 +1,15 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonResponse from '../JsonResponse';
-import VendorDetails from '../account/VendorDetails';
+import VendorDetails, { IVendorDetailsOptions } from '../account/VendorDetails';
+export interface IListAuthorizedWebAppsResponseOptions {
+    vendorDetailses?: Array<VendorDetails | IVendorDetailsOptions>;
+}
 export default class ListAuthorizedWebAppsResponse extends JsonResponse {
-    private vendorDetailses;
-    constructor(vendorDetailses?: VendorDetails[]);
-    fromJson(json: any): void;
-    toJson(): any;
-    isValid(): boolean;
-    getVendorDetailses(): VendorDetails[];
+    private vendorDetailses?;
+    constructor(options: Array<VendorDetails | IVendorDetailsOptions>);
+    toJson(): IListAuthorizedWebAppsResponseOptions;
+    getVendorDetailses(): VendorDetails[] | undefined;
     setVendorDetailses(vendorDetailses: VendorDetails[]): void;
 }

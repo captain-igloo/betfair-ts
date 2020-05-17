@@ -1,44 +1,32 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonMember from '../JsonMember';
 
 
+export interface ICancelInstructionOptions {
+    betId: string;
+    sizeReduction?: number;
+}
+
 export default class CancelInstruction extends JsonMember {
     private betId: string;
-    private sizeReduction: number | null;
+    private sizeReduction?: number;
 
-    constructor(
-        betId: string = '',
-        sizeReduction: number | null = null,
-    ) {
+    constructor(options: ICancelInstructionOptions) {
         super();
-        this.betId = betId;
-        this.sizeReduction = sizeReduction;
+        this.betId = options.betId;
+        this.sizeReduction = options.sizeReduction;
     }
 
-    public fromJson(json: any): void {
-        if ('betId' in json) {
-            this.betId = json.betId;
-        }
-        if ('sizeReduction' in json) {
-            this.sizeReduction = json.sizeReduction;
-        }
-    }
-
-    public toJson(): any {
-        const json: any = {};
-        if (this.betId !== '') {
-            json.betId = this.betId;
-        }
-        if (this.sizeReduction !== null) {
+    public toJson(): ICancelInstructionOptions {
+        const json: ICancelInstructionOptions = {
+            betId: this.betId,
+        };
+        if (typeof this.sizeReduction !== 'undefined') {
             json.sizeReduction = this.sizeReduction;
         }
         return json;
-    }
-
-    public isValid(): boolean {
-        return this.betId !== '';
     }
 
     public getBetId(): string {
@@ -47,10 +35,10 @@ export default class CancelInstruction extends JsonMember {
     public setBetId(betId: string): void {
         this.betId = betId;
     }
-    public getSizeReduction(): number | null {
+    public getSizeReduction(): number | undefined {
         return this.sizeReduction;
     }
-    public setSizeReduction(sizeReduction: number | null): void {
+    public setSizeReduction(sizeReduction: number): void {
         this.sizeReduction = sizeReduction;
     }
 

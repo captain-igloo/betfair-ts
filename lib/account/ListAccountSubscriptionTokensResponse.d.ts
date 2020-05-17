@@ -1,14 +1,15 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonResponse from '../JsonResponse';
-import AccountSubscription from '../account/AccountSubscription';
+import AccountSubscription, { IAccountSubscriptionOptions } from '../account/AccountSubscription';
+export interface IListAccountSubscriptionTokensResponseOptions {
+    accountSubscriptions?: Array<AccountSubscription | IAccountSubscriptionOptions>;
+}
 export default class ListAccountSubscriptionTokensResponse extends JsonResponse {
-    private accountSubscriptions;
-    constructor(accountSubscriptions?: AccountSubscription[]);
-    fromJson(json: any): void;
-    toJson(): any;
-    isValid(): boolean;
-    getAccountSubscriptions(): AccountSubscription[];
+    private accountSubscriptions?;
+    constructor(options: Array<AccountSubscription | IAccountSubscriptionOptions>);
+    toJson(): IListAccountSubscriptionTokensResponseOptions;
+    getAccountSubscriptions(): AccountSubscription[] | undefined;
     setAccountSubscriptions(accountSubscriptions: AccountSubscription[]): void;
 }

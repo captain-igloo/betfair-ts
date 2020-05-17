@@ -1,20 +1,23 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonRequest from '../JsonRequest';
 import Wallet from '../account/enum/Wallet';
+export interface ITransferFundsRequestOptions {
+    from: Wallet | string;
+    to: Wallet | string;
+    amount: number;
+}
 export default class TransferFundsRequest extends JsonRequest {
     private from;
     private to;
     private amount;
-    constructor(from?: Wallet, to?: Wallet, amount?: number | null);
-    fromJson(json: any): void;
-    toJson(): any;
-    isValid(): boolean;
+    constructor(options: ITransferFundsRequestOptions);
+    toJson(): ITransferFundsRequestOptions;
     getFrom(): Wallet;
     setFrom(from: Wallet): void;
     getTo(): Wallet;
     setTo(to: Wallet): void;
-    getAmount(): number | null;
-    setAmount(amount: number | null): void;
+    getAmount(): number;
+    setAmount(amount: number): void;
 }

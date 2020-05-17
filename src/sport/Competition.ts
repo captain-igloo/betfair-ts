@@ -1,53 +1,43 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonMember from '../JsonMember';
 
 
+export interface ICompetitionOptions {
+    id?: string;
+    name?: string;
+}
+
 export default class Competition extends JsonMember {
-    private id: string;
-    private name: string;
+    private id?: string;
+    private name?: string;
 
-    constructor(
-        id: string = '',
-        name: string = '',
-    ) {
+    constructor(options: ICompetitionOptions) {
         super();
-        this.id = id;
-        this.name = name;
+        this.id = options.id;
+        this.name = options.name;
     }
 
-    public fromJson(json: any): void {
-        if ('id' in json) {
-            this.id = json.id;
-        }
-        if ('name' in json) {
-            this.name = json.name;
-        }
-    }
-
-    public toJson(): any {
-        const json: any = {};
-        if (this.id !== '') {
+    public toJson(): ICompetitionOptions {
+        const json: ICompetitionOptions = {
+        };
+        if (typeof this.id !== 'undefined') {
             json.id = this.id;
         }
-        if (this.name !== '') {
+        if (typeof this.name !== 'undefined') {
             json.name = this.name;
         }
         return json;
     }
 
-    public isValid(): boolean {
-        return true;
-    }
-
-    public getId(): string {
+    public getId(): string | undefined {
         return this.id;
     }
     public setId(id: string): void {
         this.id = id;
     }
-    public getName(): string {
+    public getName(): string | undefined {
         return this.name;
     }
     public setName(name: string): void {

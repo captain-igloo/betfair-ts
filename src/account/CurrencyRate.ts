@@ -1,56 +1,46 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonMember from '../JsonMember';
 
 
+export interface ICurrencyRateOptions {
+    currencyCode?: string;
+    rate?: number;
+}
+
 export default class CurrencyRate extends JsonMember {
-    private currencyCode: string;
-    private rate: number | null;
+    private currencyCode?: string;
+    private rate?: number;
 
-    constructor(
-        currencyCode: string = '',
-        rate: number | null = null,
-    ) {
+    constructor(options: ICurrencyRateOptions) {
         super();
-        this.currencyCode = currencyCode;
-        this.rate = rate;
+        this.currencyCode = options.currencyCode;
+        this.rate = options.rate;
     }
 
-    public fromJson(json: any): void {
-        if ('currencyCode' in json) {
-            this.currencyCode = json.currencyCode;
-        }
-        if ('rate' in json) {
-            this.rate = json.rate;
-        }
-    }
-
-    public toJson(): any {
-        const json: any = {};
-        if (this.currencyCode !== '') {
+    public toJson(): ICurrencyRateOptions {
+        const json: ICurrencyRateOptions = {
+        };
+        if (typeof this.currencyCode !== 'undefined') {
             json.currencyCode = this.currencyCode;
         }
-        if (this.rate !== null) {
+        if (typeof this.rate !== 'undefined') {
             json.rate = this.rate;
         }
         return json;
     }
 
-    public isValid(): boolean {
-        return true;
-    }
-
-    public getCurrencyCode(): string {
+    public getCurrencyCode(): string | undefined {
         return this.currencyCode;
     }
     public setCurrencyCode(currencyCode: string): void {
         this.currencyCode = currencyCode;
     }
-    public getRate(): number | null {
+    public getRate(): number | undefined {
         return this.rate;
     }
-    public setRate(rate: number | null): void {
+    public setRate(rate: number): void {
         this.rate = rate;
     }
 

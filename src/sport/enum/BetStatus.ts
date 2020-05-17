@@ -20,7 +20,7 @@ export default class BetStatus extends Enum {
                 value !== 'VOIDED' &&
                 value !== 'LAPSED' &&
                 value !== 'CANCELLED') {
-                throw new Error(`Invalid MarketStatus: ${value}`);
+                throw new Error(`Invalid BetStatus: ${value}`);
             }
 
             this.value = value;

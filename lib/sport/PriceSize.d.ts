@@ -1,16 +1,18 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonMember from '../JsonMember';
+export interface IPriceSizeOptions {
+    price: number;
+    size: number;
+}
 export default class PriceSize extends JsonMember {
     private price;
     private size;
-    constructor(price?: number | null, size?: number | null);
-    fromJson(json: any): void;
-    toJson(): any;
-    isValid(): boolean;
-    getPrice(): number | null;
-    setPrice(price: number | null): void;
-    getSize(): number | null;
-    setSize(size: number | null): void;
+    constructor(options: IPriceSizeOptions);
+    toJson(): IPriceSizeOptions;
+    getPrice(): number;
+    setPrice(price: number): void;
+    getSize(): number;
+    setSize(size: number): void;
 }

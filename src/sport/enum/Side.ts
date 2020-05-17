@@ -16,7 +16,7 @@ export default class Side extends Enum {
         if (value) {
             if (value !== 'BACK' &&
                 value !== 'LAY') {
-                throw new Error(`Invalid MarketStatus: ${value}`);
+                throw new Error(`Invalid Side: ${value}`);
             }
 
             this.value = value;

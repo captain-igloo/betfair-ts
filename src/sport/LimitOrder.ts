@@ -1,5 +1,5 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonMember from '../JsonMember';
 
@@ -7,128 +7,107 @@ import BetTargetType from '../sport/enum/BetTargetType';
 import PersistenceType from '../sport/enum/PersistenceType';
 import TimeInForce from '../sport/enum/TimeInForce';
 
+export interface ILimitOrderOptions {
+    size?: number;
+    price: number;
+    persistenceType?: PersistenceType | string;
+    timeInForce?: TimeInForce | string;
+    minFillSize?: number;
+    betTargetType?: BetTargetType | string;
+    betTargetSize?: number;
+}
+
 export default class LimitOrder extends JsonMember {
-    private size: number | null;
-    private price: number | null;
-    private persistenceType: PersistenceType;
-    private timeInForce: TimeInForce;
-    private minFillSize: number | null;
-    private betTargetType: BetTargetType;
-    private betTargetSize: number | null;
+    private size?: number;
+    private price: number;
+    private persistenceType?: PersistenceType;
+    private timeInForce?: TimeInForce;
+    private minFillSize?: number;
+    private betTargetType?: BetTargetType;
+    private betTargetSize?: number;
 
-    constructor(
-        size: number | null = null,
-        price: number | null = null,
-        persistenceType: PersistenceType = new PersistenceType(),
-        timeInForce: TimeInForce = new TimeInForce(),
-        minFillSize: number | null = null,
-        betTargetType: BetTargetType = new BetTargetType(),
-        betTargetSize: number | null = null,
-    ) {
+    constructor(options: ILimitOrderOptions) {
         super();
-        this.size = size;
-        this.price = price;
-        this.persistenceType = persistenceType;
-        this.timeInForce = timeInForce;
-        this.minFillSize = minFillSize;
-        this.betTargetType = betTargetType;
-        this.betTargetSize = betTargetSize;
+        this.size = options.size;
+        this.price = options.price;
+        if (options.persistenceType) {
+            this.persistenceType = this.fromJson(options.persistenceType, PersistenceType);
+        }
+        if (options.timeInForce) {
+            this.timeInForce = this.fromJson(options.timeInForce, TimeInForce);
+        }
+        this.minFillSize = options.minFillSize;
+        if (options.betTargetType) {
+            this.betTargetType = this.fromJson(options.betTargetType, BetTargetType);
+        }
+        this.betTargetSize = options.betTargetSize;
     }
 
-    public fromJson(json: any): void {
-        if ('size' in json) {
-            this.size = json.size;
-        }
-        if ('price' in json) {
-            this.price = json.price;
-        }
-        if ('persistenceType' in json) {
-            this.persistenceType.setValue(json.persistenceType);
-        }
-        if ('timeInForce' in json) {
-            this.timeInForce.setValue(json.timeInForce);
-        }
-        if ('minFillSize' in json) {
-            this.minFillSize = json.minFillSize;
-        }
-        if ('betTargetType' in json) {
-            this.betTargetType.setValue(json.betTargetType);
-        }
-        if ('betTargetSize' in json) {
-            this.betTargetSize = json.betTargetSize;
-        }
-    }
-
-    public toJson(): any {
-        const json: any = {};
-        if (this.size !== null) {
+    public toJson(): ILimitOrderOptions {
+        const json: ILimitOrderOptions = {
+            price: this.price,
+        };
+        if (typeof this.size !== 'undefined') {
             json.size = this.size;
         }
-        if (this.price !== null) {
-            json.price = this.price;
-        }
-        if (this.persistenceType.isValid()) {
+        if (this.persistenceType) {
             json.persistenceType = this.persistenceType.getValue();
         }
-        if (this.timeInForce.isValid()) {
+        if (this.timeInForce) {
             json.timeInForce = this.timeInForce.getValue();
         }
-        if (this.minFillSize !== null) {
+        if (typeof this.minFillSize !== 'undefined') {
             json.minFillSize = this.minFillSize;
         }
-        if (this.betTargetType.isValid()) {
+        if (this.betTargetType) {
             json.betTargetType = this.betTargetType.getValue();
         }
-        if (this.betTargetSize !== null) {
+        if (typeof this.betTargetSize !== 'undefined') {
             json.betTargetSize = this.betTargetSize;
         }
         return json;
     }
 
-    public isValid(): boolean {
-        return this.price !== null;
-    }
-
-    public getSize(): number | null {
+    public getSize(): number | undefined {
         return this.size;
     }
-    public setSize(size: number | null): void {
+    public setSize(size: number): void {
         this.size = size;
     }
-    public getPrice(): number | null {
+    public getPrice(): number {
         return this.price;
     }
-    public setPrice(price: number | null): void {
+    public setPrice(price: number): void {
         this.price = price;
     }
-    public getPersistenceType(): PersistenceType {
+    public getPersistenceType(): PersistenceType | undefined {
         return this.persistenceType;
     }
     public setPersistenceType(persistenceType: PersistenceType): void {
         this.persistenceType = persistenceType;
     }
-    public getTimeInForce(): TimeInForce {
+    public getTimeInForce(): TimeInForce | undefined {
         return this.timeInForce;
     }
     public setTimeInForce(timeInForce: TimeInForce): void {
         this.timeInForce = timeInForce;
     }
-    public getMinFillSize(): number | null {
+    public getMinFillSize(): number | undefined {
         return this.minFillSize;
     }
-    public setMinFillSize(minFillSize: number | null): void {
+    public setMinFillSize(minFillSize: number): void {
         this.minFillSize = minFillSize;
     }
-    public getBetTargetType(): BetTargetType {
+    public getBetTargetType(): BetTargetType | undefined {
         return this.betTargetType;
     }
     public setBetTargetType(betTargetType: BetTargetType): void {
         this.betTargetType = betTargetType;
     }
-    public getBetTargetSize(): number | null {
+    public getBetTargetSize(): number | undefined {
         return this.betTargetSize;
     }
-    public setBetTargetSize(betTargetSize: number | null): void {
+    public setBetTargetSize(betTargetSize: number): void {
         this.betTargetSize = betTargetSize;
     }
 

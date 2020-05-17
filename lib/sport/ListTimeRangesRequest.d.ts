@@ -1,16 +1,18 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonRequest from '../JsonRequest';
 import TimeGranularity from '../sport/enum/TimeGranularity';
-import MarketFilter from '../sport/MarketFilter';
+import MarketFilter, { IMarketFilterOptions } from '../sport/MarketFilter';
+export interface IListTimeRangesRequestOptions {
+    filter: MarketFilter | IMarketFilterOptions;
+    granularity: TimeGranularity | string;
+}
 export default class ListTimeRangesRequest extends JsonRequest {
     private filter;
     private granularity;
-    constructor(filter?: MarketFilter, granularity?: TimeGranularity);
-    fromJson(json: any): void;
-    toJson(): any;
-    isValid(): boolean;
+    constructor(options: IListTimeRangesRequestOptions);
+    toJson(): IListTimeRangesRequestOptions;
     getFilter(): MarketFilter;
     setFilter(filter: MarketFilter): void;
     getGranularity(): TimeGranularity;

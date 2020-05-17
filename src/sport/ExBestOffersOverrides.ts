@@ -1,102 +1,85 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonMember from '../JsonMember';
 
 import RollupModel from '../sport/enum/RollupModel';
 
+export interface IExBestOffersOverridesOptions {
+    bestPricesDepth?: number;
+    rollupModel?: RollupModel | string;
+    rollupLimit?: number;
+    rollupLiabilityThreshold?: number;
+    rollupLiabilityFactor?: number;
+}
+
 export default class ExBestOffersOverrides extends JsonMember {
-    private bestPricesDepth: number | null;
-    private rollupModel: RollupModel;
-    private rollupLimit: number | null;
-    private rollupLiabilityThreshold: number | null;
-    private rollupLiabilityFactor: number | null;
+    private bestPricesDepth?: number;
+    private rollupModel?: RollupModel;
+    private rollupLimit?: number;
+    private rollupLiabilityThreshold?: number;
+    private rollupLiabilityFactor?: number;
 
-    constructor(
-        bestPricesDepth: number | null = null,
-        rollupModel: RollupModel = new RollupModel(),
-        rollupLimit: number | null = null,
-        rollupLiabilityThreshold: number | null = null,
-        rollupLiabilityFactor: number | null = null,
-    ) {
+    constructor(options: IExBestOffersOverridesOptions) {
         super();
-        this.bestPricesDepth = bestPricesDepth;
-        this.rollupModel = rollupModel;
-        this.rollupLimit = rollupLimit;
-        this.rollupLiabilityThreshold = rollupLiabilityThreshold;
-        this.rollupLiabilityFactor = rollupLiabilityFactor;
+        this.bestPricesDepth = options.bestPricesDepth;
+        if (options.rollupModel) {
+            this.rollupModel = this.fromJson(options.rollupModel, RollupModel);
+        }
+        this.rollupLimit = options.rollupLimit;
+        this.rollupLiabilityThreshold = options.rollupLiabilityThreshold;
+        this.rollupLiabilityFactor = options.rollupLiabilityFactor;
     }
 
-    public fromJson(json: any): void {
-        if ('bestPricesDepth' in json) {
-            this.bestPricesDepth = json.bestPricesDepth;
-        }
-        if ('rollupModel' in json) {
-            this.rollupModel.setValue(json.rollupModel);
-        }
-        if ('rollupLimit' in json) {
-            this.rollupLimit = json.rollupLimit;
-        }
-        if ('rollupLiabilityThreshold' in json) {
-            this.rollupLiabilityThreshold = json.rollupLiabilityThreshold;
-        }
-        if ('rollupLiabilityFactor' in json) {
-            this.rollupLiabilityFactor = json.rollupLiabilityFactor;
-        }
-    }
-
-    public toJson(): any {
-        const json: any = {};
-        if (this.bestPricesDepth !== null) {
+    public toJson(): IExBestOffersOverridesOptions {
+        const json: IExBestOffersOverridesOptions = {
+        };
+        if (typeof this.bestPricesDepth !== 'undefined') {
             json.bestPricesDepth = this.bestPricesDepth;
         }
-        if (this.rollupModel.isValid()) {
+        if (this.rollupModel) {
             json.rollupModel = this.rollupModel.getValue();
         }
-        if (this.rollupLimit !== null) {
+        if (typeof this.rollupLimit !== 'undefined') {
             json.rollupLimit = this.rollupLimit;
         }
-        if (this.rollupLiabilityThreshold !== null) {
+        if (typeof this.rollupLiabilityThreshold !== 'undefined') {
             json.rollupLiabilityThreshold = this.rollupLiabilityThreshold;
         }
-        if (this.rollupLiabilityFactor !== null) {
+        if (typeof this.rollupLiabilityFactor !== 'undefined') {
             json.rollupLiabilityFactor = this.rollupLiabilityFactor;
         }
         return json;
     }
 
-    public isValid(): boolean {
-        return true;
-    }
-
-    public getBestPricesDepth(): number | null {
+    public getBestPricesDepth(): number | undefined {
         return this.bestPricesDepth;
     }
-    public setBestPricesDepth(bestPricesDepth: number | null): void {
+    public setBestPricesDepth(bestPricesDepth: number): void {
         this.bestPricesDepth = bestPricesDepth;
     }
-    public getRollupModel(): RollupModel {
+    public getRollupModel(): RollupModel | undefined {
         return this.rollupModel;
     }
     public setRollupModel(rollupModel: RollupModel): void {
         this.rollupModel = rollupModel;
     }
-    public getRollupLimit(): number | null {
+    public getRollupLimit(): number | undefined {
         return this.rollupLimit;
     }
-    public setRollupLimit(rollupLimit: number | null): void {
+    public setRollupLimit(rollupLimit: number): void {
         this.rollupLimit = rollupLimit;
     }
-    public getRollupLiabilityThreshold(): number | null {
+    public getRollupLiabilityThreshold(): number | undefined {
         return this.rollupLiabilityThreshold;
     }
-    public setRollupLiabilityThreshold(rollupLiabilityThreshold: number | null): void {
+    public setRollupLiabilityThreshold(rollupLiabilityThreshold: number): void {
         this.rollupLiabilityThreshold = rollupLiabilityThreshold;
     }
-    public getRollupLiabilityFactor(): number | null {
+    public getRollupLiabilityFactor(): number | undefined {
         return this.rollupLiabilityFactor;
     }
-    public setRollupLiabilityFactor(rollupLiabilityFactor: number | null): void {
+    public setRollupLiabilityFactor(rollupLiabilityFactor: number): void {
         this.rollupLiabilityFactor = rollupLiabilityFactor;
     }
 

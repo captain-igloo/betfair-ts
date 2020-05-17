@@ -18,7 +18,7 @@ export default class OrderType extends Enum {
             if (value !== 'LIMIT' &&
                 value !== 'LIMIT_ON_CLOSE' &&
                 value !== 'MARKET_ON_CLOSE') {
-                throw new Error(`Invalid MarketStatus: ${value}`);
+                throw new Error(`Invalid OrderType: ${value}`);
             }
 
             this.value = value;

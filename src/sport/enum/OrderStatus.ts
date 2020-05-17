@@ -20,7 +20,7 @@ export default class OrderStatus extends Enum {
                 value !== 'EXECUTION_COMPLETE' &&
                 value !== 'EXECUTABLE' &&
                 value !== 'EXPIRED') {
-                throw new Error(`Invalid MarketStatus: ${value}`);
+                throw new Error(`Invalid OrderStatus: ${value}`);
             }
 
             this.value = value;

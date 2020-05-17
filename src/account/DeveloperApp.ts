@@ -1,77 +1,60 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonResponse from '../JsonResponse';
 
-import DeveloperAppVersion from '../account/DeveloperAppVersion';
+import DeveloperAppVersion, { IDeveloperAppVersionOptions } from '../account/DeveloperAppVersion';
+
+export interface IDeveloperAppOptions {
+    appName?: string;
+    appId?: number;
+    appVersions?: Array<DeveloperAppVersion | IDeveloperAppVersionOptions>;
+}
 
 export default class DeveloperApp extends JsonResponse {
-    private appName: string;
-    private appId: number | null;
-    private appVersions: DeveloperAppVersion[];
+    private appName?: string;
+    private appId?: number;
+    private appVersions?: DeveloperAppVersion[];
 
-    constructor(
-        appName: string = '',
-        appId: number | null = null,
-        appVersions: DeveloperAppVersion[] = [],
-    ) {
+    constructor(options: IDeveloperAppOptions) {
         super();
-        this.appName = appName;
-        this.appId = appId;
-        this.appVersions = appVersions;
-    }
-
-    public fromJson(json: any): void {
-        if (this.validateJson(json)) {
-            if ('appName' in json) {
-                this.appName = json.appName;
-            }
-            if ('appId' in json) {
-                this.appId = json.appId;
-            }
-            if ('appVersions' in json) {
-                this.appVersions = json.appVersions.map((appVersionsJson: any) => {
-                    const element = new DeveloperAppVersion();
-                    element.fromJson(appVersionsJson);
-                    return element;
-                });
+        if (this.validateJson(options)) {
+            this.appName = options.appName;
+            this.appId = options.appId;
+            if (options.appVersions) {
+                this.appVersions = this.arrayFromJson(options.appVersions, DeveloperAppVersion);
             }
         }
     }
 
-    public toJson(): any {
-        const json: any = {};
-        if (this.appName !== '') {
+    public toJson(): IDeveloperAppOptions {
+        const json: IDeveloperAppOptions = {
+        };
+        if (typeof this.appName !== 'undefined') {
             json.appName = this.appName;
         }
-        if (this.appId !== null) {
+        if (typeof this.appId !== 'undefined') {
             json.appId = this.appId;
         }
-        if (this.appVersions.length > 0) {
+        if (this.appVersions && this.appVersions.length > 0) {
             json.appVersions = this.appVersions.map((value) => value.toJson());
         }
         return json;
     }
 
-    public isValid(): boolean {
-        return this.appName !== '' &&
-            this.appId !== null &&
-            this.appVersions.length > 0;
-    }
-
-    public getAppName(): string {
+    public getAppName(): string | undefined {
         return this.appName;
     }
     public setAppName(appName: string): void {
         this.appName = appName;
     }
-    public getAppId(): number | null {
+    public getAppId(): number | undefined {
         return this.appId;
     }
-    public setAppId(appId: number | null): void {
+    public setAppId(appId: number): void {
         this.appId = appId;
     }
-    public getAppVersions(): DeveloperAppVersion[] {
+    public getAppVersions(): DeveloperAppVersion[] | undefined {
         return this.appVersions;
     }
     public setAppVersions(appVersions: DeveloperAppVersion[]): void {

@@ -1,43 +1,34 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonMember from '../JsonMember';
 
-import Match from '../sport/Match';
+import Match, { IMatchOptions } from '../sport/Match';
+
+export interface IMatchesOptions {
+    matches?: Array<Match | IMatchOptions>;
+}
 
 export default class Matches extends JsonMember {
-    private matches: Match[];
+    private matches?: Match[];
 
-    constructor(
-        matches: Match[] = [],
-    ) {
+    constructor(options: IMatchesOptions) {
         super();
-        this.matches = matches;
-    }
-
-    public fromJson(json: any): void {
-        if ('matches' in json) {
-            this.matches = json.matches.map((matchesJson: any) => {
-                const element = new Match();
-                element.fromJson(matchesJson);
-                return element;
-            });
+        if (options.matches) {
+            this.matches = this.arrayFromJson(options.matches, Match);
         }
     }
 
-    public toJson(): any {
-        const json: any = {};
-        if (this.matches.length > 0) {
+    public toJson(): IMatchesOptions {
+        const json: IMatchesOptions = {
+        };
+        if (this.matches && this.matches.length > 0) {
             json.matches = this.matches.map((value) => value.toJson());
         }
         return json;
     }
 
-    public isValid(): boolean {
-        return true;
-    }
-
-    public getMatches(): Match[] {
+    public getMatches(): Match[] | undefined {
         return this.matches;
     }
     public setMatches(matches: Match[]): void {

@@ -1,35 +1,26 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonRequest from '../JsonRequest';
 
 
+export interface IActivateApplicationSubscriptionRequestOptions {
+    subscriptionToken: string;
+}
+
 export default class ActivateApplicationSubscriptionRequest extends JsonRequest {
     private subscriptionToken: string;
 
-    constructor(
-        subscriptionToken: string = '',
-    ) {
+    constructor(options: IActivateApplicationSubscriptionRequestOptions) {
         super();
-        this.subscriptionToken = subscriptionToken;
+        this.subscriptionToken = options.subscriptionToken;
     }
 
-    public fromJson(json: any): void {
-        if ('subscriptionToken' in json) {
-            this.subscriptionToken = json.subscriptionToken;
-        }
-    }
-
-    public toJson(): any {
-        const json: any = {};
-        if (this.subscriptionToken !== '') {
-            json.subscriptionToken = this.subscriptionToken;
-        }
+    public toJson(): IActivateApplicationSubscriptionRequestOptions {
+        const json: IActivateApplicationSubscriptionRequestOptions = {
+            subscriptionToken: this.subscriptionToken,
+        };
         return json;
-    }
-
-    public isValid(): boolean {
-        return this.subscriptionToken !== '';
     }
 
     public getSubscriptionToken(): string {

@@ -1,36 +1,27 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonMember from '../JsonMember';
 
 import PriceLadderType from '../sport/enum/PriceLadderType';
 
+export interface IPriceLadderDescriptionOptions {
+    type: PriceLadderType | string;
+}
+
 export default class PriceLadderDescription extends JsonMember {
     private type: PriceLadderType;
 
-    constructor(
-        type: PriceLadderType = new PriceLadderType(),
-    ) {
+    constructor(options: IPriceLadderDescriptionOptions) {
         super();
-        this.type = type;
+        this.type = this.fromJson(options.type, PriceLadderType);
     }
 
-    public fromJson(json: any): void {
-        if ('type' in json) {
-            this.type.setValue(json.type);
-        }
-    }
-
-    public toJson(): any {
-        const json: any = {};
-        if (this.type.isValid()) {
-            json.type = this.type.getValue();
-        }
+    public toJson(): IPriceLadderDescriptionOptions {
+        const json: IPriceLadderDescriptionOptions = {
+            type: this.type.getValue(),
+        };
         return json;
-    }
-
-    public isValid(): boolean {
-        return this.type.isValid();
     }
 
     public getType(): PriceLadderType {

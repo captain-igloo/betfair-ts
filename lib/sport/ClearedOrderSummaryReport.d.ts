@@ -1,17 +1,19 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonResponse from '../JsonResponse';
-import ClearedOrderSummary from '../sport/ClearedOrderSummary';
+import ClearedOrderSummary, { IClearedOrderSummaryOptions } from '../sport/ClearedOrderSummary';
+export interface IClearedOrderSummaryReportOptions {
+    clearedOrders?: Array<ClearedOrderSummary | IClearedOrderSummaryOptions>;
+    moreAvailable?: boolean;
+}
 export default class ClearedOrderSummaryReport extends JsonResponse {
-    private clearedOrders;
-    private moreAvailable;
-    constructor(clearedOrders?: ClearedOrderSummary[], moreAvailable?: boolean | null);
-    fromJson(json: any): void;
-    toJson(): any;
-    isValid(): boolean;
-    getClearedOrders(): ClearedOrderSummary[];
+    private clearedOrders?;
+    private moreAvailable?;
+    constructor(options: IClearedOrderSummaryReportOptions);
+    toJson(): IClearedOrderSummaryReportOptions;
+    getClearedOrders(): ClearedOrderSummary[] | undefined;
     setClearedOrders(clearedOrders: ClearedOrderSummary[]): void;
-    getMoreAvailable(): boolean | null;
-    setMoreAvailable(moreAvailable: boolean | null): void;
+    getMoreAvailable(): boolean | undefined;
+    setMoreAvailable(moreAvailable: boolean): void;
 }

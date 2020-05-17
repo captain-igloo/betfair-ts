@@ -1,16 +1,18 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonMember from '../JsonMember';
 import MarketGroupType from '../sport/enum/MarketGroupType';
-import MarketGroupId from '../sport/MarketGroupId';
+import MarketGroupId, { IMarketGroupIdOptions } from '../sport/MarketGroupId';
+export interface IMarketGroupOptions {
+    type: MarketGroupType | string;
+    id: MarketGroupId | IMarketGroupIdOptions;
+}
 export default class MarketGroup extends JsonMember {
     private type;
     private id;
-    constructor(type?: MarketGroupType, id?: MarketGroupId);
-    fromJson(json: any): void;
-    toJson(): any;
-    isValid(): boolean;
+    constructor(options: IMarketGroupOptions);
+    toJson(): IMarketGroupOptions;
     getType(): MarketGroupType;
     setType(type: MarketGroupType): void;
     getId(): MarketGroupId;

@@ -14,7 +14,7 @@ export default class MarketGroupType extends Enum {
     public setValue(value: string): void {
         if (value) {
             if (value !== 'EVENT') {
-                throw new Error(`Invalid MarketStatus: ${value}`);
+                throw new Error(`Invalid MarketGroupType: ${value}`);
             }
 
             this.value = value;

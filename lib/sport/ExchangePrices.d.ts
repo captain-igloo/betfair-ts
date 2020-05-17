@@ -1,20 +1,23 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonMember from '../JsonMember';
-import PriceSize from '../sport/PriceSize';
+import PriceSize, { IPriceSizeOptions } from '../sport/PriceSize';
+export interface IExchangePricesOptions {
+    availableToBack?: Array<PriceSize | IPriceSizeOptions>;
+    availableToLay?: Array<PriceSize | IPriceSizeOptions>;
+    tradedVolume?: Array<PriceSize | IPriceSizeOptions>;
+}
 export default class ExchangePrices extends JsonMember {
-    private availableToBack;
-    private availableToLay;
-    private tradedVolume;
-    constructor(availableToBack?: PriceSize[], availableToLay?: PriceSize[], tradedVolume?: PriceSize[]);
-    fromJson(json: any): void;
-    toJson(): any;
-    isValid(): boolean;
-    getAvailableToBack(): PriceSize[];
+    private availableToBack?;
+    private availableToLay?;
+    private tradedVolume?;
+    constructor(options: IExchangePricesOptions);
+    toJson(): IExchangePricesOptions;
+    getAvailableToBack(): PriceSize[] | undefined;
     setAvailableToBack(availableToBack: PriceSize[]): void;
-    getAvailableToLay(): PriceSize[];
+    getAvailableToLay(): PriceSize[] | undefined;
     setAvailableToLay(availableToLay: PriceSize[]): void;
-    getTradedVolume(): PriceSize[];
+    getTradedVolume(): PriceSize[] | undefined;
     setTradedVolume(tradedVolume: PriceSize[]): void;
 }

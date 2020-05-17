@@ -1,14 +1,15 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonResponse from '../JsonResponse';
-import ExposureLimitsForMarketGroups from '../sport/ExposureLimitsForMarketGroups';
+import ExposureLimitsForMarketGroups, { IExposureLimitsForMarketGroupsOptions } from '../sport/ExposureLimitsForMarketGroups';
+export interface IListExposureLimitsForMarketGroupsResponseOptions {
+    exposureLimitsForMarketGroupses?: Array<ExposureLimitsForMarketGroups | IExposureLimitsForMarketGroupsOptions>;
+}
 export default class ListExposureLimitsForMarketGroupsResponse extends JsonResponse {
-    private exposureLimitsForMarketGroupses;
-    constructor(exposureLimitsForMarketGroupses?: ExposureLimitsForMarketGroups[]);
-    fromJson(json: any): void;
-    toJson(): any;
-    isValid(): boolean;
-    getExposureLimitsForMarketGroupses(): ExposureLimitsForMarketGroups[];
+    private exposureLimitsForMarketGroupses?;
+    constructor(options: Array<ExposureLimitsForMarketGroups | IExposureLimitsForMarketGroupsOptions>);
+    toJson(): IListExposureLimitsForMarketGroupsResponseOptions;
+    getExposureLimitsForMarketGroupses(): ExposureLimitsForMarketGroups[] | undefined;
     setExposureLimitsForMarketGroupses(exposureLimitsForMarketGroupses: ExposureLimitsForMarketGroups[]): void;
 }

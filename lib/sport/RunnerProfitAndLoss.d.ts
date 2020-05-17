@@ -1,22 +1,26 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonMember from '../JsonMember';
+export interface IRunnerProfitAndLossOptions {
+    selectionId?: number;
+    ifWin?: number;
+    ifLose?: number;
+    ifPlace?: number;
+}
 export default class RunnerProfitAndLoss extends JsonMember {
-    private selectionId;
-    private ifWin;
-    private ifLose;
-    private ifPlace;
-    constructor(selectionId?: number | null, ifWin?: number | null, ifLose?: number | null, ifPlace?: number | null);
-    fromJson(json: any): void;
-    toJson(): any;
-    isValid(): boolean;
-    getSelectionId(): number | null;
-    setSelectionId(selectionId: number | null): void;
-    getIfWin(): number | null;
-    setIfWin(ifWin: number | null): void;
-    getIfLose(): number | null;
-    setIfLose(ifLose: number | null): void;
-    getIfPlace(): number | null;
-    setIfPlace(ifPlace: number | null): void;
+    private selectionId?;
+    private ifWin?;
+    private ifLose?;
+    private ifPlace?;
+    constructor(options: IRunnerProfitAndLossOptions);
+    toJson(): IRunnerProfitAndLossOptions;
+    getSelectionId(): number | undefined;
+    setSelectionId(selectionId: number): void;
+    getIfWin(): number | undefined;
+    setIfWin(ifWin: number): void;
+    getIfLose(): number | undefined;
+    setIfLose(ifLose: number): void;
+    getIfPlace(): number | undefined;
+    setIfPlace(ifPlace: number): void;
 }

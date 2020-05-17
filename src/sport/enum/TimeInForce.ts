@@ -14,7 +14,7 @@ export default class TimeInForce extends Enum {
     public setValue(value: string): void {
         if (value) {
             if (value !== 'FILL_OR_KILL') {
-                throw new Error(`Invalid MarketStatus: ${value}`);
+                throw new Error(`Invalid TimeInForce: ${value}`);
             }
 
             this.value = value;

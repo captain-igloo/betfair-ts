@@ -1,56 +1,45 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonResponse from '../JsonResponse';
 
 
+export interface IAuthorisationResponseOptions {
+    authorisationCode?: string;
+    redirectUrl?: string;
+}
+
 export default class AuthorisationResponse extends JsonResponse {
-    private authorisationCode: string;
-    private redirectUrl: string;
+    private authorisationCode?: string;
+    private redirectUrl?: string;
 
-    constructor(
-        authorisationCode: string = '',
-        redirectUrl: string = '',
-    ) {
+    constructor(options: IAuthorisationResponseOptions) {
         super();
-        this.authorisationCode = authorisationCode;
-        this.redirectUrl = redirectUrl;
-    }
-
-    public fromJson(json: any): void {
-        if (this.validateJson(json)) {
-            if ('authorisationCode' in json) {
-                this.authorisationCode = json.authorisationCode;
-            }
-            if ('redirectUrl' in json) {
-                this.redirectUrl = json.redirectUrl;
-            }
+        if (this.validateJson(options)) {
+            this.authorisationCode = options.authorisationCode;
+            this.redirectUrl = options.redirectUrl;
         }
     }
 
-    public toJson(): any {
-        const json: any = {};
-        if (this.authorisationCode !== '') {
+    public toJson(): IAuthorisationResponseOptions {
+        const json: IAuthorisationResponseOptions = {
+        };
+        if (typeof this.authorisationCode !== 'undefined') {
             json.authorisationCode = this.authorisationCode;
         }
-        if (this.redirectUrl !== '') {
+        if (typeof this.redirectUrl !== 'undefined') {
             json.redirectUrl = this.redirectUrl;
         }
         return json;
     }
 
-    public isValid(): boolean {
-        return this.authorisationCode !== '' &&
-            this.redirectUrl !== '';
-    }
-
-    public getAuthorisationCode(): string {
+    public getAuthorisationCode(): string | undefined {
         return this.authorisationCode;
     }
     public setAuthorisationCode(authorisationCode: string): void {
         this.authorisationCode = authorisationCode;
     }
-    public getRedirectUrl(): string {
+    public getRedirectUrl(): string | undefined {
         return this.redirectUrl;
     }
     public setRedirectUrl(redirectUrl: string): void {

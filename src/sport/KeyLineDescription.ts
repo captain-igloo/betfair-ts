@@ -1,40 +1,27 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonMember from '../JsonMember';
 
-import KeyLineSelection from '../sport/KeyLineSelection';
+import KeyLineSelection, { IKeyLineSelectionOptions } from '../sport/KeyLineSelection';
+
+export interface IKeyLineDescriptionOptions {
+    keyLine: Array<KeyLineSelection | IKeyLineSelectionOptions>;
+}
 
 export default class KeyLineDescription extends JsonMember {
     private keyLine: KeyLineSelection[];
 
-    constructor(
-        keyLine: KeyLineSelection[] = [],
-    ) {
+    constructor(options: IKeyLineDescriptionOptions) {
         super();
-        this.keyLine = keyLine;
+        this.keyLine = this.arrayFromJson(options.keyLine, KeyLineSelection);
     }
 
-    public fromJson(json: any): void {
-        if ('keyLine' in json) {
-            this.keyLine = json.keyLine.map((keyLineJson: any) => {
-                const element = new KeyLineSelection();
-                element.fromJson(keyLineJson);
-                return element;
-            });
-        }
-    }
-
-    public toJson(): any {
-        const json: any = {};
-        if (this.keyLine.length > 0) {
-            json.keyLine = this.keyLine.map((value) => value.toJson());
-        }
+    public toJson(): IKeyLineDescriptionOptions {
+        const json: IKeyLineDescriptionOptions = {
+            keyLine: this.keyLine.map((value) => value.toJson()),
+        };
         return json;
-    }
-
-    public isValid(): boolean {
-        return this.keyLine.length > 0;
     }
 
     public getKeyLine(): KeyLineSelection[] {

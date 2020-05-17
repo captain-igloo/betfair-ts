@@ -1,20 +1,23 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonMember from '../JsonMember';
-import Competition from '../sport/Competition';
+import Competition, { ICompetitionOptions } from '../sport/Competition';
+export interface ICompetitionResultOptions {
+    competition?: Competition | ICompetitionOptions;
+    marketCount?: number;
+    competitionRegion?: string;
+}
 export default class CompetitionResult extends JsonMember {
-    private competition;
-    private marketCount;
-    private competitionRegion;
-    constructor(competition?: Competition, marketCount?: number | null, competitionRegion?: string);
-    fromJson(json: any): void;
-    toJson(): any;
-    isValid(): boolean;
-    getCompetition(): Competition;
+    private competition?;
+    private marketCount?;
+    private competitionRegion?;
+    constructor(options: ICompetitionResultOptions);
+    toJson(): ICompetitionResultOptions;
+    getCompetition(): Competition | undefined;
     setCompetition(competition: Competition): void;
-    getMarketCount(): number | null;
-    setMarketCount(marketCount: number | null): void;
-    getCompetitionRegion(): string;
+    getMarketCount(): number | undefined;
+    setMarketCount(marketCount: number): void;
+    getCompetitionRegion(): string | undefined;
     setCompetitionRegion(competitionRegion: string): void;
 }

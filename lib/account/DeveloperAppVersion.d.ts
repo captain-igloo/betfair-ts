@@ -1,40 +1,50 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonMember from '../JsonMember';
+export interface IDeveloperAppVersionOptions {
+    owner: string;
+    versionId: number;
+    version: string;
+    applicationKey: string;
+    delayData?: boolean;
+    subscriptionRequired: boolean;
+    ownerManaged: boolean;
+    active: boolean;
+    vendorId?: string;
+    vendorSecret?: string;
+}
 export default class DeveloperAppVersion extends JsonMember {
     private owner;
     private versionId;
     private version;
     private applicationKey;
-    private delayData;
+    private delayData?;
     private subscriptionRequired;
     private ownerManaged;
     private active;
-    private vendorId;
-    private vendorSecret;
-    constructor(owner?: string, versionId?: number | null, version?: string, applicationKey?: string, delayData?: boolean | null, subscriptionRequired?: boolean | null, ownerManaged?: boolean | null, active?: boolean | null, vendorId?: string, vendorSecret?: string);
-    fromJson(json: any): void;
-    toJson(): any;
-    isValid(): boolean;
+    private vendorId?;
+    private vendorSecret?;
+    constructor(options: IDeveloperAppVersionOptions);
+    toJson(): IDeveloperAppVersionOptions;
     getOwner(): string;
     setOwner(owner: string): void;
-    getVersionId(): number | null;
-    setVersionId(versionId: number | null): void;
+    getVersionId(): number;
+    setVersionId(versionId: number): void;
     getVersion(): string;
     setVersion(version: string): void;
     getApplicationKey(): string;
     setApplicationKey(applicationKey: string): void;
-    getDelayData(): boolean | null;
-    setDelayData(delayData: boolean | null): void;
-    getSubscriptionRequired(): boolean | null;
-    setSubscriptionRequired(subscriptionRequired: boolean | null): void;
-    getOwnerManaged(): boolean | null;
-    setOwnerManaged(ownerManaged: boolean | null): void;
-    getActive(): boolean | null;
-    setActive(active: boolean | null): void;
-    getVendorId(): string;
+    getDelayData(): boolean | undefined;
+    setDelayData(delayData: boolean): void;
+    getSubscriptionRequired(): boolean;
+    setSubscriptionRequired(subscriptionRequired: boolean): void;
+    getOwnerManaged(): boolean;
+    setOwnerManaged(ownerManaged: boolean): void;
+    getActive(): boolean;
+    setActive(active: boolean): void;
+    getVendorId(): string | undefined;
     setVendorId(vendorId: string): void;
-    getVendorSecret(): string;
+    getVendorSecret(): string | undefined;
     setVendorSecret(vendorSecret: string): void;
 }

@@ -1,43 +1,31 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonResponse from '../JsonResponse';
 
-import MarketBook from '../sport/MarketBook';
+import MarketBook, { IMarketBookOptions } from '../sport/MarketBook';
+
+export interface IListMarketBookResponseOptions {
+    marketBooks?: Array<MarketBook | IMarketBookOptions>;
+}
 
 export default class ListMarketBookResponse extends JsonResponse {
-    private marketBooks: MarketBook[];
+    private marketBooks?: MarketBook[];
 
-    constructor(
-        marketBooks: MarketBook[] = [],
-    ) {
+    constructor(options: Array<MarketBook | IMarketBookOptions>) {
         super();
-        this.marketBooks = marketBooks;
-    }
-
-    public fromJson(json: any): void {
-        if (this.validateJson(json)) {
-            this.marketBooks = json.map((marketBooksJson: any) => {
-                const element = new MarketBook();
-                element.fromJson(marketBooksJson);
-                return element;
-            });
+        if (this.validateJson(options)) {
+            if (options) {
+                this.marketBooks = this.arrayFromJson(options, MarketBook);
+            }
         }
     }
 
-    public toJson(): any {
-        let json: any = {};
-        if (this.marketBooks.length > 0) {
-            json.marketBooks = this.marketBooks.map((value) => value.toJson());
-        }
-        return json;
+    public toJson(): IListMarketBookResponseOptions {
+        throw new Error('not implemented');
     }
 
-    public isValid(): boolean {
-        return this.marketBooks.length > 0;
-    }
-
-    public getMarketBooks(): MarketBook[] {
+    public getMarketBooks(): MarketBook[] | undefined {
         return this.marketBooks;
     }
     public setMarketBooks(marketBooks: MarketBook[]): void {

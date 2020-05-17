@@ -1,26 +1,31 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonMember from '../JsonMember';
-import PriceSize from '../sport/PriceSize';
+import PriceSize, { IPriceSizeOptions } from '../sport/PriceSize';
+export interface IStartingPricesOptions {
+    nearPrice?: number;
+    farPrice?: number;
+    backStakeTaken?: Array<PriceSize | IPriceSizeOptions>;
+    layLiabilityTaken?: Array<PriceSize | IPriceSizeOptions>;
+    actualSP?: number;
+}
 export default class StartingPrices extends JsonMember {
-    private nearPrice;
-    private farPrice;
-    private backStakeTaken;
-    private layLiabilityTaken;
-    private actualSP;
-    constructor(nearPrice?: number | null, farPrice?: number | null, backStakeTaken?: PriceSize[], layLiabilityTaken?: PriceSize[], actualSP?: number | null);
-    fromJson(json: any): void;
-    toJson(): any;
-    isValid(): boolean;
-    getNearPrice(): number | null;
-    setNearPrice(nearPrice: number | null): void;
-    getFarPrice(): number | null;
-    setFarPrice(farPrice: number | null): void;
-    getBackStakeTaken(): PriceSize[];
+    private nearPrice?;
+    private farPrice?;
+    private backStakeTaken?;
+    private layLiabilityTaken?;
+    private actualSP?;
+    constructor(options: IStartingPricesOptions);
+    toJson(): IStartingPricesOptions;
+    getNearPrice(): number | undefined;
+    setNearPrice(nearPrice: number): void;
+    getFarPrice(): number | undefined;
+    setFarPrice(farPrice: number): void;
+    getBackStakeTaken(): PriceSize[] | undefined;
     setBackStakeTaken(backStakeTaken: PriceSize[]): void;
-    getLayLiabilityTaken(): PriceSize[];
+    getLayLiabilityTaken(): PriceSize[] | undefined;
     setLayLiabilityTaken(layLiabilityTaken: PriceSize[]): void;
-    getActualSP(): number | null;
-    setActualSP(actualSP: number | null): void;
+    getActualSP(): number | undefined;
+    setActualSP(actualSP: number): void;
 }

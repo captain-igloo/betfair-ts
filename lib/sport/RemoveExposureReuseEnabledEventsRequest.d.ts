@@ -1,13 +1,14 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonRequest from '../JsonRequest';
+export interface IRemoveExposureReuseEnabledEventsRequestOptions {
+    eventIds: Array<number>;
+}
 export default class RemoveExposureReuseEnabledEventsRequest extends JsonRequest {
     private eventIds;
-    constructor(eventIds?: number[]);
-    fromJson(json: any): void;
-    toJson(): any;
-    isValid(): boolean;
+    constructor(options: IRemoveExposureReuseEnabledEventsRequestOptions);
+    toJson(): IRemoveExposureReuseEnabledEventsRequestOptions;
     getEventIds(): number[];
     setEventIds(eventIds: number[]): void;
 }

@@ -1,43 +1,31 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonResponse from '../JsonResponse';
 
-import TimeRangeResult from '../sport/TimeRangeResult';
+import TimeRangeResult, { ITimeRangeResultOptions } from '../sport/TimeRangeResult';
+
+export interface IListTimeRangesResponseOptions {
+    timeRangeResults?: Array<TimeRangeResult | ITimeRangeResultOptions>;
+}
 
 export default class ListTimeRangesResponse extends JsonResponse {
-    private timeRangeResults: TimeRangeResult[];
+    private timeRangeResults?: TimeRangeResult[];
 
-    constructor(
-        timeRangeResults: TimeRangeResult[] = [],
-    ) {
+    constructor(options: Array<TimeRangeResult | ITimeRangeResultOptions>) {
         super();
-        this.timeRangeResults = timeRangeResults;
-    }
-
-    public fromJson(json: any): void {
-        if (this.validateJson(json)) {
-            this.timeRangeResults = json.map((timeRangeResultsJson: any) => {
-                const element = new TimeRangeResult();
-                element.fromJson(timeRangeResultsJson);
-                return element;
-            });
+        if (this.validateJson(options)) {
+            if (options) {
+                this.timeRangeResults = this.arrayFromJson(options, TimeRangeResult);
+            }
         }
     }
 
-    public toJson(): any {
-        let json: any = {};
-        if (this.timeRangeResults.length > 0) {
-            json.timeRangeResults = this.timeRangeResults.map((value) => value.toJson());
-        }
-        return json;
+    public toJson(): IListTimeRangesResponseOptions {
+        throw new Error('not implemented');
     }
 
-    public isValid(): boolean {
-        return this.timeRangeResults.length > 0;
-    }
-
-    public getTimeRangeResults(): TimeRangeResult[] {
+    public getTimeRangeResults(): TimeRangeResult[] | undefined {
         return this.timeRangeResults;
     }
     public setTimeRangeResults(timeRangeResults: TimeRangeResult[]): void {

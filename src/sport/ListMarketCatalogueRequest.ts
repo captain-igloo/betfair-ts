@@ -1,78 +1,53 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonRequest from '../JsonRequest';
 
 import MarketProjection from '../sport/enum/MarketProjection';
 import MarketSort from '../sport/enum/MarketSort';
-import MarketFilter from '../sport/MarketFilter';
+import MarketFilter, { IMarketFilterOptions } from '../sport/MarketFilter';
+
+export interface IListMarketCatalogueRequestOptions {
+    filter: MarketFilter | IMarketFilterOptions;
+    marketProjection?: Set<MarketProjection> | string[];
+    sort?: MarketSort | string;
+    maxResults: number;
+    locale?: string;
+}
 
 export default class ListMarketCatalogueRequest extends JsonRequest {
     private filter: MarketFilter;
-    private marketProjection: Set<MarketProjection>;
-    private sort: MarketSort;
-    private maxResults: number | null;
-    private locale: string;
+    private marketProjection?: Set<MarketProjection>;
+    private sort?: MarketSort;
+    private maxResults: number;
+    private locale?: string;
 
-    constructor(
-        filter: MarketFilter = new MarketFilter(),
-        marketProjection: Set<MarketProjection> = new Set(),
-        sort: MarketSort = new MarketSort(),
-        maxResults: number | null = null,
-        locale: string = '',
-    ) {
+    constructor(options: IListMarketCatalogueRequestOptions) {
         super();
-        this.filter = filter;
-        this.marketProjection = marketProjection;
-        this.sort = sort;
-        this.maxResults = maxResults;
-        this.locale = locale;
+        this.filter = this.fromJson(options.filter, MarketFilter);
+        this.marketProjection = options.marketProjection && this.setFromJson(options.marketProjection, MarketProjection);
+        if (options.sort) {
+            this.sort = this.fromJson(options.sort, MarketSort);
+        }
+        this.maxResults = options.maxResults;
+        this.locale = options.locale;
     }
 
-    public fromJson(json: any): void {
-        if ('filter' in json) {
-            this.filter.fromJson(json.filter);
+    public toJson(): IListMarketCatalogueRequestOptions {
+        const json: IListMarketCatalogueRequestOptions = {
+            filter: this.filter.toJson(),
+            maxResults: this.maxResults,
+        };
+        if (this.marketProjection && this.marketProjection.size > 0) {
+            json.marketProjection = this.setToJson(this.marketProjection);
         }
-        if ('marketProjection' in json) {
-            this.marketProjection = json.marketProjection;
-        }
-        if ('sort' in json) {
-            this.sort.setValue(json.sort);
-        }
-        if ('maxResults' in json) {
-            this.maxResults = json.maxResults;
-        }
-        if ('locale' in json) {
-            this.locale = json.locale;
-        }
-    }
-
-    public toJson(): any {
-        const json: any = {};
-        if (this.filter.isValid()) {
-            json.filter = this.filter.toJson();
-        }
-        if (this.marketProjection.size > 0) {
-            json.marketProjection = [];
-            this.marketProjection.forEach((element) => {
-                json.marketProjection.push(element.getValue());
-            });
-        }
-        if (this.sort.isValid()) {
+        if (this.sort) {
             json.sort = this.sort.getValue();
         }
-        if (this.maxResults !== null) {
-            json.maxResults = this.maxResults;
-        }
-        if (this.locale !== '') {
+        if (typeof this.locale !== 'undefined') {
             json.locale = this.locale;
         }
         return json;
-    }
-
-    public isValid(): boolean {
-        return this.filter.isValid() &&
-            this.maxResults !== null;
     }
 
     public getFilter(): MarketFilter {
@@ -81,25 +56,25 @@ export default class ListMarketCatalogueRequest extends JsonRequest {
     public setFilter(filter: MarketFilter): void {
         this.filter = filter;
     }
-    public getMarketProjection(): Set<MarketProjection> {
+    public getMarketProjection(): Set<MarketProjection> | undefined {
         return this.marketProjection;
     }
     public setMarketProjection(marketProjection: Set<MarketProjection>): void {
         this.marketProjection = marketProjection;
     }
-    public getSort(): MarketSort {
+    public getSort(): MarketSort | undefined {
         return this.sort;
     }
     public setSort(sort: MarketSort): void {
         this.sort = sort;
     }
-    public getMaxResults(): number | null {
+    public getMaxResults(): number {
         return this.maxResults;
     }
-    public setMaxResults(maxResults: number | null): void {
+    public setMaxResults(maxResults: number): void {
         this.maxResults = maxResults;
     }
-    public getLocale(): string {
+    public getLocale(): string | undefined {
         return this.locale;
     }
     public setLocale(locale: string): void {

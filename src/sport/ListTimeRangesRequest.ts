@@ -1,47 +1,32 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonRequest from '../JsonRequest';
 
 import TimeGranularity from '../sport/enum/TimeGranularity';
-import MarketFilter from '../sport/MarketFilter';
+import MarketFilter, { IMarketFilterOptions } from '../sport/MarketFilter';
+
+export interface IListTimeRangesRequestOptions {
+    filter: MarketFilter | IMarketFilterOptions;
+    granularity: TimeGranularity | string;
+}
 
 export default class ListTimeRangesRequest extends JsonRequest {
     private filter: MarketFilter;
     private granularity: TimeGranularity;
 
-    constructor(
-        filter: MarketFilter = new MarketFilter(),
-        granularity: TimeGranularity = new TimeGranularity(),
-    ) {
+    constructor(options: IListTimeRangesRequestOptions) {
         super();
-        this.filter = filter;
-        this.granularity = granularity;
+        this.filter = this.fromJson(options.filter, MarketFilter);
+        this.granularity = this.fromJson(options.granularity, TimeGranularity);
     }
 
-    public fromJson(json: any): void {
-        if ('filter' in json) {
-            this.filter.fromJson(json.filter);
-        }
-        if ('granularity' in json) {
-            this.granularity.setValue(json.granularity);
-        }
-    }
-
-    public toJson(): any {
-        const json: any = {};
-        if (this.filter.isValid()) {
-            json.filter = this.filter.toJson();
-        }
-        if (this.granularity.isValid()) {
-            json.granularity = this.granularity.getValue();
-        }
+    public toJson(): IListTimeRangesRequestOptions {
+        const json: IListTimeRangesRequestOptions = {
+            filter: this.filter.toJson(),
+            granularity: this.granularity.getValue(),
+        };
         return json;
-    }
-
-    public isValid(): boolean {
-        return this.filter.isValid() &&
-            this.granularity.isValid();
     }
 
     public getFilter(): MarketFilter {

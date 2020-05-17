@@ -1,20 +1,23 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonMember from '../JsonMember';
-import LimitBreachAction from '../sport/LimitBreachAction';
+import LimitBreachAction, { ILimitBreachActionOptions } from '../sport/LimitBreachAction';
+export interface IExposureLimitOptions {
+    matched?: number;
+    total?: number;
+    limitBreachAction?: LimitBreachAction | ILimitBreachActionOptions;
+}
 export default class ExposureLimit extends JsonMember {
-    private matched;
-    private total;
-    private limitBreachAction;
-    constructor(matched?: number | null, total?: number | null, limitBreachAction?: LimitBreachAction);
-    fromJson(json: any): void;
-    toJson(): any;
-    isValid(): boolean;
-    getMatched(): number | null;
-    setMatched(matched: number | null): void;
-    getTotal(): number | null;
-    setTotal(total: number | null): void;
-    getLimitBreachAction(): LimitBreachAction;
+    private matched?;
+    private total?;
+    private limitBreachAction?;
+    constructor(options: IExposureLimitOptions);
+    toJson(): IExposureLimitOptions;
+    getMatched(): number | undefined;
+    setMatched(matched: number): void;
+    getTotal(): number | undefined;
+    setTotal(total: number): void;
+    getLimitBreachAction(): LimitBreachAction | undefined;
     setLimitBreachAction(limitBreachAction: LimitBreachAction): void;
 }

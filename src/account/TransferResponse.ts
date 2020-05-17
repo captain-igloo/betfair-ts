@@ -1,40 +1,33 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonResponse from '../JsonResponse';
 
 
+export interface ITransferResponseOptions {
+    transactionId?: string;
+}
+
 export default class TransferResponse extends JsonResponse {
-    private transactionId: string;
+    private transactionId?: string;
 
-    constructor(
-        transactionId: string = '',
-    ) {
+    constructor(options: ITransferResponseOptions) {
         super();
-        this.transactionId = transactionId;
-    }
-
-    public fromJson(json: any): void {
-        if (this.validateJson(json)) {
-            if ('transactionId' in json) {
-                this.transactionId = json.transactionId;
-            }
+        if (this.validateJson(options)) {
+            this.transactionId = options.transactionId;
         }
     }
 
-    public toJson(): any {
-        const json: any = {};
-        if (this.transactionId !== '') {
+    public toJson(): ITransferResponseOptions {
+        const json: ITransferResponseOptions = {
+        };
+        if (typeof this.transactionId !== 'undefined') {
             json.transactionId = this.transactionId;
         }
         return json;
     }
 
-    public isValid(): boolean {
-        return this.transactionId !== '';
-    }
-
-    public getTransactionId(): string {
+    public getTransactionId(): string | undefined {
         return this.transactionId;
     }
     public setTransactionId(transactionId: string): void {

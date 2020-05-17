@@ -1,43 +1,31 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonResponse from '../JsonResponse';
 
-import SubscriptionHistory from '../account/SubscriptionHistory';
+import SubscriptionHistory, { ISubscriptionHistoryOptions } from '../account/SubscriptionHistory';
+
+export interface IGetApplicationSubscriptionHistoryResponseOptions {
+    subscriptionHistorys?: Array<SubscriptionHistory | ISubscriptionHistoryOptions>;
+}
 
 export default class GetApplicationSubscriptionHistoryResponse extends JsonResponse {
-    private subscriptionHistorys: SubscriptionHistory[];
+    private subscriptionHistorys?: SubscriptionHistory[];
 
-    constructor(
-        subscriptionHistorys: SubscriptionHistory[] = [],
-    ) {
+    constructor(options: Array<SubscriptionHistory | ISubscriptionHistoryOptions>) {
         super();
-        this.subscriptionHistorys = subscriptionHistorys;
-    }
-
-    public fromJson(json: any): void {
-        if (this.validateJson(json)) {
-            this.subscriptionHistorys = json.map((subscriptionHistorysJson: any) => {
-                const element = new SubscriptionHistory();
-                element.fromJson(subscriptionHistorysJson);
-                return element;
-            });
+        if (this.validateJson(options)) {
+            if (options) {
+                this.subscriptionHistorys = this.arrayFromJson(options, SubscriptionHistory);
+            }
         }
     }
 
-    public toJson(): any {
-        let json: any = {};
-        if (this.subscriptionHistorys.length > 0) {
-            json.subscriptionHistorys = this.subscriptionHistorys.map((value) => value.toJson());
-        }
-        return json;
+    public toJson(): IGetApplicationSubscriptionHistoryResponseOptions {
+        throw new Error('not implemented');
     }
 
-    public isValid(): boolean {
-        return this.subscriptionHistorys.length > 0;
-    }
-
-    public getSubscriptionHistorys(): SubscriptionHistory[] {
+    public getSubscriptionHistorys(): SubscriptionHistory[] | undefined {
         return this.subscriptionHistorys;
     }
     public setSubscriptionHistorys(subscriptionHistorys: SubscriptionHistory[]): void {

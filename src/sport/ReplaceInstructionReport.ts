@@ -1,66 +1,50 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonMember from '../JsonMember';
 
-import CancelInstructionReport from '../sport/CancelInstructionReport';
+import CancelInstructionReport, { ICancelInstructionReportOptions } from '../sport/CancelInstructionReport';
 import InstructionReportErrorCode from '../sport/enum/InstructionReportErrorCode';
 import InstructionReportStatus from '../sport/enum/InstructionReportStatus';
-import PlaceInstructionReport from '../sport/PlaceInstructionReport';
+import PlaceInstructionReport, { IPlaceInstructionReportOptions } from '../sport/PlaceInstructionReport';
+
+export interface IReplaceInstructionReportOptions {
+    status: InstructionReportStatus | string;
+    errorCode?: InstructionReportErrorCode | string;
+    cancelInstructionReport?: CancelInstructionReport | ICancelInstructionReportOptions;
+    placeInstructionReport?: PlaceInstructionReport | IPlaceInstructionReportOptions;
+}
 
 export default class ReplaceInstructionReport extends JsonMember {
     private status: InstructionReportStatus;
-    private errorCode: InstructionReportErrorCode;
-    private cancelInstructionReport: CancelInstructionReport;
-    private placeInstructionReport: PlaceInstructionReport;
+    private errorCode?: InstructionReportErrorCode;
+    private cancelInstructionReport?: CancelInstructionReport;
+    private placeInstructionReport?: PlaceInstructionReport;
 
-    constructor(
-        status: InstructionReportStatus = new InstructionReportStatus(),
-        errorCode: InstructionReportErrorCode = new InstructionReportErrorCode(),
-        cancelInstructionReport: CancelInstructionReport = new CancelInstructionReport(),
-        placeInstructionReport: PlaceInstructionReport = new PlaceInstructionReport(),
-    ) {
+    constructor(options: IReplaceInstructionReportOptions) {
         super();
-        this.status = status;
-        this.errorCode = errorCode;
-        this.cancelInstructionReport = cancelInstructionReport;
-        this.placeInstructionReport = placeInstructionReport;
+        this.status = this.fromJson(options.status, InstructionReportStatus);
+        if (options.errorCode) {
+            this.errorCode = this.fromJson(options.errorCode, InstructionReportErrorCode);
+        }
+        this.cancelInstructionReport = options.cancelInstructionReport && this.fromJson(options.cancelInstructionReport, CancelInstructionReport);
+        this.placeInstructionReport = options.placeInstructionReport && this.fromJson(options.placeInstructionReport, PlaceInstructionReport);
     }
 
-    public fromJson(json: any): void {
-        if ('status' in json) {
-            this.status.setValue(json.status);
-        }
-        if ('errorCode' in json) {
-            this.errorCode.setValue(json.errorCode);
-        }
-        if ('cancelInstructionReport' in json) {
-            this.cancelInstructionReport.fromJson(json.cancelInstructionReport);
-        }
-        if ('placeInstructionReport' in json) {
-            this.placeInstructionReport.fromJson(json.placeInstructionReport);
-        }
-    }
-
-    public toJson(): any {
-        const json: any = {};
-        if (this.status.isValid()) {
-            json.status = this.status.getValue();
-        }
-        if (this.errorCode.isValid()) {
+    public toJson(): IReplaceInstructionReportOptions {
+        const json: IReplaceInstructionReportOptions = {
+            status: this.status.getValue(),
+        };
+        if (this.errorCode) {
             json.errorCode = this.errorCode.getValue();
         }
-        if (this.cancelInstructionReport.isValid()) {
+        if (this.cancelInstructionReport) {
             json.cancelInstructionReport = this.cancelInstructionReport.toJson();
         }
-        if (this.placeInstructionReport.isValid()) {
+        if (this.placeInstructionReport) {
             json.placeInstructionReport = this.placeInstructionReport.toJson();
         }
         return json;
-    }
-
-    public isValid(): boolean {
-        return this.status.isValid();
     }
 
     public getStatus(): InstructionReportStatus {
@@ -69,19 +53,19 @@ export default class ReplaceInstructionReport extends JsonMember {
     public setStatus(status: InstructionReportStatus): void {
         this.status = status;
     }
-    public getErrorCode(): InstructionReportErrorCode {
+    public getErrorCode(): InstructionReportErrorCode | undefined {
         return this.errorCode;
     }
     public setErrorCode(errorCode: InstructionReportErrorCode): void {
         this.errorCode = errorCode;
     }
-    public getCancelInstructionReport(): CancelInstructionReport {
+    public getCancelInstructionReport(): CancelInstructionReport | undefined {
         return this.cancelInstructionReport;
     }
     public setCancelInstructionReport(cancelInstructionReport: CancelInstructionReport): void {
         this.cancelInstructionReport = cancelInstructionReport;
     }
-    public getPlaceInstructionReport(): PlaceInstructionReport {
+    public getPlaceInstructionReport(): PlaceInstructionReport | undefined {
         return this.placeInstructionReport;
     }
     public setPlaceInstructionReport(placeInstructionReport: PlaceInstructionReport): void {

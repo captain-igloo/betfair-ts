@@ -1,74 +1,47 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonRequest from '../JsonRequest';
 
 import GrantType from '../account/enum/GrantType';
 
+export interface ITokenRequestOptions {
+    client_id: string;
+    grant_type: GrantType | string;
+    code?: string;
+    client_secret: string;
+    refresh_token?: string;
+}
+
 export default class TokenRequest extends JsonRequest {
     private clientId: string;
     private grantType: GrantType;
-    private code: string;
+    private code?: string;
     private clientSecret: string;
-    private refreshToken: string;
+    private refreshToken?: string;
 
-    constructor(
-        clientId: string = '',
-        grantType: GrantType = new GrantType(),
-        code: string = '',
-        clientSecret: string = '',
-        refreshToken: string = '',
-    ) {
+    constructor(options: ITokenRequestOptions) {
         super();
-        this.clientId = clientId;
-        this.grantType = grantType;
-        this.code = code;
-        this.clientSecret = clientSecret;
-        this.refreshToken = refreshToken;
+        this.clientId = options.client_id;
+        this.grantType = this.fromJson(options.grant_type, GrantType);
+        this.code = options.code;
+        this.clientSecret = options.client_secret;
+        this.refreshToken = options.refresh_token;
     }
 
-    public fromJson(json: any): void {
-        if ('client_id' in json) {
-            this.clientId = json.client_id;
-        }
-        if ('grant_type' in json) {
-            this.grantType.setValue(json.grant_type);
-        }
-        if ('code' in json) {
-            this.code = json.code;
-        }
-        if ('client_secret' in json) {
-            this.clientSecret = json.client_secret;
-        }
-        if ('refresh_token' in json) {
-            this.refreshToken = json.refresh_token;
-        }
-    }
-
-    public toJson(): any {
-        const json: any = {};
-        if (this.clientId !== '') {
-            json.client_id = this.clientId;
-        }
-        if (this.grantType.isValid()) {
-            json.grant_type = this.grantType.getValue();
-        }
-        if (this.code !== '') {
+    public toJson(): ITokenRequestOptions {
+        const json: ITokenRequestOptions = {
+            client_id: this.clientId,
+            grant_type: this.grantType.getValue(),
+            client_secret: this.clientSecret,
+        };
+        if (typeof this.code !== 'undefined') {
             json.code = this.code;
         }
-        if (this.clientSecret !== '') {
-            json.client_secret = this.clientSecret;
-        }
-        if (this.refreshToken !== '') {
+        if (typeof this.refreshToken !== 'undefined') {
             json.refresh_token = this.refreshToken;
         }
         return json;
-    }
-
-    public isValid(): boolean {
-        return this.clientId !== '' &&
-            this.grantType.isValid() &&
-            this.clientSecret !== '';
     }
 
     public getClientId(): string {
@@ -83,7 +56,7 @@ export default class TokenRequest extends JsonRequest {
     public setGrantType(grantType: GrantType): void {
         this.grantType = grantType;
     }
-    public getCode(): string {
+    public getCode(): string | undefined {
         return this.code;
     }
     public setCode(code: string): void {
@@ -95,7 +68,7 @@ export default class TokenRequest extends JsonRequest {
     public setClientSecret(clientSecret: string): void {
         this.clientSecret = clientSecret;
     }
-    public getRefreshToken(): string {
+    public getRefreshToken(): string | undefined {
         return this.refreshToken;
     }
     public setRefreshToken(refreshToken: string): void {

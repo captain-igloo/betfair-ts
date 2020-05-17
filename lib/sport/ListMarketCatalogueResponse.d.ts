@@ -1,14 +1,15 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonResponse from '../JsonResponse';
-import MarketCatalogue from '../sport/MarketCatalogue';
+import MarketCatalogue, { IMarketCatalogueOptions } from '../sport/MarketCatalogue';
+export interface IListMarketCatalogueResponseOptions {
+    marketCatalogues?: Array<MarketCatalogue | IMarketCatalogueOptions>;
+}
 export default class ListMarketCatalogueResponse extends JsonResponse {
-    private marketCatalogues;
-    constructor(marketCatalogues?: MarketCatalogue[]);
-    fromJson(json: any): void;
-    toJson(): any;
-    isValid(): boolean;
-    getMarketCatalogues(): MarketCatalogue[];
+    private marketCatalogues?;
+    constructor(options: Array<MarketCatalogue | IMarketCatalogueOptions>);
+    toJson(): IListMarketCatalogueResponseOptions;
+    getMarketCatalogues(): MarketCatalogue[] | undefined;
     setMarketCatalogues(marketCatalogues: MarketCatalogue[]): void;
 }

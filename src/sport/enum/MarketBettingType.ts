@@ -24,7 +24,7 @@ export default class MarketBettingType extends Enum {
                 value !== 'ASIAN_HANDICAP_DOUBLE_LINE' &&
                 value !== 'ASIAN_HANDICAP_SINGLE_LINE' &&
                 value !== 'FIXED_ODDS') {
-                throw new Error(`Invalid MarketStatus: ${value}`);
+                throw new Error(`Invalid MarketBettingType: ${value}`);
             }
 
             this.value = value;

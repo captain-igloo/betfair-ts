@@ -1,103 +1,76 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonMember from '../JsonMember';
 
 import InstructionReportErrorCode from '../sport/enum/InstructionReportErrorCode';
 import InstructionReportStatus from '../sport/enum/InstructionReportStatus';
 import OrderStatus from '../sport/enum/OrderStatus';
-import PlaceInstruction from '../sport/PlaceInstruction';
+import PlaceInstruction, { IPlaceInstructionOptions } from '../sport/PlaceInstruction';
+
+export interface IPlaceInstructionReportOptions {
+    status: InstructionReportStatus | string;
+    errorCode?: InstructionReportErrorCode | string;
+    orderStatus?: OrderStatus | string;
+    instruction: PlaceInstruction | IPlaceInstructionOptions;
+    betId?: string;
+    placedDate?: Date | string;
+    averagePriceMatched?: number;
+    sizeMatched?: number;
+}
 
 export default class PlaceInstructionReport extends JsonMember {
     private status: InstructionReportStatus;
-    private errorCode: InstructionReportErrorCode;
-    private orderStatus: OrderStatus;
+    private errorCode?: InstructionReportErrorCode;
+    private orderStatus?: OrderStatus;
     private instruction: PlaceInstruction;
-    private betId: string;
-    private placedDate: Date | null;
-    private averagePriceMatched: number | null;
-    private sizeMatched: number | null;
+    private betId?: string;
+    private placedDate?: Date;
+    private averagePriceMatched?: number;
+    private sizeMatched?: number;
 
-    constructor(
-        status: InstructionReportStatus = new InstructionReportStatus(),
-        errorCode: InstructionReportErrorCode = new InstructionReportErrorCode(),
-        orderStatus: OrderStatus = new OrderStatus(),
-        instruction: PlaceInstruction = new PlaceInstruction(),
-        betId: string = '',
-        placedDate: Date | null = null,
-        averagePriceMatched: number | null = null,
-        sizeMatched: number | null = null,
-    ) {
+    constructor(options: IPlaceInstructionReportOptions) {
         super();
-        this.status = status;
-        this.errorCode = errorCode;
-        this.orderStatus = orderStatus;
-        this.instruction = instruction;
-        this.betId = betId;
-        this.placedDate = placedDate;
-        this.averagePriceMatched = averagePriceMatched;
-        this.sizeMatched = sizeMatched;
+        this.status = this.fromJson(options.status, InstructionReportStatus);
+        if (options.errorCode) {
+            this.errorCode = this.fromJson(options.errorCode, InstructionReportErrorCode);
+        }
+        if (options.orderStatus) {
+            this.orderStatus = this.fromJson(options.orderStatus, OrderStatus);
+        }
+        this.instruction = this.fromJson(options.instruction, PlaceInstruction);
+        this.betId = options.betId;
+        if (options.placedDate) {
+            this.placedDate = this.fromJson(options.placedDate, Date);
+        }
+        this.averagePriceMatched = options.averagePriceMatched;
+        this.sizeMatched = options.sizeMatched;
     }
 
-    public fromJson(json: any): void {
-        if ('status' in json) {
-            this.status.setValue(json.status);
-        }
-        if ('errorCode' in json) {
-            this.errorCode.setValue(json.errorCode);
-        }
-        if ('orderStatus' in json) {
-            this.orderStatus.setValue(json.orderStatus);
-        }
-        if ('instruction' in json) {
-            this.instruction.fromJson(json.instruction);
-        }
-        if ('betId' in json) {
-            this.betId = json.betId;
-        }
-        if ('placedDate' in json) {
-            this.placedDate = new Date(json.placedDate);
-        }
-        if ('averagePriceMatched' in json) {
-            this.averagePriceMatched = json.averagePriceMatched;
-        }
-        if ('sizeMatched' in json) {
-            this.sizeMatched = json.sizeMatched;
-        }
-    }
-
-    public toJson(): any {
-        const json: any = {};
-        if (this.status.isValid()) {
-            json.status = this.status.getValue();
-        }
-        if (this.errorCode.isValid()) {
+    public toJson(): IPlaceInstructionReportOptions {
+        const json: IPlaceInstructionReportOptions = {
+            status: this.status.getValue(),
+            instruction: this.instruction.toJson(),
+        };
+        if (this.errorCode) {
             json.errorCode = this.errorCode.getValue();
         }
-        if (this.orderStatus.isValid()) {
+        if (this.orderStatus) {
             json.orderStatus = this.orderStatus.getValue();
         }
-        if (this.instruction.isValid()) {
-            json.instruction = this.instruction.toJson();
-        }
-        if (this.betId !== '') {
+        if (typeof this.betId !== 'undefined') {
             json.betId = this.betId;
         }
-        if (this.placedDate !== null) {
+        if (typeof this.placedDate !== 'undefined') {
             json.placedDate = this.placedDate.toISOString();
         }
-        if (this.averagePriceMatched !== null) {
+        if (typeof this.averagePriceMatched !== 'undefined') {
             json.averagePriceMatched = this.averagePriceMatched;
         }
-        if (this.sizeMatched !== null) {
+        if (typeof this.sizeMatched !== 'undefined') {
             json.sizeMatched = this.sizeMatched;
         }
         return json;
-    }
-
-    public isValid(): boolean {
-        return this.status.isValid() &&
-            this.instruction.isValid();
     }
 
     public getStatus(): InstructionReportStatus {
@@ -106,13 +79,13 @@ export default class PlaceInstructionReport extends JsonMember {
     public setStatus(status: InstructionReportStatus): void {
         this.status = status;
     }
-    public getErrorCode(): InstructionReportErrorCode {
+    public getErrorCode(): InstructionReportErrorCode | undefined {
         return this.errorCode;
     }
     public setErrorCode(errorCode: InstructionReportErrorCode): void {
         this.errorCode = errorCode;
     }
-    public getOrderStatus(): OrderStatus {
+    public getOrderStatus(): OrderStatus | undefined {
         return this.orderStatus;
     }
     public setOrderStatus(orderStatus: OrderStatus): void {
@@ -124,28 +97,28 @@ export default class PlaceInstructionReport extends JsonMember {
     public setInstruction(instruction: PlaceInstruction): void {
         this.instruction = instruction;
     }
-    public getBetId(): string {
+    public getBetId(): string | undefined {
         return this.betId;
     }
     public setBetId(betId: string): void {
         this.betId = betId;
     }
-    public getPlacedDate(): Date | null {
+    public getPlacedDate(): Date | undefined {
         return this.placedDate;
     }
-    public setPlacedDate(placedDate: Date | null): void {
+    public setPlacedDate(placedDate: Date): void {
         this.placedDate = placedDate;
     }
-    public getAveragePriceMatched(): number | null {
+    public getAveragePriceMatched(): number | undefined {
         return this.averagePriceMatched;
     }
-    public setAveragePriceMatched(averagePriceMatched: number | null): void {
+    public setAveragePriceMatched(averagePriceMatched: number): void {
         this.averagePriceMatched = averagePriceMatched;
     }
-    public getSizeMatched(): number | null {
+    public getSizeMatched(): number | undefined {
         return this.sizeMatched;
     }
-    public setSizeMatched(sizeMatched: number | null): void {
+    public setSizeMatched(sizeMatched: number): void {
         this.sizeMatched = sizeMatched;
     }
 

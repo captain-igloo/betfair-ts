@@ -1,106 +1,85 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonResponse from '../JsonResponse';
 
-import ApplicationSubscription from '../account/ApplicationSubscription';
+import ApplicationSubscription, { IApplicationSubscriptionOptions } from '../account/ApplicationSubscription';
 import TokenType from '../account/enum/TokenType';
 
+export interface IVendorAccessTokenInfoOptions {
+    access_token?: string;
+    token_type?: TokenType | string;
+    expires_in?: number;
+    refresh_token?: string;
+    application_subscription?: ApplicationSubscription | IApplicationSubscriptionOptions;
+}
+
 export default class VendorAccessTokenInfo extends JsonResponse {
-    private accessToken: string;
-    private tokenType: TokenType;
-    private expiresIn: number | null;
-    private refreshToken: string;
-    private applicationSubscription: ApplicationSubscription;
+    private accessToken?: string;
+    private tokenType?: TokenType;
+    private expiresIn?: number;
+    private refreshToken?: string;
+    private applicationSubscription?: ApplicationSubscription;
 
-    constructor(
-        accessToken: string = '',
-        tokenType: TokenType = new TokenType(),
-        expiresIn: number | null = null,
-        refreshToken: string = '',
-        applicationSubscription: ApplicationSubscription = new ApplicationSubscription(),
-    ) {
+    constructor(options: IVendorAccessTokenInfoOptions) {
         super();
-        this.accessToken = accessToken;
-        this.tokenType = tokenType;
-        this.expiresIn = expiresIn;
-        this.refreshToken = refreshToken;
-        this.applicationSubscription = applicationSubscription;
-    }
-
-    public fromJson(json: any): void {
-        if (this.validateJson(json)) {
-            if ('access_token' in json) {
-                this.accessToken = json.access_token;
+        if (this.validateJson(options)) {
+            this.accessToken = options.access_token;
+            if (options.token_type) {
+                this.tokenType = this.fromJson(options.token_type, TokenType);
             }
-            if ('token_type' in json) {
-                this.tokenType.setValue(json.token_type);
-            }
-            if ('expires_in' in json) {
-                this.expiresIn = json.expires_in;
-            }
-            if ('refresh_token' in json) {
-                this.refreshToken = json.refresh_token;
-            }
-            if ('application_subscription' in json) {
-                this.applicationSubscription.fromJson(json.application_subscription);
-            }
+            this.expiresIn = options.expires_in;
+            this.refreshToken = options.refresh_token;
+            this.applicationSubscription = options.application_subscription && this.fromJson(options.application_subscription, ApplicationSubscription);
         }
     }
 
-    public toJson(): any {
-        const json: any = {};
-        if (this.accessToken !== '') {
+    public toJson(): IVendorAccessTokenInfoOptions {
+        const json: IVendorAccessTokenInfoOptions = {
+        };
+        if (typeof this.accessToken !== 'undefined') {
             json.access_token = this.accessToken;
         }
-        if (this.tokenType.isValid()) {
+        if (this.tokenType) {
             json.token_type = this.tokenType.getValue();
         }
-        if (this.expiresIn !== null) {
+        if (typeof this.expiresIn !== 'undefined') {
             json.expires_in = this.expiresIn;
         }
-        if (this.refreshToken !== '') {
+        if (typeof this.refreshToken !== 'undefined') {
             json.refresh_token = this.refreshToken;
         }
-        if (this.applicationSubscription.isValid()) {
+        if (this.applicationSubscription) {
             json.application_subscription = this.applicationSubscription.toJson();
         }
         return json;
     }
 
-    public isValid(): boolean {
-        return this.accessToken !== '' &&
-            this.tokenType.isValid() &&
-            this.expiresIn !== null &&
-            this.refreshToken !== '' &&
-            this.applicationSubscription.isValid();
-    }
-
-    public getAccessToken(): string {
+    public getAccessToken(): string | undefined {
         return this.accessToken;
     }
     public setAccessToken(accessToken: string): void {
         this.accessToken = accessToken;
     }
-    public getTokenType(): TokenType {
+    public getTokenType(): TokenType | undefined {
         return this.tokenType;
     }
     public setTokenType(tokenType: TokenType): void {
         this.tokenType = tokenType;
     }
-    public getExpiresIn(): number | null {
+    public getExpiresIn(): number | undefined {
         return this.expiresIn;
     }
-    public setExpiresIn(expiresIn: number | null): void {
+    public setExpiresIn(expiresIn: number): void {
         this.expiresIn = expiresIn;
     }
-    public getRefreshToken(): string {
+    public getRefreshToken(): string | undefined {
         return this.refreshToken;
     }
     public setRefreshToken(refreshToken: string): void {
         this.refreshToken = refreshToken;
     }
-    public getApplicationSubscription(): ApplicationSubscription {
+    public getApplicationSubscription(): ApplicationSubscription | undefined {
         return this.applicationSubscription;
     }
     public setApplicationSubscription(applicationSubscription: ApplicationSubscription): void {

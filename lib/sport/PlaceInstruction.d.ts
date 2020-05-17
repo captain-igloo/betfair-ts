@@ -1,39 +1,47 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonMember from '../JsonMember';
 import OrderType from '../sport/enum/OrderType';
 import Side from '../sport/enum/Side';
-import LimitOnCloseOrder from '../sport/LimitOnCloseOrder';
-import LimitOrder from '../sport/LimitOrder';
-import MarketOnCloseOrder from '../sport/MarketOnCloseOrder';
+import LimitOnCloseOrder, { ILimitOnCloseOrderOptions } from '../sport/LimitOnCloseOrder';
+import LimitOrder, { ILimitOrderOptions } from '../sport/LimitOrder';
+import MarketOnCloseOrder, { IMarketOnCloseOrderOptions } from '../sport/MarketOnCloseOrder';
+export interface IPlaceInstructionOptions {
+    orderType: OrderType | string;
+    selectionId: number;
+    handicap?: number;
+    side: Side | string;
+    limitOrder?: LimitOrder | ILimitOrderOptions;
+    limitOnCloseOrder?: LimitOnCloseOrder | ILimitOnCloseOrderOptions;
+    marketOnCloseOrder?: MarketOnCloseOrder | IMarketOnCloseOrderOptions;
+    customerOrderRef?: string;
+}
 export default class PlaceInstruction extends JsonMember {
     private orderType;
     private selectionId;
-    private handicap;
+    private handicap?;
     private side;
-    private limitOrder;
-    private limitOnCloseOrder;
-    private marketOnCloseOrder;
-    private customerOrderRef;
-    constructor(orderType?: OrderType, selectionId?: number | null, handicap?: number | null, side?: Side, limitOrder?: LimitOrder, limitOnCloseOrder?: LimitOnCloseOrder, marketOnCloseOrder?: MarketOnCloseOrder, customerOrderRef?: string);
-    fromJson(json: any): void;
-    toJson(): any;
-    isValid(): boolean;
+    private limitOrder?;
+    private limitOnCloseOrder?;
+    private marketOnCloseOrder?;
+    private customerOrderRef?;
+    constructor(options: IPlaceInstructionOptions);
+    toJson(): IPlaceInstructionOptions;
     getOrderType(): OrderType;
     setOrderType(orderType: OrderType): void;
-    getSelectionId(): number | null;
-    setSelectionId(selectionId: number | null): void;
-    getHandicap(): number | null;
-    setHandicap(handicap: number | null): void;
+    getSelectionId(): number;
+    setSelectionId(selectionId: number): void;
+    getHandicap(): number | undefined;
+    setHandicap(handicap: number): void;
     getSide(): Side;
     setSide(side: Side): void;
-    getLimitOrder(): LimitOrder;
+    getLimitOrder(): LimitOrder | undefined;
     setLimitOrder(limitOrder: LimitOrder): void;
-    getLimitOnCloseOrder(): LimitOnCloseOrder;
+    getLimitOnCloseOrder(): LimitOnCloseOrder | undefined;
     setLimitOnCloseOrder(limitOnCloseOrder: LimitOnCloseOrder): void;
-    getMarketOnCloseOrder(): MarketOnCloseOrder;
+    getMarketOnCloseOrder(): MarketOnCloseOrder | undefined;
     setMarketOnCloseOrder(marketOnCloseOrder: MarketOnCloseOrder): void;
-    getCustomerOrderRef(): string;
+    getCustomerOrderRef(): string | undefined;
     setCustomerOrderRef(customerOrderRef: string): void;
 }

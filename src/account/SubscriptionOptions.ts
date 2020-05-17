@@ -1,68 +1,55 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonMember from '../JsonMember';
 
 
+export interface ISubscriptionOptionsOptions {
+    subscription_length?: number;
+    subscription_token?: string;
+    client_reference?: string;
+}
+
 export default class SubscriptionOptions extends JsonMember {
-    private subscriptionLength: number | null;
-    private subscriptionToken: string;
-    private clientReference: string;
+    private subscriptionLength?: number;
+    private subscriptionToken?: string;
+    private clientReference?: string;
 
-    constructor(
-        subscriptionLength: number | null = null,
-        subscriptionToken: string = '',
-        clientReference: string = '',
-    ) {
+    constructor(options: ISubscriptionOptionsOptions) {
         super();
-        this.subscriptionLength = subscriptionLength;
-        this.subscriptionToken = subscriptionToken;
-        this.clientReference = clientReference;
+        this.subscriptionLength = options.subscription_length;
+        this.subscriptionToken = options.subscription_token;
+        this.clientReference = options.client_reference;
     }
 
-    public fromJson(json: any): void {
-        if ('subscription_length' in json) {
-            this.subscriptionLength = json.subscription_length;
-        }
-        if ('subscription_token' in json) {
-            this.subscriptionToken = json.subscription_token;
-        }
-        if ('client_reference' in json) {
-            this.clientReference = json.client_reference;
-        }
-    }
-
-    public toJson(): any {
-        const json: any = {};
-        if (this.subscriptionLength !== null) {
+    public toJson(): ISubscriptionOptionsOptions {
+        const json: ISubscriptionOptionsOptions = {
+        };
+        if (typeof this.subscriptionLength !== 'undefined') {
             json.subscription_length = this.subscriptionLength;
         }
-        if (this.subscriptionToken !== '') {
+        if (typeof this.subscriptionToken !== 'undefined') {
             json.subscription_token = this.subscriptionToken;
         }
-        if (this.clientReference !== '') {
+        if (typeof this.clientReference !== 'undefined') {
             json.client_reference = this.clientReference;
         }
         return json;
     }
 
-    public isValid(): boolean {
-        return true;
-    }
-
-    public getSubscriptionLength(): number | null {
+    public getSubscriptionLength(): number | undefined {
         return this.subscriptionLength;
     }
-    public setSubscriptionLength(subscriptionLength: number | null): void {
+    public setSubscriptionLength(subscriptionLength: number): void {
         this.subscriptionLength = subscriptionLength;
     }
-    public getSubscriptionToken(): string {
+    public getSubscriptionToken(): string | undefined {
         return this.subscriptionToken;
     }
     public setSubscriptionToken(subscriptionToken: string): void {
         this.subscriptionToken = subscriptionToken;
     }
-    public getClientReference(): string {
+    public getClientReference(): string | undefined {
         return this.clientReference;
     }
     public setClientReference(clientReference: string): void {

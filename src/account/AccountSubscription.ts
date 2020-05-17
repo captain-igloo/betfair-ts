@@ -1,58 +1,39 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonMember from '../JsonMember';
 
-import SubscriptionTokenInfo from '../account/SubscriptionTokenInfo';
+import SubscriptionTokenInfo, { ISubscriptionTokenInfoOptions } from '../account/SubscriptionTokenInfo';
+
+export interface IAccountSubscriptionOptions {
+    subscriptionTokens: Array<SubscriptionTokenInfo | ISubscriptionTokenInfoOptions>;
+    applicationName?: string;
+    applicationVersionId?: string;
+}
 
 export default class AccountSubscription extends JsonMember {
     private subscriptionTokens: SubscriptionTokenInfo[];
-    private applicationName: string;
-    private applicationVersionId: string;
+    private applicationName?: string;
+    private applicationVersionId?: string;
 
-    constructor(
-        subscriptionTokens: SubscriptionTokenInfo[] = [],
-        applicationName: string = '',
-        applicationVersionId: string = '',
-    ) {
+    constructor(options: IAccountSubscriptionOptions) {
         super();
-        this.subscriptionTokens = subscriptionTokens;
-        this.applicationName = applicationName;
-        this.applicationVersionId = applicationVersionId;
+        this.subscriptionTokens = this.arrayFromJson(options.subscriptionTokens, SubscriptionTokenInfo);
+        this.applicationName = options.applicationName;
+        this.applicationVersionId = options.applicationVersionId;
     }
 
-    public fromJson(json: any): void {
-        if ('subscriptionTokens' in json) {
-            this.subscriptionTokens = json.subscriptionTokens.map((subscriptionTokensJson: any) => {
-                const element = new SubscriptionTokenInfo();
-                element.fromJson(subscriptionTokensJson);
-                return element;
-            });
-        }
-        if ('applicationName' in json) {
-            this.applicationName = json.applicationName;
-        }
-        if ('applicationVersionId' in json) {
-            this.applicationVersionId = json.applicationVersionId;
-        }
-    }
-
-    public toJson(): any {
-        const json: any = {};
-        if (this.subscriptionTokens.length > 0) {
-            json.subscriptionTokens = this.subscriptionTokens.map((value) => value.toJson());
-        }
-        if (this.applicationName !== '') {
+    public toJson(): IAccountSubscriptionOptions {
+        const json: IAccountSubscriptionOptions = {
+            subscriptionTokens: this.subscriptionTokens.map((value) => value.toJson()),
+        };
+        if (typeof this.applicationName !== 'undefined') {
             json.applicationName = this.applicationName;
         }
-        if (this.applicationVersionId !== '') {
+        if (typeof this.applicationVersionId !== 'undefined') {
             json.applicationVersionId = this.applicationVersionId;
         }
         return json;
-    }
-
-    public isValid(): boolean {
-        return this.subscriptionTokens.length > 0;
     }
 
     public getSubscriptionTokens(): SubscriptionTokenInfo[] {
@@ -61,13 +42,13 @@ export default class AccountSubscription extends JsonMember {
     public setSubscriptionTokens(subscriptionTokens: SubscriptionTokenInfo[]): void {
         this.subscriptionTokens = subscriptionTokens;
     }
-    public getApplicationName(): string {
+    public getApplicationName(): string | undefined {
         return this.applicationName;
     }
     public setApplicationName(applicationName: string): void {
         this.applicationName = applicationName;
     }
-    public getApplicationVersionId(): string {
+    public getApplicationVersionId(): string | undefined {
         return this.applicationVersionId;
     }
     public setApplicationVersionId(applicationVersionId: string): void {

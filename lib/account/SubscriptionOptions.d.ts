@@ -1,19 +1,22 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonMember from '../JsonMember';
+export interface ISubscriptionOptionsOptions {
+    subscription_length?: number;
+    subscription_token?: string;
+    client_reference?: string;
+}
 export default class SubscriptionOptions extends JsonMember {
-    private subscriptionLength;
-    private subscriptionToken;
-    private clientReference;
-    constructor(subscriptionLength?: number | null, subscriptionToken?: string, clientReference?: string);
-    fromJson(json: any): void;
-    toJson(): any;
-    isValid(): boolean;
-    getSubscriptionLength(): number | null;
-    setSubscriptionLength(subscriptionLength: number | null): void;
-    getSubscriptionToken(): string;
+    private subscriptionLength?;
+    private subscriptionToken?;
+    private clientReference?;
+    constructor(options: ISubscriptionOptionsOptions);
+    toJson(): ISubscriptionOptionsOptions;
+    getSubscriptionLength(): number | undefined;
+    setSubscriptionLength(subscriptionLength: number): void;
+    getSubscriptionToken(): string | undefined;
     setSubscriptionToken(subscriptionToken: string): void;
-    getClientReference(): string;
+    getClientReference(): string | undefined;
     setClientReference(clientReference: string): void;
 }

@@ -1,38 +1,28 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonResponse from '../JsonResponse';
 
 
+export interface IGetExposureReuseEnabledEventsResponseOptions {
+    response?: Array<number>;
+}
+
 export default class GetExposureReuseEnabledEventsResponse extends JsonResponse {
-    private response: number[];
+    private response?: number[];
 
-    constructor(
-        response: number[] = [],
-    ) {
+    constructor(options: Array<number>) {
         super();
-        this.response = response;
-    }
-
-    public fromJson(json: any): void {
-        if (this.validateJson(json)) {
-            this.response = json;
+        if (this.validateJson(options)) {
+            this.response = options;
         }
     }
 
-    public toJson(): any {
-        let json: any = {};
-        if (this.response.length > 0) {
-            json.response = this.response;
-        }
-        return json;
+    public toJson(): IGetExposureReuseEnabledEventsResponseOptions {
+        throw new Error('not implemented');
     }
 
-    public isValid(): boolean {
-        return this.response.length > 0;
-    }
-
-    public getResponse(): number[] {
+    public getResponse(): number[] | undefined {
         return this.response;
     }
     public setResponse(response: number[]): void {

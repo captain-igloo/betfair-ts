@@ -1,160 +1,129 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonResponse from '../JsonResponse';
 
 
+export interface IAccountDetailsResponseOptions {
+    currencyCode?: string;
+    firstName?: string;
+    lastName?: string;
+    localeCode?: string;
+    region?: string;
+    timezone?: string;
+    discountRate?: number;
+    pointsBalance?: number;
+    countryCode?: string;
+}
+
 export default class AccountDetailsResponse extends JsonResponse {
-    private currencyCode: string;
-    private firstName: string;
-    private lastName: string;
-    private localeCode: string;
-    private region: string;
-    private timezone: string;
-    private discountRate: number | null;
-    private pointsBalance: number | null;
-    private countryCode: string;
+    private currencyCode?: string;
+    private firstName?: string;
+    private lastName?: string;
+    private localeCode?: string;
+    private region?: string;
+    private timezone?: string;
+    private discountRate?: number;
+    private pointsBalance?: number;
+    private countryCode?: string;
 
-    constructor(
-        currencyCode: string = '',
-        firstName: string = '',
-        lastName: string = '',
-        localeCode: string = '',
-        region: string = '',
-        timezone: string = '',
-        discountRate: number | null = null,
-        pointsBalance: number | null = null,
-        countryCode: string = '',
-    ) {
+    constructor(options: IAccountDetailsResponseOptions) {
         super();
-        this.currencyCode = currencyCode;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.localeCode = localeCode;
-        this.region = region;
-        this.timezone = timezone;
-        this.discountRate = discountRate;
-        this.pointsBalance = pointsBalance;
-        this.countryCode = countryCode;
-    }
-
-    public fromJson(json: any): void {
-        if (this.validateJson(json)) {
-            if ('currencyCode' in json) {
-                this.currencyCode = json.currencyCode;
-            }
-            if ('firstName' in json) {
-                this.firstName = json.firstName;
-            }
-            if ('lastName' in json) {
-                this.lastName = json.lastName;
-            }
-            if ('localeCode' in json) {
-                this.localeCode = json.localeCode;
-            }
-            if ('region' in json) {
-                this.region = json.region;
-            }
-            if ('timezone' in json) {
-                this.timezone = json.timezone;
-            }
-            if ('discountRate' in json) {
-                this.discountRate = json.discountRate;
-            }
-            if ('pointsBalance' in json) {
-                this.pointsBalance = json.pointsBalance;
-            }
-            if ('countryCode' in json) {
-                this.countryCode = json.countryCode;
-            }
+        if (this.validateJson(options)) {
+            this.currencyCode = options.currencyCode;
+            this.firstName = options.firstName;
+            this.lastName = options.lastName;
+            this.localeCode = options.localeCode;
+            this.region = options.region;
+            this.timezone = options.timezone;
+            this.discountRate = options.discountRate;
+            this.pointsBalance = options.pointsBalance;
+            this.countryCode = options.countryCode;
         }
     }
 
-    public toJson(): any {
-        const json: any = {};
-        if (this.currencyCode !== '') {
+    public toJson(): IAccountDetailsResponseOptions {
+        const json: IAccountDetailsResponseOptions = {
+        };
+        if (typeof this.currencyCode !== 'undefined') {
             json.currencyCode = this.currencyCode;
         }
-        if (this.firstName !== '') {
+        if (typeof this.firstName !== 'undefined') {
             json.firstName = this.firstName;
         }
-        if (this.lastName !== '') {
+        if (typeof this.lastName !== 'undefined') {
             json.lastName = this.lastName;
         }
-        if (this.localeCode !== '') {
+        if (typeof this.localeCode !== 'undefined') {
             json.localeCode = this.localeCode;
         }
-        if (this.region !== '') {
+        if (typeof this.region !== 'undefined') {
             json.region = this.region;
         }
-        if (this.timezone !== '') {
+        if (typeof this.timezone !== 'undefined') {
             json.timezone = this.timezone;
         }
-        if (this.discountRate !== null) {
+        if (typeof this.discountRate !== 'undefined') {
             json.discountRate = this.discountRate;
         }
-        if (this.pointsBalance !== null) {
+        if (typeof this.pointsBalance !== 'undefined') {
             json.pointsBalance = this.pointsBalance;
         }
-        if (this.countryCode !== '') {
+        if (typeof this.countryCode !== 'undefined') {
             json.countryCode = this.countryCode;
         }
         return json;
     }
 
-    public isValid(): boolean {
-        return true;
-    }
-
-    public getCurrencyCode(): string {
+    public getCurrencyCode(): string | undefined {
         return this.currencyCode;
     }
     public setCurrencyCode(currencyCode: string): void {
         this.currencyCode = currencyCode;
     }
-    public getFirstName(): string {
+    public getFirstName(): string | undefined {
         return this.firstName;
     }
     public setFirstName(firstName: string): void {
         this.firstName = firstName;
     }
-    public getLastName(): string {
+    public getLastName(): string | undefined {
         return this.lastName;
     }
     public setLastName(lastName: string): void {
         this.lastName = lastName;
     }
-    public getLocaleCode(): string {
+    public getLocaleCode(): string | undefined {
         return this.localeCode;
     }
     public setLocaleCode(localeCode: string): void {
         this.localeCode = localeCode;
     }
-    public getRegion(): string {
+    public getRegion(): string | undefined {
         return this.region;
     }
     public setRegion(region: string): void {
         this.region = region;
     }
-    public getTimezone(): string {
+    public getTimezone(): string | undefined {
         return this.timezone;
     }
     public setTimezone(timezone: string): void {
         this.timezone = timezone;
     }
-    public getDiscountRate(): number | null {
+    public getDiscountRate(): number | undefined {
         return this.discountRate;
     }
-    public setDiscountRate(discountRate: number | null): void {
+    public setDiscountRate(discountRate: number): void {
         this.discountRate = discountRate;
     }
-    public getPointsBalance(): number | null {
+    public getPointsBalance(): number | undefined {
         return this.pointsBalance;
     }
-    public setPointsBalance(pointsBalance: number | null): void {
+    public setPointsBalance(pointsBalance: number): void {
         this.pointsBalance = pointsBalance;
     }
-    public getCountryCode(): string {
+    public getCountryCode(): string | undefined {
         return this.countryCode;
     }
     public setCountryCode(countryCode: string): void {

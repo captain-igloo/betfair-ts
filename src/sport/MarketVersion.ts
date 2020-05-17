@@ -1,41 +1,34 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonMember from '../JsonMember';
 
 
+export interface IMarketVersionOptions {
+    version?: number;
+}
+
 export default class MarketVersion extends JsonMember {
-    private version: number | null;
+    private version?: number;
 
-    constructor(
-        version: number | null = null,
-    ) {
+    constructor(options: IMarketVersionOptions) {
         super();
-        this.version = version;
+        this.version = options.version;
     }
 
-    public fromJson(json: any): void {
-        if ('version' in json) {
-            this.version = json.version;
-        }
-    }
-
-    public toJson(): any {
-        const json: any = {};
-        if (this.version !== null) {
+    public toJson(): IMarketVersionOptions {
+        const json: IMarketVersionOptions = {
+        };
+        if (typeof this.version !== 'undefined') {
             json.version = this.version;
         }
         return json;
     }
 
-    public isValid(): boolean {
-        return true;
-    }
-
-    public getVersion(): number | null {
+    public getVersion(): number | undefined {
         return this.version;
     }
-    public setVersion(version: number | null): void {
+    public setVersion(version: number): void {
         this.version = version;
     }
 

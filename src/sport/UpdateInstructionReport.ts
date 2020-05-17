@@ -1,57 +1,41 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonMember from '../JsonMember';
 
 import InstructionReportErrorCode from '../sport/enum/InstructionReportErrorCode';
 import InstructionReportStatus from '../sport/enum/InstructionReportStatus';
-import UpdateInstruction from '../sport/UpdateInstruction';
+import UpdateInstruction, { IUpdateInstructionOptions } from '../sport/UpdateInstruction';
+
+export interface IUpdateInstructionReportOptions {
+    status: InstructionReportStatus | string;
+    errorCode?: InstructionReportErrorCode | string;
+    instruction: UpdateInstruction | IUpdateInstructionOptions;
+}
 
 export default class UpdateInstructionReport extends JsonMember {
     private status: InstructionReportStatus;
-    private errorCode: InstructionReportErrorCode;
+    private errorCode?: InstructionReportErrorCode;
     private instruction: UpdateInstruction;
 
-    constructor(
-        status: InstructionReportStatus = new InstructionReportStatus(),
-        errorCode: InstructionReportErrorCode = new InstructionReportErrorCode(),
-        instruction: UpdateInstruction = new UpdateInstruction(),
-    ) {
+    constructor(options: IUpdateInstructionReportOptions) {
         super();
-        this.status = status;
-        this.errorCode = errorCode;
-        this.instruction = instruction;
+        this.status = this.fromJson(options.status, InstructionReportStatus);
+        if (options.errorCode) {
+            this.errorCode = this.fromJson(options.errorCode, InstructionReportErrorCode);
+        }
+        this.instruction = this.fromJson(options.instruction, UpdateInstruction);
     }
 
-    public fromJson(json: any): void {
-        if ('status' in json) {
-            this.status.setValue(json.status);
-        }
-        if ('errorCode' in json) {
-            this.errorCode.setValue(json.errorCode);
-        }
-        if ('instruction' in json) {
-            this.instruction.fromJson(json.instruction);
-        }
-    }
-
-    public toJson(): any {
-        const json: any = {};
-        if (this.status.isValid()) {
-            json.status = this.status.getValue();
-        }
-        if (this.errorCode.isValid()) {
+    public toJson(): IUpdateInstructionReportOptions {
+        const json: IUpdateInstructionReportOptions = {
+            status: this.status.getValue(),
+            instruction: this.instruction.toJson(),
+        };
+        if (this.errorCode) {
             json.errorCode = this.errorCode.getValue();
         }
-        if (this.instruction.isValid()) {
-            json.instruction = this.instruction.toJson();
-        }
         return json;
-    }
-
-    public isValid(): boolean {
-        return this.status.isValid() &&
-            this.instruction.isValid();
     }
 
     public getStatus(): InstructionReportStatus {
@@ -60,7 +44,7 @@ export default class UpdateInstructionReport extends JsonMember {
     public setStatus(status: InstructionReportStatus): void {
         this.status = status;
     }
-    public getErrorCode(): InstructionReportErrorCode {
+    public getErrorCode(): InstructionReportErrorCode | undefined {
         return this.errorCode;
     }
     public setErrorCode(errorCode: InstructionReportErrorCode): void {

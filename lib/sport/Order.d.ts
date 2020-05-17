@@ -1,11 +1,30 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonMember from '../JsonMember';
 import OrderStatus from '../sport/enum/OrderStatus';
 import OrderType from '../sport/enum/OrderType';
 import PersistenceType from '../sport/enum/PersistenceType';
 import Side from '../sport/enum/Side';
+export interface IOrderOptions {
+    betId: string;
+    orderType: OrderType | string;
+    status: OrderStatus | string;
+    persistenceType: PersistenceType | string;
+    side: Side | string;
+    price: number;
+    size: number;
+    bspLiability: number;
+    placedDate: Date | string;
+    avgPriceMatched?: number;
+    sizeMatched?: number;
+    sizeRemaining?: number;
+    sizeLapsed?: number;
+    sizeCancelled?: number;
+    sizeVoided?: number;
+    customerOrderRef?: string;
+    customerStrategyRef?: string;
+}
 export default class Order extends JsonMember {
     private betId;
     private orderType;
@@ -16,18 +35,16 @@ export default class Order extends JsonMember {
     private size;
     private bspLiability;
     private placedDate;
-    private avgPriceMatched;
-    private sizeMatched;
-    private sizeRemaining;
-    private sizeLapsed;
-    private sizeCancelled;
-    private sizeVoided;
-    private customerOrderRef;
-    private customerStrategyRef;
-    constructor(betId?: string, orderType?: OrderType, status?: OrderStatus, persistenceType?: PersistenceType, side?: Side, price?: number | null, size?: number | null, bspLiability?: number | null, placedDate?: Date | null, avgPriceMatched?: number | null, sizeMatched?: number | null, sizeRemaining?: number | null, sizeLapsed?: number | null, sizeCancelled?: number | null, sizeVoided?: number | null, customerOrderRef?: string, customerStrategyRef?: string);
-    fromJson(json: any): void;
-    toJson(): any;
-    isValid(): boolean;
+    private avgPriceMatched?;
+    private sizeMatched?;
+    private sizeRemaining?;
+    private sizeLapsed?;
+    private sizeCancelled?;
+    private sizeVoided?;
+    private customerOrderRef?;
+    private customerStrategyRef?;
+    constructor(options: IOrderOptions);
+    toJson(): IOrderOptions;
     getBetId(): string;
     setBetId(betId: string): void;
     getOrderType(): OrderType;
@@ -38,28 +55,28 @@ export default class Order extends JsonMember {
     setPersistenceType(persistenceType: PersistenceType): void;
     getSide(): Side;
     setSide(side: Side): void;
-    getPrice(): number | null;
-    setPrice(price: number | null): void;
-    getSize(): number | null;
-    setSize(size: number | null): void;
-    getBspLiability(): number | null;
-    setBspLiability(bspLiability: number | null): void;
-    getPlacedDate(): Date | null;
-    setPlacedDate(placedDate: Date | null): void;
-    getAvgPriceMatched(): number | null;
-    setAvgPriceMatched(avgPriceMatched: number | null): void;
-    getSizeMatched(): number | null;
-    setSizeMatched(sizeMatched: number | null): void;
-    getSizeRemaining(): number | null;
-    setSizeRemaining(sizeRemaining: number | null): void;
-    getSizeLapsed(): number | null;
-    setSizeLapsed(sizeLapsed: number | null): void;
-    getSizeCancelled(): number | null;
-    setSizeCancelled(sizeCancelled: number | null): void;
-    getSizeVoided(): number | null;
-    setSizeVoided(sizeVoided: number | null): void;
-    getCustomerOrderRef(): string;
+    getPrice(): number;
+    setPrice(price: number): void;
+    getSize(): number;
+    setSize(size: number): void;
+    getBspLiability(): number;
+    setBspLiability(bspLiability: number): void;
+    getPlacedDate(): Date;
+    setPlacedDate(placedDate: Date): void;
+    getAvgPriceMatched(): number | undefined;
+    setAvgPriceMatched(avgPriceMatched: number): void;
+    getSizeMatched(): number | undefined;
+    setSizeMatched(sizeMatched: number): void;
+    getSizeRemaining(): number | undefined;
+    setSizeRemaining(sizeRemaining: number): void;
+    getSizeLapsed(): number | undefined;
+    setSizeLapsed(sizeLapsed: number): void;
+    getSizeCancelled(): number | undefined;
+    setSizeCancelled(sizeCancelled: number): void;
+    getSizeVoided(): number | undefined;
+    setSizeVoided(sizeVoided: number): void;
+    getCustomerOrderRef(): string | undefined;
     setCustomerOrderRef(customerOrderRef: string): void;
-    getCustomerStrategyRef(): string;
+    getCustomerStrategyRef(): string | undefined;
     setCustomerStrategyRef(customerStrategyRef: string): void;
 }

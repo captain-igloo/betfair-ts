@@ -1,22 +1,26 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonMember from '../JsonMember';
+export interface IMarketLicenceOptions {
+    wallet: string;
+    rules?: string;
+    rulesHasDate?: boolean;
+    clarifications?: string;
+}
 export default class MarketLicence extends JsonMember {
     private wallet;
-    private rules;
-    private rulesHasDate;
-    private clarifications;
-    constructor(wallet?: string, rules?: string, rulesHasDate?: boolean | null, clarifications?: string);
-    fromJson(json: any): void;
-    toJson(): any;
-    isValid(): boolean;
+    private rules?;
+    private rulesHasDate?;
+    private clarifications?;
+    constructor(options: IMarketLicenceOptions);
+    toJson(): IMarketLicenceOptions;
     getWallet(): string;
     setWallet(wallet: string): void;
-    getRules(): string;
+    getRules(): string | undefined;
     setRules(rules: string): void;
-    getRulesHasDate(): boolean | null;
-    setRulesHasDate(rulesHasDate: boolean | null): void;
-    getClarifications(): string;
+    getRulesHasDate(): boolean | undefined;
+    setRulesHasDate(rulesHasDate: boolean): void;
+    getClarifications(): string | undefined;
     setClarifications(clarifications: string): void;
 }

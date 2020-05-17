@@ -1,28 +1,33 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonMember from '../JsonMember';
-import CancelInstruction from '../sport/CancelInstruction';
+import CancelInstruction, { ICancelInstructionOptions } from '../sport/CancelInstruction';
 import InstructionReportErrorCode from '../sport/enum/InstructionReportErrorCode';
 import InstructionReportStatus from '../sport/enum/InstructionReportStatus';
+export interface ICancelInstructionReportOptions {
+    status: InstructionReportStatus | string;
+    errorCode?: InstructionReportErrorCode | string;
+    instruction?: CancelInstruction | ICancelInstructionOptions;
+    sizeCancelled: number;
+    cancelledDate: Date | string;
+}
 export default class CancelInstructionReport extends JsonMember {
     private status;
-    private errorCode;
-    private instruction;
+    private errorCode?;
+    private instruction?;
     private sizeCancelled;
     private cancelledDate;
-    constructor(status?: InstructionReportStatus, errorCode?: InstructionReportErrorCode, instruction?: CancelInstruction, sizeCancelled?: number | null, cancelledDate?: Date | null);
-    fromJson(json: any): void;
-    toJson(): any;
-    isValid(): boolean;
+    constructor(options: ICancelInstructionReportOptions);
+    toJson(): ICancelInstructionReportOptions;
     getStatus(): InstructionReportStatus;
     setStatus(status: InstructionReportStatus): void;
-    getErrorCode(): InstructionReportErrorCode;
+    getErrorCode(): InstructionReportErrorCode | undefined;
     setErrorCode(errorCode: InstructionReportErrorCode): void;
-    getInstruction(): CancelInstruction;
+    getInstruction(): CancelInstruction | undefined;
     setInstruction(instruction: CancelInstruction): void;
-    getSizeCancelled(): number | null;
-    setSizeCancelled(sizeCancelled: number | null): void;
-    getCancelledDate(): Date | null;
-    setCancelledDate(cancelledDate: Date | null): void;
+    getSizeCancelled(): number;
+    setSizeCancelled(sizeCancelled: number): void;
+    getCancelledDate(): Date;
+    setCancelledDate(cancelledDate: Date): void;
 }

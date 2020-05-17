@@ -1,16 +1,18 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonMember from '../JsonMember';
+export interface IKeyLineSelectionOptions {
+    selectionId: number;
+    handicap: number;
+}
 export default class KeyLineSelection extends JsonMember {
     private selectionId;
     private handicap;
-    constructor(selectionId?: number | null, handicap?: number | null);
-    fromJson(json: any): void;
-    toJson(): any;
-    isValid(): boolean;
-    getSelectionId(): number | null;
-    setSelectionId(selectionId: number | null): void;
-    getHandicap(): number | null;
-    setHandicap(handicap: number | null): void;
+    constructor(options: IKeyLineSelectionOptions);
+    toJson(): IKeyLineSelectionOptions;
+    getSelectionId(): number;
+    setSelectionId(selectionId: number): void;
+    getHandicap(): number;
+    setHandicap(handicap: number): void;
 }

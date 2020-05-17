@@ -1,56 +1,46 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonMember from '../JsonMember';
 
 
+export interface IMarketTypeResultOptions {
+    marketType?: string;
+    marketCount?: number;
+}
+
 export default class MarketTypeResult extends JsonMember {
-    private marketType: string;
-    private marketCount: number | null;
+    private marketType?: string;
+    private marketCount?: number;
 
-    constructor(
-        marketType: string = '',
-        marketCount: number | null = null,
-    ) {
+    constructor(options: IMarketTypeResultOptions) {
         super();
-        this.marketType = marketType;
-        this.marketCount = marketCount;
+        this.marketType = options.marketType;
+        this.marketCount = options.marketCount;
     }
 
-    public fromJson(json: any): void {
-        if ('marketType' in json) {
-            this.marketType = json.marketType;
-        }
-        if ('marketCount' in json) {
-            this.marketCount = json.marketCount;
-        }
-    }
-
-    public toJson(): any {
-        const json: any = {};
-        if (this.marketType !== '') {
+    public toJson(): IMarketTypeResultOptions {
+        const json: IMarketTypeResultOptions = {
+        };
+        if (typeof this.marketType !== 'undefined') {
             json.marketType = this.marketType;
         }
-        if (this.marketCount !== null) {
+        if (typeof this.marketCount !== 'undefined') {
             json.marketCount = this.marketCount;
         }
         return json;
     }
 
-    public isValid(): boolean {
-        return true;
-    }
-
-    public getMarketType(): string {
+    public getMarketType(): string | undefined {
         return this.marketType;
     }
     public setMarketType(marketType: string): void {
         this.marketType = marketType;
     }
-    public getMarketCount(): number | null {
+    public getMarketCount(): number | undefined {
         return this.marketCount;
     }
-    public setMarketCount(marketCount: number | null): void {
+    public setMarketCount(marketCount: number): void {
         this.marketCount = marketCount;
     }
 

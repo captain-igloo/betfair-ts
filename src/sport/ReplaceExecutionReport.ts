@@ -1,107 +1,90 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonResponse from '../JsonResponse';
 
 import ExecutionReportErrorCode from '../sport/enum/ExecutionReportErrorCode';
 import ExecutionReportStatus from '../sport/enum/ExecutionReportStatus';
-import ReplaceInstructionReport from '../sport/ReplaceInstructionReport';
+import ReplaceInstructionReport, { IReplaceInstructionReportOptions } from '../sport/ReplaceInstructionReport';
+
+export interface IReplaceExecutionReportOptions {
+    customerRef?: string;
+    status?: ExecutionReportStatus | string;
+    errorCode?: ExecutionReportErrorCode | string;
+    marketId?: string;
+    instructionReports?: Array<ReplaceInstructionReport | IReplaceInstructionReportOptions>;
+}
 
 export default class ReplaceExecutionReport extends JsonResponse {
-    private customerRef: string;
-    private status: ExecutionReportStatus;
-    private errorCode: ExecutionReportErrorCode;
-    private marketId: string;
-    private instructionReports: ReplaceInstructionReport[];
+    private customerRef?: string;
+    private status?: ExecutionReportStatus;
+    private errorCode?: ExecutionReportErrorCode;
+    private marketId?: string;
+    private instructionReports?: ReplaceInstructionReport[];
 
-    constructor(
-        customerRef: string = '',
-        status: ExecutionReportStatus = new ExecutionReportStatus(),
-        errorCode: ExecutionReportErrorCode = new ExecutionReportErrorCode(),
-        marketId: string = '',
-        instructionReports: ReplaceInstructionReport[] = [],
-    ) {
+    constructor(options: IReplaceExecutionReportOptions) {
         super();
-        this.customerRef = customerRef;
-        this.status = status;
-        this.errorCode = errorCode;
-        this.marketId = marketId;
-        this.instructionReports = instructionReports;
-    }
-
-    public fromJson(json: any): void {
-        if (this.validateJson(json)) {
-            if ('customerRef' in json) {
-                this.customerRef = json.customerRef;
+        if (this.validateJson(options)) {
+            this.customerRef = options.customerRef;
+            if (options.status) {
+                this.status = this.fromJson(options.status, ExecutionReportStatus);
             }
-            if ('status' in json) {
-                this.status.setValue(json.status);
+            if (options.errorCode) {
+                this.errorCode = this.fromJson(options.errorCode, ExecutionReportErrorCode);
             }
-            if ('errorCode' in json) {
-                this.errorCode.setValue(json.errorCode);
-            }
-            if ('marketId' in json) {
-                this.marketId = json.marketId;
-            }
-            if ('instructionReports' in json) {
-                this.instructionReports = json.instructionReports.map((instructionReportsJson: any) => {
-                    const element = new ReplaceInstructionReport();
-                    element.fromJson(instructionReportsJson);
-                    return element;
-                });
+            this.marketId = options.marketId;
+            if (options.instructionReports) {
+                this.instructionReports = this.arrayFromJson(options.instructionReports, ReplaceInstructionReport);
             }
         }
     }
 
-    public toJson(): any {
-        const json: any = {};
-        if (this.customerRef !== '') {
+    public toJson(): IReplaceExecutionReportOptions {
+        const json: IReplaceExecutionReportOptions = {
+        };
+        if (typeof this.customerRef !== 'undefined') {
             json.customerRef = this.customerRef;
         }
-        if (this.status.isValid()) {
+        if (this.status) {
             json.status = this.status.getValue();
         }
-        if (this.errorCode.isValid()) {
+        if (this.errorCode) {
             json.errorCode = this.errorCode.getValue();
         }
-        if (this.marketId !== '') {
+        if (typeof this.marketId !== 'undefined') {
             json.marketId = this.marketId;
         }
-        if (this.instructionReports.length > 0) {
+        if (this.instructionReports && this.instructionReports.length > 0) {
             json.instructionReports = this.instructionReports.map((value) => value.toJson());
         }
         return json;
     }
 
-    public isValid(): boolean {
-        return this.status.isValid();
-    }
-
-    public getCustomerRef(): string {
+    public getCustomerRef(): string | undefined {
         return this.customerRef;
     }
     public setCustomerRef(customerRef: string): void {
         this.customerRef = customerRef;
     }
-    public getStatus(): ExecutionReportStatus {
+    public getStatus(): ExecutionReportStatus | undefined {
         return this.status;
     }
     public setStatus(status: ExecutionReportStatus): void {
         this.status = status;
     }
-    public getErrorCode(): ExecutionReportErrorCode {
+    public getErrorCode(): ExecutionReportErrorCode | undefined {
         return this.errorCode;
     }
     public setErrorCode(errorCode: ExecutionReportErrorCode): void {
         this.errorCode = errorCode;
     }
-    public getMarketId(): string {
+    public getMarketId(): string | undefined {
         return this.marketId;
     }
     public setMarketId(marketId: string): void {
         this.marketId = marketId;
     }
-    public getInstructionReports(): ReplaceInstructionReport[] {
+    public getInstructionReports(): ReplaceInstructionReport[] | undefined {
         return this.instructionReports;
     }
     public setInstructionReports(instructionReports: ReplaceInstructionReport[]): void {

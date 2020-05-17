@@ -1,64 +1,51 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonResponse from '../JsonResponse';
 
-import CurrentOrderSummary from '../sport/CurrentOrderSummary';
+import CurrentOrderSummary, { ICurrentOrderSummaryOptions } from '../sport/CurrentOrderSummary';
+
+export interface ICurrentOrderSummaryReportOptions {
+    currentOrders?: Array<CurrentOrderSummary | ICurrentOrderSummaryOptions>;
+    moreAvailable?: boolean;
+}
 
 export default class CurrentOrderSummaryReport extends JsonResponse {
-    private currentOrders: CurrentOrderSummary[];
-    private moreAvailable: boolean | null;
+    private currentOrders?: CurrentOrderSummary[];
+    private moreAvailable?: boolean;
 
-    constructor(
-        currentOrders: CurrentOrderSummary[] = [],
-        moreAvailable: boolean | null = null,
-    ) {
+    constructor(options: ICurrentOrderSummaryReportOptions) {
         super();
-        this.currentOrders = currentOrders;
-        this.moreAvailable = moreAvailable;
-    }
-
-    public fromJson(json: any): void {
-        if (this.validateJson(json)) {
-            if ('currentOrders' in json) {
-                this.currentOrders = json.currentOrders.map((currentOrdersJson: any) => {
-                    const element = new CurrentOrderSummary();
-                    element.fromJson(currentOrdersJson);
-                    return element;
-                });
+        if (this.validateJson(options)) {
+            if (options.currentOrders) {
+                this.currentOrders = this.arrayFromJson(options.currentOrders, CurrentOrderSummary);
             }
-            if ('moreAvailable' in json) {
-                this.moreAvailable = json.moreAvailable;
-            }
+            this.moreAvailable = options.moreAvailable;
         }
     }
 
-    public toJson(): any {
-        const json: any = {};
-        if (this.currentOrders.length > 0) {
+    public toJson(): ICurrentOrderSummaryReportOptions {
+        const json: ICurrentOrderSummaryReportOptions = {
+        };
+        if (this.currentOrders && this.currentOrders.length > 0) {
             json.currentOrders = this.currentOrders.map((value) => value.toJson());
         }
-        if (this.moreAvailable !== null) {
+        if (typeof this.moreAvailable !== 'undefined') {
             json.moreAvailable = this.moreAvailable;
         }
         return json;
     }
 
-    public isValid(): boolean {
-        return this.currentOrders.length > 0 &&
-            this.moreAvailable !== null;
-    }
-
-    public getCurrentOrders(): CurrentOrderSummary[] {
+    public getCurrentOrders(): CurrentOrderSummary[] | undefined {
         return this.currentOrders;
     }
     public setCurrentOrders(currentOrders: CurrentOrderSummary[]): void {
         this.currentOrders = currentOrders;
     }
-    public getMoreAvailable(): boolean | null {
+    public getMoreAvailable(): boolean | undefined {
         return this.moreAvailable;
     }
-    public setMoreAvailable(moreAvailable: boolean | null): void {
+    public setMoreAvailable(moreAvailable: boolean): void {
         this.moreAvailable = moreAvailable;
     }
 

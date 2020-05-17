@@ -1,14 +1,15 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonResponse from '../JsonResponse';
-import MarketProfitAndLoss from '../sport/MarketProfitAndLoss';
+import MarketProfitAndLoss, { IMarketProfitAndLossOptions } from '../sport/MarketProfitAndLoss';
+export interface IListMarketProfitAndLossResponseOptions {
+    marketProfitAndLosses?: Array<MarketProfitAndLoss | IMarketProfitAndLossOptions>;
+}
 export default class ListMarketProfitAndLossResponse extends JsonResponse {
-    private marketProfitAndLosses;
-    constructor(marketProfitAndLosses?: MarketProfitAndLoss[]);
-    fromJson(json: any): void;
-    toJson(): any;
-    isValid(): boolean;
-    getMarketProfitAndLosses(): MarketProfitAndLoss[];
+    private marketProfitAndLosses?;
+    constructor(options: Array<MarketProfitAndLoss | IMarketProfitAndLossOptions>);
+    toJson(): IListMarketProfitAndLossResponseOptions;
+    getMarketProfitAndLosses(): MarketProfitAndLoss[] | undefined;
     setMarketProfitAndLosses(marketProfitAndLosses: MarketProfitAndLoss[]): void;
 }

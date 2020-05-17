@@ -1,16 +1,18 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonRequest from '../JsonRequest';
 import MarketGroupType from '../sport/enum/MarketGroupType';
-import ExposureLimit from '../sport/ExposureLimit';
+import ExposureLimit, { IExposureLimitOptions } from '../sport/ExposureLimit';
+export interface ISetDefaultExposureLimitForMarketGroupsRequestOptions {
+    marketGroupType: MarketGroupType | string;
+    limit: ExposureLimit | IExposureLimitOptions;
+}
 export default class SetDefaultExposureLimitForMarketGroupsRequest extends JsonRequest {
     private marketGroupType;
     private limit;
-    constructor(marketGroupType?: MarketGroupType, limit?: ExposureLimit);
-    fromJson(json: any): void;
-    toJson(): any;
-    isValid(): boolean;
+    constructor(options: ISetDefaultExposureLimitForMarketGroupsRequestOptions);
+    toJson(): ISetDefaultExposureLimitForMarketGroupsRequestOptions;
     getMarketGroupType(): MarketGroupType;
     setMarketGroupType(marketGroupType: MarketGroupType): void;
     getLimit(): ExposureLimit;

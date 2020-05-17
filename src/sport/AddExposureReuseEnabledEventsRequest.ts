@@ -1,35 +1,26 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonRequest from '../JsonRequest';
 
 
+export interface IAddExposureReuseEnabledEventsRequestOptions {
+    eventIds: Array<number>;
+}
+
 export default class AddExposureReuseEnabledEventsRequest extends JsonRequest {
     private eventIds: number[];
 
-    constructor(
-        eventIds: number[] = [],
-    ) {
+    constructor(options: IAddExposureReuseEnabledEventsRequestOptions) {
         super();
-        this.eventIds = eventIds;
+        this.eventIds = options.eventIds;
     }
 
-    public fromJson(json: any): void {
-        if ('eventIds' in json) {
-            this.eventIds = json.eventIds;
-        }
-    }
-
-    public toJson(): any {
-        const json: any = {};
-        if (this.eventIds.length > 0) {
-            json.eventIds = this.eventIds;
-        }
+    public toJson(): IAddExposureReuseEnabledEventsRequestOptions {
+        const json: IAddExposureReuseEnabledEventsRequestOptions = {
+            eventIds: this.eventIds,
+        };
         return json;
-    }
-
-    public isValid(): boolean {
-        return this.eventIds.length > 0;
     }
 
     public getEventIds(): number[] {

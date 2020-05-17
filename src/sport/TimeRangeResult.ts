@@ -1,57 +1,47 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonMember from '../JsonMember';
 
-import TimeRange from '../common/TimeRange';
+import TimeRange, { ITimeRangeOptions } from '../common/TimeRange';
+
+export interface ITimeRangeResultOptions {
+    timeRange?: TimeRange | ITimeRangeOptions;
+    marketCount?: number;
+}
 
 export default class TimeRangeResult extends JsonMember {
-    private timeRange: TimeRange;
-    private marketCount: number | null;
+    private timeRange?: TimeRange;
+    private marketCount?: number;
 
-    constructor(
-        timeRange: TimeRange = new TimeRange(),
-        marketCount: number | null = null,
-    ) {
+    constructor(options: ITimeRangeResultOptions) {
         super();
-        this.timeRange = timeRange;
-        this.marketCount = marketCount;
+        this.timeRange = options.timeRange && this.fromJson(options.timeRange, TimeRange);
+        this.marketCount = options.marketCount;
     }
 
-    public fromJson(json: any): void {
-        if ('timeRange' in json) {
-            this.timeRange.fromJson(json.timeRange);
-        }
-        if ('marketCount' in json) {
-            this.marketCount = json.marketCount;
-        }
-    }
-
-    public toJson(): any {
-        const json: any = {};
-        if (this.timeRange.isValid()) {
+    public toJson(): ITimeRangeResultOptions {
+        const json: ITimeRangeResultOptions = {
+        };
+        if (this.timeRange) {
             json.timeRange = this.timeRange.toJson();
         }
-        if (this.marketCount !== null) {
+        if (typeof this.marketCount !== 'undefined') {
             json.marketCount = this.marketCount;
         }
         return json;
     }
 
-    public isValid(): boolean {
-        return true;
-    }
-
-    public getTimeRange(): TimeRange {
+    public getTimeRange(): TimeRange | undefined {
         return this.timeRange;
     }
     public setTimeRange(timeRange: TimeRange): void {
         this.timeRange = timeRange;
     }
-    public getMarketCount(): number | null {
+    public getMarketCount(): number | undefined {
         return this.marketCount;
     }
-    public setMarketCount(marketCount: number | null): void {
+    public setMarketCount(marketCount: number): void {
         this.marketCount = marketCount;
     }
 

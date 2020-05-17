@@ -1,38 +1,28 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonResponse from '../JsonResponse';
 
 
+export interface IGetVendorClientIdResponseOptions {
+    response?: string;
+}
+
 export default class GetVendorClientIdResponse extends JsonResponse {
-    private response: string;
+    private response?: string;
 
-    constructor(
-        response: string = '',
-    ) {
+    constructor(options: string) {
         super();
-        this.response = response;
-    }
-
-    public fromJson(json: any): void {
-        if (this.validateJson(json)) {
-            this.response = json.response;
+        if (this.validateJson(options)) {
+            this.response = options;
         }
     }
 
-    public toJson(): any {
-        let json: any = {};
-        if (this.response !== '') {
-            json.response = this.response;
-        }
-        return json;
+    public toJson(): IGetVendorClientIdResponseOptions {
+        throw new Error('not implemented');
     }
 
-    public isValid(): boolean {
-        return this.response !== '';
-    }
-
-    public getResponse(): string {
+    public getResponse(): string | undefined {
         return this.response;
     }
     public setResponse(response: string): void {

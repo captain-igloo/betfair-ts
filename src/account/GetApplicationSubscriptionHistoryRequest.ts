@@ -1,53 +1,43 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonRequest from '../JsonRequest';
 
 
+export interface IGetApplicationSubscriptionHistoryRequestOptions {
+    vendorClientId?: string;
+    applicationKey?: string;
+}
+
 export default class GetApplicationSubscriptionHistoryRequest extends JsonRequest {
-    private vendorClientId: string;
-    private applicationKey: string;
+    private vendorClientId?: string;
+    private applicationKey?: string;
 
-    constructor(
-        vendorClientId: string = '',
-        applicationKey: string = '',
-    ) {
+    constructor(options: IGetApplicationSubscriptionHistoryRequestOptions) {
         super();
-        this.vendorClientId = vendorClientId;
-        this.applicationKey = applicationKey;
+        this.vendorClientId = options.vendorClientId;
+        this.applicationKey = options.applicationKey;
     }
 
-    public fromJson(json: any): void {
-        if ('vendorClientId' in json) {
-            this.vendorClientId = json.vendorClientId;
-        }
-        if ('applicationKey' in json) {
-            this.applicationKey = json.applicationKey;
-        }
-    }
-
-    public toJson(): any {
-        const json: any = {};
-        if (this.vendorClientId !== '') {
+    public toJson(): IGetApplicationSubscriptionHistoryRequestOptions {
+        const json: IGetApplicationSubscriptionHistoryRequestOptions = {
+        };
+        if (typeof this.vendorClientId !== 'undefined') {
             json.vendorClientId = this.vendorClientId;
         }
-        if (this.applicationKey !== '') {
+        if (typeof this.applicationKey !== 'undefined') {
             json.applicationKey = this.applicationKey;
         }
         return json;
     }
 
-    public isValid(): boolean {
-        return true;
-    }
-
-    public getVendorClientId(): string {
+    public getVendorClientId(): string | undefined {
         return this.vendorClientId;
     }
     public setVendorClientId(vendorClientId: string): void {
         this.vendorClientId = vendorClientId;
     }
-    public getApplicationKey(): string {
+    public getApplicationKey(): string | undefined {
         return this.applicationKey;
     }
     public setApplicationKey(applicationKey: string): void {

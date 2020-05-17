@@ -24,7 +24,7 @@ export default class ActionPerformed extends Enum {
                 value !== 'SOME_BETS_NOT_CANCELLED' &&
                 value !== 'CANCELLATION_REQUEST_ERROR' &&
                 value !== 'CANCELLATION_STATUS_UNKNOWN') {
-                throw new Error(`Invalid MarketStatus: ${value}`);
+                throw new Error(`Invalid ActionPerformed: ${value}`);
             }
 
             this.value = value;

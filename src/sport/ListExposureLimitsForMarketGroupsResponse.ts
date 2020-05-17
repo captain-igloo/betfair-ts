@@ -1,43 +1,31 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonResponse from '../JsonResponse';
 
-import ExposureLimitsForMarketGroups from '../sport/ExposureLimitsForMarketGroups';
+import ExposureLimitsForMarketGroups, { IExposureLimitsForMarketGroupsOptions } from '../sport/ExposureLimitsForMarketGroups';
+
+export interface IListExposureLimitsForMarketGroupsResponseOptions {
+    exposureLimitsForMarketGroupses?: Array<ExposureLimitsForMarketGroups | IExposureLimitsForMarketGroupsOptions>;
+}
 
 export default class ListExposureLimitsForMarketGroupsResponse extends JsonResponse {
-    private exposureLimitsForMarketGroupses: ExposureLimitsForMarketGroups[];
+    private exposureLimitsForMarketGroupses?: ExposureLimitsForMarketGroups[];
 
-    constructor(
-        exposureLimitsForMarketGroupses: ExposureLimitsForMarketGroups[] = [],
-    ) {
+    constructor(options: Array<ExposureLimitsForMarketGroups | IExposureLimitsForMarketGroupsOptions>) {
         super();
-        this.exposureLimitsForMarketGroupses = exposureLimitsForMarketGroupses;
-    }
-
-    public fromJson(json: any): void {
-        if (this.validateJson(json)) {
-            this.exposureLimitsForMarketGroupses = json.map((exposureLimitsForMarketGroupsesJson: any) => {
-                const element = new ExposureLimitsForMarketGroups();
-                element.fromJson(exposureLimitsForMarketGroupsesJson);
-                return element;
-            });
+        if (this.validateJson(options)) {
+            if (options) {
+                this.exposureLimitsForMarketGroupses = this.arrayFromJson(options, ExposureLimitsForMarketGroups);
+            }
         }
     }
 
-    public toJson(): any {
-        let json: any = {};
-        if (this.exposureLimitsForMarketGroupses.length > 0) {
-            json.exposureLimitsForMarketGroupses = this.exposureLimitsForMarketGroupses.map((value) => value.toJson());
-        }
-        return json;
+    public toJson(): IListExposureLimitsForMarketGroupsResponseOptions {
+        throw new Error('not implemented');
     }
 
-    public isValid(): boolean {
-        return this.exposureLimitsForMarketGroupses.length > 0;
-    }
-
-    public getExposureLimitsForMarketGroupses(): ExposureLimitsForMarketGroups[] {
+    public getExposureLimitsForMarketGroupses(): ExposureLimitsForMarketGroups[] | undefined {
         return this.exposureLimitsForMarketGroupses;
     }
     public setExposureLimitsForMarketGroupses(exposureLimitsForMarketGroupses: ExposureLimitsForMarketGroups[]): void {

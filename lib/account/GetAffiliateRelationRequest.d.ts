@@ -1,13 +1,14 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonRequest from '../JsonRequest';
+export interface IGetAffiliateRelationRequestOptions {
+    vendorClientIds: Array<string>;
+}
 export default class GetAffiliateRelationRequest extends JsonRequest {
     private vendorClientIds;
-    constructor(vendorClientIds?: string[]);
-    fromJson(json: any): void;
-    toJson(): any;
-    isValid(): boolean;
+    constructor(options: IGetAffiliateRelationRequestOptions);
+    toJson(): IGetAffiliateRelationRequestOptions;
     getVendorClientIds(): string[];
     setVendorClientIds(vendorClientIds: string[]): void;
 }

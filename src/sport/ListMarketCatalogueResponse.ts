@@ -1,43 +1,31 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonResponse from '../JsonResponse';
 
-import MarketCatalogue from '../sport/MarketCatalogue';
+import MarketCatalogue, { IMarketCatalogueOptions } from '../sport/MarketCatalogue';
+
+export interface IListMarketCatalogueResponseOptions {
+    marketCatalogues?: Array<MarketCatalogue | IMarketCatalogueOptions>;
+}
 
 export default class ListMarketCatalogueResponse extends JsonResponse {
-    private marketCatalogues: MarketCatalogue[];
+    private marketCatalogues?: MarketCatalogue[];
 
-    constructor(
-        marketCatalogues: MarketCatalogue[] = [],
-    ) {
+    constructor(options: Array<MarketCatalogue | IMarketCatalogueOptions>) {
         super();
-        this.marketCatalogues = marketCatalogues;
-    }
-
-    public fromJson(json: any): void {
-        if (this.validateJson(json)) {
-            this.marketCatalogues = json.map((marketCataloguesJson: any) => {
-                const element = new MarketCatalogue();
-                element.fromJson(marketCataloguesJson);
-                return element;
-            });
+        if (this.validateJson(options)) {
+            if (options) {
+                this.marketCatalogues = this.arrayFromJson(options, MarketCatalogue);
+            }
         }
     }
 
-    public toJson(): any {
-        let json: any = {};
-        if (this.marketCatalogues.length > 0) {
-            json.marketCatalogues = this.marketCatalogues.map((value) => value.toJson());
-        }
-        return json;
+    public toJson(): IListMarketCatalogueResponseOptions {
+        throw new Error('not implemented');
     }
 
-    public isValid(): boolean {
-        return this.marketCatalogues.length > 0;
-    }
-
-    public getMarketCatalogues(): MarketCatalogue[] {
+    public getMarketCatalogues(): MarketCatalogue[] | undefined {
         return this.marketCatalogues;
     }
     public setMarketCatalogues(marketCatalogues: MarketCatalogue[]): void {

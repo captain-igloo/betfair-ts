@@ -1,39 +1,34 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonRequest from '../JsonRequest';
 
 import Wallet from '../account/enum/Wallet';
 
+export interface IGetAccountFundsRequestOptions {
+    wallet?: Wallet | string;
+}
+
 export default class GetAccountFundsRequest extends JsonRequest {
-    private wallet: Wallet;
+    private wallet?: Wallet;
 
-    constructor(
-        wallet: Wallet = new Wallet(),
-    ) {
+    constructor(options: IGetAccountFundsRequestOptions) {
         super();
-        this.wallet = wallet;
-    }
-
-    public fromJson(json: any): void {
-        if ('wallet' in json) {
-            this.wallet.setValue(json.wallet);
+        if (options.wallet) {
+            this.wallet = this.fromJson(options.wallet, Wallet);
         }
     }
 
-    public toJson(): any {
-        const json: any = {};
-        if (this.wallet.isValid()) {
+    public toJson(): IGetAccountFundsRequestOptions {
+        const json: IGetAccountFundsRequestOptions = {
+        };
+        if (this.wallet) {
             json.wallet = this.wallet.getValue();
         }
         return json;
     }
 
-    public isValid(): boolean {
-        return true;
-    }
-
-    public getWallet(): Wallet {
+    public getWallet(): Wallet | undefined {
         return this.wallet;
     }
     public setWallet(wallet: Wallet): void {

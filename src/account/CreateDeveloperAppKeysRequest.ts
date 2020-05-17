@@ -1,35 +1,26 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonRequest from '../JsonRequest';
 
 
+export interface ICreateDeveloperAppKeysRequestOptions {
+    appName: string;
+}
+
 export default class CreateDeveloperAppKeysRequest extends JsonRequest {
     private appName: string;
 
-    constructor(
-        appName: string = '',
-    ) {
+    constructor(options: ICreateDeveloperAppKeysRequestOptions) {
         super();
-        this.appName = appName;
+        this.appName = options.appName;
     }
 
-    public fromJson(json: any): void {
-        if ('appName' in json) {
-            this.appName = json.appName;
-        }
-    }
-
-    public toJson(): any {
-        const json: any = {};
-        if (this.appName !== '') {
-            json.appName = this.appName;
-        }
+    public toJson(): ICreateDeveloperAppKeysRequestOptions {
+        const json: ICreateDeveloperAppKeysRequestOptions = {
+            appName: this.appName,
+        };
         return json;
-    }
-
-    public isValid(): boolean {
-        return this.appName !== '';
     }
 
     public getAppName(): string {

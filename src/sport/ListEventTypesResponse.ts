@@ -1,43 +1,31 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonResponse from '../JsonResponse';
 
-import EventTypeResult from '../sport/EventTypeResult';
+import EventTypeResult, { IEventTypeResultOptions } from '../sport/EventTypeResult';
+
+export interface IListEventTypesResponseOptions {
+    eventTypeResults?: Array<EventTypeResult | IEventTypeResultOptions>;
+}
 
 export default class ListEventTypesResponse extends JsonResponse {
-    private eventTypeResults: EventTypeResult[];
+    private eventTypeResults?: EventTypeResult[];
 
-    constructor(
-        eventTypeResults: EventTypeResult[] = [],
-    ) {
+    constructor(options: Array<EventTypeResult | IEventTypeResultOptions>) {
         super();
-        this.eventTypeResults = eventTypeResults;
-    }
-
-    public fromJson(json: any): void {
-        if (this.validateJson(json)) {
-            this.eventTypeResults = json.map((eventTypeResultsJson: any) => {
-                const element = new EventTypeResult();
-                element.fromJson(eventTypeResultsJson);
-                return element;
-            });
+        if (this.validateJson(options)) {
+            if (options) {
+                this.eventTypeResults = this.arrayFromJson(options, EventTypeResult);
+            }
         }
     }
 
-    public toJson(): any {
-        let json: any = {};
-        if (this.eventTypeResults.length > 0) {
-            json.eventTypeResults = this.eventTypeResults.map((value) => value.toJson());
-        }
-        return json;
+    public toJson(): IListEventTypesResponseOptions {
+        throw new Error('not implemented');
     }
 
-    public isValid(): boolean {
-        return this.eventTypeResults.length > 0;
-    }
-
-    public getEventTypeResults(): EventTypeResult[] {
+    public getEventTypeResults(): EventTypeResult[] | undefined {
         return this.eventTypeResults;
     }
     public setEventTypeResults(eventTypeResults: EventTypeResult[]): void {

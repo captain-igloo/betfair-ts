@@ -1,43 +1,31 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonResponse from '../JsonResponse';
 
-import VenueResult from '../sport/VenueResult';
+import VenueResult, { IVenueResultOptions } from '../sport/VenueResult';
+
+export interface IListVenuesResponseOptions {
+    venueResults?: Array<VenueResult | IVenueResultOptions>;
+}
 
 export default class ListVenuesResponse extends JsonResponse {
-    private venueResults: VenueResult[];
+    private venueResults?: VenueResult[];
 
-    constructor(
-        venueResults: VenueResult[] = [],
-    ) {
+    constructor(options: Array<VenueResult | IVenueResultOptions>) {
         super();
-        this.venueResults = venueResults;
-    }
-
-    public fromJson(json: any): void {
-        if (this.validateJson(json)) {
-            this.venueResults = json.map((venueResultsJson: any) => {
-                const element = new VenueResult();
-                element.fromJson(venueResultsJson);
-                return element;
-            });
+        if (this.validateJson(options)) {
+            if (options) {
+                this.venueResults = this.arrayFromJson(options, VenueResult);
+            }
         }
     }
 
-    public toJson(): any {
-        let json: any = {};
-        if (this.venueResults.length > 0) {
-            json.venueResults = this.venueResults.map((value) => value.toJson());
-        }
-        return json;
+    public toJson(): IListVenuesResponseOptions {
+        throw new Error('not implemented');
     }
 
-    public isValid(): boolean {
-        return this.venueResults.length > 0;
-    }
-
-    public getVenueResults(): VenueResult[] {
+    public getVenueResults(): VenueResult[] | undefined {
         return this.venueResults;
     }
     public setVenueResults(venueResults: VenueResult[]): void {

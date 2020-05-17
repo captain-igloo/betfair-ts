@@ -1,60 +1,51 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonResponse from '../JsonResponse';
 
 import ActionPerformed from '../heartbeat/enum/ActionPerformed';
 
+export interface IHeartbeatReportOptions {
+    actionPerformed?: ActionPerformed | string;
+    actualTimeoutSeconds?: number;
+}
+
 export default class HeartbeatReport extends JsonResponse {
-    private actionPerformed: ActionPerformed;
-    private actualTimeoutSeconds: number | null;
+    private actionPerformed?: ActionPerformed;
+    private actualTimeoutSeconds?: number;
 
-    constructor(
-        actionPerformed: ActionPerformed = new ActionPerformed(),
-        actualTimeoutSeconds: number | null = null,
-    ) {
+    constructor(options: IHeartbeatReportOptions) {
         super();
-        this.actionPerformed = actionPerformed;
-        this.actualTimeoutSeconds = actualTimeoutSeconds;
-    }
-
-    public fromJson(json: any): void {
-        if (this.validateJson(json)) {
-            if ('actionPerformed' in json) {
-                this.actionPerformed.setValue(json.actionPerformed);
+        if (this.validateJson(options)) {
+            if (options.actionPerformed) {
+                this.actionPerformed = this.fromJson(options.actionPerformed, ActionPerformed);
             }
-            if ('actualTimeoutSeconds' in json) {
-                this.actualTimeoutSeconds = json.actualTimeoutSeconds;
-            }
+            this.actualTimeoutSeconds = options.actualTimeoutSeconds;
         }
     }
 
-    public toJson(): any {
-        const json: any = {};
-        if (this.actionPerformed.isValid()) {
+    public toJson(): IHeartbeatReportOptions {
+        const json: IHeartbeatReportOptions = {
+        };
+        if (this.actionPerformed) {
             json.actionPerformed = this.actionPerformed.getValue();
         }
-        if (this.actualTimeoutSeconds !== null) {
+        if (typeof this.actualTimeoutSeconds !== 'undefined') {
             json.actualTimeoutSeconds = this.actualTimeoutSeconds;
         }
         return json;
     }
 
-    public isValid(): boolean {
-        return this.actionPerformed.isValid() &&
-            this.actualTimeoutSeconds !== null;
-    }
-
-    public getActionPerformed(): ActionPerformed {
+    public getActionPerformed(): ActionPerformed | undefined {
         return this.actionPerformed;
     }
     public setActionPerformed(actionPerformed: ActionPerformed): void {
         this.actionPerformed = actionPerformed;
     }
-    public getActualTimeoutSeconds(): number | null {
+    public getActualTimeoutSeconds(): number | undefined {
         return this.actualTimeoutSeconds;
     }
-    public setActualTimeoutSeconds(actualTimeoutSeconds: number | null): void {
+    public setActualTimeoutSeconds(actualTimeoutSeconds: number): void {
         this.actualTimeoutSeconds = actualTimeoutSeconds;
     }
 

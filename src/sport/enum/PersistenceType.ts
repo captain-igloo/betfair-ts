@@ -18,7 +18,7 @@ export default class PersistenceType extends Enum {
             if (value !== 'LAPSE' &&
                 value !== 'PERSIST' &&
                 value !== 'MARKET_ON_CLOSE') {
-                throw new Error(`Invalid MarketStatus: ${value}`);
+                throw new Error(`Invalid PersistenceType: ${value}`);
             }
 
             this.value = value;

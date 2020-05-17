@@ -1,122 +1,68 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonMember from '../JsonMember';
 
 
+export interface IDeveloperAppVersionOptions {
+    owner: string;
+    versionId: number;
+    version: string;
+    applicationKey: string;
+    delayData?: boolean;
+    subscriptionRequired: boolean;
+    ownerManaged: boolean;
+    active: boolean;
+    vendorId?: string;
+    vendorSecret?: string;
+}
+
 export default class DeveloperAppVersion extends JsonMember {
     private owner: string;
-    private versionId: number | null;
+    private versionId: number;
     private version: string;
     private applicationKey: string;
-    private delayData: boolean | null;
-    private subscriptionRequired: boolean | null;
-    private ownerManaged: boolean | null;
-    private active: boolean | null;
-    private vendorId: string;
-    private vendorSecret: string;
+    private delayData?: boolean;
+    private subscriptionRequired: boolean;
+    private ownerManaged: boolean;
+    private active: boolean;
+    private vendorId?: string;
+    private vendorSecret?: string;
 
-    constructor(
-        owner: string = '',
-        versionId: number | null = null,
-        version: string = '',
-        applicationKey: string = '',
-        delayData: boolean | null = null,
-        subscriptionRequired: boolean | null = null,
-        ownerManaged: boolean | null = null,
-        active: boolean | null = null,
-        vendorId: string = '',
-        vendorSecret: string = '',
-    ) {
+    constructor(options: IDeveloperAppVersionOptions) {
         super();
-        this.owner = owner;
-        this.versionId = versionId;
-        this.version = version;
-        this.applicationKey = applicationKey;
-        this.delayData = delayData;
-        this.subscriptionRequired = subscriptionRequired;
-        this.ownerManaged = ownerManaged;
-        this.active = active;
-        this.vendorId = vendorId;
-        this.vendorSecret = vendorSecret;
+        this.owner = options.owner;
+        this.versionId = options.versionId;
+        this.version = options.version;
+        this.applicationKey = options.applicationKey;
+        this.delayData = options.delayData;
+        this.subscriptionRequired = options.subscriptionRequired;
+        this.ownerManaged = options.ownerManaged;
+        this.active = options.active;
+        this.vendorId = options.vendorId;
+        this.vendorSecret = options.vendorSecret;
     }
 
-    public fromJson(json: any): void {
-        if ('owner' in json) {
-            this.owner = json.owner;
-        }
-        if ('versionId' in json) {
-            this.versionId = json.versionId;
-        }
-        if ('version' in json) {
-            this.version = json.version;
-        }
-        if ('applicationKey' in json) {
-            this.applicationKey = json.applicationKey;
-        }
-        if ('delayData' in json) {
-            this.delayData = json.delayData;
-        }
-        if ('subscriptionRequired' in json) {
-            this.subscriptionRequired = json.subscriptionRequired;
-        }
-        if ('ownerManaged' in json) {
-            this.ownerManaged = json.ownerManaged;
-        }
-        if ('active' in json) {
-            this.active = json.active;
-        }
-        if ('vendorId' in json) {
-            this.vendorId = json.vendorId;
-        }
-        if ('vendorSecret' in json) {
-            this.vendorSecret = json.vendorSecret;
-        }
-    }
-
-    public toJson(): any {
-        const json: any = {};
-        if (this.owner !== '') {
-            json.owner = this.owner;
-        }
-        if (this.versionId !== null) {
-            json.versionId = this.versionId;
-        }
-        if (this.version !== '') {
-            json.version = this.version;
-        }
-        if (this.applicationKey !== '') {
-            json.applicationKey = this.applicationKey;
-        }
-        if (this.delayData !== null) {
+    public toJson(): IDeveloperAppVersionOptions {
+        const json: IDeveloperAppVersionOptions = {
+            owner: this.owner,
+            versionId: this.versionId,
+            version: this.version,
+            applicationKey: this.applicationKey,
+            subscriptionRequired: this.subscriptionRequired,
+            ownerManaged: this.ownerManaged,
+            active: this.active,
+        };
+        if (typeof this.delayData !== 'undefined') {
             json.delayData = this.delayData;
         }
-        if (this.subscriptionRequired !== null) {
-            json.subscriptionRequired = this.subscriptionRequired;
-        }
-        if (this.ownerManaged !== null) {
-            json.ownerManaged = this.ownerManaged;
-        }
-        if (this.active !== null) {
-            json.active = this.active;
-        }
-        if (this.vendorId !== '') {
+        if (typeof this.vendorId !== 'undefined') {
             json.vendorId = this.vendorId;
         }
-        if (this.vendorSecret !== '') {
+        if (typeof this.vendorSecret !== 'undefined') {
             json.vendorSecret = this.vendorSecret;
         }
         return json;
-    }
-
-    public isValid(): boolean {
-        return this.owner !== '' &&
-            this.versionId !== null &&
-            this.version !== '' &&
-            this.applicationKey !== '' &&
-            this.subscriptionRequired !== null &&
-            this.ownerManaged !== null &&
-            this.active !== null;
     }
 
     public getOwner(): string {
@@ -125,10 +71,10 @@ export default class DeveloperAppVersion extends JsonMember {
     public setOwner(owner: string): void {
         this.owner = owner;
     }
-    public getVersionId(): number | null {
+    public getVersionId(): number {
         return this.versionId;
     }
-    public setVersionId(versionId: number | null): void {
+    public setVersionId(versionId: number): void {
         this.versionId = versionId;
     }
     public getVersion(): string {
@@ -143,37 +89,37 @@ export default class DeveloperAppVersion extends JsonMember {
     public setApplicationKey(applicationKey: string): void {
         this.applicationKey = applicationKey;
     }
-    public getDelayData(): boolean | null {
+    public getDelayData(): boolean | undefined {
         return this.delayData;
     }
-    public setDelayData(delayData: boolean | null): void {
+    public setDelayData(delayData: boolean): void {
         this.delayData = delayData;
     }
-    public getSubscriptionRequired(): boolean | null {
+    public getSubscriptionRequired(): boolean {
         return this.subscriptionRequired;
     }
-    public setSubscriptionRequired(subscriptionRequired: boolean | null): void {
+    public setSubscriptionRequired(subscriptionRequired: boolean): void {
         this.subscriptionRequired = subscriptionRequired;
     }
-    public getOwnerManaged(): boolean | null {
+    public getOwnerManaged(): boolean {
         return this.ownerManaged;
     }
-    public setOwnerManaged(ownerManaged: boolean | null): void {
+    public setOwnerManaged(ownerManaged: boolean): void {
         this.ownerManaged = ownerManaged;
     }
-    public getActive(): boolean | null {
+    public getActive(): boolean {
         return this.active;
     }
-    public setActive(active: boolean | null): void {
+    public setActive(active: boolean): void {
         this.active = active;
     }
-    public getVendorId(): string {
+    public getVendorId(): string | undefined {
         return this.vendorId;
     }
     public setVendorId(vendorId: string): void {
         this.vendorId = vendorId;
     }
-    public getVendorSecret(): string {
+    public getVendorSecret(): string | undefined {
         return this.vendorSecret;
     }
     public setVendorSecret(vendorSecret: string): void {

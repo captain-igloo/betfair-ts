@@ -18,7 +18,7 @@ export default class LimitBreachActionType extends Enum {
             if (value !== 'REJECT_BETS' &&
                 value !== 'STOP_BETTING' &&
                 value !== 'TEAR_DOWN_MARKET_GROUP') {
-                throw new Error(`Invalid MarketStatus: ${value}`);
+                throw new Error(`Invalid LimitBreachActionType: ${value}`);
             }
 
             this.value = value;

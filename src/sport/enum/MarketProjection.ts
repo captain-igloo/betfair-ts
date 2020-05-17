@@ -26,7 +26,7 @@ export default class MarketProjection extends Enum {
                 value !== 'MARKET_DESCRIPTION' &&
                 value !== 'RUNNER_DESCRIPTION' &&
                 value !== 'RUNNER_METADATA') {
-                throw new Error(`Invalid MarketStatus: ${value}`);
+                throw new Error(`Invalid MarketProjection: ${value}`);
             }
 
             this.value = value;

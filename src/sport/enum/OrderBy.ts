@@ -24,7 +24,7 @@ export default class OrderBy extends Enum {
                 value !== 'BY_MATCH_TIME' &&
                 value !== 'BY_VOID_TIME' &&
                 value !== 'BY_SETTLED_TIME') {
-                throw new Error(`Invalid MarketStatus: ${value}`);
+                throw new Error(`Invalid OrderBy: ${value}`);
             }
 
             this.value = value;

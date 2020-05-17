@@ -1,207 +1,164 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonRequest from '../JsonRequest';
 
-import TimeRange from '../common/TimeRange';
+import TimeRange, { ITimeRangeOptions } from '../common/TimeRange';
 import OrderBy from '../sport/enum/OrderBy';
 import OrderProjection from '../sport/enum/OrderProjection';
 import SortDir from '../sport/enum/SortDir';
 
+export interface IListCurrentOrdersRequestOptions {
+    betIds?: Set<string> | string[];
+    marketIds?: Set<string> | string[];
+    orderProjection?: OrderProjection | string;
+    customerOrderRefs?: Set<string> | string[];
+    customerStrategyRefs?: Set<string> | string[];
+    placedDateRange?: TimeRange | ITimeRangeOptions;
+    dateRange?: TimeRange | ITimeRangeOptions;
+    orderBy?: OrderBy | string;
+    sortDir?: SortDir | string;
+    fromRecord?: number;
+    recordCount?: number;
+}
+
 export default class ListCurrentOrdersRequest extends JsonRequest {
-    private betIds: Set<string>;
-    private marketIds: Set<string>;
-    private orderProjection: OrderProjection;
-    private customerOrderRefs: Set<string>;
-    private customerStrategyRefs: Set<string>;
-    private placedDateRange: TimeRange;
-    private dateRange: TimeRange;
-    private orderBy: OrderBy;
-    private sortDir: SortDir;
-    private fromRecord: number | null;
-    private recordCount: number | null;
+    private betIds?: Set<string>;
+    private marketIds?: Set<string>;
+    private orderProjection?: OrderProjection;
+    private customerOrderRefs?: Set<string>;
+    private customerStrategyRefs?: Set<string>;
+    private placedDateRange?: TimeRange;
+    private dateRange?: TimeRange;
+    private orderBy?: OrderBy;
+    private sortDir?: SortDir;
+    private fromRecord?: number;
+    private recordCount?: number;
 
-    constructor(
-        betIds: Set<string> = new Set(),
-        marketIds: Set<string> = new Set(),
-        orderProjection: OrderProjection = new OrderProjection(),
-        customerOrderRefs: Set<string> = new Set(),
-        customerStrategyRefs: Set<string> = new Set(),
-        placedDateRange: TimeRange = new TimeRange(),
-        dateRange: TimeRange = new TimeRange(),
-        orderBy: OrderBy = new OrderBy(),
-        sortDir: SortDir = new SortDir(),
-        fromRecord: number | null = null,
-        recordCount: number | null = null,
-    ) {
+    constructor(options: IListCurrentOrdersRequestOptions) {
         super();
-        this.betIds = betIds;
-        this.marketIds = marketIds;
-        this.orderProjection = orderProjection;
-        this.customerOrderRefs = customerOrderRefs;
-        this.customerStrategyRefs = customerStrategyRefs;
-        this.placedDateRange = placedDateRange;
-        this.dateRange = dateRange;
-        this.orderBy = orderBy;
-        this.sortDir = sortDir;
-        this.fromRecord = fromRecord;
-        this.recordCount = recordCount;
+        this.betIds = options.betIds && this.setFromJson(options.betIds);
+        this.marketIds = options.marketIds && this.setFromJson(options.marketIds);
+        if (options.orderProjection) {
+            this.orderProjection = this.fromJson(options.orderProjection, OrderProjection);
+        }
+        this.customerOrderRefs = options.customerOrderRefs && this.setFromJson(options.customerOrderRefs);
+        this.customerStrategyRefs = options.customerStrategyRefs && this.setFromJson(options.customerStrategyRefs);
+        this.placedDateRange = options.placedDateRange && this.fromJson(options.placedDateRange, TimeRange);
+        this.dateRange = options.dateRange && this.fromJson(options.dateRange, TimeRange);
+        if (options.orderBy) {
+            this.orderBy = this.fromJson(options.orderBy, OrderBy);
+        }
+        if (options.sortDir) {
+            this.sortDir = this.fromJson(options.sortDir, SortDir);
+        }
+        this.fromRecord = options.fromRecord;
+        this.recordCount = options.recordCount;
     }
 
-    public fromJson(json: any): void {
-        if ('betIds' in json) {
-            this.betIds = json.betIds;
+    public toJson(): IListCurrentOrdersRequestOptions {
+        const json: IListCurrentOrdersRequestOptions = {
+        };
+        if (this.betIds && this.betIds.size > 0) {
+            json.betIds = this.setToJson(this.betIds);
         }
-        if ('marketIds' in json) {
-            this.marketIds = json.marketIds;
+        if (this.marketIds && this.marketIds.size > 0) {
+            json.marketIds = this.setToJson(this.marketIds);
         }
-        if ('orderProjection' in json) {
-            this.orderProjection.setValue(json.orderProjection);
-        }
-        if ('customerOrderRefs' in json) {
-            this.customerOrderRefs = json.customerOrderRefs;
-        }
-        if ('customerStrategyRefs' in json) {
-            this.customerStrategyRefs = json.customerStrategyRefs;
-        }
-        if ('placedDateRange' in json) {
-            this.placedDateRange.fromJson(json.placedDateRange);
-        }
-        if ('dateRange' in json) {
-            this.dateRange.fromJson(json.dateRange);
-        }
-        if ('orderBy' in json) {
-            this.orderBy.setValue(json.orderBy);
-        }
-        if ('sortDir' in json) {
-            this.sortDir.setValue(json.sortDir);
-        }
-        if ('fromRecord' in json) {
-            this.fromRecord = json.fromRecord;
-        }
-        if ('recordCount' in json) {
-            this.recordCount = json.recordCount;
-        }
-    }
-
-    public toJson(): any {
-        const json: any = {};
-        if (this.betIds.size > 0) {
-            json.betIds = [];
-            this.betIds.forEach((element) => {
-                json.betIds.push(element);
-            });
-        }
-        if (this.marketIds.size > 0) {
-            json.marketIds = [];
-            this.marketIds.forEach((element) => {
-                json.marketIds.push(element);
-            });
-        }
-        if (this.orderProjection.isValid()) {
+        if (this.orderProjection) {
             json.orderProjection = this.orderProjection.getValue();
         }
-        if (this.customerOrderRefs.size > 0) {
-            json.customerOrderRefs = [];
-            this.customerOrderRefs.forEach((element) => {
-                json.customerOrderRefs.push(element);
-            });
+        if (this.customerOrderRefs && this.customerOrderRefs.size > 0) {
+            json.customerOrderRefs = this.setToJson(this.customerOrderRefs);
         }
-        if (this.customerStrategyRefs.size > 0) {
-            json.customerStrategyRefs = [];
-            this.customerStrategyRefs.forEach((element) => {
-                json.customerStrategyRefs.push(element);
-            });
+        if (this.customerStrategyRefs && this.customerStrategyRefs.size > 0) {
+            json.customerStrategyRefs = this.setToJson(this.customerStrategyRefs);
         }
-        if (this.placedDateRange.isValid()) {
+        if (this.placedDateRange) {
             json.placedDateRange = this.placedDateRange.toJson();
         }
-        if (this.dateRange.isValid()) {
+        if (this.dateRange) {
             json.dateRange = this.dateRange.toJson();
         }
-        if (this.orderBy.isValid()) {
+        if (this.orderBy) {
             json.orderBy = this.orderBy.getValue();
         }
-        if (this.sortDir.isValid()) {
+        if (this.sortDir) {
             json.sortDir = this.sortDir.getValue();
         }
-        if (this.fromRecord !== null) {
+        if (typeof this.fromRecord !== 'undefined') {
             json.fromRecord = this.fromRecord;
         }
-        if (this.recordCount !== null) {
+        if (typeof this.recordCount !== 'undefined') {
             json.recordCount = this.recordCount;
         }
         return json;
     }
 
-    public isValid(): boolean {
-        return true;
-    }
-
-    public getBetIds(): Set<string> {
+    public getBetIds(): Set<string> | undefined {
         return this.betIds;
     }
     public setBetIds(betIds: Set<string>): void {
         this.betIds = betIds;
     }
-    public getMarketIds(): Set<string> {
+    public getMarketIds(): Set<string> | undefined {
         return this.marketIds;
     }
     public setMarketIds(marketIds: Set<string>): void {
         this.marketIds = marketIds;
     }
-    public getOrderProjection(): OrderProjection {
+    public getOrderProjection(): OrderProjection | undefined {
         return this.orderProjection;
     }
     public setOrderProjection(orderProjection: OrderProjection): void {
         this.orderProjection = orderProjection;
     }
-    public getCustomerOrderRefs(): Set<string> {
+    public getCustomerOrderRefs(): Set<string> | undefined {
         return this.customerOrderRefs;
     }
     public setCustomerOrderRefs(customerOrderRefs: Set<string>): void {
         this.customerOrderRefs = customerOrderRefs;
     }
-    public getCustomerStrategyRefs(): Set<string> {
+    public getCustomerStrategyRefs(): Set<string> | undefined {
         return this.customerStrategyRefs;
     }
     public setCustomerStrategyRefs(customerStrategyRefs: Set<string>): void {
         this.customerStrategyRefs = customerStrategyRefs;
     }
-    public getPlacedDateRange(): TimeRange {
+    public getPlacedDateRange(): TimeRange | undefined {
         return this.placedDateRange;
     }
     public setPlacedDateRange(placedDateRange: TimeRange): void {
         this.placedDateRange = placedDateRange;
     }
-    public getDateRange(): TimeRange {
+    public getDateRange(): TimeRange | undefined {
         return this.dateRange;
     }
     public setDateRange(dateRange: TimeRange): void {
         this.dateRange = dateRange;
     }
-    public getOrderBy(): OrderBy {
+    public getOrderBy(): OrderBy | undefined {
         return this.orderBy;
     }
     public setOrderBy(orderBy: OrderBy): void {
         this.orderBy = orderBy;
     }
-    public getSortDir(): SortDir {
+    public getSortDir(): SortDir | undefined {
         return this.sortDir;
     }
     public setSortDir(sortDir: SortDir): void {
         this.sortDir = sortDir;
     }
-    public getFromRecord(): number | null {
+    public getFromRecord(): number | undefined {
         return this.fromRecord;
     }
-    public setFromRecord(fromRecord: number | null): void {
+    public setFromRecord(fromRecord: number): void {
         this.fromRecord = fromRecord;
     }
-    public getRecordCount(): number | null {
+    public getRecordCount(): number | undefined {
         return this.recordCount;
     }
-    public setRecordCount(recordCount: number | null): void {
+    public setRecordCount(recordCount: number): void {
         this.recordCount = recordCount;
     }
 

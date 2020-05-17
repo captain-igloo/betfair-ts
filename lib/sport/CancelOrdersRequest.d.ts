@@ -1,20 +1,23 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonRequest from '../JsonRequest';
-import CancelInstruction from '../sport/CancelInstruction';
+import CancelInstruction, { ICancelInstructionOptions } from '../sport/CancelInstruction';
+export interface ICancelOrdersRequestOptions {
+    marketId?: string;
+    instructions?: Array<CancelInstruction | ICancelInstructionOptions>;
+    customerRef?: string;
+}
 export default class CancelOrdersRequest extends JsonRequest {
-    private marketId;
-    private instructions;
-    private customerRef;
-    constructor(marketId?: string, instructions?: CancelInstruction[], customerRef?: string);
-    fromJson(json: any): void;
-    toJson(): any;
-    isValid(): boolean;
-    getMarketId(): string;
+    private marketId?;
+    private instructions?;
+    private customerRef?;
+    constructor(options: ICancelOrdersRequestOptions);
+    toJson(): ICancelOrdersRequestOptions;
+    getMarketId(): string | undefined;
     setMarketId(marketId: string): void;
-    getInstructions(): CancelInstruction[];
+    getInstructions(): CancelInstruction[] | undefined;
     setInstructions(instructions: CancelInstruction[]): void;
-    getCustomerRef(): string;
+    getCustomerRef(): string | undefined;
     setCustomerRef(customerRef: string): void;
 }

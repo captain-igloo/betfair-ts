@@ -1,53 +1,43 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonRequest from '../JsonRequest';
 
 
+export interface IGetApplicationSubscriptionTokenRequestOptions {
+    subscriptionLength?: number;
+    clientReference?: string;
+}
+
 export default class GetApplicationSubscriptionTokenRequest extends JsonRequest {
-    private subscriptionLength: number | null;
-    private clientReference: string;
+    private subscriptionLength?: number;
+    private clientReference?: string;
 
-    constructor(
-        subscriptionLength: number | null = null,
-        clientReference: string = '',
-    ) {
+    constructor(options: IGetApplicationSubscriptionTokenRequestOptions) {
         super();
-        this.subscriptionLength = subscriptionLength;
-        this.clientReference = clientReference;
+        this.subscriptionLength = options.subscriptionLength;
+        this.clientReference = options.clientReference;
     }
 
-    public fromJson(json: any): void {
-        if ('subscriptionLength' in json) {
-            this.subscriptionLength = json.subscriptionLength;
-        }
-        if ('clientReference' in json) {
-            this.clientReference = json.clientReference;
-        }
-    }
-
-    public toJson(): any {
-        const json: any = {};
-        if (this.subscriptionLength !== null) {
+    public toJson(): IGetApplicationSubscriptionTokenRequestOptions {
+        const json: IGetApplicationSubscriptionTokenRequestOptions = {
+        };
+        if (typeof this.subscriptionLength !== 'undefined') {
             json.subscriptionLength = this.subscriptionLength;
         }
-        if (this.clientReference !== '') {
+        if (typeof this.clientReference !== 'undefined') {
             json.clientReference = this.clientReference;
         }
         return json;
     }
 
-    public isValid(): boolean {
-        return true;
-    }
-
-    public getSubscriptionLength(): number | null {
+    public getSubscriptionLength(): number | undefined {
         return this.subscriptionLength;
     }
-    public setSubscriptionLength(subscriptionLength: number | null): void {
+    public setSubscriptionLength(subscriptionLength: number): void {
         this.subscriptionLength = subscriptionLength;
     }
-    public getClientReference(): string {
+    public getClientReference(): string | undefined {
         return this.clientReference;
     }
     public setClientReference(clientReference: string): void {

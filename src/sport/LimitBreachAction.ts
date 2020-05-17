@@ -1,36 +1,27 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonMember from '../JsonMember';
 
 import LimitBreachActionType from '../sport/enum/LimitBreachActionType';
 
+export interface ILimitBreachActionOptions {
+    actionType: LimitBreachActionType | string;
+}
+
 export default class LimitBreachAction extends JsonMember {
     private actionType: LimitBreachActionType;
 
-    constructor(
-        actionType: LimitBreachActionType = new LimitBreachActionType(),
-    ) {
+    constructor(options: ILimitBreachActionOptions) {
         super();
-        this.actionType = actionType;
+        this.actionType = this.fromJson(options.actionType, LimitBreachActionType);
     }
 
-    public fromJson(json: any): void {
-        if ('actionType' in json) {
-            this.actionType.setValue(json.actionType);
-        }
-    }
-
-    public toJson(): any {
-        const json: any = {};
-        if (this.actionType.isValid()) {
-            json.actionType = this.actionType.getValue();
-        }
+    public toJson(): ILimitBreachActionOptions {
+        const json: ILimitBreachActionOptions = {
+            actionType: this.actionType.getValue(),
+        };
         return json;
-    }
-
-    public isValid(): boolean {
-        return this.actionType.isValid();
     }
 
     public getActionType(): LimitBreachActionType {

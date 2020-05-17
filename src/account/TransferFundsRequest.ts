@@ -1,56 +1,35 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonRequest from '../JsonRequest';
 
 import Wallet from '../account/enum/Wallet';
 
+export interface ITransferFundsRequestOptions {
+    from: Wallet | string;
+    to: Wallet | string;
+    amount: number;
+}
+
 export default class TransferFundsRequest extends JsonRequest {
     private from: Wallet;
     private to: Wallet;
-    private amount: number | null;
+    private amount: number;
 
-    constructor(
-        from: Wallet = new Wallet(),
-        to: Wallet = new Wallet(),
-        amount: number | null = null,
-    ) {
+    constructor(options: ITransferFundsRequestOptions) {
         super();
-        this.from = from;
-        this.to = to;
-        this.amount = amount;
+        this.from = this.fromJson(options.from, Wallet);
+        this.to = this.fromJson(options.to, Wallet);
+        this.amount = options.amount;
     }
 
-    public fromJson(json: any): void {
-        if ('from' in json) {
-            this.from.setValue(json.from);
-        }
-        if ('to' in json) {
-            this.to.setValue(json.to);
-        }
-        if ('amount' in json) {
-            this.amount = json.amount;
-        }
-    }
-
-    public toJson(): any {
-        const json: any = {};
-        if (this.from.isValid()) {
-            json.from = this.from.getValue();
-        }
-        if (this.to.isValid()) {
-            json.to = this.to.getValue();
-        }
-        if (this.amount !== null) {
-            json.amount = this.amount;
-        }
+    public toJson(): ITransferFundsRequestOptions {
+        const json: ITransferFundsRequestOptions = {
+            from: this.from.getValue(),
+            to: this.to.getValue(),
+            amount: this.amount,
+        };
         return json;
-    }
-
-    public isValid(): boolean {
-        return this.from.isValid() &&
-            this.to.isValid() &&
-            this.amount !== null;
     }
 
     public getFrom(): Wallet {
@@ -65,10 +44,10 @@ export default class TransferFundsRequest extends JsonRequest {
     public setTo(to: Wallet): void {
         this.to = to;
     }
-    public getAmount(): number | null {
+    public getAmount(): number {
         return this.amount;
     }
-    public setAmount(amount: number | null): void {
+    public setAmount(amount: number): void {
         this.amount = amount;
     }
 

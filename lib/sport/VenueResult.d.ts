@@ -1,16 +1,18 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonMember from '../JsonMember';
+export interface IVenueResultOptions {
+    venue?: string;
+    marketCount?: number;
+}
 export default class VenueResult extends JsonMember {
-    private venue;
-    private marketCount;
-    constructor(venue?: string, marketCount?: number | null);
-    fromJson(json: any): void;
-    toJson(): any;
-    isValid(): boolean;
-    getVenue(): string;
+    private venue?;
+    private marketCount?;
+    constructor(options: IVenueResultOptions);
+    toJson(): IVenueResultOptions;
+    getVenue(): string | undefined;
     setVenue(venue: string): void;
-    getMarketCount(): number | null;
-    setMarketCount(marketCount: number | null): void;
+    getMarketCount(): number | undefined;
+    setMarketCount(marketCount: number): void;
 }

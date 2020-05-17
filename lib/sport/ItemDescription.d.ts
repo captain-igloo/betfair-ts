@@ -1,34 +1,42 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonMember from '../JsonMember';
+export interface IItemDescriptionOptions {
+    eventTypeDesc?: string;
+    eventDesc?: string;
+    marketDesc?: string;
+    marketType?: string;
+    marketStartTime?: Date | string;
+    runnerDesc?: string;
+    numberOfWinners?: number;
+    eachWayDivisor?: number;
+}
 export default class ItemDescription extends JsonMember {
-    private eventTypeDesc;
-    private eventDesc;
-    private marketDesc;
-    private marketType;
-    private marketStartTime;
-    private runnerDesc;
-    private numberOfWinners;
-    private eachWayDivisor;
-    constructor(eventTypeDesc?: string, eventDesc?: string, marketDesc?: string, marketType?: string, marketStartTime?: Date | null, runnerDesc?: string, numberOfWinners?: number | null, eachWayDivisor?: number | null);
-    fromJson(json: any): void;
-    toJson(): any;
-    isValid(): boolean;
-    getEventTypeDesc(): string;
+    private eventTypeDesc?;
+    private eventDesc?;
+    private marketDesc?;
+    private marketType?;
+    private marketStartTime?;
+    private runnerDesc?;
+    private numberOfWinners?;
+    private eachWayDivisor?;
+    constructor(options: IItemDescriptionOptions);
+    toJson(): IItemDescriptionOptions;
+    getEventTypeDesc(): string | undefined;
     setEventTypeDesc(eventTypeDesc: string): void;
-    getEventDesc(): string;
+    getEventDesc(): string | undefined;
     setEventDesc(eventDesc: string): void;
-    getMarketDesc(): string;
+    getMarketDesc(): string | undefined;
     setMarketDesc(marketDesc: string): void;
-    getMarketType(): string;
+    getMarketType(): string | undefined;
     setMarketType(marketType: string): void;
-    getMarketStartTime(): Date | null;
-    setMarketStartTime(marketStartTime: Date | null): void;
-    getRunnerDesc(): string;
+    getMarketStartTime(): Date | undefined;
+    setMarketStartTime(marketStartTime: Date): void;
+    getRunnerDesc(): string | undefined;
     setRunnerDesc(runnerDesc: string): void;
-    getNumberOfWinners(): number | null;
-    setNumberOfWinners(numberOfWinners: number | null): void;
-    getEachWayDivisor(): number | null;
-    setEachWayDivisor(eachWayDivisor: number | null): void;
+    getNumberOfWinners(): number | undefined;
+    setNumberOfWinners(numberOfWinners: number): void;
+    getEachWayDivisor(): number | undefined;
+    setEachWayDivisor(eachWayDivisor: number): void;
 }

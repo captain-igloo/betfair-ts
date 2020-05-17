@@ -1,78 +1,50 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonRequest from '../JsonRequest';
 
-import MarketVersion from '../sport/MarketVersion';
-import ReplaceInstruction from '../sport/ReplaceInstruction';
+import MarketVersion, { IMarketVersionOptions } from '../sport/MarketVersion';
+import ReplaceInstruction, { IReplaceInstructionOptions } from '../sport/ReplaceInstruction';
+
+export interface IReplaceOrdersRequestOptions {
+    marketId: string;
+    instructions: Array<ReplaceInstruction | IReplaceInstructionOptions>;
+    customerRef?: string;
+    marketVersion?: MarketVersion | IMarketVersionOptions;
+    async?: boolean;
+}
 
 export default class ReplaceOrdersRequest extends JsonRequest {
     private marketId: string;
     private instructions: ReplaceInstruction[];
-    private customerRef: string;
-    private marketVersion: MarketVersion;
-    private async: boolean | null;
+    private customerRef?: string;
+    private marketVersion?: MarketVersion;
+    private async?: boolean;
 
-    constructor(
-        marketId: string = '',
-        instructions: ReplaceInstruction[] = [],
-        customerRef: string = '',
-        marketVersion: MarketVersion = new MarketVersion(),
-        async: boolean | null = null,
-    ) {
+    constructor(options: IReplaceOrdersRequestOptions) {
         super();
-        this.marketId = marketId;
-        this.instructions = instructions;
-        this.customerRef = customerRef;
-        this.marketVersion = marketVersion;
-        this.async = async;
+        this.marketId = options.marketId;
+        this.instructions = this.arrayFromJson(options.instructions, ReplaceInstruction);
+        this.customerRef = options.customerRef;
+        this.marketVersion = options.marketVersion && this.fromJson(options.marketVersion, MarketVersion);
+        this.async = options.async;
     }
 
-    public fromJson(json: any): void {
-        if ('marketId' in json) {
-            this.marketId = json.marketId;
-        }
-        if ('instructions' in json) {
-            this.instructions = json.instructions.map((instructionsJson: any) => {
-                const element = new ReplaceInstruction();
-                element.fromJson(instructionsJson);
-                return element;
-            });
-        }
-        if ('customerRef' in json) {
-            this.customerRef = json.customerRef;
-        }
-        if ('marketVersion' in json) {
-            this.marketVersion.fromJson(json.marketVersion);
-        }
-        if ('async' in json) {
-            this.async = json.async;
-        }
-    }
-
-    public toJson(): any {
-        const json: any = {};
-        if (this.marketId !== '') {
-            json.marketId = this.marketId;
-        }
-        if (this.instructions.length > 0) {
-            json.instructions = this.instructions.map((value) => value.toJson());
-        }
-        if (this.customerRef !== '') {
+    public toJson(): IReplaceOrdersRequestOptions {
+        const json: IReplaceOrdersRequestOptions = {
+            marketId: this.marketId,
+            instructions: this.instructions.map((value) => value.toJson()),
+        };
+        if (typeof this.customerRef !== 'undefined') {
             json.customerRef = this.customerRef;
         }
-        if (this.marketVersion.isValid()) {
+        if (this.marketVersion) {
             json.marketVersion = this.marketVersion.toJson();
         }
-        if (this.async !== null) {
+        if (typeof this.async !== 'undefined') {
             json.async = this.async;
         }
         return json;
-    }
-
-    public isValid(): boolean {
-        return this.marketId !== '' &&
-            this.instructions.length > 0;
     }
 
     public getMarketId(): string {
@@ -87,22 +59,22 @@ export default class ReplaceOrdersRequest extends JsonRequest {
     public setInstructions(instructions: ReplaceInstruction[]): void {
         this.instructions = instructions;
     }
-    public getCustomerRef(): string {
+    public getCustomerRef(): string | undefined {
         return this.customerRef;
     }
     public setCustomerRef(customerRef: string): void {
         this.customerRef = customerRef;
     }
-    public getMarketVersion(): MarketVersion {
+    public getMarketVersion(): MarketVersion | undefined {
         return this.marketVersion;
     }
     public setMarketVersion(marketVersion: MarketVersion): void {
         this.marketVersion = marketVersion;
     }
-    public getAsync(): boolean | null {
+    public getAsync(): boolean | undefined {
         return this.async;
     }
-    public setAsync(async: boolean | null): void {
+    public setAsync(async: boolean): void {
         this.async = async;
     }
 

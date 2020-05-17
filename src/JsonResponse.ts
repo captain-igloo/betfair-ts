@@ -1,10 +1,14 @@
+import JsonMember from './JsonMember';
 
-abstract class JsonResponse {
+export interface IError {
+    faultCode: string;
+    faultString?: string;
+}
+
+export default abstract class JsonResponse extends JsonMember {
     private success: boolean = false;
     private faultCode: string = '';
     private faultString: string = '';
-
-    public abstract fromJson(json: string): void;
 
     public validateJson(json: any): boolean {
         this.success = true;
@@ -31,4 +35,3 @@ abstract class JsonResponse {
     }
 }
 
-export default JsonResponse;

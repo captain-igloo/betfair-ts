@@ -1,196 +1,135 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonMember from '../JsonMember';
 
 import MarketStatus from '../sport/enum/MarketStatus';
-import KeyLineDescription from '../sport/KeyLineDescription';
-import Runner from '../sport/Runner';
+import KeyLineDescription, { IKeyLineDescriptionOptions } from '../sport/KeyLineDescription';
+import Runner, { IRunnerOptions } from '../sport/Runner';
+
+export interface IMarketBookOptions {
+    marketId: string;
+    isMarketDataDelayed: boolean;
+    status?: MarketStatus | string;
+    betDelay?: number;
+    bspReconciled?: boolean;
+    complete?: boolean;
+    inplay?: boolean;
+    numberOfWinners?: number;
+    numberOfRunners?: number;
+    numberOfActiveRunners?: number;
+    lastMatchTime?: Date | string;
+    totalMatched?: number;
+    totalAvailable?: number;
+    crossMatching?: boolean;
+    runnersVoidable?: boolean;
+    version?: number;
+    runners?: Array<Runner | IRunnerOptions>;
+    keyLineDescription?: KeyLineDescription | IKeyLineDescriptionOptions;
+}
 
 export default class MarketBook extends JsonMember {
     private marketId: string;
-    private isMarketDataDelayed: boolean | null;
-    private status: MarketStatus;
-    private betDelay: number | null;
-    private bspReconciled: boolean | null;
-    private complete: boolean | null;
-    private inplay: boolean | null;
-    private numberOfWinners: number | null;
-    private numberOfRunners: number | null;
-    private numberOfActiveRunners: number | null;
-    private lastMatchTime: Date | null;
-    private totalMatched: number | null;
-    private totalAvailable: number | null;
-    private crossMatching: boolean | null;
-    private runnersVoidable: boolean | null;
-    private version: number | null;
-    private runners: Runner[];
-    private keyLineDescription: KeyLineDescription;
+    private isMarketDataDelayed: boolean;
+    private status?: MarketStatus;
+    private betDelay?: number;
+    private bspReconciled?: boolean;
+    private complete?: boolean;
+    private inplay?: boolean;
+    private numberOfWinners?: number;
+    private numberOfRunners?: number;
+    private numberOfActiveRunners?: number;
+    private lastMatchTime?: Date;
+    private totalMatched?: number;
+    private totalAvailable?: number;
+    private crossMatching?: boolean;
+    private runnersVoidable?: boolean;
+    private version?: number;
+    private runners?: Runner[];
+    private keyLineDescription?: KeyLineDescription;
 
-    constructor(
-        marketId: string = '',
-        isMarketDataDelayed: boolean | null = null,
-        status: MarketStatus = new MarketStatus(),
-        betDelay: number | null = null,
-        bspReconciled: boolean | null = null,
-        complete: boolean | null = null,
-        inplay: boolean | null = null,
-        numberOfWinners: number | null = null,
-        numberOfRunners: number | null = null,
-        numberOfActiveRunners: number | null = null,
-        lastMatchTime: Date | null = null,
-        totalMatched: number | null = null,
-        totalAvailable: number | null = null,
-        crossMatching: boolean | null = null,
-        runnersVoidable: boolean | null = null,
-        version: number | null = null,
-        runners: Runner[] = [],
-        keyLineDescription: KeyLineDescription = new KeyLineDescription(),
-    ) {
+    constructor(options: IMarketBookOptions) {
         super();
-        this.marketId = marketId;
-        this.isMarketDataDelayed = isMarketDataDelayed;
-        this.status = status;
-        this.betDelay = betDelay;
-        this.bspReconciled = bspReconciled;
-        this.complete = complete;
-        this.inplay = inplay;
-        this.numberOfWinners = numberOfWinners;
-        this.numberOfRunners = numberOfRunners;
-        this.numberOfActiveRunners = numberOfActiveRunners;
-        this.lastMatchTime = lastMatchTime;
-        this.totalMatched = totalMatched;
-        this.totalAvailable = totalAvailable;
-        this.crossMatching = crossMatching;
-        this.runnersVoidable = runnersVoidable;
-        this.version = version;
-        this.runners = runners;
-        this.keyLineDescription = keyLineDescription;
+        this.marketId = options.marketId;
+        this.isMarketDataDelayed = options.isMarketDataDelayed;
+        if (options.status) {
+            this.status = this.fromJson(options.status, MarketStatus);
+        }
+        this.betDelay = options.betDelay;
+        this.bspReconciled = options.bspReconciled;
+        this.complete = options.complete;
+        this.inplay = options.inplay;
+        this.numberOfWinners = options.numberOfWinners;
+        this.numberOfRunners = options.numberOfRunners;
+        this.numberOfActiveRunners = options.numberOfActiveRunners;
+        if (options.lastMatchTime) {
+            this.lastMatchTime = this.fromJson(options.lastMatchTime, Date);
+        }
+        this.totalMatched = options.totalMatched;
+        this.totalAvailable = options.totalAvailable;
+        this.crossMatching = options.crossMatching;
+        this.runnersVoidable = options.runnersVoidable;
+        this.version = options.version;
+        if (options.runners) {
+            this.runners = this.arrayFromJson(options.runners, Runner);
+        }
+        this.keyLineDescription = options.keyLineDescription && this.fromJson(options.keyLineDescription, KeyLineDescription);
     }
 
-    public fromJson(json: any): void {
-        if ('marketId' in json) {
-            this.marketId = json.marketId;
-        }
-        if ('isMarketDataDelayed' in json) {
-            this.isMarketDataDelayed = json.isMarketDataDelayed;
-        }
-        if ('status' in json) {
-            this.status.setValue(json.status);
-        }
-        if ('betDelay' in json) {
-            this.betDelay = json.betDelay;
-        }
-        if ('bspReconciled' in json) {
-            this.bspReconciled = json.bspReconciled;
-        }
-        if ('complete' in json) {
-            this.complete = json.complete;
-        }
-        if ('inplay' in json) {
-            this.inplay = json.inplay;
-        }
-        if ('numberOfWinners' in json) {
-            this.numberOfWinners = json.numberOfWinners;
-        }
-        if ('numberOfRunners' in json) {
-            this.numberOfRunners = json.numberOfRunners;
-        }
-        if ('numberOfActiveRunners' in json) {
-            this.numberOfActiveRunners = json.numberOfActiveRunners;
-        }
-        if ('lastMatchTime' in json) {
-            this.lastMatchTime = new Date(json.lastMatchTime);
-        }
-        if ('totalMatched' in json) {
-            this.totalMatched = json.totalMatched;
-        }
-        if ('totalAvailable' in json) {
-            this.totalAvailable = json.totalAvailable;
-        }
-        if ('crossMatching' in json) {
-            this.crossMatching = json.crossMatching;
-        }
-        if ('runnersVoidable' in json) {
-            this.runnersVoidable = json.runnersVoidable;
-        }
-        if ('version' in json) {
-            this.version = json.version;
-        }
-        if ('runners' in json) {
-            this.runners = json.runners.map((runnersJson: any) => {
-                const element = new Runner();
-                element.fromJson(runnersJson);
-                return element;
-            });
-        }
-        if ('keyLineDescription' in json) {
-            this.keyLineDescription.fromJson(json.keyLineDescription);
-        }
-    }
-
-    public toJson(): any {
-        const json: any = {};
-        if (this.marketId !== '') {
-            json.marketId = this.marketId;
-        }
-        if (this.isMarketDataDelayed !== null) {
-            json.isMarketDataDelayed = this.isMarketDataDelayed;
-        }
-        if (this.status.isValid()) {
+    public toJson(): IMarketBookOptions {
+        const json: IMarketBookOptions = {
+            marketId: this.marketId,
+            isMarketDataDelayed: this.isMarketDataDelayed,
+        };
+        if (this.status) {
             json.status = this.status.getValue();
         }
-        if (this.betDelay !== null) {
+        if (typeof this.betDelay !== 'undefined') {
             json.betDelay = this.betDelay;
         }
-        if (this.bspReconciled !== null) {
+        if (typeof this.bspReconciled !== 'undefined') {
             json.bspReconciled = this.bspReconciled;
         }
-        if (this.complete !== null) {
+        if (typeof this.complete !== 'undefined') {
             json.complete = this.complete;
         }
-        if (this.inplay !== null) {
+        if (typeof this.inplay !== 'undefined') {
             json.inplay = this.inplay;
         }
-        if (this.numberOfWinners !== null) {
+        if (typeof this.numberOfWinners !== 'undefined') {
             json.numberOfWinners = this.numberOfWinners;
         }
-        if (this.numberOfRunners !== null) {
+        if (typeof this.numberOfRunners !== 'undefined') {
             json.numberOfRunners = this.numberOfRunners;
         }
-        if (this.numberOfActiveRunners !== null) {
+        if (typeof this.numberOfActiveRunners !== 'undefined') {
             json.numberOfActiveRunners = this.numberOfActiveRunners;
         }
-        if (this.lastMatchTime !== null) {
+        if (typeof this.lastMatchTime !== 'undefined') {
             json.lastMatchTime = this.lastMatchTime.toISOString();
         }
-        if (this.totalMatched !== null) {
+        if (typeof this.totalMatched !== 'undefined') {
             json.totalMatched = this.totalMatched;
         }
-        if (this.totalAvailable !== null) {
+        if (typeof this.totalAvailable !== 'undefined') {
             json.totalAvailable = this.totalAvailable;
         }
-        if (this.crossMatching !== null) {
+        if (typeof this.crossMatching !== 'undefined') {
             json.crossMatching = this.crossMatching;
         }
-        if (this.runnersVoidable !== null) {
+        if (typeof this.runnersVoidable !== 'undefined') {
             json.runnersVoidable = this.runnersVoidable;
         }
-        if (this.version !== null) {
+        if (typeof this.version !== 'undefined') {
             json.version = this.version;
         }
-        if (this.runners.length > 0) {
+        if (this.runners && this.runners.length > 0) {
             json.runners = this.runners.map((value) => value.toJson());
         }
-        if (this.keyLineDescription.isValid()) {
+        if (this.keyLineDescription) {
             json.keyLineDescription = this.keyLineDescription.toJson();
         }
         return json;
-    }
-
-    public isValid(): boolean {
-        return this.marketId !== '' &&
-            this.isMarketDataDelayed !== null;
     }
 
     public getMarketId(): string {
@@ -199,103 +138,103 @@ export default class MarketBook extends JsonMember {
     public setMarketId(marketId: string): void {
         this.marketId = marketId;
     }
-    public getIsMarketDataDelayed(): boolean | null {
+    public getIsMarketDataDelayed(): boolean {
         return this.isMarketDataDelayed;
     }
-    public setIsMarketDataDelayed(isMarketDataDelayed: boolean | null): void {
+    public setIsMarketDataDelayed(isMarketDataDelayed: boolean): void {
         this.isMarketDataDelayed = isMarketDataDelayed;
     }
-    public getStatus(): MarketStatus {
+    public getStatus(): MarketStatus | undefined {
         return this.status;
     }
     public setStatus(status: MarketStatus): void {
         this.status = status;
     }
-    public getBetDelay(): number | null {
+    public getBetDelay(): number | undefined {
         return this.betDelay;
     }
-    public setBetDelay(betDelay: number | null): void {
+    public setBetDelay(betDelay: number): void {
         this.betDelay = betDelay;
     }
-    public getBspReconciled(): boolean | null {
+    public getBspReconciled(): boolean | undefined {
         return this.bspReconciled;
     }
-    public setBspReconciled(bspReconciled: boolean | null): void {
+    public setBspReconciled(bspReconciled: boolean): void {
         this.bspReconciled = bspReconciled;
     }
-    public getComplete(): boolean | null {
+    public getComplete(): boolean | undefined {
         return this.complete;
     }
-    public setComplete(complete: boolean | null): void {
+    public setComplete(complete: boolean): void {
         this.complete = complete;
     }
-    public getInplay(): boolean | null {
+    public getInplay(): boolean | undefined {
         return this.inplay;
     }
-    public setInplay(inplay: boolean | null): void {
+    public setInplay(inplay: boolean): void {
         this.inplay = inplay;
     }
-    public getNumberOfWinners(): number | null {
+    public getNumberOfWinners(): number | undefined {
         return this.numberOfWinners;
     }
-    public setNumberOfWinners(numberOfWinners: number | null): void {
+    public setNumberOfWinners(numberOfWinners: number): void {
         this.numberOfWinners = numberOfWinners;
     }
-    public getNumberOfRunners(): number | null {
+    public getNumberOfRunners(): number | undefined {
         return this.numberOfRunners;
     }
-    public setNumberOfRunners(numberOfRunners: number | null): void {
+    public setNumberOfRunners(numberOfRunners: number): void {
         this.numberOfRunners = numberOfRunners;
     }
-    public getNumberOfActiveRunners(): number | null {
+    public getNumberOfActiveRunners(): number | undefined {
         return this.numberOfActiveRunners;
     }
-    public setNumberOfActiveRunners(numberOfActiveRunners: number | null): void {
+    public setNumberOfActiveRunners(numberOfActiveRunners: number): void {
         this.numberOfActiveRunners = numberOfActiveRunners;
     }
-    public getLastMatchTime(): Date | null {
+    public getLastMatchTime(): Date | undefined {
         return this.lastMatchTime;
     }
-    public setLastMatchTime(lastMatchTime: Date | null): void {
+    public setLastMatchTime(lastMatchTime: Date): void {
         this.lastMatchTime = lastMatchTime;
     }
-    public getTotalMatched(): number | null {
+    public getTotalMatched(): number | undefined {
         return this.totalMatched;
     }
-    public setTotalMatched(totalMatched: number | null): void {
+    public setTotalMatched(totalMatched: number): void {
         this.totalMatched = totalMatched;
     }
-    public getTotalAvailable(): number | null {
+    public getTotalAvailable(): number | undefined {
         return this.totalAvailable;
     }
-    public setTotalAvailable(totalAvailable: number | null): void {
+    public setTotalAvailable(totalAvailable: number): void {
         this.totalAvailable = totalAvailable;
     }
-    public getCrossMatching(): boolean | null {
+    public getCrossMatching(): boolean | undefined {
         return this.crossMatching;
     }
-    public setCrossMatching(crossMatching: boolean | null): void {
+    public setCrossMatching(crossMatching: boolean): void {
         this.crossMatching = crossMatching;
     }
-    public getRunnersVoidable(): boolean | null {
+    public getRunnersVoidable(): boolean | undefined {
         return this.runnersVoidable;
     }
-    public setRunnersVoidable(runnersVoidable: boolean | null): void {
+    public setRunnersVoidable(runnersVoidable: boolean): void {
         this.runnersVoidable = runnersVoidable;
     }
-    public getVersion(): number | null {
+    public getVersion(): number | undefined {
         return this.version;
     }
-    public setVersion(version: number | null): void {
+    public setVersion(version: number): void {
         this.version = version;
     }
-    public getRunners(): Runner[] {
+    public getRunners(): Runner[] | undefined {
         return this.runners;
     }
     public setRunners(runners: Runner[]): void {
         this.runners = runners;
     }
-    public getKeyLineDescription(): KeyLineDescription {
+    public getKeyLineDescription(): KeyLineDescription | undefined {
         return this.keyLineDescription;
     }
     public setKeyLineDescription(keyLineDescription: KeyLineDescription): void {

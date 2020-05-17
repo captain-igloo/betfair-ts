@@ -16,7 +16,7 @@ export default class SortDir extends Enum {
         if (value) {
             if (value !== 'EARLIEST_TO_LATEST' &&
                 value !== 'LATEST_TO_EARLIEST') {
-                throw new Error(`Invalid MarketStatus: ${value}`);
+                throw new Error(`Invalid SortDir: ${value}`);
             }
 
             this.value = value;

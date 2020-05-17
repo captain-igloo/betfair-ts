@@ -1,19 +1,22 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonMember from '../JsonMember';
+export interface IRunnerIdOptions {
+    marketId: string;
+    selectionId: number;
+    handicap?: number;
+}
 export default class RunnerId extends JsonMember {
     private marketId;
     private selectionId;
-    private handicap;
-    constructor(marketId?: string, selectionId?: number | null, handicap?: number | null);
-    fromJson(json: any): void;
-    toJson(): any;
-    isValid(): boolean;
+    private handicap?;
+    constructor(options: IRunnerIdOptions);
+    toJson(): IRunnerIdOptions;
     getMarketId(): string;
     setMarketId(marketId: string): void;
-    getSelectionId(): number | null;
-    setSelectionId(selectionId: number | null): void;
-    getHandicap(): number | null;
-    setHandicap(handicap: number | null): void;
+    getSelectionId(): number;
+    setSelectionId(selectionId: number): void;
+    getHandicap(): number | undefined;
+    setHandicap(handicap: number): void;
 }

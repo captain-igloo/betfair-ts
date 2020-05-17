@@ -1,76 +1,51 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonMember from '../JsonMember';
 
-import CancelInstruction from '../sport/CancelInstruction';
+import CancelInstruction, { ICancelInstructionOptions } from '../sport/CancelInstruction';
 import InstructionReportErrorCode from '../sport/enum/InstructionReportErrorCode';
 import InstructionReportStatus from '../sport/enum/InstructionReportStatus';
 
+export interface ICancelInstructionReportOptions {
+    status: InstructionReportStatus | string;
+    errorCode?: InstructionReportErrorCode | string;
+    instruction?: CancelInstruction | ICancelInstructionOptions;
+    sizeCancelled: number;
+    cancelledDate: Date | string;
+}
+
 export default class CancelInstructionReport extends JsonMember {
     private status: InstructionReportStatus;
-    private errorCode: InstructionReportErrorCode;
-    private instruction: CancelInstruction;
-    private sizeCancelled: number | null;
-    private cancelledDate: Date | null;
+    private errorCode?: InstructionReportErrorCode;
+    private instruction?: CancelInstruction;
+    private sizeCancelled: number;
+    private cancelledDate: Date;
 
-    constructor(
-        status: InstructionReportStatus = new InstructionReportStatus(),
-        errorCode: InstructionReportErrorCode = new InstructionReportErrorCode(),
-        instruction: CancelInstruction = new CancelInstruction(),
-        sizeCancelled: number | null = null,
-        cancelledDate: Date | null = null,
-    ) {
+    constructor(options: ICancelInstructionReportOptions) {
         super();
-        this.status = status;
-        this.errorCode = errorCode;
-        this.instruction = instruction;
-        this.sizeCancelled = sizeCancelled;
-        this.cancelledDate = cancelledDate;
+        this.status = this.fromJson(options.status, InstructionReportStatus);
+        if (options.errorCode) {
+            this.errorCode = this.fromJson(options.errorCode, InstructionReportErrorCode);
+        }
+        this.instruction = options.instruction && this.fromJson(options.instruction, CancelInstruction);
+        this.sizeCancelled = options.sizeCancelled;
+        this.cancelledDate = this.fromJson(options.cancelledDate, Date);
     }
 
-    public fromJson(json: any): void {
-        if ('status' in json) {
-            this.status.setValue(json.status);
-        }
-        if ('errorCode' in json) {
-            this.errorCode.setValue(json.errorCode);
-        }
-        if ('instruction' in json) {
-            this.instruction.fromJson(json.instruction);
-        }
-        if ('sizeCancelled' in json) {
-            this.sizeCancelled = json.sizeCancelled;
-        }
-        if ('cancelledDate' in json) {
-            this.cancelledDate = new Date(json.cancelledDate);
-        }
-    }
-
-    public toJson(): any {
-        const json: any = {};
-        if (this.status.isValid()) {
-            json.status = this.status.getValue();
-        }
-        if (this.errorCode.isValid()) {
+    public toJson(): ICancelInstructionReportOptions {
+        const json: ICancelInstructionReportOptions = {
+            status: this.status.getValue(),
+            sizeCancelled: this.sizeCancelled,
+            cancelledDate: this.cancelledDate.toISOString(),
+        };
+        if (this.errorCode) {
             json.errorCode = this.errorCode.getValue();
         }
-        if (this.instruction.isValid()) {
+        if (this.instruction) {
             json.instruction = this.instruction.toJson();
         }
-        if (this.sizeCancelled !== null) {
-            json.sizeCancelled = this.sizeCancelled;
-        }
-        if (this.cancelledDate !== null) {
-            json.cancelledDate = this.cancelledDate.toISOString();
-        }
         return json;
-    }
-
-    public isValid(): boolean {
-        return this.status.isValid() &&
-            this.sizeCancelled !== null &&
-            this.cancelledDate !== null;
     }
 
     public getStatus(): InstructionReportStatus {
@@ -79,28 +54,28 @@ export default class CancelInstructionReport extends JsonMember {
     public setStatus(status: InstructionReportStatus): void {
         this.status = status;
     }
-    public getErrorCode(): InstructionReportErrorCode {
+    public getErrorCode(): InstructionReportErrorCode | undefined {
         return this.errorCode;
     }
     public setErrorCode(errorCode: InstructionReportErrorCode): void {
         this.errorCode = errorCode;
     }
-    public getInstruction(): CancelInstruction {
+    public getInstruction(): CancelInstruction | undefined {
         return this.instruction;
     }
     public setInstruction(instruction: CancelInstruction): void {
         this.instruction = instruction;
     }
-    public getSizeCancelled(): number | null {
+    public getSizeCancelled(): number {
         return this.sizeCancelled;
     }
-    public setSizeCancelled(sizeCancelled: number | null): void {
+    public setSizeCancelled(sizeCancelled: number): void {
         this.sizeCancelled = sizeCancelled;
     }
-    public getCancelledDate(): Date | null {
+    public getCancelledDate(): Date {
         return this.cancelledDate;
     }
-    public setCancelledDate(cancelledDate: Date | null): void {
+    public setCancelledDate(cancelledDate: Date): void {
         this.cancelledDate = cancelledDate;
     }
 

@@ -1,43 +1,31 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonResponse from '../JsonResponse';
 
-import AffiliateRelation from '../account/AffiliateRelation';
+import AffiliateRelation, { IAffiliateRelationOptions } from '../account/AffiliateRelation';
+
+export interface IGetAffiliateRelationResponseOptions {
+    affiliateRelations?: Array<AffiliateRelation | IAffiliateRelationOptions>;
+}
 
 export default class GetAffiliateRelationResponse extends JsonResponse {
-    private affiliateRelations: AffiliateRelation[];
+    private affiliateRelations?: AffiliateRelation[];
 
-    constructor(
-        affiliateRelations: AffiliateRelation[] = [],
-    ) {
+    constructor(options: Array<AffiliateRelation | IAffiliateRelationOptions>) {
         super();
-        this.affiliateRelations = affiliateRelations;
-    }
-
-    public fromJson(json: any): void {
-        if (this.validateJson(json)) {
-            this.affiliateRelations = json.map((affiliateRelationsJson: any) => {
-                const element = new AffiliateRelation();
-                element.fromJson(affiliateRelationsJson);
-                return element;
-            });
+        if (this.validateJson(options)) {
+            if (options) {
+                this.affiliateRelations = this.arrayFromJson(options, AffiliateRelation);
+            }
         }
     }
 
-    public toJson(): any {
-        let json: any = {};
-        if (this.affiliateRelations.length > 0) {
-            json.affiliateRelations = this.affiliateRelations.map((value) => value.toJson());
-        }
-        return json;
+    public toJson(): IGetAffiliateRelationResponseOptions {
+        throw new Error('not implemented');
     }
 
-    public isValid(): boolean {
-        return this.affiliateRelations.length > 0;
-    }
-
-    public getAffiliateRelations(): AffiliateRelation[] {
+    public getAffiliateRelations(): AffiliateRelation[] | undefined {
         return this.affiliateRelations;
     }
     public setAffiliateRelations(affiliateRelations: AffiliateRelation[]): void {

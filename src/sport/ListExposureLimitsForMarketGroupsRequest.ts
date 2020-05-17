@@ -1,59 +1,49 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonRequest from '../JsonRequest';
 
 import MarketGroupType from '../sport/enum/MarketGroupType';
-import MarketGroup from '../sport/MarketGroup';
+import MarketGroup, { IMarketGroupOptions } from '../sport/MarketGroup';
+
+export interface IListExposureLimitsForMarketGroupsRequestOptions {
+    marketGroupTypeFilter?: MarketGroupType | string;
+    marketGroupFilter?: Array<MarketGroup | IMarketGroupOptions>;
+}
 
 export default class ListExposureLimitsForMarketGroupsRequest extends JsonRequest {
-    private marketGroupTypeFilter: MarketGroupType;
-    private marketGroupFilter: MarketGroup[];
+    private marketGroupTypeFilter?: MarketGroupType;
+    private marketGroupFilter?: MarketGroup[];
 
-    constructor(
-        marketGroupTypeFilter: MarketGroupType = new MarketGroupType(),
-        marketGroupFilter: MarketGroup[] = [],
-    ) {
+    constructor(options: IListExposureLimitsForMarketGroupsRequestOptions) {
         super();
-        this.marketGroupTypeFilter = marketGroupTypeFilter;
-        this.marketGroupFilter = marketGroupFilter;
-    }
-
-    public fromJson(json: any): void {
-        if ('marketGroupTypeFilter' in json) {
-            this.marketGroupTypeFilter.setValue(json.marketGroupTypeFilter);
+        if (options.marketGroupTypeFilter) {
+            this.marketGroupTypeFilter = this.fromJson(options.marketGroupTypeFilter, MarketGroupType);
         }
-        if ('marketGroupFilter' in json) {
-            this.marketGroupFilter = json.marketGroupFilter.map((marketGroupFilterJson: any) => {
-                const element = new MarketGroup();
-                element.fromJson(marketGroupFilterJson);
-                return element;
-            });
+        if (options.marketGroupFilter) {
+            this.marketGroupFilter = this.arrayFromJson(options.marketGroupFilter, MarketGroup);
         }
     }
 
-    public toJson(): any {
-        const json: any = {};
-        if (this.marketGroupTypeFilter.isValid()) {
+    public toJson(): IListExposureLimitsForMarketGroupsRequestOptions {
+        const json: IListExposureLimitsForMarketGroupsRequestOptions = {
+        };
+        if (this.marketGroupTypeFilter) {
             json.marketGroupTypeFilter = this.marketGroupTypeFilter.getValue();
         }
-        if (this.marketGroupFilter.length > 0) {
+        if (this.marketGroupFilter && this.marketGroupFilter.length > 0) {
             json.marketGroupFilter = this.marketGroupFilter.map((value) => value.toJson());
         }
         return json;
     }
 
-    public isValid(): boolean {
-        return true;
-    }
-
-    public getMarketGroupTypeFilter(): MarketGroupType {
+    public getMarketGroupTypeFilter(): MarketGroupType | undefined {
         return this.marketGroupTypeFilter;
     }
     public setMarketGroupTypeFilter(marketGroupTypeFilter: MarketGroupType): void {
         this.marketGroupTypeFilter = marketGroupTypeFilter;
     }
-    public getMarketGroupFilter(): MarketGroup[] {
+    public getMarketGroupFilter(): MarketGroup[] | undefined {
         return this.marketGroupFilter;
     }
     public setMarketGroupFilter(marketGroupFilter: MarketGroup[]): void {

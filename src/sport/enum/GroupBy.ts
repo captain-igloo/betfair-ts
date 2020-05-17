@@ -26,7 +26,7 @@ export default class GroupBy extends Enum {
                 value !== 'SIDE' &&
                 value !== 'BET' &&
                 value !== 'STRATEGY') {
-                throw new Error(`Invalid MarketStatus: ${value}`);
+                throw new Error(`Invalid GroupBy: ${value}`);
             }
 
             this.value = value;

@@ -68,7 +68,7 @@ export default class InstructionReportErrorCode extends Enum {
                 value !== 'UNEXPECTED_MIN_FILL_SIZE' &&
                 value !== 'INVALID_CUSTOMER_STRATEGY_REF' &&
                 value !== 'BET_LAPSED_PRICE_IMPROVEMENT_TOO_LARGE') {
-                throw new Error(`Invalid MarketStatus: ${value}`);
+                throw new Error(`Invalid InstructionReportErrorCode: ${value}`);
             }
 
             this.value = value;

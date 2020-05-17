@@ -1,13 +1,14 @@
 /**
- * Copyright 2018 Colin Doig.  Distributed under the MIT license.
+ * Copyright 2020 Colin Doig.  Distributed under the MIT license.
  */
 import JsonRequest from '../JsonRequest';
+export interface IRevokeAccessToWebAppRequestOptions {
+    vendorId: number;
+}
 export default class RevokeAccessToWebAppRequest extends JsonRequest {
     private vendorId;
-    constructor(vendorId?: number | null);
-    fromJson(json: any): void;
-    toJson(): any;
-    isValid(): boolean;
-    getVendorId(): number | null;
-    setVendorId(vendorId: number | null): void;
+    constructor(options: IRevokeAccessToWebAppRequestOptions);
+    toJson(): IRevokeAccessToWebAppRequestOptions;
+    getVendorId(): number;
+    setVendorId(vendorId: number): void;
 }
