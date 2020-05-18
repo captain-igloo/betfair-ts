@@ -6,13 +6,13 @@ import JsonResponse from '../JsonResponse';
 import DeveloperApp, { IDeveloperAppOptions } from '../account/DeveloperApp';
 
 export interface IGetDeveloperAppKeysResponseOptions {
-    developerApps?: Array<DeveloperApp | IDeveloperAppOptions>;
+    developerApps?: (DeveloperApp | IDeveloperAppOptions)[];
 }
 
 export default class GetDeveloperAppKeysResponse extends JsonResponse {
     private developerApps?: DeveloperApp[];
 
-    constructor(options: Array<DeveloperApp | IDeveloperAppOptions>) {
+    constructor(options: (DeveloperApp | IDeveloperAppOptions)[]) {
         super();
         if (this.validateJson(options)) {
             if (options) {

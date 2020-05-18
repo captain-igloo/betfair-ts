@@ -12,7 +12,7 @@ export interface IReplaceExecutionReportOptions {
     status?: ExecutionReportStatus | string;
     errorCode?: ExecutionReportErrorCode | string;
     marketId?: string;
-    instructionReports?: Array<ReplaceInstructionReport | IReplaceInstructionReportOptions>;
+    instructionReports?: (ReplaceInstructionReport | IReplaceInstructionReportOptions)[];
 }
 
 export default class ReplaceExecutionReport extends JsonResponse {

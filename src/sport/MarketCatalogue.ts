@@ -15,7 +15,7 @@ export interface IMarketCatalogueOptions {
     marketStartTime?: Date | string;
     description?: MarketDescription | IMarketDescriptionOptions;
     totalMatched?: number;
-    runners?: Array<RunnerCatalog | IRunnerCatalogOptions>;
+    runners?: (RunnerCatalog | IRunnerCatalogOptions)[];
     eventType?: EventType | IEventTypeOptions;
     competition?: Competition | ICompetitionOptions;
     event?: Event | IEventOptions;

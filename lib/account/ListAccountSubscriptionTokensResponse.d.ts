@@ -4,11 +4,11 @@
 import JsonResponse from '../JsonResponse';
 import AccountSubscription, { IAccountSubscriptionOptions } from '../account/AccountSubscription';
 export interface IListAccountSubscriptionTokensResponseOptions {
-    accountSubscriptions?: Array<AccountSubscription | IAccountSubscriptionOptions>;
+    accountSubscriptions?: (AccountSubscription | IAccountSubscriptionOptions)[];
 }
 export default class ListAccountSubscriptionTokensResponse extends JsonResponse {
     private accountSubscriptions?;
-    constructor(options: Array<AccountSubscription | IAccountSubscriptionOptions>);
+    constructor(options: (AccountSubscription | IAccountSubscriptionOptions)[]);
     toJson(): IListAccountSubscriptionTokensResponseOptions;
     getAccountSubscriptions(): AccountSubscription[] | undefined;
     setAccountSubscriptions(accountSubscriptions: AccountSubscription[]): void;

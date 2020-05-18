@@ -8,7 +8,7 @@ import ReplaceInstruction, { IReplaceInstructionOptions } from '../sport/Replace
 
 export interface IReplaceOrdersRequestOptions {
     marketId: string;
-    instructions: Array<ReplaceInstruction | IReplaceInstructionOptions>;
+    instructions: (ReplaceInstruction | IReplaceInstructionOptions)[];
     customerRef?: string;
     marketVersion?: MarketVersion | IMarketVersionOptions;
     async?: boolean;

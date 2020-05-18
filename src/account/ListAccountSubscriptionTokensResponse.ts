@@ -6,13 +6,13 @@ import JsonResponse from '../JsonResponse';
 import AccountSubscription, { IAccountSubscriptionOptions } from '../account/AccountSubscription';
 
 export interface IListAccountSubscriptionTokensResponseOptions {
-    accountSubscriptions?: Array<AccountSubscription | IAccountSubscriptionOptions>;
+    accountSubscriptions?: (AccountSubscription | IAccountSubscriptionOptions)[];
 }
 
 export default class ListAccountSubscriptionTokensResponse extends JsonResponse {
     private accountSubscriptions?: AccountSubscription[];
 
-    constructor(options: Array<AccountSubscription | IAccountSubscriptionOptions>) {
+    constructor(options: (AccountSubscription | IAccountSubscriptionOptions)[]) {
         super();
         if (this.validateJson(options)) {
             if (options) {

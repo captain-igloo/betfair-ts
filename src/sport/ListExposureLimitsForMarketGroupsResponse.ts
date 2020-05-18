@@ -6,13 +6,13 @@ import JsonResponse from '../JsonResponse';
 import ExposureLimitsForMarketGroups, { IExposureLimitsForMarketGroupsOptions } from '../sport/ExposureLimitsForMarketGroups';
 
 export interface IListExposureLimitsForMarketGroupsResponseOptions {
-    exposureLimitsForMarketGroupses?: Array<ExposureLimitsForMarketGroups | IExposureLimitsForMarketGroupsOptions>;
+    exposureLimitsForMarketGroupses?: (ExposureLimitsForMarketGroups | IExposureLimitsForMarketGroupsOptions)[];
 }
 
 export default class ListExposureLimitsForMarketGroupsResponse extends JsonResponse {
     private exposureLimitsForMarketGroupses?: ExposureLimitsForMarketGroups[];
 
-    constructor(options: Array<ExposureLimitsForMarketGroups | IExposureLimitsForMarketGroupsOptions>) {
+    constructor(options: (ExposureLimitsForMarketGroups | IExposureLimitsForMarketGroupsOptions)[]) {
         super();
         if (this.validateJson(options)) {
             if (options) {

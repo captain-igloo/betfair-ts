@@ -10,7 +10,7 @@ export interface ICancelExecutionReportOptions {
     status?: ExecutionReportStatus | string;
     errorCode?: ExecutionReportErrorCode | string;
     marketId?: string;
-    instructionReports?: Array<CancelInstructionReport | ICancelInstructionReportOptions>;
+    instructionReports?: (CancelInstructionReport | ICancelInstructionReportOptions)[];
 }
 export default class CancelExecutionReport extends JsonResponse {
     private customerRef?;

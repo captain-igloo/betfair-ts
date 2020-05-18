@@ -6,7 +6,7 @@ import JsonMember from '../JsonMember';
 import SubscriptionTokenInfo, { ISubscriptionTokenInfoOptions } from '../account/SubscriptionTokenInfo';
 
 export interface IAccountSubscriptionOptions {
-    subscriptionTokens: Array<SubscriptionTokenInfo | ISubscriptionTokenInfoOptions>;
+    subscriptionTokens: (SubscriptionTokenInfo | ISubscriptionTokenInfoOptions)[];
     applicationName?: string;
     applicationVersionId?: string;
 }

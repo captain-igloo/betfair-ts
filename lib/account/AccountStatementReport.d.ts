@@ -4,7 +4,7 @@
 import JsonResponse from '../JsonResponse';
 import StatementItem, { IStatementItemOptions } from '../account/StatementItem';
 export interface IAccountStatementReportOptions {
-    accountStatement?: Array<StatementItem | IStatementItemOptions>;
+    accountStatement?: (StatementItem | IStatementItemOptions)[];
     moreAvailable?: boolean;
 }
 export default class AccountStatementReport extends JsonResponse {

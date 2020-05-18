@@ -12,7 +12,7 @@ export interface IUpdateExecutionReportOptions {
     status?: ExecutionReportStatus | string;
     errorCode?: ExecutionReportErrorCode | string;
     marketId?: string;
-    instructionReports?: Array<UpdateInstructionReport | IUpdateInstructionReportOptions>;
+    instructionReports?: (UpdateInstructionReport | IUpdateInstructionReportOptions)[];
 }
 
 export default class UpdateExecutionReport extends JsonResponse {

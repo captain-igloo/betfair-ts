@@ -4,9 +4,9 @@
 import JsonMember from '../JsonMember';
 import PriceSize, { IPriceSizeOptions } from '../sport/PriceSize';
 export interface IExchangePricesOptions {
-    availableToBack?: Array<PriceSize | IPriceSizeOptions>;
-    availableToLay?: Array<PriceSize | IPriceSizeOptions>;
-    tradedVolume?: Array<PriceSize | IPriceSizeOptions>;
+    availableToBack?: (PriceSize | IPriceSizeOptions)[];
+    availableToLay?: (PriceSize | IPriceSizeOptions)[];
+    tradedVolume?: (PriceSize | IPriceSizeOptions)[];
 }
 export default class ExchangePrices extends JsonMember {
     private availableToBack?;

@@ -5,13 +5,13 @@ import JsonResponse from '../JsonResponse';
 
 
 export interface IGetExposureReuseEnabledEventsResponseOptions {
-    response?: Array<number>;
+    response?: number[];
 }
 
 export default class GetExposureReuseEnabledEventsResponse extends JsonResponse {
     private response?: number[];
 
-    constructor(options: Array<number>) {
+    constructor(options: number[]) {
         super();
         if (this.validateJson(options)) {
             this.response = options;

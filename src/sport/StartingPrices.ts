@@ -8,8 +8,8 @@ import PriceSize, { IPriceSizeOptions } from '../sport/PriceSize';
 export interface IStartingPricesOptions {
     nearPrice?: number;
     farPrice?: number;
-    backStakeTaken?: Array<PriceSize | IPriceSizeOptions>;
-    layLiabilityTaken?: Array<PriceSize | IPriceSizeOptions>;
+    backStakeTaken?: (PriceSize | IPriceSizeOptions)[];
+    layLiabilityTaken?: (PriceSize | IPriceSizeOptions)[];
     actualSP?: number;
 }
 

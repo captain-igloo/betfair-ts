@@ -8,7 +8,7 @@ import RunnerProfitAndLoss, { IRunnerProfitAndLossOptions } from '../sport/Runne
 export interface IMarketProfitAndLossOptions {
     marketId?: string;
     commissionApplied?: number;
-    profitAndLosses?: Array<RunnerProfitAndLoss | IRunnerProfitAndLossOptions>;
+    profitAndLosses?: (RunnerProfitAndLoss | IRunnerProfitAndLossOptions)[];
 }
 
 export default class MarketProfitAndLoss extends JsonMember {

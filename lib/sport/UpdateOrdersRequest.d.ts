@@ -5,7 +5,7 @@ import JsonRequest from '../JsonRequest';
 import UpdateInstruction, { IUpdateInstructionOptions } from '../sport/UpdateInstruction';
 export interface IUpdateOrdersRequestOptions {
     marketId: string;
-    instructions: Array<UpdateInstruction | IUpdateInstructionOptions>;
+    instructions: (UpdateInstruction | IUpdateInstructionOptions)[];
     customerRef?: string;
 }
 export default class UpdateOrdersRequest extends JsonRequest {

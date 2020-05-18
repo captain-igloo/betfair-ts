@@ -3,11 +3,11 @@
  */
 import JsonResponse from '../JsonResponse';
 export interface IGetExposureReuseEnabledEventsResponseOptions {
-    response?: Array<number>;
+    response?: number[];
 }
 export default class GetExposureReuseEnabledEventsResponse extends JsonResponse {
     private response?;
-    constructor(options: Array<number>);
+    constructor(options: number[]);
     toJson(): IGetExposureReuseEnabledEventsResponseOptions;
     getResponse(): number[] | undefined;
     setResponse(response: number[]): void;

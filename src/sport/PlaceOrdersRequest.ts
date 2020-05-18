@@ -8,7 +8,7 @@ import PlaceInstruction, { IPlaceInstructionOptions } from '../sport/PlaceInstru
 
 export interface IPlaceOrdersRequestOptions {
     marketId: string;
-    instructions: Array<PlaceInstruction | IPlaceInstructionOptions>;
+    instructions: (PlaceInstruction | IPlaceInstructionOptions)[];
     customerRef?: string;
     marketVersion?: MarketVersion | IMarketVersionOptions;
     customerStrategyRef?: string;

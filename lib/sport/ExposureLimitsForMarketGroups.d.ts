@@ -9,8 +9,8 @@ import MarketGroupId, { IMarketGroupIdOptions } from '../sport/MarketGroupId';
 export interface IExposureLimitsForMarketGroupsOptions {
     marketGroupType: MarketGroupType | string;
     defaultLimit?: ExposureLimit | IExposureLimitOptions;
-    groupLimits?: Array<MarketGroupExposureLimit | IMarketGroupExposureLimitOptions>;
-    blockedMarketGroups?: Array<MarketGroupId | IMarketGroupIdOptions>;
+    groupLimits?: (MarketGroupExposureLimit | IMarketGroupExposureLimitOptions)[];
+    blockedMarketGroups?: (MarketGroupId | IMarketGroupIdOptions)[];
 }
 export default class ExposureLimitsForMarketGroups extends JsonMember {
     private marketGroupType;

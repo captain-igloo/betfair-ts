@@ -4,11 +4,11 @@
 import JsonResponse from '../JsonResponse';
 import MarketTypeResult, { IMarketTypeResultOptions } from '../sport/MarketTypeResult';
 export interface IListMarketTypesResponseOptions {
-    marketTypeResults?: Array<MarketTypeResult | IMarketTypeResultOptions>;
+    marketTypeResults?: (MarketTypeResult | IMarketTypeResultOptions)[];
 }
 export default class ListMarketTypesResponse extends JsonResponse {
     private marketTypeResults?;
-    constructor(options: Array<MarketTypeResult | IMarketTypeResultOptions>);
+    constructor(options: (MarketTypeResult | IMarketTypeResultOptions)[]);
     toJson(): IListMarketTypesResponseOptions;
     getMarketTypeResults(): MarketTypeResult[] | undefined;
     setMarketTypeResults(marketTypeResults: MarketTypeResult[]): void;

@@ -18,8 +18,8 @@ export interface IRunnerOptions {
     removalDate?: Date | string;
     sp?: StartingPrices | IStartingPricesOptions;
     ex?: ExchangePrices | IExchangePricesOptions;
-    orders?: Array<Order | IOrderOptions>;
-    matches?: Array<Match | IMatchOptions>;
+    orders?: (Order | IOrderOptions)[];
+    matches?: (Match | IMatchOptions)[];
     matchesByStrategy?: Map<string, Matches | IMatchesOptions> | {
         [key: string]: Matches | IMatchesOptions;
     };

@@ -22,7 +22,7 @@ export interface IMarketBookOptions {
     crossMatching?: boolean;
     runnersVoidable?: boolean;
     version?: number;
-    runners?: Array<Runner | IRunnerOptions>;
+    runners?: (Runner | IRunnerOptions)[];
     keyLineDescription?: KeyLineDescription | IKeyLineDescriptionOptions;
 }
 export default class MarketBook extends JsonMember {

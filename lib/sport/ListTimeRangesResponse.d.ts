@@ -4,11 +4,11 @@
 import JsonResponse from '../JsonResponse';
 import TimeRangeResult, { ITimeRangeResultOptions } from '../sport/TimeRangeResult';
 export interface IListTimeRangesResponseOptions {
-    timeRangeResults?: Array<TimeRangeResult | ITimeRangeResultOptions>;
+    timeRangeResults?: (TimeRangeResult | ITimeRangeResultOptions)[];
 }
 export default class ListTimeRangesResponse extends JsonResponse {
     private timeRangeResults?;
-    constructor(options: Array<TimeRangeResult | ITimeRangeResultOptions>);
+    constructor(options: (TimeRangeResult | ITimeRangeResultOptions)[]);
     toJson(): IListTimeRangesResponseOptions;
     getTimeRangeResults(): TimeRangeResult[] | undefined;
     setTimeRangeResults(timeRangeResults: TimeRangeResult[]): void;

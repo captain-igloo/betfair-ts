@@ -5,7 +5,7 @@ import JsonRequest from '../JsonRequest';
 
 
 export interface IAddExposureReuseEnabledEventsRequestOptions {
-    eventIds: Array<number>;
+    eventIds: number[];
 }
 
 export default class AddExposureReuseEnabledEventsRequest extends JsonRequest {

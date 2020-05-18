@@ -6,13 +6,13 @@ import JsonResponse from '../JsonResponse';
 import ApplicationSubscription, { IApplicationSubscriptionOptions } from '../account/ApplicationSubscription';
 
 export interface IListApplicationSubscriptionTokensResponseOptions {
-    applicationSubscriptions?: Array<ApplicationSubscription | IApplicationSubscriptionOptions>;
+    applicationSubscriptions?: (ApplicationSubscription | IApplicationSubscriptionOptions)[];
 }
 
 export default class ListApplicationSubscriptionTokensResponse extends JsonResponse {
     private applicationSubscriptions?: ApplicationSubscription[];
 
-    constructor(options: Array<ApplicationSubscription | IApplicationSubscriptionOptions>) {
+    constructor(options: (ApplicationSubscription | IApplicationSubscriptionOptions)[]) {
         super();
         if (this.validateJson(options)) {
             if (options) {

@@ -8,7 +8,7 @@ import MarketGroup, { IMarketGroupOptions } from '../sport/MarketGroup';
 
 export interface IListExposureLimitsForMarketGroupsRequestOptions {
     marketGroupTypeFilter?: MarketGroupType | string;
-    marketGroupFilter?: Array<MarketGroup | IMarketGroupOptions>;
+    marketGroupFilter?: (MarketGroup | IMarketGroupOptions)[];
 }
 
 export default class ListExposureLimitsForMarketGroupsRequest extends JsonRequest {

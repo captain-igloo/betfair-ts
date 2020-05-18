@@ -4,11 +4,11 @@
 import JsonResponse from '../JsonResponse';
 import MarketBook, { IMarketBookOptions } from '../sport/MarketBook';
 export interface IListRunnerBookResponseOptions {
-    marketBooks?: Array<MarketBook | IMarketBookOptions>;
+    marketBooks?: (MarketBook | IMarketBookOptions)[];
 }
 export default class ListRunnerBookResponse extends JsonResponse {
     private marketBooks?;
-    constructor(options: Array<MarketBook | IMarketBookOptions>);
+    constructor(options: (MarketBook | IMarketBookOptions)[]);
     toJson(): IListRunnerBookResponseOptions;
     getMarketBooks(): MarketBook[] | undefined;
     setMarketBooks(marketBooks: MarketBook[]): void;

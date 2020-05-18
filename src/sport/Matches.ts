@@ -6,7 +6,7 @@ import JsonMember from '../JsonMember';
 import Match, { IMatchOptions } from '../sport/Match';
 
 export interface IMatchesOptions {
-    matches?: Array<Match | IMatchOptions>;
+    matches?: (Match | IMatchOptions)[];
 }
 
 export default class Matches extends JsonMember {

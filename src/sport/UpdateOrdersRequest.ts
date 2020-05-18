@@ -7,7 +7,7 @@ import UpdateInstruction, { IUpdateInstructionOptions } from '../sport/UpdateIns
 
 export interface IUpdateOrdersRequestOptions {
     marketId: string;
-    instructions: Array<UpdateInstruction | IUpdateInstructionOptions>;
+    instructions: (UpdateInstruction | IUpdateInstructionOptions)[];
     customerRef?: string;
 }
 

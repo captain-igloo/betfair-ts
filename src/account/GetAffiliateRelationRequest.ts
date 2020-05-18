@@ -5,7 +5,7 @@ import JsonRequest from '../JsonRequest';
 
 
 export interface IGetAffiliateRelationRequestOptions {
-    vendorClientIds: Array<string>;
+    vendorClientIds: string[];
 }
 
 export default class GetAffiliateRelationRequest extends JsonRequest {

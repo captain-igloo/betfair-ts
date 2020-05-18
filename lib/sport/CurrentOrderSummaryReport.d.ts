@@ -4,7 +4,7 @@
 import JsonResponse from '../JsonResponse';
 import CurrentOrderSummary, { ICurrentOrderSummaryOptions } from '../sport/CurrentOrderSummary';
 export interface ICurrentOrderSummaryReportOptions {
-    currentOrders?: Array<CurrentOrderSummary | ICurrentOrderSummaryOptions>;
+    currentOrders?: (CurrentOrderSummary | ICurrentOrderSummaryOptions)[];
     moreAvailable?: boolean;
 }
 export default class CurrentOrderSummaryReport extends JsonResponse {

@@ -8,7 +8,7 @@ import DeveloperAppVersion, { IDeveloperAppVersionOptions } from '../account/Dev
 export interface IDeveloperAppOptions {
     appName?: string;
     appId?: number;
-    appVersions?: Array<DeveloperAppVersion | IDeveloperAppVersionOptions>;
+    appVersions?: (DeveloperAppVersion | IDeveloperAppVersionOptions)[];
 }
 
 export default class DeveloperApp extends JsonResponse {

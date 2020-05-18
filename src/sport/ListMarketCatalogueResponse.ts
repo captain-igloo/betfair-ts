@@ -6,13 +6,13 @@ import JsonResponse from '../JsonResponse';
 import MarketCatalogue, { IMarketCatalogueOptions } from '../sport/MarketCatalogue';
 
 export interface IListMarketCatalogueResponseOptions {
-    marketCatalogues?: Array<MarketCatalogue | IMarketCatalogueOptions>;
+    marketCatalogues?: (MarketCatalogue | IMarketCatalogueOptions)[];
 }
 
 export default class ListMarketCatalogueResponse extends JsonResponse {
     private marketCatalogues?: MarketCatalogue[];
 
-    constructor(options: Array<MarketCatalogue | IMarketCatalogueOptions>) {
+    constructor(options: (MarketCatalogue | IMarketCatalogueOptions)[]) {
         super();
         if (this.validateJson(options)) {
             if (options) {

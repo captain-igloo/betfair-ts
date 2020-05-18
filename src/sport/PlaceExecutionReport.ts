@@ -12,7 +12,7 @@ export interface IPlaceExecutionReportOptions {
     status?: ExecutionReportStatus | string;
     errorCode?: ExecutionReportErrorCode | string;
     marketId?: string;
-    instructionReports?: Array<PlaceInstructionReport | IPlaceInstructionReportOptions>;
+    instructionReports?: (PlaceInstructionReport | IPlaceInstructionReportOptions)[];
 }
 
 export default class PlaceExecutionReport extends JsonResponse {

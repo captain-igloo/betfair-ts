@@ -6,13 +6,13 @@ import JsonResponse from '../JsonResponse';
 import MarketBook, { IMarketBookOptions } from '../sport/MarketBook';
 
 export interface IListRunnerBookResponseOptions {
-    marketBooks?: Array<MarketBook | IMarketBookOptions>;
+    marketBooks?: (MarketBook | IMarketBookOptions)[];
 }
 
 export default class ListRunnerBookResponse extends JsonResponse {
     private marketBooks?: MarketBook[];
 
-    constructor(options: Array<MarketBook | IMarketBookOptions>) {
+    constructor(options: (MarketBook | IMarketBookOptions)[]) {
         super();
         if (this.validateJson(options)) {
             if (options) {

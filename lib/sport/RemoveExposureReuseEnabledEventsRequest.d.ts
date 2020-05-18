@@ -3,7 +3,7 @@
  */
 import JsonRequest from '../JsonRequest';
 export interface IRemoveExposureReuseEnabledEventsRequestOptions {
-    eventIds: Array<number>;
+    eventIds: number[];
 }
 export default class RemoveExposureReuseEnabledEventsRequest extends JsonRequest {
     private eventIds;

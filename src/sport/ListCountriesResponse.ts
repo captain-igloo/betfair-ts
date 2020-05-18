@@ -6,13 +6,13 @@ import JsonResponse from '../JsonResponse';
 import CountryCodeResult, { ICountryCodeResultOptions } from '../sport/CountryCodeResult';
 
 export interface IListCountriesResponseOptions {
-    countryCodeResults?: Array<CountryCodeResult | ICountryCodeResultOptions>;
+    countryCodeResults?: (CountryCodeResult | ICountryCodeResultOptions)[];
 }
 
 export default class ListCountriesResponse extends JsonResponse {
     private countryCodeResults?: CountryCodeResult[];
 
-    constructor(options: Array<CountryCodeResult | ICountryCodeResultOptions>) {
+    constructor(options: (CountryCodeResult | ICountryCodeResultOptions)[]) {
         super();
         if (this.validateJson(options)) {
             if (options) {

@@ -7,7 +7,7 @@ import CancelInstruction, { ICancelInstructionOptions } from '../sport/CancelIns
 
 export interface ICancelOrdersRequestOptions {
     marketId?: string;
-    instructions?: Array<CancelInstruction | ICancelInstructionOptions>;
+    instructions?: (CancelInstruction | ICancelInstructionOptions)[];
     customerRef?: string;
 }
 

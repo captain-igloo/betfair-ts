@@ -5,7 +5,7 @@ import JsonRequest from '../JsonRequest';
 import CancelInstruction, { ICancelInstructionOptions } from '../sport/CancelInstruction';
 export interface ICancelOrdersRequestOptions {
     marketId?: string;
-    instructions?: Array<CancelInstruction | ICancelInstructionOptions>;
+    instructions?: (CancelInstruction | ICancelInstructionOptions)[];
     customerRef?: string;
 }
 export default class CancelOrdersRequest extends JsonRequest {

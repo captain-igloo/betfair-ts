@@ -6,13 +6,13 @@ import JsonResponse from '../JsonResponse';
 import CurrencyRate, { ICurrencyRateOptions } from '../account/CurrencyRate';
 
 export interface IListCurrencyRatesResponseOptions {
-    currencyRates?: Array<CurrencyRate | ICurrencyRateOptions>;
+    currencyRates?: (CurrencyRate | ICurrencyRateOptions)[];
 }
 
 export default class ListCurrencyRatesResponse extends JsonResponse {
     private currencyRates?: CurrencyRate[];
 
-    constructor(options: Array<CurrencyRate | ICurrencyRateOptions>) {
+    constructor(options: (CurrencyRate | ICurrencyRateOptions)[]) {
         super();
         if (this.validateJson(options)) {
             if (options) {

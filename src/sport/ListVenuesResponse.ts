@@ -6,13 +6,13 @@ import JsonResponse from '../JsonResponse';
 import VenueResult, { IVenueResultOptions } from '../sport/VenueResult';
 
 export interface IListVenuesResponseOptions {
-    venueResults?: Array<VenueResult | IVenueResultOptions>;
+    venueResults?: (VenueResult | IVenueResultOptions)[];
 }
 
 export default class ListVenuesResponse extends JsonResponse {
     private venueResults?: VenueResult[];
 
-    constructor(options: Array<VenueResult | IVenueResultOptions>) {
+    constructor(options: (VenueResult | IVenueResultOptions)[]) {
         super();
         if (this.validateJson(options)) {
             if (options) {

@@ -4,11 +4,11 @@
 import JsonResponse from '../JsonResponse';
 import CompetitionResult, { ICompetitionResultOptions } from '../sport/CompetitionResult';
 export interface IListCompetitionsResponseOptions {
-    competitionResults?: Array<CompetitionResult | ICompetitionResultOptions>;
+    competitionResults?: (CompetitionResult | ICompetitionResultOptions)[];
 }
 export default class ListCompetitionsResponse extends JsonResponse {
     private competitionResults?;
-    constructor(options: Array<CompetitionResult | ICompetitionResultOptions>);
+    constructor(options: (CompetitionResult | ICompetitionResultOptions)[]);
     toJson(): IListCompetitionsResponseOptions;
     getCompetitionResults(): CompetitionResult[] | undefined;
     setCompetitionResults(competitionResults: CompetitionResult[]): void;

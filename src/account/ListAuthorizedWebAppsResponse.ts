@@ -6,13 +6,13 @@ import JsonResponse from '../JsonResponse';
 import VendorDetails, { IVendorDetailsOptions } from '../account/VendorDetails';
 
 export interface IListAuthorizedWebAppsResponseOptions {
-    vendorDetailses?: Array<VendorDetails | IVendorDetailsOptions>;
+    vendorDetailses?: (VendorDetails | IVendorDetailsOptions)[];
 }
 
 export default class ListAuthorizedWebAppsResponse extends JsonResponse {
     private vendorDetailses?: VendorDetails[];
 
-    constructor(options: Array<VendorDetails | IVendorDetailsOptions>) {
+    constructor(options: (VendorDetails | IVendorDetailsOptions)[]) {
         super();
         if (this.validateJson(options)) {
             if (options) {

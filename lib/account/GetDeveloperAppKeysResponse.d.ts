@@ -4,11 +4,11 @@
 import JsonResponse from '../JsonResponse';
 import DeveloperApp, { IDeveloperAppOptions } from '../account/DeveloperApp';
 export interface IGetDeveloperAppKeysResponseOptions {
-    developerApps?: Array<DeveloperApp | IDeveloperAppOptions>;
+    developerApps?: (DeveloperApp | IDeveloperAppOptions)[];
 }
 export default class GetDeveloperAppKeysResponse extends JsonResponse {
     private developerApps?;
-    constructor(options: Array<DeveloperApp | IDeveloperAppOptions>);
+    constructor(options: (DeveloperApp | IDeveloperAppOptions)[]);
     toJson(): IGetDeveloperAppKeysResponseOptions;
     getDeveloperApps(): DeveloperApp[] | undefined;
     setDeveloperApps(developerApps: DeveloperApp[]): void;

@@ -6,7 +6,7 @@ import MarketVersion, { IMarketVersionOptions } from '../sport/MarketVersion';
 import ReplaceInstruction, { IReplaceInstructionOptions } from '../sport/ReplaceInstruction';
 export interface IReplaceOrdersRequestOptions {
     marketId: string;
-    instructions: Array<ReplaceInstruction | IReplaceInstructionOptions>;
+    instructions: (ReplaceInstruction | IReplaceInstructionOptions)[];
     customerRef?: string;
     marketVersion?: MarketVersion | IMarketVersionOptions;
     async?: boolean;

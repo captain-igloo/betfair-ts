@@ -4,7 +4,7 @@
 import JsonResponse from '../JsonResponse';
 import ClearedOrderSummary, { IClearedOrderSummaryOptions } from '../sport/ClearedOrderSummary';
 export interface IClearedOrderSummaryReportOptions {
-    clearedOrders?: Array<ClearedOrderSummary | IClearedOrderSummaryOptions>;
+    clearedOrders?: (ClearedOrderSummary | IClearedOrderSummaryOptions)[];
     moreAvailable?: boolean;
 }
 export default class ClearedOrderSummaryReport extends JsonResponse {

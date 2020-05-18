@@ -14,7 +14,7 @@ export interface IListClearedOrdersRequestOptions {
     eventTypeIds?: Set<string> | string[];
     eventIds?: Set<string> | string[];
     marketIds?: Set<string> | string[];
-    runnerIds?: Array<RunnerId | IRunnerIdOptions>;
+    runnerIds?: (RunnerId | IRunnerIdOptions)[];
     betIds?: Set<string> | string[];
     customerOrderRefs?: Set<string> | string[];
     customerStrategyRefs?: Set<string> | string[];

@@ -6,7 +6,7 @@ import MatchProjection from '../sport/enum/MatchProjection';
 import OrderProjection from '../sport/enum/OrderProjection';
 import PriceProjection, { IPriceProjectionOptions } from '../sport/PriceProjection';
 export interface IListMarketBookRequestOptions {
-    marketIds: Array<string>;
+    marketIds: string[];
     priceProjection?: PriceProjection | IPriceProjectionOptions;
     orderProjection?: OrderProjection | string;
     matchProjection?: MatchProjection | string;

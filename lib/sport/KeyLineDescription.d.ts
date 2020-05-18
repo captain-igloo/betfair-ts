@@ -4,7 +4,7 @@
 import JsonMember from '../JsonMember';
 import KeyLineSelection, { IKeyLineSelectionOptions } from '../sport/KeyLineSelection';
 export interface IKeyLineDescriptionOptions {
-    keyLine: Array<KeyLineSelection | IKeyLineSelectionOptions>;
+    keyLine: (KeyLineSelection | IKeyLineSelectionOptions)[];
 }
 export default class KeyLineDescription extends JsonMember {
     private keyLine;
