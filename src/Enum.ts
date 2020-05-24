@@ -6,8 +6,4 @@ export default abstract class Enum {
     public getValue(): string {
         return this.value;
     }
-
-    public isValid(): boolean {
-        return this.valid;
-    }
 }

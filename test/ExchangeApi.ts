@@ -1,6 +1,5 @@
 import * as fetchMock from 'fetch-mock';
 import * as test from 'tape';
-import * as sinon from 'sinon';
 
 import ExchangeApi, { LoginEndPoint } from '../src/ExchangeApi';
 import ListEventTypesRequest from '../src/sport/ListEventTypesRequest';
@@ -29,7 +28,6 @@ test('login() should send username and password and return true', async (t) => {
     // response should be true
     t.ok(response);
     fetchMock.restore();
-    t.ok(true);
     t.end();
 });
 
@@ -78,8 +76,9 @@ test('logout destroys token', async (t) => {
     const exchangeApi = new ExchangeApi('application-key');
     await exchangeApi.login('username', 'password');
     exchangeApi.logout();
-    const request = new ListEventTypesRequest();
-    request.setFilter(new MarketFilter());
+    const request = new ListEventTypesRequest({
+        filter: new MarketFilter({}),
+    });
     const response = await exchangeApi.listEventTypes(request);
 
     const last = fetchMock.lastCall() as fetchMock.MockCall;
