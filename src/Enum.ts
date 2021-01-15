@@ -6,4 +6,9 @@ export default abstract class Enum {
     public getValue(): string {
         return this.value;
     }
+
+    public toJSON() {
+        // provides only the value, not the whole structure of the Enum.
+        return this.value;
+    }
 }
