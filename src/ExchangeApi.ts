@@ -123,7 +123,11 @@ export default class ExchangeApi {
     private loginEndPoint: LoginEndPoint = LoginEndPoint.Global;
     private applicationKey: string;
 
-    constructor(applicationKey: string) {
+    constructor(applicationKey: string = '') {
+        this.applicationKey = applicationKey;
+    }
+
+    public setApplicationKey(applicationKey: string) {
         this.applicationKey = applicationKey;
     }
 

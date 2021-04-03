@@ -101,7 +101,8 @@ export default class ExchangeApi {
     private authToken;
     private loginEndPoint;
     private applicationKey;
-    constructor(applicationKey: string);
+    constructor(applicationKey?: string);
+    setApplicationKey(applicationKey: string): void;
     setLoginEndPoint(loginEndPoint: LoginEndPoint): void;
     login(username: string, password: string): Promise<boolean>;
     logout(): void;

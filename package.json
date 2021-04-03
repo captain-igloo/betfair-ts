@@ -1,6 +1,6 @@
 {
   "name": "betfair-ts",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "description": "TypeScript library for the Betfair API.",
   "main": "lib/index.js",
   "scripts": {
