@@ -112,8 +112,6 @@ export enum LoginEndPoint {
     Romania = 'https://identitysso.betfair.ro/api/login',
 }
 
-const LOGIN_END_POINT_CERT = 'https://identitysso-cert.betfair.com/api/certlogin';
-
 const buildUri = (api: Api, method: string) => {
     return `${API_HOST}/exchange/${api}/rest/v1.0/${method}/`;
 };
@@ -160,6 +158,23 @@ export default class ExchangeApi {
 
     public logout(): void {
         this.authToken = '';
+    }
+
+    public async fetchMenu(): Promise<any> {
+        const uri = `${API_HOST}/exchange/betting/rest/v1/en/navigation/menu.json`;
+
+        const response = await fetch(uri, {
+            headers: {
+                'Accept': 'application/json',
+                'Accept-Encoding': 'gzip',
+                'Content-Type': 'application/json',
+                'X-Application': this.applicationKey,
+                'X-Authentication': this.authToken,
+            },
+            method: 'POST',
+        });
+
+        return await response.json();
     }
 
     public async listEventTypes(

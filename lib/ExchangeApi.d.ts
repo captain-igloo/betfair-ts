@@ -106,6 +106,7 @@ export default class ExchangeApi {
     setLoginEndPoint(loginEndPoint: LoginEndPoint): void;
     login(username: string, password: string): Promise<boolean>;
     logout(): void;
+    fetchMenu(): Promise<any>;
     listEventTypes(request: ListEventTypesRequest): Promise<ListEventTypesResponse>;
     listCompetitions(request: ListCompetitionsRequest): Promise<ListCompetitionsResponse>;
     listTimeRanges(request: ListTimeRangesRequest): Promise<ListTimeRangesResponse>;
