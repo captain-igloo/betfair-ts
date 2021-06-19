@@ -1,4 +1,4 @@
-import 'isomorphic-fetch';
+import 'cross-fetch';
 
 import JsonRequest from './JsonRequest';
 
