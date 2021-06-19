@@ -1,4 +1,4 @@
-import 'cross-fetch';
+import 'cross-fetch/polyfill';
 
 import JsonRequest from './JsonRequest';
 
