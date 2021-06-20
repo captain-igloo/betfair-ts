@@ -164,6 +164,10 @@ export default class ExchangeApi {
         return this.authToken;
     }
 
+    public setToken(token: string): void {
+        this.authToken = token;
+    }
+
     public async fetchMenu(): Promise<any> {
         const uri = `${API_HOST}/exchange/betting/rest/v1/en/navigation/menu.json`;
 
