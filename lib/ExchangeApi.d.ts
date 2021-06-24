@@ -1,4 +1,4 @@
-import 'isomorphic-fetch';
+import 'cross-fetch/polyfill';
 import AccountDetailsResponse from './account/AccountDetailsResponse';
 import AccountFundsResponse from './account/AccountFundsResponse';
 import AccountStatementReport from './account/AccountStatementReport';
