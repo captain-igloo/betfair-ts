@@ -182,6 +182,10 @@ export default class ExchangeApi {
             method: 'POST',
         });
 
+        if (!response.ok) {
+            throw response;
+        }
+
         return await response.json();
     }
 
