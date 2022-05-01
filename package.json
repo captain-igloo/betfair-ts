@@ -22,7 +22,7 @@
     "url": "https://github.com/captain-igloo/betfair-ts"
   },
   "dependencies": {
-    "@types/node": "^16.7.10",
+    "@types/node": "^17.0.30",
     "cross-fetch": "^3.1.4"
   },
   "devDependencies": {
@@ -30,9 +30,7 @@
     "@types/sinon": "^10.0.2",
     "@types/tape": "^4.13.2",
     "fetch-mock": "^9.11.0",
-    "npm-check-updates": "^11.8.5",
     "nyc": "^15.1.0",
-    "sinon": "^11.1.2",
     "tape": "^5.3.1",
     "ts-node": "^10.2.1",
     "tslint": "^6.1.3",
