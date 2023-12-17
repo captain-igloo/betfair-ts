@@ -1,5 +1,8 @@
 import 'cross-fetch/polyfill';
 
+import * as https from 'https';
+import axios from 'axios';
+
 import JsonRequest from './JsonRequest';
 
 import AccountDetailsResponse from './account/AccountDetailsResponse';
@@ -133,27 +136,32 @@ export default class ExchangeApi {
         this.loginEndPoint = loginEndPoint;
     }
 
-    public async login(username: string, password: string): Promise<boolean> {
-        this.authToken = '';
-        let success = false;
-
-        const resp = await fetch(this.loginEndPoint, {
-            body: `username=${username}&password=${password}`,
-            headers: {
-                'Accept': 'application/json',
-                'Accept-Encoding': 'gzip',
-                'Content-Type': 'application/x-www-form-urlencoded',
-                'X-Application': this.applicationKey,
-            },
-            method: 'POST',
+    public async login(username: string, password: string, betfairPrivateKey?: string, betfairPublicCert?: string, betfairApplicationKey?: string): Promise<boolean> {
+        const agent = new https.Agent({
+            cert: betfairPublicCert,
+            key: betfairPrivateKey,
         });
 
-        const json = await resp.json();
-        if (json.status === 'SUCCESS') {
-            this.authToken = json.token;
-            success = true;
+        // Perform a non-interactive login
+        const response = await axios.post(
+            this.loginEndPoint,
+            `username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`,
+            {
+                headers: {
+                    'X-Application': betfairApplicationKey,
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                httpsAgent: agent,
+            }
+        );
+                    
+        if (response.data.sessionToken) {
+            this.authToken = response.data.sessionToken;
+            return true;
         }
-        return success;
+
+        console.error(response.data, 'error logging in');
+        return false;
     }
 
     public logout(): void {
