@@ -136,7 +136,13 @@ export default class ExchangeApi {
         this.loginEndPoint = loginEndPoint;
     }
 
-    public async login(username: string, password: string, betfairPrivateKey?: string, betfairPublicCert?: string, betfairApplicationKey?: string): Promise<boolean> {
+    public async login(
+        username: string,
+        password: string,
+        betfairPrivateKey?: string,
+        betfairPublicCert?: string,
+        betfairApplicationKey?: string
+    ): Promise<boolean> {
         const agent = new https.Agent({
             cert: betfairPublicCert,
             key: betfairPrivateKey,
