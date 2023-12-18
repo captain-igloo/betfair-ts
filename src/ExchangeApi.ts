@@ -136,12 +136,12 @@ export default class ExchangeApi {
         this.loginEndPoint = loginEndPoint;
     }
 
+    // TODO: Revert changes to previous login functionality
     public async login(
         username: string,
         password: string,
-        betfairPrivateKey?: string,
-        betfairPublicCert?: string,
-        betfairApplicationKey?: string
+        betfairPrivateKey: string,
+        betfairPublicCert: string,
     ): Promise<boolean> {
         const agent = new https.Agent({
             cert: betfairPublicCert,
@@ -154,7 +154,7 @@ export default class ExchangeApi {
             `username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`,
             {
                 headers: {
-                    'X-Application': betfairApplicationKey,
+                    'X-Application': this.applicationKey,
                     'Content-Type': 'application/x-www-form-urlencoded',
                 },
                 httpsAgent: agent,
@@ -168,6 +168,41 @@ export default class ExchangeApi {
 
         console.error(response.data, 'error logging in');
         return false;
+    }
+
+    /**
+     * Work in progress cert login function. Try and reduce duplication with login()
+     */
+    public async loginCert(
+        username: string,
+        password: string,
+        betfairPrivateKey: string,
+        betfairPublicCert: string,
+    ): Promise<Record<string, unknown>> {
+        const agent = new https.Agent({
+            cert: betfairPublicCert,
+            key: betfairPrivateKey,
+        });
+
+        // Perform a non-interactive login
+        const response = await axios.post(
+            // TODO: Make flexible for other territories
+            'https://identitysso-cert.betfair.com/api/certlogin',
+            `username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`,
+            {
+                headers: {
+                    'X-Application': this.applicationKey,
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                httpsAgent: agent,
+            }
+        );
+                    
+        if (response.data.sessionToken) {
+            this.authToken = response.data.sessionToken;
+        }
+
+        return response.data;
     }
 
     public logout(): void {
