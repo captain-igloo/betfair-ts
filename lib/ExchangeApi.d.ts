@@ -104,7 +104,11 @@ export default class ExchangeApi {
     constructor(applicationKey?: string);
     setApplicationKey(applicationKey: string): void;
     setLoginEndPoint(loginEndPoint: LoginEndPoint): void;
-    login(username: string, password: string): Promise<boolean>;
+    login(username: string, password: string, betfairPrivateKey: string, betfairPublicCert: string): Promise<boolean>;
+    /**
+     * Work in progress cert login function. Try and reduce duplication with login()
+     */
+    loginCert(username: string, password: string, betfairPrivateKey: string, betfairPublicCert: string): Promise<Record<string, unknown>>;
     logout(): void;
     getToken(): string;
     setToken(token: string): void;
