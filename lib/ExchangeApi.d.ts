@@ -92,6 +92,7 @@ import UnblockMarketGroupResponse from './sport/UnblockMarketGroupResponse';
 import UpdateExecutionReport from './sport/UpdateExecutionReport';
 import UpdateOrdersRequest from './sport/UpdateOrdersRequest';
 export declare enum LoginEndPoint {
+    Cert = "https://identitysso-cert.betfair.com/api/certlogin",
     Global = "https://identitysso.betfair.com/api/login",
     Italy = "https://identitysso.betfair.it/api/login",
     Spain = "https://identitysso.betfair.es/api/login",
@@ -101,7 +102,9 @@ export default class ExchangeApi {
     private authToken;
     private loginEndPoint;
     private applicationKey;
-    constructor(applicationKey?: string);
+    private certificateFilename;
+    private keyFilename;
+    constructor(applicationKey?: string, certificateFilename?: string, keyFilename?: string);
     setApplicationKey(applicationKey: string): void;
     setLoginEndPoint(loginEndPoint: LoginEndPoint): void;
     login(username: string, password: string): Promise<boolean>;

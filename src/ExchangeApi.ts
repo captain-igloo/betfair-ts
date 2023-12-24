@@ -1,3 +1,5 @@
+import * as fs from 'fs';
+import * as https from 'https';
 import 'cross-fetch/polyfill';
 
 import JsonRequest from './JsonRequest';
@@ -106,6 +108,7 @@ enum Api {
 }
 
 export enum LoginEndPoint {
+    Cert = 'https://identitysso-cert.betfair.com/api/certlogin',
     Global = 'https://identitysso.betfair.com/api/login',
     Italy = 'https://identitysso.betfair.it/api/login',
     Spain = 'https://identitysso.betfair.es/api/login',
@@ -120,9 +123,13 @@ export default class ExchangeApi {
     private authToken: string = '';
     private loginEndPoint: LoginEndPoint = LoginEndPoint.Global;
     private applicationKey: string;
+    private certificateFilename: string;
+    private keyFilename: string;
 
-    constructor(applicationKey: string = '') {
+    constructor(applicationKey: string = '', certificateFilename: string = '', keyFilename: string = '') {
         this.applicationKey = applicationKey;
+        this.certificateFilename = certificateFilename;
+        this.keyFilename = keyFilename;
     }
 
     public setApplicationKey(applicationKey: string) {
@@ -137,7 +144,16 @@ export default class ExchangeApi {
         this.authToken = '';
         let success = false;
 
+        let agent;
+        if (this.certificateFilename !== '' && this.keyFilename !== '') {
+            agent = new https.Agent({
+                cert: fs.readFileSync(this.certificateFilename),
+                key: fs.readFileSync(this.keyFilename),
+            });
+        }
+
         const resp = await fetch(this.loginEndPoint, {
+            agent,
             body: `username=${username}&password=${password}`,
             headers: {
                 'Accept': 'application/json',
@@ -149,8 +165,12 @@ export default class ExchangeApi {
         });
 
         const json = await resp.json();
+
         if (json.status === 'SUCCESS') {
             this.authToken = json.token;
+            success = true;
+        } else if (json.loginStatus === 'SUCCESS') {
+            this.authToken = json.sessionToken;
             success = true;
         }
         return success;

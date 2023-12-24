@@ -196,4 +196,4 @@ export { default as Side } from './sport/enum/Side';
 export { default as SortDir } from './sport/enum/SortDir';
 export { default as TimeGranularity } from './sport/enum/TimeGranularity';
 export { default as TimeInForce } from './sport/enum/TimeInForce';
-export { default as ExchangeApi } from './ExchangeApi';
+export { default as ExchangeApi, LoginEndPoint } from './ExchangeApi';
